@@ -1,0 +1,43 @@
+#aggregator-container {
+  /*border: 1px solid black;*/
+}
+
+.clearfix::after {
+   content: " ";
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+.aggregator-entry {
+  width: 33.33%;
+  height: 15em;
+  float: left;
+  position: relative;
+  margin-bottom: .15em;
+}
+
+.aggregator-karma {
+}
+
+.entry-wrapper {
+  padding: 1.5em;
+  margin: 1%;
+  border-radius: 2px;
+  height: 100%;
+}
+
+.aggregator-entry-link {
+  font-size: 1.3em;
+  text-decoration: none;
+  line-height: .8em;
+  font-style: italic;
+}
+
+.upvote_entry {
+  text-decoration: none;
+  }
+
+.upvote_entry:hover {
+  cursor: pointer;
+}
