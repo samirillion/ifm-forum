@@ -22,10 +22,52 @@ class crowdsortController
         add_filter( 'login_redirect', array( $plugin, 'redirect_after_login' ), 10, 3 );
         add_action( 'login_form_register', array( $plugin, 'redirect_to_custom_register' ) );
         add_action( 'login_form_register', array( $plugin, 'do_register_user' ) );
+        add_action( 'login_form_lostpassword', array( $plugin, 'redirect_to_custom_lostpassword' ) );
+        add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
     }
     public function __construct()
     {
     }
+
+    /**
+ * A shortcode for rendering the form used to initiate the password reset.
+ *
+ * @param  array   $attributes  Shortcode attributes.
+ * @param  string  $content     The text content for shortcode. Not used.
+ *
+ * @return string  The shortcode output
+ */
+public function render_password_lost_form( $attributes, $content = null ) {
+    // Parse shortcode attributes
+    $default_attributes = array( 'show_title' => false );
+    $attributes = shortcode_atts( $default_attributes, $attributes );
+
+
+    if ( is_user_logged_in() ) {
+        return __( 'You are already signed in.', 'personalize-login' );
+    } else {
+      require_once('views/crowdsorter-user-forms.php');
+      $crowdsorterRegister = new crowdsorterUserForm;
+      $content = $crowdsorterRegister->render_form('password-lost-form', $attributes);
+      return $content;
+    }
+}
+
+    /**
+ * Redirects the user to the custom "Forgot your password?" page instead of
+ * wp-login.php?action=lostpassword.
+ */
+public function redirect_to_custom_lostpassword() {
+    if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
+        if ( is_user_logged_in() ) {
+            $this->redirect_logged_in_user();
+            exit;
+        }
+
+        wp_redirect( home_url( 'member-password-lost' ) );
+        exit;
+    }
+}
 
 //plugin activation hook registered in bootstrap.php
     public static function plugin_activated()

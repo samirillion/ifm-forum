@@ -22,6 +22,14 @@ public function define_pages()
     'title' => __('your account', 'personalize-login'),
     'content' => '[account-info]'
 ),
+'member-password-lost' => array(
+       'title' => __( 'Forgot Your Password?', 'personalize-login' ),
+       'content' => '[custom-password-lost-form]'
+   ),
+   'member-password-reset' => array(
+       'title' => __( 'Pick a New Password', 'personalize-login' ),
+       'content' => '[custom-password-reset-form]'
+   )
 );
 
     foreach ($page_definitions as $slug => $page) {
