@@ -8,6 +8,8 @@
      if (! $attributes) {
          $attributes = array();
      }
+     // Check if the user just requested a new password
+$attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUEST['checkemail'] == 'confirm';
      // Error messages
         $errors = array();
             if (isset($_REQUEST['login'])) {
@@ -43,6 +45,16 @@
     public function get_error_message($error_code)
     {
         switch ($error_code) {
+
+                      // Lost password
+
+            case 'empty_username':
+              return __( 'You need to enter your email address to continue.', 'personalize-login' );
+
+            case 'invalid_email':
+            case 'invalidcombo':
+              return __( 'There are no users registered with this email address.', 'personalize-login' );
+
             case 'empty_username':
                 return __('You do have an email address, right?', 'personalize-login');
 

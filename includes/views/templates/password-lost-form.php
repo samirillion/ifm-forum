@@ -2,6 +2,13 @@
     <?php if ( $attributes['show_title'] ) : ?>
         <h3><?php _e( 'Forgot Your Password?', 'personalize-login' ); ?></h3>
     <?php endif; ?>
+    <?php if ( count( $attributes['errors'] ) > 0 ) : ?>
+    <?php foreach ( $attributes['errors'] as $error ) : ?>
+        <p>
+            <?php echo $error; ?>
+        </p>
+    <?php endforeach; ?>
+<?php endif; ?>
 
     <p>
         <?php

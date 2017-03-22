@@ -24,10 +24,32 @@ class crowdsortController
         add_action( 'login_form_register', array( $plugin, 'do_register_user' ) );
         add_action( 'login_form_lostpassword', array( $plugin, 'redirect_to_custom_lostpassword' ) );
         add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
+        add_action( 'login_form_lostpassword', array( $plugin, 'do_password_lost' ) );
     }
     public function __construct()
     {
     }
+
+    /**
+ * Initiates password reset.
+ */
+public function do_password_lost() {
+    if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+        $errors = retrieve_password();
+        if ( is_wp_error( $errors ) ) {
+            // Errors found
+            $redirect_url = home_url( 'member-password-lost' );
+            $redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
+        } else {
+            // Email sent
+            $redirect_url = home_url( 'member-login' );
+            $redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
+        }
+
+        wp_redirect( $redirect_url );
+        exit;
+    }
+}
 
     /**
  * A shortcode for rendering the form used to initiate the password reset.
@@ -46,6 +68,15 @@ public function render_password_lost_form( $attributes, $content = null ) {
     if ( is_user_logged_in() ) {
         return __( 'You are already signed in.', 'personalize-login' );
     } else {
+      // Retrieve possible errors from request parameters
+        $attributes['errors'] = array();
+        if ( isset( $_REQUEST['errors'] ) ) {
+            $error_codes = explode( ',', $_REQUEST['errors'] );
+
+            foreach ( $error_codes as $error_code ) {
+                $attributes['errors'] []= $this->get_error_message( $error_code );
+            }
+        }
       require_once('views/crowdsorter-user-forms.php');
       $crowdsorterRegister = new crowdsorterUserForm;
       $content = $crowdsorterRegister->render_form('password-lost-form', $attributes);
