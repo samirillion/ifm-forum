@@ -9,8 +9,9 @@ Current plugin functionality:
  
 Soon to be implemented:
  - the actual sorting algorithm for the posts
- - a sorting algorithm for the comment-threads
+ - a sorting algorithm for the comment-threads (and properly rendering the comment threads)
  - tracking member-karma
+ - redirect to login if user tries to upvote or add a commment
  
 General needs:
  - Sensible abstraction. I've tried to create an MVC architecture, but different bits of functionality are implemented in different ways. I used the factory pattern for creating different types of "sorters" but right now, it's just complicating implementation.
