@@ -40,7 +40,7 @@
      *
      * @return string               An error message.
      */
-    private function get_error_message($error_code)
+    public function get_error_message($error_code)
     {
         switch ($error_code) {
             case 'empty_username':

@@ -249,16 +249,17 @@ public function redirect_to_custom_register() {
  */
 private function register_user( $email, $first_name, $last_name ) {
     $errors = new WP_Error();
-
+    require_once('views/crowdsorter-user-forms.php');
+    $crowdsorter = new crowdsorterUserForm;
     // Email address is used as both username and email. It is also the only
     // parameter we need to validate
     if ( ! is_email( $email ) ) {
-        $errors->add( 'email', $this->get_error_message( 'email' ) );
+        $errors->add( 'email', $crowdsorter->get_error_message( 'email' ) );
         return $errors;
     }
 
     if ( username_exists( $email ) || email_exists( $email ) ) {
-        $errors->add( 'email_exists', $this->get_error_message( 'email_exists') );
+        $errors->add( 'email_exists', $crowdsorter->get_error_message( 'email_exists') );
         return $errors;
     }
 
