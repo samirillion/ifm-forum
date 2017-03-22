@@ -91,16 +91,16 @@ public function render_password_lost_form( $attributes, $content = null ) {
         return __( 'You are already signed in.', 'personalize-login' );
     } else {
       // Retrieve possible errors from request parameters
+      require_once('views/crowdsorter-user-forms.php');
+      $crowdsorterRegister = new crowdsorterUserForm;
         $attributes['errors'] = array();
         if ( isset( $_REQUEST['errors'] ) ) {
             $error_codes = explode( ',', $_REQUEST['errors'] );
 
             foreach ( $error_codes as $error_code ) {
-                $attributes['errors'] []= $this->get_error_message( $error_code );
+                $attributes['errors'] []= $crowdsorterRegister->get_error_message( $error_code );
             }
         }
-      require_once('views/crowdsorter-user-forms.php');
-      $crowdsorterRegister = new crowdsorterUserForm;
       $content = $crowdsorterRegister->render_form('password-lost-form', $attributes);
       return $content;
     }
