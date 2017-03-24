@@ -85,6 +85,7 @@ function run_crowdsorter() {
 
     require_once plugin_dir_path( __FILE__ ) . 'includes/posts-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/users-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'includes/activation-controller.php';
 		register_activation_hook( __FILE__, array( 'crowdSort', 'plugin_activated' ) );
 
 	} else {

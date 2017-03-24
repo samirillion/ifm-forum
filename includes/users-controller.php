@@ -24,14 +24,6 @@ class crowdsortUsersController
     {
     }
 
-    //plugin activation hook registered in bootstrap.php
-        public static function plugin_activated()
-        {
-            require_once('models/page-definitions.php');
-            $pageDefinitions = new crowdsorterPageDefinitions;
-            $pageDefinitions->define_pages();
-        }
-
     /**
      * Returns the message body for the password reset mail.
      * Called through the retrieve_password_message filter.
@@ -123,7 +115,7 @@ public function redirect_to_custom_lostpassword() {
         exit;
     }
 }
-  
+
     public function custom_login_form($attributes, $content = null)
     {
         // Parse shortcode attributes

@@ -12,7 +12,7 @@ class crowdsortPostsController
         // add_action('wp_ajax_nopriv_add_entry_karma', array( $plugin, 'redirect_to_login'));
         add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
         add_filter('query_vars', array( $plugin, 'add_query_vars'));
-
+        add_action('post_ranking_cron', array( $plugin, 'update_post_hotness'));
     }
     public function __construct()
     {
@@ -21,6 +21,11 @@ class crowdsortPostsController
     public function add_query_vars( $vars ){
       $vars[] .= 'agg_post_id';
       return $vars;
+    }
+
+    public function update_post_hotness(){
+
+      
     }
 
     public function create_container()
