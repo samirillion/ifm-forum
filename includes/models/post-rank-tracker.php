@@ -1,6 +1,6 @@
 <?php
 
-    class postKarmaTracker
+    class postRankTracker
     {
         // Information needed for creating the plugin's pages
         public function update_karma()
@@ -56,5 +56,9 @@
             }
 
             die();
+        }
+
+        public static function update_post_rank() {
+          
         }
     }

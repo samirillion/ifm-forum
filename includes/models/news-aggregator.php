@@ -101,12 +101,18 @@
           ?>
              <p>
                <label for="aggregator-entry-karma"><?php
-               if (get_post_meta( $object->ID, 'aggregator_entry_karma')) {
-                  echo esc_attr( get_post_meta( $object->ID, 'aggregator_entry_karma', true ) );
-               } else {
-                 add_post_meta( $object->ID, 'aggregator_entry_karma', 0 );
-                 echo 0;
-               } ?>
+               $postID = $object->ID;
+               $upvotes = $wpdb->get_var( $wpdb->prepare(
+                 "
+                   SELECT count(*)
+                   FROM $wpdb->postmeta
+                   WHERE post_id=%d
+                   AND meta_key='user_upvote_id'
+                 ",
+                 $postID
+               ) );
+               echo $upvotes;
+               ?>
                </label>
              </p>
             <?php

@@ -12,7 +12,7 @@ class crowdsortPostsController
         // add_action('wp_ajax_nopriv_add_entry_karma', array( $plugin, 'redirect_to_login'));
         add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
         add_filter('query_vars', array( $plugin, 'add_query_vars'));
-        add_action('post_ranking_cron', array( $plugin, 'update_post_hotness'));
+        add_action('post_ranking_cron', array( $plugin, 'update_post_rank'));
     }
     public function __construct()
     {
@@ -23,9 +23,11 @@ class crowdsortPostsController
       return $vars;
     }
 
-    public function update_post_hotness(){
+    public function update_post_rank(){
 
-      
+      require_once('views/post-rank-tracker.php');
+      postRankTracker::update_postrank();
+
     }
 
     public function create_container()
@@ -35,7 +37,7 @@ class crowdsortPostsController
         $sorter = $sorterFactory->get_sorter("News-Aggregator");
         $the_query = $sorter->sort_posts();
 
-        require_once('views/crowdsorter-container.php');
+        require_once('views/post-container.php');
         $content = crowdsorterContainer::render($the_query);
         return $content;
     }
@@ -65,9 +67,9 @@ class crowdsortPostsController
 
     public function my_user_vote()
     {
-        require_once('models/post-karma-tracker.php');
-        $karmaTracker = new postKarmaTracker;
-        $karmaTracker->update_karma();
+        // require_once('models/post-rank-tracker.php');
+        // $karmaTracker = new ;
+        // $karmaTracker->update_karma();
     }
 
 }

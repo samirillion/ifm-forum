@@ -85,7 +85,7 @@ public function render_password_lost_form( $attributes, $content = null ) {
         return __( 'You are already signed in.', 'personalize-login' );
     } else {
       // Retrieve possible errors from request parameters
-      require_once('views/crowdsorter-user-forms.php');
+      require_once('views/user-forms.php');
       $crowdsorterRegister = new crowdsorterUserForm;
         $attributes['errors'] = array();
         if ( isset( $_REQUEST['errors'] ) ) {
@@ -136,7 +136,7 @@ public function redirect_to_custom_lostpassword() {
 
         $attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
-        require_once('views/crowdsorter-user-forms.php');
+        require_once('views/user-forms.php');
         $crowdsorterLogin = new crowdsorterUserForm;
         $content = $crowdsorterLogin->render_form('login-form', $attributes);
         return $content;
@@ -250,7 +250,7 @@ public function render_register_form( $attributes, $content = null ) {
     } elseif ( ! get_option( 'users_can_register' ) ) {
         return __( 'Registering new users is currently not allowed.', 'personalize-login' );
     } else {
-      require_once('views/crowdsorter-user-forms.php');
+      require_once('views/user-forms.php');
       $crowdsorterRegister = new crowdsorterUserForm;
       $content = $crowdsorterRegister->render_form('register-form', $attributes);
       return $content;
@@ -283,7 +283,7 @@ public function redirect_to_custom_register() {
  */
 private function register_user( $email, $first_name, $last_name ) {
     $errors = new WP_Error();
-    require_once('views/crowdsorter-user-forms.php');
+    require_once('views/user-forms.php');
     $crowdsorter = new crowdsorterUserForm;
     // Email address is used as both username and email. It is also the only
     // parameter we need to validate
