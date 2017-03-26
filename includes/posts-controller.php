@@ -18,16 +18,16 @@ class crowdsortPostsController
     {
     }
 
-    public function add_query_vars( $vars ){
-      $vars[] .= 'agg_post_id';
-      return $vars;
+    public function add_query_vars($vars)
+    {
+        $vars[] .= 'agg_post_id';
+        return $vars;
     }
 
-    public function update_post_rank(){
-
-      require_once('views/post-rank-tracker.php');
-      postRankTracker::update_post_heat();
-
+    public function update_post_rank()
+    {
+        require_once('models/news-aggregator.php');
+        newsAggregator::update_temporal_karma();
     }
 
     public function create_container()
@@ -48,30 +48,34 @@ class crowdsortPostsController
         $sorterFactory = new sorterFactory;
         $aggregator = $sorterFactory->get_sorter("News-Aggregator");
 
+        //add post definition details
         $aggregator->define_post_type();
-        add_action('load-post.php', array($aggregator, 'define_post_meta'));
-        add_action('load-post-new.php', array($aggregator, 'define_post_meta'));
+
+        //add metadata on post creation
+        //eventually add functionality to allow more vars in plugin
+        add_action('load-post.php', array($aggregator, 'define_post_meta_on_load'));
+        add_action('load-post-new.php', array($aggregator, 'define_post_meta_on_load'));
+        add_action('publish_aggregator-posts', array($aggregator, 'define_meta_on_publish'));
+
     }
 
+    public function render_comments_page()
+    {
+        require_once('models/news-aggregator-comments.php');
+        $newsAggComments = new newsAggregatorComments;
+        $commentQuery = $newsAggComments->sort_comments();
 
-
-    public function render_comments_page(){
-      require_once('models/news-aggregator-comments.php');
-      $newsAggComments = new newsAggregatorComments;
-      $commentQuery = $newsAggComments->sort_comments();
-
-      require_once('views/comment-container.php');
-      $content = commentContainer::render($commentQuery);
-      return $content;
+        require_once('views/comment-container.php');
+        $content = commentContainer::render($commentQuery);
+        return $content;
     }
 
     public function my_user_vote()
     {
-        // require_once('models/post-rank-tracker.php');
-        // $karmaTracker = new ;
-        // $karmaTracker->update_karma();
+        require_once('models/post-rank-tracker.php');
+        $karmaTracker = new postRankTracker;
+        $karmaTracker->update_karma();
     }
-
 }
 
 crowdsortPostsController::register();

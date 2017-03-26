@@ -9,7 +9,7 @@
         }
 
         abstract public function define_post_type();
-        abstract public function define_post_meta();
+        abstract public function define_post_meta_on_load();
         abstract public function define_user_meta();
 
     } //end class abstractSorter

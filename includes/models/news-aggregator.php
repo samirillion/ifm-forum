@@ -10,14 +10,45 @@
         {
           global $wpdb;
           $querystr = "
-            SELECT $wpdb->posts.*
+            SELECT
+              $wpdb->posts.*,
+              ROUND(POW(TIMESTAMPDIFF(
+                  MINUTE,
+                  $wpdb->posts.post_date_gmt,
+                  NOW()
+                )/60, 2),
+                1.8)
+                  as karma_divisor
             FROM $wpdb->posts
             WHERE $wpdb->posts.post_type= 'aggregator-posts'
             AND $wpdb->posts.post_status = 'publish'
-            ORDER BY $wpdb->posts.post_date DESC
-          ";
+            ORDER BY (
+                      (
+                       SELECT count(*)
+                       FROM wp_postmeta
+                       WHERE post_id=$wpdb->posts.ID
+                       AND meta_key='user_upvote_id'
+                       )
+                       /karma_divisor
+                       )
+                       DESC";
           $pageposts = $wpdb->get_results($querystr, OBJECT);
           return $pageposts;
+        }
+
+        public static function update_temporal_karma() {
+          // might institute this later
+          // global $wpdb;
+          //
+          // $entry_karma = $wpdb->get_var($wpdb->prepare(
+          //   "
+          //     SELECT count(*)
+          //     FROM $wpdb->postmeta
+          //     WHERE post_id=%d
+          //     AND meta_key='user_upvote_id'
+          //   ",
+          //   $post_id
+          // ));
         }
 
         public function define_post_type()
@@ -60,7 +91,16 @@
           flush_rewrite_rules();
         }
 
-      public function define_post_meta()
+        public function define_meta_on_publish($post_ID) {
+
+          $post_author = get_post_field( 'post_author', $post_ID );
+
+           add_post_meta ( $post_ID, 'temporal_karma', 0 );
+           add_post_meta( $post_ID, 'user_upvote_id', $post_author, true );
+
+        }
+
+      public function define_post_meta_on_load()
         {
           add_action ( 'add_meta_boxes', array($this, 'aggregator_entry_url'));
           add_action( 'save_post', array($this, 'aggregator_save_entry_url'), 10, 2 );
@@ -106,6 +146,7 @@
           ?>
              <p>
                <label for="aggregator-entry-karma"><?php
+               global $wpdb;
                $postID = $object->ID;
                $upvotes = $wpdb->get_var( $wpdb->prepare(
                  "

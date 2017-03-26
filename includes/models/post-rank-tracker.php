@@ -57,17 +57,4 @@
 
             die();
         }
-
-        public static function update_post_heat() {
-          global $wpdb;
-          $entry_karma = $wpdb->get_var($wpdb->prepare(
-            "
-              SELECT count(*)
-              FROM $wpdb->postmeta
-              WHERE post_id=%d
-              AND meta_key='user_upvote_id'
-            ",
-            $post_id
-          ));
-        }
     }
