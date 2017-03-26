@@ -26,7 +26,7 @@ class crowdsortPostsController
     public function update_post_rank(){
 
       require_once('views/post-rank-tracker.php');
-      postRankTracker::update_postrank();
+      postRankTracker::update_post_heat();
 
     }
 

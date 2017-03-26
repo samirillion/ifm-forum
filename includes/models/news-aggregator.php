@@ -8,11 +8,16 @@
 
         public function sort_posts()
         {
-          $args = array(
-            'post_type' => 'aggregator-posts'
-          );
-          $query = new WP_Query( $args );
-          return $query;
+          global $wpdb;
+          $querystr = "
+            SELECT $wpdb->posts.*
+            FROM $wpdb->posts
+            WHERE $wpdb->posts.post_type= 'aggregator-posts'
+            AND $wpdb->posts.post_status = 'publish'
+            ORDER BY $wpdb->posts.post_date DESC
+          ";
+          $pageposts = $wpdb->get_results($querystr, OBJECT);
+          return $pageposts;
         }
 
         public function define_post_type()
