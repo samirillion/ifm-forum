@@ -9,6 +9,9 @@
         public function sort_posts()
         {
           global $wpdb;
+          $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+          $post_per_page = intval(get_query_var('posts_per_page'));
+          $offset = ($paged - 1)*$post_per_page;
           $querystr = "
             SELECT
               $wpdb->posts.*,
@@ -17,9 +20,8 @@
                   $wpdb->posts.post_date_gmt,
                   NOW()
                 )/60, 2),
-                1.8)
-                  as karma_divisor
-            FROM $wpdb->posts
+                1.8) as karma_divisor
+             FROM $wpdb->posts
             WHERE $wpdb->posts.post_type= 'aggregator-posts'
             AND $wpdb->posts.post_status = 'publish'
             ORDER BY (
@@ -29,11 +31,15 @@
                        WHERE post_id=$wpdb->posts.ID
                        AND meta_key='user_upvote_id'
                        )
-                       /karma_divisor
+              /karma_divisor
                        )
-                       DESC";
+              DESC
+              LIMIT " .$offset.", ".$post_per_page."; ";
           $pageposts = $wpdb->get_results($querystr, OBJECT);
-          return $pageposts;
+
+          $sql_posts_total = $wpdb->get_var( "SELECT FOUND_ROWS();");
+          $max_num_pages = ceil($sql_posts_total / $post_per_page);
+          return [$pageposts, $max_num_pages];
         }
 
         public static function update_temporal_karma() {

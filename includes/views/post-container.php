@@ -1,8 +1,8 @@
-            <?php
+<?php
 
     class crowdsorterContainer
     {
-        public static function render($the_query)
+        public static function render($pageposts, $max_num_pages)
         {
             //  var_dump( $the_query );
       wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
@@ -11,8 +11,9 @@
             wp_enqueue_script('jquery');
             wp_enqueue_script('news-aggregator');
             echo '<div id="aggregator-container" class="clearfix">';
-            global $wpdb;
-            foreach ($the_query as $post) {
+            global $wpdb, $post;
+            foreach ($pageposts as $key=>$post) {
+                setup_postdata($post);
                 $post_ID = $post->ID;
                 $post_Date_GMT = strtotime($post->post_date_gmt);
                 $postmeta = get_post_meta($post_ID);
@@ -63,10 +64,13 @@
                 } ?></div>
                   <a class="comments-link" href="<?php echo $commentslink ?>">comments</a>
                   </div>
-              </div><?php //aggregator entry div
-            }
-              /* Restore original Post Data */
-            echo  '</div>';
-        }
+              </div><?php
+            }?>
+            <div class="navigation">
+                <div class="previous panel"><?php previous_posts_link('&laquo; newer posts',$max_num_pages) ?></div>
+                <div class="next panel"><?php next_posts_link('older posts &raquo;',$max_num_pages) ?></div>
+            </div>
+            </div>
+        <?php
+      }
     }
-?>
