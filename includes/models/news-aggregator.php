@@ -6,40 +6,34 @@
             $this->sorter = "News-Aggregator";
         }
 
-        public function sort_posts()
+        public function sort_posts($paged)
         {
           global $wpdb;
-          $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-          $post_per_page = intval(get_query_var('posts_per_page'));
-          $offset = ($paged - 1)*$post_per_page;
+          $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 30;
+          $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+          $offset = ($paged)*$ppp;
           $querystr = "
             SELECT
               $wpdb->posts.*,
-              ROUND(POW(TIMESTAMPDIFF(
-                  MINUTE,
-                  $wpdb->posts.post_date_gmt,
-                  NOW()
-                )/60, 2),
-                1.8) as karma_divisor
+              ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) as karma_divisor
              FROM $wpdb->posts
             WHERE $wpdb->posts.post_type= 'aggregator-posts'
             AND $wpdb->posts.post_status = 'publish'
-            ORDER BY (
+            ORDER BY  (
                       (
                        SELECT count(*)
                        FROM wp_postmeta
                        WHERE post_id=$wpdb->posts.ID
                        AND meta_key='user_upvote_id'
-                       )
-              /karma_divisor
-                       )
+                       )/karma_divisor
+                     )
               DESC
-              LIMIT " .$offset.", ".$post_per_page."; ";
-          $pageposts = $wpdb->get_results($querystr, OBJECT);
+              ";
 
-          $sql_posts_total = $wpdb->get_var( "SELECT FOUND_ROWS();");
+          $pageposts = $wpdb->get_results($querystr, OBJECT);
+          $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
           $max_num_pages = ceil($sql_posts_total / $post_per_page);
-          return [$pageposts, $max_num_pages];
+          return [$pageposts, $max_num_pages, $paged];
         }
 
         public static function update_temporal_karma() {

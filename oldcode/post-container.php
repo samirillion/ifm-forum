@@ -14,7 +14,7 @@
          $post_ID = $post->ID;
          $postmeta = get_post_meta($post_ID);
          $posturl = $postmeta["aggregator_entry_url"]["0"];
-         $nonce = wp_create_nonce("aggregator_karma_nonce");
+         $nonce = wp_create_nonce("aggregator_page_nonce");
          $commentslink = add_query_arg( 'agg_post_id', $post_ID, home_url('comments'));
          $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
 
@@ -30,7 +30,7 @@
               $postmeta = get_post_meta($post_ID );
               $posturl = $postmeta["aggregator_entry_url"]["0"];
               // $votes = $postmeta["aggregator_entry_karma"]["0"];
-              $nonce = wp_create_nonce("aggregator_karma_nonce");
+              $nonce = wp_create_nonce("aggregator_page_nonce");
               $commentslink = add_query_arg( 'agg_post_id', $post_ID, home_url('comments'));
               $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
               $upvotes = $wpdb->get_var( $wpdb->prepare(

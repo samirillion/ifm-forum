@@ -35,12 +35,13 @@ class crowdsortPostsController
         require_once('models/sorter-factory.php');
         $sorterFactory = new sorterFactory;
         $sorter = $sorterFactory->get_sorter("News-Aggregator");
-        $query = $sorter->sort_posts();
+        $paged = (get_query_var('page')) ? get_query_var('page') : 1;
+        $query = $sorter->sort_posts($paged);
         $pageposts = $query[0];
         $max_num_pages = $query[1];
 
         require_once('views/post-container.php');
-        $content = crowdsorterContainer::render($pageposts, $max_num_pages);
+        $content = crowdsorterContainer::render($pageposts, $max_num_pages, $paged);
         return $content;
     }
 

@@ -5,7 +5,7 @@
         // Information needed for creating the plugin's pages
         public function update_karma()
         {
-            if (!wp_verify_nonce($_REQUEST['nonce'], "aggregator_karma_nonce")) {
+            if (!wp_verify_nonce($_REQUEST['nonce'], "aggregator_page_nonce")) {
                 exit("No naughty business please");
             }
             global $wpdb;
