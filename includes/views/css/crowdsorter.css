@@ -9,29 +9,42 @@
    clear: both;
 }
 
-.aggregator-entry {
-  width: 33.33%;
-  height: 15em;
+.aggregator-entry-wrapper {
+  width: 33.333%;
+  height: 13em;
   float: left;
-  position: relative;
-  margin-bottom: .15em;
-}
-
-.aggregator-karma {
-}
-
-.entry-wrapper {
-  padding: 1.5em;
-  margin: 1%;
-  border-radius: 2px;
-  height: 100%;
+  margin-bottom: .2em;
+  /*border: 1px solid black;*/
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .aggregator-entry-link {
+  float: left;
+  text-align: left;
   font-size: 1.3em;
   text-decoration: none;
-  line-height: .8em;
+  line-height: 1.1em;
   font-style: italic;
+  letter-spacing: 1.8px;
+  /*border: 1px solid red;*/
+}
+
+.entry-items-wrapper {
+  clear: both;
+  float: left;
+  position: relative;
+  height: 3em;
+}
+
+.aggregator-item {
+  float: left;
+  font-size: .8em;
+  clear: left;
+}
+
+
+.aggregator-karma {
 }
 
 .upvote_entry {
@@ -43,8 +56,14 @@
 }
 
 #more_aggregator_posts {
-  background-color: grey;
   text-align: center;
-  margin-top: 20px;
-  font-family: lato;
+  line-height: 2em;
+  margin: 2em auto;
+  height: 2em;
+  border: 1px;
+  width: 50vw;
+}
+
+#more_aggregator_posts:hover {
+  cursor: pointer;
 }

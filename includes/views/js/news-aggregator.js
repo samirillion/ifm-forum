@@ -1,6 +1,6 @@
 jQuery(document).ready( function() {
 
-   jQuery(".upvote_entry").click( function() {
+   jQuery("#aggregator-container").on( "click", ".upvote_entry", function() {
       upvoter = jQuery(this)
       post_id = jQuery(this).attr("data-post_id")
       nonce = jQuery(this).attr("data-nonce")
@@ -29,20 +29,21 @@ jQuery(document).ready( function() {
          }
       })
 
-   })
+   });
 
-   var ppp = 9;
-   var pageNumber = 1;
+   var aggregatorPPP = 9;
+   var aggregatorPageNumber = 1;
    function load_posts(){
-     pageNumber++;
+     aggregatorPageNumber++;
      jQuery.ajax({
        type: "POST",
        dataType: "html",
        url: myAjax.ajaxurl,
-       data: {action: "more_aggregator_posts", ppp: ppp, pageNumber: pageNumber},
+       data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber},
        success: function(data){
+         var $data = jQuery(data);
            if(data.length){
-               jQuery("#aggregator-container").append(data);
+               jQuery("#aggregator-container").append($data);
                jQuery("#more_aggregator_posts").attr("disabled",false);
            } else{
                jQuery("#more_aggregator_posts").attr("disabled",true);

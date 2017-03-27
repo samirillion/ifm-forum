@@ -24,7 +24,7 @@
               echo $html;
               ?>
             </div>
-            <div id="more_aggregator_posts"><?php esc_html_e('See More', 'aggregator') ?></div>
+            <div id="more_aggregator_posts"><?php esc_html_e('Load More Posts', 'aggregator') ?></div>
         <?php
       }
     }
