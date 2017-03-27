@@ -31,6 +31,33 @@ jQuery(document).ready( function() {
 
    })
 
-   jQuery("")
+   var ppp = 9;
+   var pageNumber = 1;
+   function load_posts(){
+     pageNumber++;
+     jQuery.ajax({
+       type: "POST",
+       dataType: "html",
+       url: myAjax.ajaxurl,
+       data: {action: "more_aggregator_posts", ppp: ppp, pageNumber: pageNumber},
+       success: function(data){
+           if(data.length){
+               jQuery("#aggregator-container").append(data);
+               jQuery("#more_aggregator_posts").attr("disabled",false);
+           } else{
+               jQuery("#more_aggregator_posts").attr("disabled",true);
+           }
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+           $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+       }
+     });
+     return false;
+   }
 
-})
+   jQuery('#more_aggregator_posts').click( function() {
+     jQuery("#more_aggregator_posts").attr("disabled",true);
+     load_posts();
+   })
+
+});

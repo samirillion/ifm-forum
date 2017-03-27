@@ -6,12 +6,13 @@
             $this->sorter = "News-Aggregator";
         }
 
-        public function sort_posts($paged)
+        public static function sort_posts()
         {
           global $wpdb;
-          $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 30;
-          $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
-          $offset = ($paged)*$ppp;
+          $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;
+          $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
+          $offset = ($page -1)*$ppp;
+
           $querystr = "
             SELECT
               $wpdb->posts.*,
@@ -26,14 +27,13 @@
                        WHERE post_id=$wpdb->posts.ID
                        AND meta_key='user_upvote_id'
                        )/karma_divisor
-                     )
-              DESC
-              ";
+                     ) DESC
+            LIMIT ".$offset.", ".$ppp."; ";
 
           $pageposts = $wpdb->get_results($querystr, OBJECT);
-          $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
-          $max_num_pages = ceil($sql_posts_total / $post_per_page);
-          return [$pageposts, $max_num_pages, $paged];
+          // $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
+          // $max_num_pages = ceil($sql_posts_total / $ppp);
+          return [$pageposts, $page];
         }
 
         public static function update_temporal_karma() {

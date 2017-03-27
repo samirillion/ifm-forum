@@ -41,3 +41,10 @@
 .upvote_entry:hover {
   cursor: pointer;
 }
+
+#more_aggregator_posts {
+  background-color: grey;
+  text-align: center;
+  margin-top: 20px;
+  font-family: lato;
+}

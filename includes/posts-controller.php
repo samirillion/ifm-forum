@@ -13,6 +13,8 @@ class crowdsortPostsController
         add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
         add_filter('query_vars', array( $plugin, 'add_query_vars'));
         add_action('post_ranking_cron', array( $plugin, 'update_post_rank'));
+        add_action('wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts'));
+        add_action('wp_ajax_more_aggregator_posts', array( $plugin, 'load_more_posts'));
     }
     public function __construct()
     {
@@ -32,17 +34,24 @@ class crowdsortPostsController
 
     public function create_container()
     {
-        require_once('models/sorter-factory.php');
-        $sorterFactory = new sorterFactory;
-        $sorter = $sorterFactory->get_sorter("News-Aggregator");
-        $paged = (get_query_var('page')) ? get_query_var('page') : 1;
-        $query = $sorter->sort_posts($paged);
+        require_once('models/news-aggregator.php');
+        $query = newsAggregator::sort_posts();
         $pageposts = $query[0];
-        $max_num_pages = $query[1];
 
         require_once('views/post-container.php');
-        $content = crowdsorterContainer::render($pageposts, $max_num_pages, $paged);
+        $content = crowdsorterContainer::render($pageposts);
         return $content;
+    }
+
+    public function load_more_posts()
+    {
+      require_once('models/news-aggregator.php');
+      $query = newsAggregator::sort_posts();
+      $pageposts = $query[0];
+
+      require_once('views/templates/post-template.php');
+      $content = postTemplate::render($pageposts);
+      return $content;
     }
 
     public function generate_sorter()
