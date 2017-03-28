@@ -1,6 +1,25 @@
 #aggregator-container {
-  /*border: 1px solid black;*/
+  font-size: calc(14px + (12) * ((100vw - 300px) / (1300)));
 }
+
+.aggregator-entry-wrapper {
+  width: 50%;
+  height: 9em;
+  float: left;
+  margin-bottom: .2em;
+  margin-top: .2em;
+  /*border: 1px solid black;*/
+  padding-left: .5em;
+  padding-right: .5em;
+  position: relative;
+  border-bottom: 1px solid black;
+}
+
+@media screen and (min-width: 800px){
+   .aggregator-entry-wrapper{
+     width: 33.3333%;
+   }
+ }
 
 .clearfix::after {
    content: " ";
@@ -9,24 +28,13 @@
    clear: both;
 }
 
-.aggregator-entry-wrapper {
-  width: 33.333%;
-  height: 13em;
-  float: left;
-  margin-bottom: .2em;
-  /*border: 1px solid black;*/
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
 .aggregator-entry-link {
   float: left;
   text-align: left;
-  font-size: 1.3em;
+  font-size: 1.1em;
   text-decoration: none;
   line-height: 1.1em;
   font-style: italic;
-  letter-spacing: 1.8px;
   /*border: 1px solid red;*/
 }
 
@@ -34,13 +42,15 @@
   clear: both;
   float: left;
   position: relative;
-  height: 3em;
+  height: 100%;
+  font-size: 1em;
 }
 
 .aggregator-item {
   float: left;
-  font-size: .8em;
   clear: left;
+  font-size: .6em;
+  line-height: 1.2em;
 }
 
 
@@ -49,6 +59,11 @@
 
 .upvote_entry {
   text-decoration: none;
+  float: right;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  font-size: 1.1em;
   }
 
 .upvote_entry:hover {
@@ -60,7 +75,7 @@
   line-height: 2em;
   margin: 2em auto;
   height: 2em;
-  border: 1px;
+  /*border: 1px;*/
   width: 50vw;
 }
 

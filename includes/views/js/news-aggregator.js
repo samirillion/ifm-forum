@@ -61,4 +61,28 @@ jQuery(document).ready( function() {
      load_posts();
    })
 
+//    jQuery( ".aggregator-entry-link" ).each(function( ) {
+//
+//     var $quote = jQuery(this);
+//
+//     var $numWords = $quote.text().split(" ").length;
+//
+//     if (($numWords >= 1) && ($numWords < 25)) {
+//         $quote.css("font-size", "1.8em");
+//     }
+//     else if (($numWords >= 25) && ($numWords < 50)) {
+//         $quote.css("font-size", "1.6em");
+//     }
+//     else if (($numWords >= 50) && ($numWords < 75)) {
+//         $quote.css("font-size", "1.4em");
+//     }
+//     else if (($numWords >= 75) && ($numWords < 100)) {
+//         $quote.css("font-size", "1.1em");
+//     }
+//     else {
+//         $quote.css("font-size", "1em");
+//     }
+//
+// });
+
 });
