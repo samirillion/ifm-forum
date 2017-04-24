@@ -1,4 +1,4 @@
-jQuery(document).ready( function() {
+jQuery(document).ready( function($) {
 
    jQuery("#aggregator-container").on( "click", ".upvote_entry", function() {
       upvoter = jQuery(this)
@@ -11,7 +11,11 @@ jQuery(document).ready( function() {
          url : myAjax.ajaxurl,
          data : {action: "add_entry_karma", post_id : post_id, nonce: nonce},
          success: function(response) {
+            if(response.redirect) {
+              window.location.href = response.redirect;
+            }
             if(response.type == "success") {
+              upvoter.toggleClass('bottom-left bottom-right')
               if (response.upvoted == 0) {
               upvoter.html('unvote')
             } else {
@@ -23,14 +27,12 @@ jQuery(document).ready( function() {
             upvoter.prev().html(response.entry_karma + " points")
           }
           }
-            else {
-               alert(response.redirect)
-            }
          }
       })
 
    });
 
+//'paging' function for posts
    var aggregatorPPP = 9;
    var aggregatorPageNumber = 1;
    function load_posts(){
@@ -45,7 +47,8 @@ jQuery(document).ready( function() {
            if(data.length){
                jQuery("#aggregator-container").append($data);
                jQuery("#more_aggregator_posts").attr("disabled",false);
-           } else{
+           } else {
+               jQuery("#more_aggregator_posts").html('No More Posts');
                jQuery("#more_aggregator_posts").attr("disabled",true);
            }
        },
@@ -60,6 +63,97 @@ jQuery(document).ready( function() {
      jQuery("#more_aggregator_posts").attr("disabled",true);
      load_posts();
    })
+
+//Script for replying to post
+  $('#comment-text-area').one("focus", function(){
+    if ( !myAjax.loggedIn){
+      $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
+    }
+  })
+  $('.reply-to-comment').one("click", function(){
+    if ( !myAjax.loggedIn){
+      $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
+    }
+  })
+   var replyToPost = $("#reply-to-post");
+   replyToPost.submit(function(e) {
+    //  e.preventDefault();
+
+       // Serialize the form data.
+       var formData = $(replyToPost).serialize();
+
+       // Submit the form using AJAX.
+       $.ajax({
+         type: 'POST',
+         url: myAjax.ajaxurl,
+         data: formData
+       })
+       .done(function(response) {
+        window.location.reload(true);
+});
+     });
+
+// script for replying to a comment
+     var reply='<div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" /><a href="#" class="submit-reply">Reply</a><div class="remove-reply">x</div></div>'
+     $(".comment-node .reply-to-comment").click( function() {
+       if ( reply != '') {
+            $(this).append(reply);
+            reply = '';
+          }
+           });
+
+      $(".reply-to-comment").on('click', '.remove-reply', function(event) {
+          event.target.parentElement.remove();
+      });
+
+      $('.reply-to-comment').on('click', '.submit-reply', function(e) {
+           e.preventDefault();
+          //  // information to be sent to the server
+           var content = $(this).prev().val();
+           var containingli = $(this).closest("li");
+           var parentCommentID = containingli.attr('id');
+           var nonce = containingli.attr('data-nonce');
+           $.ajax({
+        type: "POST",
+        url: myAjax.ajaxurl,
+        data: {replyContent: content, comment_parent: parentCommentID, nonce: nonce, action: "reply_to_comment" },
+        success: function(response){
+          if(response.redirect) {
+            window.location.href = response.redirect;
+          } else {
+          window.location.reload(true);
+        }
+        }
+         });
+       });
+
+ //Script for voting on a comment
+    $(".vote_on_comment").on( "click", function(e) {
+       e.preventDefault();
+      var upvoter = $(this)
+      var comment_id = $(this).closest("li").attr('id')
+      var nonce = $(this).closest("li").attr('data-nonce')
+      var upordown = $(this).attr("data-upordown")
+       $.ajax({
+          type : "post",
+          dataType : "json",
+          url : myAjax.ajaxurl,
+          data : {action: "vote_on_comment", comment_id : comment_id, nonce: nonce, upordown: upordown},
+          success: function(response) {
+             if(response.redirect) {
+               window.location.href = response.redirect;
+             }
+             if(response.type == "success") {
+               if (response.upvoted == 0) {
+               upvoter.html('unvote')
+             } else {
+               upvoter.html('++')
+             }
+           }
+          }
+       })
+
+    });
 
 //    jQuery( ".aggregator-entry-link" ).each(function( ) {
 //

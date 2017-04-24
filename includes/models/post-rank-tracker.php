@@ -2,8 +2,51 @@
 
     class postRankTracker
     {
-        // Information needed for creating the plugin's pages
-        public function update_karma()
+      public static function sort_posts()
+      {
+        global $wpdb;
+        $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;
+        $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
+        $offset = ($page -1)*$ppp;
+
+        $querystr = "
+          SELECT
+            $wpdb->posts.*,
+            ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) as karma_divisor
+           FROM $wpdb->posts
+          WHERE $wpdb->posts.post_type= 'aggregator-posts'
+          AND $wpdb->posts.post_status = 'publish'
+          ORDER BY  (
+                    (
+                     SELECT count(*)
+                     FROM wp_postmeta
+                     WHERE post_id=$wpdb->posts.ID
+                     AND meta_key='user_upvote_id'
+                     )/karma_divisor
+                   ) DESC
+          LIMIT ".$offset.", ".$ppp."; ";
+
+        $pageposts = $wpdb->get_results($querystr, OBJECT);
+        // $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
+        // $max_num_pages = ceil($sql_posts_total / $ppp);
+        return [$pageposts, $page];
+      }
+
+      public static function update_temporal_karma() {
+        // might institute this later
+        // global $wpdb;
+        //
+        // $entry_karma = $wpdb->get_var($wpdb->prepare(
+        //   "
+        //     SELECT count(*)
+        //     FROM $wpdb->postmeta
+        //     WHERE post_id=%d
+        //     AND meta_key='user_upvote_id'
+        //   ",
+        //   $post_id
+        // ));
+      }
+        public function update_post_karma()
         {
             if (!wp_verify_nonce($_REQUEST['nonce'], "aggregator_page_nonce")) {
                 exit("No naughty business please");

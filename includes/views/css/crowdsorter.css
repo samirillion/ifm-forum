@@ -1,18 +1,23 @@
 #aggregator-container {
-  font-size: calc(14px + (12) * ((100vw - 300px) / (1300)));
+  font-size: calc(20px + (12) * ((100vw - 300px) / (1300)));
+}
+
+textarea {
+  padding-top: 5px;
 }
 
 .aggregator-entry-wrapper {
   width: 50%;
-  height: 9em;
+  height: 13em;
   float: left;
   margin-bottom: .2em;
   margin-top: .2em;
   /*border: 1px solid black;*/
-  padding-left: .5em;
-  padding-right: .5em;
+  padding-left: 1em;
+  padding-right: 1em;
   position: relative;
-  border-bottom: 1px solid black;
+  font-size: .5em;
+  line-height: .5em;
 }
 
 @media screen and (min-width: 800px){
@@ -31,9 +36,10 @@
 .aggregator-entry-link {
   float: left;
   text-align: left;
-  font-size: 1.1em;
+  /* .aggregator-entry-wrapper controls em size */
+  font-size: 1.5em;
   text-decoration: none;
-  line-height: 1.1em;
+  line-height: 1.2em;
   font-style: italic;
   /*border: 1px solid red;*/
 }
@@ -49,8 +55,8 @@
 .aggregator-item {
   float: left;
   clear: left;
-  font-size: .6em;
-  line-height: 1.2em;
+  font-size: .9em;
+  line-height: 1.3em;
 }
 
 
@@ -59,12 +65,15 @@
 
 .upvote_entry {
   text-decoration: none;
+  }
+
+.bottom-right {
   float: right;
   position: absolute;
-  bottom: 1em;
-  right: 1em;
-  font-size: 1.1em;
-  }
+  bottom: 1.3em;
+  right: 2em;
+  font-size: 2em;
+}
 
 .upvote_entry:hover {
   cursor: pointer;
@@ -81,4 +90,9 @@
 
 #more_aggregator_posts:hover {
   cursor: pointer;
+}
+
+/* Nested lists */
+.indented-list {
+  padding-left: 20px;
 }

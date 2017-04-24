@@ -46,10 +46,12 @@ class postTemplate
             } else {
                 echo $upvotes . " points";
             } ?></div>
-      <div class="upvote_entry aggregator-item" data-nonce="<?php echo $nonce ?>" data-post_id="<?php echo $post_ID ?>" href="<?php echo $link ?>"><?php if ($upvoted) {
-                echo 'unvote';
+      <div data-nonce="<?php echo $nonce ?>" data-post_id="<?php echo $post_ID ?>" href="<?php echo $link ?>" class="upvote_entry aggregator-item
+      <?php if ($upvoted) {
+        //slightly ghetto solution where I finish the div with the php
+                echo 'bottom-left" > unvote';
             } else {
-                echo '++';
+                echo 'bottom-right" > ++';
             } ?></div>
       <a class="comments-link aggregator-item" href="<?php echo $commentslink ?>">comments</a>
     </div>
