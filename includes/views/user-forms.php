@@ -12,11 +12,20 @@
 $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUEST['checkemail'] == 'confirm';
      // Error messages
         $errors = array();
+        //Return errors for Login Page
             if (isset($_REQUEST['login'])) {
                 $error_codes = explode(',', $_REQUEST['login']);
 
                 foreach ($error_codes as $code) {
                     $errors []= $this->get_error_message($code);
+                }
+            }
+          //Return errors for Registration Page
+            if ( isset( $_REQUEST['register-errors'] ) ) {
+                $error_codes = explode( ',', $_REQUEST['register-errors'] );
+
+                foreach ( $error_codes as $error_code ) {
+                    $errors []= $this->get_error_message( $error_code );
                 }
             }
             $attributes['errors'] = $errors;
@@ -51,9 +60,11 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
             case 'empty_username':
               return __( 'You need to enter your email address to continue.', 'personalize-login' );
 
-            case 'invalid_email':
             case 'invalidcombo':
               return __( 'There are no users registered with this email address.', 'personalize-login' );
+
+            case 'invalid_username':
+              return __( 'There are no users registered with this username.', 'personalize-login' );
 
             case 'empty_username':
                 return __('You do have an email address, right?', 'personalize-login');
@@ -70,7 +81,7 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
             return __('The email address you entered is not valid.', 'personalize-login');
 
             case 'email_exists':
-                return __('An account exists with this email address.', 'personalize-login');
+                return __('An account already exists with this email address.', 'personalize-login');
 
             case 'closed':
                 return __('Registering new users is currently not allowed.', 'personalize-login');

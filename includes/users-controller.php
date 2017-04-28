@@ -186,6 +186,7 @@ public function redirect_to_custom_lostpassword() {
         // Check if the earlier authenticate filter (most likely,
     // the default WordPress authentication) functions have found errors
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
         if (is_wp_error($user)) {
             $error_codes = join(',', $user->get_error_codes());
 
@@ -353,7 +354,9 @@ public function do_register_user() {
 }
 
 public function show_account_details() {
-  echo "cool!";
+  require_once('views/account-details-container.php');
+  $userAccount = new accountDetailsContainer;
+  $userAccount::render();
 }
 
 }
