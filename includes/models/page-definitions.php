@@ -26,10 +26,18 @@ public function define_pages()
        'title' => __( 'Forgot Your Password?', 'personalize-login' ),
        'content' => '[custom-password-lost-form]'
    ),
-   'member-password-reset' => array(
-       'title' => __( 'Pick a New Password', 'personalize-login' ),
-       'content' => '[custom-password-reset-form]'
-   )
+ 'member-password-reset' => array(
+     'title' => __( 'Pick a New Password', 'personalize-login' ),
+     'content' => '[custom-password-reset-form]'
+ ),
+ 'add-a-post' => array(
+     'title' => __( 'Create a New Post', 'create-post' ),
+     'content' => '[crowdsorter-post]'
+ ),
+ 'account-details' => array(
+     'title' => __( 'My Account Details', 'account-details' ),
+     'content' => '[crowdsorter-account-details]'
+ )
 );
 
     foreach ($page_definitions as $slug => $page) {

@@ -5,20 +5,20 @@ class crowdsortActivationController
     public static function register()
     {
         $plugin = new self();
-        add_filter('cron_schedules', array($plugin, 'my_cron_schedules'));
+        // add_filter('cron_schedules', array($plugin, 'my_cron_schedules'));
       }
       public function __construct()
       {
       }
 
-      public function my_cron_schedules($schedules){
-      if(!isset($schedules["5min"])){
-          $schedules["5min"] = array(
-              'interval' => 5*60,
-              'display' => __('Once every 5 minutes'));
-      }
-      return $schedules;
-    }
+    //   public function my_cron_schedules($schedules){
+    //   if(!isset($schedules["5min"])){
+    //       $schedules["5min"] = array(
+    //           'interval' => 5*60,
+    //           'display' => __('Once every 5 minutes'));
+    //   }
+    //   return $schedules;
+    // }
 
       //plugin activation hook registered in bootstrap.php
       public static function plugin_activated()

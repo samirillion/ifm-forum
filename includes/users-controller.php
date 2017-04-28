@@ -19,6 +19,7 @@ class crowdsortUsersController
         add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
         add_action( 'login_form_lostpassword', array( $plugin, 'do_password_lost' ) );
         add_filter( 'retrieve_password_message', array( $plugin, 'replace_retrieve_password_message' ), 10, 4 );
+        add_shortcode('crowdsorter-account-details', array( $plugin, 'show_account_details' ));
     }
     public function __construct()
     {
@@ -349,6 +350,10 @@ public function do_register_user() {
         wp_redirect( $redirect_url );
         exit;
     }
+}
+
+public function show_account_details() {
+  echo "cool!";
 }
 
 }

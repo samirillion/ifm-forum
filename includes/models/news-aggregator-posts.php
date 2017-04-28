@@ -2,20 +2,20 @@
 
     class postRankTracker
     {
-      public static function sort_posts()
-      {
-        global $wpdb;
-        $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;
-        $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
-        $offset = ($page -1)*$ppp;
+        public static function sort_posts()
+        {
+            global $wpdb;
+            $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;
+            $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
+            $offset = ($page -1)*$ppp;
 
-        $querystr = "
+            $querystr = "
           SELECT
             $wpdb->posts.*,
             ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) as karma_divisor
-           FROM $wpdb->posts
-          WHERE $wpdb->posts.post_type= 'aggregator-posts'
-          AND $wpdb->posts.post_status = 'publish'
+            FROM $wpdb->posts
+            WHERE $wpdb->posts.post_type= 'aggregator-posts'
+            AND $wpdb->posts.post_status = 'publish'
           ORDER BY  (
                     (
                      SELECT count(*)
@@ -26,14 +26,15 @@
                    ) DESC
           LIMIT ".$offset.", ".$ppp."; ";
 
-        $pageposts = $wpdb->get_results($querystr, OBJECT);
+            $pageposts = $wpdb->get_results($querystr, OBJECT);
         // $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
         // $max_num_pages = ceil($sql_posts_total / $ppp);
         return [$pageposts, $page];
-      }
+        }
 
-      public static function update_temporal_karma() {
-        // might institute this later
+        public static function update_temporal_karma()
+        {
+            // might institute this later
         // global $wpdb;
         //
         // $entry_karma = $wpdb->get_var($wpdb->prepare(
@@ -45,7 +46,7 @@
         //   ",
         //   $post_id
         // ));
-      }
+        }
         public function update_post_karma()
         {
             if (!wp_verify_nonce($_REQUEST['nonce'], "aggregator_page_nonce")) {
@@ -100,4 +101,27 @@
 
             die();
         }
+
+        public function submit_post() {
+          // $nonce = $_POST['nonce'];
+          // if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
+          //     exit("No naughty business please");
+          // }
+          $post = wp_insert_post(
+          array(
+            'post_title' => $_POST['post-title'],
+            'post_type' => 'aggregator-posts',
+            'post_status' => 'publish'
+          )
+        );
+          global $wpdb;
+          $firstvote = $wpdb->insert($wpdb->postmeta, array("comment_id" => $post, "meta_key" => "user_upvote_id", "meta_value" => get_current_user_id()),
+          array("%d", "%s", "%d"));
+
+          add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
+
+          wp_redirect( home_url() );
+          exit();
+        }
+
     }

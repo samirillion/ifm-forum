@@ -96,3 +96,7 @@ textarea {
 .indented-list {
   padding-left: 20px;
 }
+
+#submit-post p input {
+  max-width:1000px !important;
+}

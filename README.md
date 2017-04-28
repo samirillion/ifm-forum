@@ -16,5 +16,5 @@ A note on the structure:
   - the views and models aren't very well defined. i'm thinking of calling them all "classes" and then call the real views "templates"
 
 Todo list:
-  [] tracking member-karma/creating a member pages
-  [] allow logged-in members to post from the WordPress front-end
+  - [] tracking member-karma/creating a member pages
+  - [] allow logged-in members to post from the WordPress front-end

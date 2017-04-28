@@ -35,6 +35,7 @@ jQuery(document).ready( function($) {
 //'paging' function for posts
    var aggregatorPPP = 9;
    var aggregatorPageNumber = 1;
+   $loader = $("#aggregator-container");
    function load_posts(){
      aggregatorPageNumber++;
      jQuery.ajax({
@@ -62,6 +63,13 @@ jQuery(document).ready( function($) {
    jQuery('#more_aggregator_posts').click( function() {
      jQuery("#more_aggregator_posts").attr("disabled",true);
      load_posts();
+   })
+
+//Mention you must be logged in
+   $('#post-title').one("focus", function(){
+     if ( !myAjax.loggedIn){
+       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
+     }
    })
 
 //Script for replying to post
