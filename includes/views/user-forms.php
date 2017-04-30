@@ -5,6 +5,7 @@
         public function render_form($template_name, $attributes = null)
         {
             // Parse shortcode attributes
+            wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
      if (! $attributes) {
          $attributes = array();
      }
@@ -68,6 +69,9 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
 
             case 'empty_username':
                 return __('You do have an email address, right?', 'personalize-login');
+
+            case 'username_exists':
+                return __('Your chosen username is not available', 'personalize-login');
 
             case 'empty_password':
                 return __('You need to enter a password to login.', 'personalize-login');

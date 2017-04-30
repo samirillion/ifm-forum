@@ -30,6 +30,8 @@ class commentContainer
   public static function build_comment_structure($obj, $currentID = 0, $depth = 0)
   {
   	// Quit out if we don't have any children
+    global $wpdb;
+    $user_id = get_current_user_id();
   	if (!array_key_exists($currentID, $obj))
   	{
   		return;
@@ -41,6 +43,13 @@ class commentContainer
   	foreach ($children as $comment)
   	{
       $nonce = wp_create_nonce("comment_nonce");
+      $upvoted = $wpdb->get_results(
+        $wpdb->prepare(
+          "SELECT COUNT(*) FROM $wpdb->commentmeta WHERE meta_key='user_upvote_id' AND meta_value=%d AND comment_id=%d",
+          $user_id,
+          $comment['comment_ID']
+          )
+        );
       ?>
   		<li class="comment-node" id="<?php echo $comment['comment_ID']?>" data-nonce="<?php echo $nonce?>">
       <div class="commenter">by <?php echo $comment['comment_author'] ?></div>
@@ -50,7 +59,14 @@ class commentContainer
       echo $comment['comment_content'];
       ?>
       <br>
-      <div class="reply-to-comment">reply</div><a class="vote_on_comment" data-upordown="up">++</a>
+      <div class="reply-to-comment">reply</div><a class="vote_on_comment" data-upordown="up">
+        <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
+          echo '++';
+        }
+        else {
+          echo 'unvote';
+        }?>
+        </a>
       <?php
   		// Print all our children
   		self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);

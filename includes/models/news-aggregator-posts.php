@@ -114,6 +114,7 @@
             'post_status' => 'publish'
           )
         );
+          wp_set_object_terms( $post, $_POST['post-type'], 'aggpost-type', false );
           global $wpdb;
           $firstvote = $wpdb->insert($wpdb->postmeta, array("comment_id" => $post, "meta_key" => "user_upvote_id", "meta_value" => get_current_user_id()),
           array("%d", "%s", "%d"));

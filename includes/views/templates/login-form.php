@@ -3,6 +3,9 @@
       <!-- Show errors if there are any -->
         <?php _e('Sign In', 'personalize-login'); ?>
     <?php endif; ?>
+    <?php if (get_query_var('status') == 'success') {
+      echo '<br>Password successfully changed. Take your new password for a spin by logging back in!<br>';
+    }?>
     <?php if (count($attributes['errors']) > 0) : ?>
         <?php foreach ($attributes['errors'] as $error) : ?>
             <p class="login-error">
@@ -14,7 +17,7 @@
     <p class="login-info">
         <?php
             printf(
-                __( 'You have successfully registered to <strong>%s</strong>. We have emailed your password to the email address you entered.', 'personalize-login' ),
+                __( 'You have successfully registered to <strong>%s</strong>.', 'personalize-login' ),
                 get_bloginfo( 'name' )
             );
         ?>
@@ -29,7 +32,7 @@
     <?php
         wp_login_form(
             array(
-                'label_username' => __('Email or Username', 'personalize-login'),
+                'label_username' => __('Username', 'personalize-login'),
                 'label_log_in' => __('Sign In', 'personalize-login'),
                 'redirect' => $attributes['redirect'],
             )

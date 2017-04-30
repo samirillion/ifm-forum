@@ -37,6 +37,10 @@ public function define_pages()
  'account-details' => array(
      'title' => __( 'My Account Details', 'account-details' ),
      'content' => '[crowdsorter-account-details]'
+ ),
+ 'change-password' => array(
+     'title' => __( 'Change My Password', 'change-password' ),
+     'content' => '[change-password]'
  )
 );
 

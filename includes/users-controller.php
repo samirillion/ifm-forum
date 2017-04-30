@@ -20,22 +20,55 @@ class crowdsortUsersController
         add_action( 'login_form_lostpassword', array( $plugin, 'do_password_lost' ) );
         add_filter( 'retrieve_password_message', array( $plugin, 'replace_retrieve_password_message' ), 10, 4 );
         add_shortcode('crowdsorter-account-details', array( $plugin, 'show_account_details' ));
+        add_action( 'wp_footer', array($plugin,'user_login_logout' ));
+        add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
+        add_shortcode( 'change-password', array($plugin, 'change_password_form'));
+        add_action( 'admin_post_change_password', array($plugin, 'update_password'));
     }
     public function __construct()
     {
     }
 
-    /**
-     * Returns the message body for the password reset mail.
-     * Called through the retrieve_password_message filter.
-     *
-     * @param string  $message    Default mail message.
-     * @param string  $key        The activation key.
-     * @param string  $user_login The username for the user.
-     * @param WP_User $user_data  WP_User object.
-     *
-     * @return string   The mail message to send.
-     */
+    public function change_password_form() {
+      require_once('views/change-password-container.php');
+      crowdsorterChangePassword::render();
+    }
+
+    public function update_password() {
+      if ( wp_check_password( $_POST['old-password'], wp_get_current_user()->user_pass)) {
+        wp_set_password( $_POST['new-password'], get_current_user_id() );
+        $redirect_url = home_url( 'member-login' );
+        $redirect_url = add_query_arg( 'status', 'success', $redirect_url );
+      } else {
+        $redirect_url = home_url( 'change-password' );
+        $redirect_url = add_query_arg( 'status', 'failed', $redirect_url );
+      }
+      wp_redirect($redirect_url);
+    }
+
+    public function user_login_logout(){
+      echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
+      if (is_user_logged_in()) {
+        require_once('models/news-aggregator-users.php');
+        $userKarma = newsAggregatorUsers::calculate_user_karma();
+        ?><a href="<?php echo home_url('account');?>"><?php echo wp_get_current_user()->user_login?></a> (<?php echo $userKarma ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+        <?php
+      } else {
+        ?><a  href="<?php echo home_url('member-login'); ?>">login</a>
+        <?php
+      }
+      echo "</div>";
+    }
+
+    public function update_account_details() {
+      if (!is_user_logged_in()){
+          wp_redirect('home_url()');
+          exit();
+      }
+      require_once('models/news-aggregator-users.php');
+      $usersClass = new newsAggregatorUsers;
+      $usersClass->update_user_information();
+    }
     public function replace_retrieve_password_message( $message, $key, $user_login, $user_data ) {
         // Create new message
         $msg  = __( 'Hello!', 'personalize-login' ) . "\r\n\r\n";
@@ -234,14 +267,6 @@ public function redirect_after_login() {
    return wp_validate_redirect( $redirect_url, home_url() );
 }
 
-/**
- * A shortcode for rendering the new user registration form.
- *
- * @param  array   $attributes  Shortcode attributes.
- * @param  string  $content     The text content for shortcode. Not used.
- *
- * @return string  The shortcode output
- */
 public function render_register_form( $attributes, $content = null ) {
     // Parse shortcode attributes
     $default_attributes = array( 'show_title' => false );
@@ -274,45 +299,35 @@ public function redirect_to_custom_register() {
     }
 }
 
-/**
- * Validates and then completes the new user signup process if all went well.
- *
- * @param string $email         The new user's email address
- * @param string $first_name    The new user's first name
- * @param string $last_name     The new user's last name
- *
- * @return int|WP_Error         The id of the user that was created, or error if failed.
- */
-private function register_user( $email, $first_name, $last_name ) {
+private function register_user( $email, $username, $password ) {
     $errors = new WP_Error();
     require_once('views/user-forms.php');
-    $crowdsorter = new crowdsorterUserForm;
+    $crowdsorterUserForm = new crowdsorterUserForm;
     // Email address is used as both username and email. It is also the only
     // parameter we need to validate
-    if ( ! is_email( $email ) ) {
-        $errors->add( 'email', $crowdsorter->get_error_message( 'email' ) );
+    if ( ! is_email( $email ) && $email != 0 ) {
+        $errors->add( 'email', $crowdsorterUserForm->get_error_message( 'email' ) );
         return $errors;
     }
 
-    if ( username_exists( $email ) || email_exists( $email ) ) {
-        $errors->add( 'email_exists', $crowdsorter->get_error_message( 'email_exists') );
+    if ( username_exists( $username ) ) {
+        $errors->add( 'username_exists', $crowdsorterUserForm->get_error_message( 'username_exists') );
         return $errors;
     }
-
-    // Generate the password so that the subscriber will have to check email...
-    $password = wp_generate_password( 12, false );
 
     $user_data = array(
-        'user_login'    => $email,
-        'user_email'    => $email,
-        'user_pass'     => $password,
-        'first_name'    => $first_name,
-        'last_name'     => $last_name,
-        'nickname'      => $first_name,
+        'user_login'    => $username,
+        'nickname'      => $username,
     );
 
+    if ( $email != 0) {
+        $user_data['user_email'] = $email;
+    }
+
     $user_id = wp_insert_user( $user_data );
-    wp_new_user_notification( $user_id, $password );
+    wp_set_password( $password, $user_id );
+
+    add_user_meta( $user_id, 'about_user', '', true);
 
     return $user_id;
 }
@@ -331,15 +346,20 @@ public function do_register_user() {
             // Registration closed, display error
             $redirect_url = add_query_arg( 'register-errors', 'closed', $redirect_url );
         } else {
-            $email = $_POST['email'];
-            $first_name = sanitize_text_field( $_POST['first_name'] );
-            $last_name = sanitize_text_field( $_POST['last_name'] );
+            if( $_POST['email']) {
+              $email = $_POST['email'];
+            } else {
+              $email = 0;
+            }
+            $username = sanitize_text_field( $_POST['username'] );
+            $password = $_POST['password'];
 
-            $result = $this->register_user( $email, $first_name, $last_name );
+            $result = $this->register_user( $email, $username, $password );
 
             if ( is_wp_error( $result ) ) {
                 // Parse errors into a string and append as parameter to redirect
                 $errors = join( ',', $result->get_error_codes() );
+                $redirect_url = home_url('registration');
                 $redirect_url = add_query_arg( 'register-errors', $errors, $redirect_url );
             } else {
                 // Success, redirect to login page.
@@ -354,6 +374,9 @@ public function do_register_user() {
 }
 
 public function show_account_details() {
+  if (!is_user_logged_in()) {
+    $this->redirect_to_login;
+  }
   require_once('views/account-details-container.php');
   $userAccount = new accountDetailsContainer;
   $userAccount::render();

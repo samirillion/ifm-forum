@@ -13,7 +13,7 @@
     <p>
         <?php
             _e(
-                "Enter your email address and we'll send you a link you can use to pick a new password.",
+                "Enter your username and we'll send a reset password link to the associated account.",
                 'personalize_login'
             );
         ?>
@@ -21,7 +21,7 @@
 
     <form id="lostpasswordform" action="<?php echo wp_lostpassword_url(); ?>" method="post">
         <p class="form-row">
-            <label for="user_login"><?php _e( 'Email', 'personalize-login' ); ?>
+            <label for="user_login"><?php _e( 'Username', 'personalize-login' ); ?>
             <input type="text" name="user_login" id="user_login">
         </p>
 

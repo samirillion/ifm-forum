@@ -33,6 +33,7 @@ class crowdsortCommentsController
       require_once('models/news-aggregator-comments.php');
       $newsAggregatorComments = new newsAggregatorComments;
       $newsAggregatorComments->update_comment_karma();
+
    }
 
    public function comment_on_post() {

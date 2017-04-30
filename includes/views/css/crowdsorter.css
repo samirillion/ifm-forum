@@ -2,8 +2,21 @@
   font-size: calc(20px + (12) * ((100vw - 300px) / (1300)));
 }
 
+.vote_on_comment:hover {
+  cursor: pointer;
+}
+
+.reply-to-comment:hover {
+  cursor: pointer;
+}
 textarea {
   padding-top: 5px;
+}
+
+#loginlogout {
+  position: fixed;
+  top: 1em;
+  right: 1em;
 }
 
 .aggregator-entry-wrapper {

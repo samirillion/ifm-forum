@@ -16,10 +16,10 @@ jQuery(document).ready( function($) {
             }
             if(response.type == "success") {
               upvoter.toggleClass('bottom-left bottom-right')
-              if (response.upvoted == 0) {
-              upvoter.html('unvote')
-            } else {
+              if (response.upvoted) {
               upvoter.html('++')
+            } else {
+              upvoter.html('unvote')
             }
             if (response.entry_karma == 1) {
               upvoter.prev().html(response.entry_karma + " point")
@@ -146,7 +146,12 @@ jQuery(document).ready( function($) {
           type : "post",
           dataType : "json",
           url : myAjax.ajaxurl,
-          data : {action: "vote_on_comment", comment_id : comment_id, nonce: nonce, upordown: upordown},
+          data : {
+            action: "vote_on_comment",
+            comment_id : comment_id,
+            nonce: nonce,
+            upordown: upordown
+          },
           success: function(response) {
              if(response.redirect) {
                window.location.href = response.redirect;

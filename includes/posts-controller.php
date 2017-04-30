@@ -30,6 +30,7 @@ class crowdsortPostsController
     public function add_query_vars($vars)
     {
         $vars[] .= 'agg_post_id';
+        $vars[] .= 'status';
         return $vars;
     }
 
@@ -69,6 +70,7 @@ class crowdsortPostsController
 
         //add post definition details
         $aggregator->define_post_type();
+        $aggregator->define_post_meta();
 
         //add metadata on post creation
         //eventually add functionality to allow more vars in plugin

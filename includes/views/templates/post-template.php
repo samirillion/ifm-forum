@@ -38,6 +38,7 @@ class postTemplate
             } ?>
     <div class=aggregator-entry-wrapper>
       <a class=aggregator-entry-link href="<?php echo $posturl ?>" target="new"><?php echo $post->post_title ?></a><br>
+      <div class="aggregator-item">Post-type: <?php echo (wp_get_object_terms( $post_ID, 'aggpost-type'))[0]->{'name'}?></div>
       <div class="host-url aggregator-item">(<?php echo preg_replace("#^www\.#", "", parse_url($posturl)["host"]) ?>)</div>
       <div class="original-poster aggregator-item">by <?php echo get_user_meta($post->post_author, 'nickname', true) ?></div>
       <div class="post-time aggregator-item"><?php echo human_time_diff($post_Date_GMT, current_time('timestamp', 1)) . ' ago'; ?></div>

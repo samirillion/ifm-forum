@@ -13,26 +13,22 @@ class accountDetailsContainer
             wp_enqueue_script('news-aggregator');
             $current_user = wp_get_current_user();
               echo 'Username: ' . $current_user->user_login . '<br />';
-              echo 'User email: ' . $current_user->user_email . '<br />';
-              echo 'User first name: ' . $current_user->user_firstname . '<br />';
-              echo 'User last name: ' . $current_user->user_lastname . '<br />';
-              echo 'User display name: ' . $current_user->display_name . '<br />';
-              echo 'User ID: ' . $current_user->ID . '<br />';
       ?>
     <form id="account-details" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
 
               <p class="form-row">
-                  <label for="username"><?php _e( 'User Name', 'user-name' ); ?></label>
-                  <input type="text" name="post-title" id="post-title" class="post-input" value="<?php echo $current_user->user_login ?>">
+                  <label for="email"><?php _e( 'Email', 'email' ); ?></label>
+                  <input type="email" name="email" id="user-email" class="post-input" value="<?php echo $current_user->user_email ?>">
               </p>
-                <p class="form-row">
-                    <label for="username"><?php _e( 'User Name', 'user-name' ); ?></label>
-                    <input type="text" name="post-title" id="post-title" class="post-input">
-                </p>
 
                 <p class="form-row">
-                    <label for="url"><?php _e( 'URL', 'submit-post' ); ?></label>
-                    <input type="url" name="post-url" id="post-url" class="post-input">
+                    <label for="about"><?php _e( 'About', 'about' ); ?></label>
+                    <textarea type="text" name="about" id="user-about" class="post-input" cols='40' rows='5' /><?php
+                      if ( ! get_user_meta( get_current_user_id(), 'about_user')) {
+                        add_user_meta( get_current_user_id(), 'about_user', '', true);
+                      }
+                      echo stripslashes(get_user_meta(get_current_user_id(), 'about_user', true));
+                      ?></textarea>
                 </p>
                 <?php wp_nonce_field( 'submit_aggregator_post' ); ?>
 
@@ -42,6 +38,7 @@ class accountDetailsContainer
                 </p>
                 <input type="hidden" name="action" value="update_account_details">
             </form>
+            <a href=<?php echo home_url('change-password')?>>Change password</a>
       <?php
         }
 

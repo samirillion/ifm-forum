@@ -18,12 +18,27 @@
 
                 <p class="form-row">
                     <label for="post-title"><?php _e( 'Post Title', 'submit-post' ); ?></label>
-                    <input type="text" name="post-title" id="post-title" class="post-input">
+                    <input type="text" name="post-title" id="post-title" class="post-input" required>
                 </p>
 
                 <p class="form-row">
                     <label for="url"><?php _e( 'URL', 'submit-post' ); ?></label>
-                    <input type="url" name="post-url" id="post-url" class="post-input">
+                    <input type="url" name="post-url" id="post-url" class="post-input" required>
+                </p>
+                <p class="form-row">
+                    <label for="dropdown"><?php _e( 'Post Type', 'post-type' ); ?></label>
+                    <select name="post-type" id="post-type" class="post-input" required>
+                      <?php $customterms =  get_terms( array(
+                              'taxonomy' => 'aggpost-type',
+                              'hide_empty' => false,
+                                )
+                              );
+                              // var_dump($customterms);
+                        foreach ( $customterms as $term) {
+                           echo "<option>" .$term->{'name'} . "</option>";
+                        };
+                        ?>
+                    </select>
                 </p>
                 <?php wp_nonce_field( 'submit_aggregator_post' ); ?>
 

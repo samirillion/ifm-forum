@@ -45,9 +45,9 @@
 
         public function update_comment_karma()
         {
-            if (!wp_verify_nonce($_REQUEST['nonce'], "comment_nonce")) {
-                exit("No naughty business please");
-            }
+            // if (!wp_verify_nonce($_REQUEST['nonce'], "comment_nonce")) {
+            //     exit("No naughty business please");
+            // }
             global $wpdb;
             $userid = get_current_user_id();
             $comment_id = $_REQUEST["comment_id"];
@@ -64,8 +64,10 @@
         ));
             if ($voted >= 1) {
                 $vote = $wpdb->delete($wpdb->commentmeta, array("comment_id" => $comment_id, "meta_key" => "user_upvote_id", "meta_value" => $userid), array("%d", "%s", "%d"));
+                $upvoted = false;
             } else {
-                $vote = $wpdb->insert($wpdb->postmeta, array("comment_id" => $comment_id, "meta_key" => "user_upvote_id", "meta_value" => $userid), array("%d", "%s", "%d"));
+                $vote = $wpdb->insert($wpdb->commentmeta, array("comment_id" => $comment_id, "meta_key" => "user_upvote_id", "meta_value" => $userid), array("%d", "%s", "%d"));
+                $upvoted = true;
             }
 
             $entry_karma = $wpdb->get_var($wpdb->prepare(
@@ -75,7 +77,7 @@
             WHERE comment_id=%d
             AND meta_key='user_upvote_id'
           ",
-          $post_id
+          $comment_id
         ));
 
             if ($voted === false) {
