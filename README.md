@@ -16,7 +16,14 @@ A note on the structure:
   - the views and models aren't very well defined. i'm thinking of calling them all "classes" and then call the real views "templates"
 
 Todo list:
+_Short term_
   - [x] tracking member-karma/creating a member pages
   - [x] allow logged-in members to post from the WordPress front-end
-  - [ ] write functions to work without Javascript.
   - [ ] allow looking at others' profile details, posts submitted, etc.
+  - [ ] allow editing/deleting one's own posts and comments (and handling the karma implications)
+  - [ ] fix jquery on comments page to allow opening and closing replies at will
+  - [ ] fix post and comment queries to correctly sort within first ~5 minutes of posting
+  - [ ] add nonces to everything
+_Longer Term_
+  - [ ] write functions to work without Javascript.
+  - [ ] abstract functions to allow customization/full functionality from admin area (defining posts, sorting algorithms, etc.)
