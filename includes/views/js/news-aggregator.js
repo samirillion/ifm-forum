@@ -105,19 +105,11 @@ jQuery(document).ready( function($) {
      });
 
 // script for replying to a comment
-     var reply='<div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" /><a href="#" class="submit-reply">Reply</a><div class="remove-reply">cancel</div></div>'
-     $(".comment-node .reply-to-comment").click( function() {
-       if ( reply != '') {
-            $(this).append(reply);
-            reply = '';
-          }
-           });
-
-      $(".reply-to-comment").on('click', '.remove-reply', function(event) {
-          event.target.parentElement.remove();
+     $(".comment-node .reply-to-comment").on( "click", function() {
+       $(this).next().toggle();
       });
 
-      $('.reply-to-comment').on('click', '.submit-reply', function(e) {
+      $('.submit-reply').on('click', function(e) {
            e.preventDefault();
           //  // information to be sent to the server
            var content = $(this).prev().val();

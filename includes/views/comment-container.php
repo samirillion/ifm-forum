@@ -56,9 +56,8 @@ class commentContainer
       <div class="comment-time"><?php echo human_time_diff(strtotime($comment['comment_date_gmt']), current_time('timestamp', 1)) . ' ago'; ?></div>
       <?php
       // $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
-      echo $comment['comment_content'];
+      echo '<div class="comment-content">' . $comment['comment_content'] . '</div>';
       ?>
-      <br>
       <a class="vote_on_comment" data-upordown="up">
         <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
           echo 'unvote';
@@ -68,6 +67,8 @@ class commentContainer
         }?>
         </a>
         <div class="reply-to-comment">reply</div>
+        <div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" ></textarea><a class="submit-reply">Reply</a><div class="remove-reply">cancel</div></div>
+        <hr>
       <?php
   		// Print all our children
   		self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
@@ -86,7 +87,8 @@ class commentContainer
             'loginPage' => home_url( 'member-login' )
           ));
             wp_enqueue_script('news-aggregator');
-          echo "<h3><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h3>";
+          echo "<h3 class='comment-post-title'><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h3>";
+          echo '<div class="post-type">(' . (wp_get_object_terms( get_query_var('agg_post_id'), 'aggpost-type'))[0]->{'name'} . ')</div>';
           if (!$commentQuery) {
             echo "No comments here! start the discussion";
           }

@@ -2,6 +2,16 @@
   font-size: calc(20px + (12) * ((100vw - 300px) / (1300)));
 }
 
+.comment-post-title {
+  margin-bottom: 0;
+}
+
+.comment-content {
+  padding: 1em;
+}
+.comment-reply-container {
+  display: none;
+}
 .vote_on_comment:hover {
   cursor: pointer;
 }
