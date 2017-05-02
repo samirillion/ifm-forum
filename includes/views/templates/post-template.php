@@ -56,7 +56,7 @@ class postTemplate
         break;
 } ?>
       <a class="aggregator-entry-link <?php echo $classLength ?>" href="<?php echo $posturl ?>" target="new"><?php echo $post->post_title ?></a><br>
-      <div class="aggregator-item post-type"><?php echo (wp_get_object_terms( $post_ID, 'aggpost-type'))[0]->{'name'}?></div>
+      <div class="aggregator-item post-type"><?php echo (wp_get_object_terms( $post_ID, 'aggpost-type'))[0]->{'name'}; ?></div>
       <div class="host-url aggregator-item">(<?php echo preg_replace("#^www\.#", "", parse_url($posturl)["host"]) ?>)</div>
       <?php if($post->post_author != get_current_user_id()) {?>
         <div class="original-poster aggregator-item">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user'));?>" target="_blank"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a></div>
