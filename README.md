@@ -18,10 +18,11 @@ A note on the structure:
 Todo list:
   - [x] tracking member-karma/creating a member pages
   - [x] allow logged-in members to post from the WordPress front-end
-  - [ ] allow looking at others' profile details, posts submitted, etc.
-  - [ ] allow editing/deleting one's own posts and comments (and handling the karma implications)
+  - [x] allow looking at others' profile details
+  - [x] allow editing one's own posts and comments (and handling the karma implications)
+  - [ ] allow deleting posts
   - [ ] fix jquery on comments page to allow opening and closing replies at will
-  - [ ] fix post and comment queries to correctly sort within first ~5 minutes of posting
+  - [x] fix post and comment queries to correctly sort within first ~5 minutes of posting
   - [ ] add nonces to everything
   - [ ] write functions to work without Javascript.
   - [ ] abstract functions to allow customization/full functionality from admin area (defining posts, sorting algorithms, etc.)

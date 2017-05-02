@@ -12,7 +12,11 @@
             $querystr = "
           SELECT
             $wpdb->posts.*,
-            ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) as karma_divisor
+            CASE
+              WHEN ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) = 0
+              THEN .01
+              ELSE ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2)
+              END AS karma_divisor
             FROM $wpdb->posts
             WHERE $wpdb->posts.post_type= 'aggregator-posts'
             AND $wpdb->posts.post_status = 'publish'

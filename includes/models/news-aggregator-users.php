@@ -2,10 +2,12 @@
 
     class newsAggregatorUsers
     {
-        public static function calculate_user_karma()
+        public static function calculate_user_karma($userID=-1)
         {
           global $wpdb;
+          if ($userID == -1) {
           $userID = get_current_user_id();
+        }
           $postKarmaCount = $wpdb->get_results(
             $wpdb->prepare(
             "select count(*)

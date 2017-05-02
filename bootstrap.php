@@ -12,9 +12,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'PONDS_AGGREGATOR_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
-define( 'PONDS_AGGREGATOR_REQUIRED_WP_VERSION',  '3.0' );
-define( 'PONDS_AGGREGATOR_REQUIRED_WP_NETWORK',  false ); // because plugin is not compatible with WordPress multisite
+define( 'CROWDSORTER_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
+define( 'CROWDSORTER_REQUIRED_WP_VERSION',  '3.0' );
+define( 'CROWDSORTER_REQUIRED_WP_NETWORK',  false ); // because plugin is not compatible with WordPress multisite
 
 /**
  * Checks if the system requirements are met
@@ -26,13 +26,13 @@ function crowdsorter_requirements_met() {
 
 	global $wp_version;
 
-	if ( version_compare( PHP_VERSION, PONDS_AGGREGATOR_REQUIRED_PHP_VERSION, '<' ) ) {
+	if ( version_compare( PHP_VERSION, CROWDSORTER_REQUIRED_PHP_VERSION, '<' ) ) {
 		return false;
 	}
-	if ( version_compare( $wp_version, PONDS_AGGREGATOR_REQUIRED_WP_VERSION, '<' ) ) {
+	if ( version_compare( $wp_version, CROWDSORTER_REQUIRED_WP_VERSION, '<' ) ) {
 		return false;
 	}
-	if ( is_multisite() != PONDS_AGGREGATOR_REQUIRED_WP_NETWORK ) {
+	if ( is_multisite() != CROWDSORTER_REQUIRED_WP_NETWORK ) {
 		return false;
 	}
 

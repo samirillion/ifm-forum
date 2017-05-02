@@ -1,3 +1,6 @@
+window.onload = function(){
+
+  }
 jQuery(document).ready( function($) {
 
    jQuery("#aggregator-container").on( "click", ".upvote_entry", function() {
@@ -16,11 +19,11 @@ jQuery(document).ready( function($) {
             }
             if(response.type == "success") {
               upvoter.toggleClass('bottom-left bottom-right')
-              if (response.upvoted) {
+            if (response.upvoted == 1) {
               upvoter.html('++')
             } else {
               upvoter.html('unvote')
-            }
+              }
             if (response.entry_karma == 1) {
               upvoter.prev().html(response.entry_karma + " point")
             } else {
@@ -68,7 +71,7 @@ jQuery(document).ready( function($) {
 //Mention you must be logged in
    $('#post-title').one("focus", function(){
      if ( !myAjax.loggedIn){
-       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
+       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to post</div>");
      }
    })
 
@@ -102,7 +105,7 @@ jQuery(document).ready( function($) {
      });
 
 // script for replying to a comment
-     var reply='<div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" /><a href="#" class="submit-reply">Reply</a><div class="remove-reply">x</div></div>'
+     var reply='<div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" /><a href="#" class="submit-reply">Reply</a><div class="remove-reply">cancel</div></div>'
      $(".comment-node .reply-to-comment").click( function() {
        if ( reply != '') {
             $(this).append(reply);
@@ -158,9 +161,9 @@ jQuery(document).ready( function($) {
              }
              if(response.type == "success") {
                if (response.upvoted == 0) {
-               upvoter.html('unvote')
-             } else {
                upvoter.html('++')
+             } else {
+               upvoter.html('unvote')
              }
            }
           }
@@ -168,28 +171,34 @@ jQuery(document).ready( function($) {
 
     });
 
-//    jQuery( ".aggregator-entry-link" ).each(function( ) {
+
+//    $( ".aggregator-entry-link" ).each( function( ) {
 //
-//     var $quote = jQuery(this);
+//     var $quote = $(this);
 //
-//     var $numWords = $quote.text().split(" ").length;
+//     var $numChars = $quote.text().length;
+//     // $(this).html($numChars);
 //
-//     if (($numWords >= 1) && ($numWords < 25)) {
+//     if (($numChars > 0) && ($numChars < 25)) {
 //         $quote.css("font-size", "1.8em");
 //     }
-//     else if (($numWords >= 25) && ($numWords < 50)) {
+//     else if (($numChars >= 25) && ($numChars < 50)) {
 //         $quote.css("font-size", "1.6em");
 //     }
-//     else if (($numWords >= 50) && ($numWords < 75)) {
+//     else if (($numChars >= 50) && ($numChars < 75)) {
 //         $quote.css("font-size", "1.4em");
 //     }
-//     else if (($numWords >= 75) && ($numWords < 100)) {
-//         $quote.css("font-size", "1.1em");
-//     }
-//     else {
-//         $quote.css("font-size", "1em");
-//     }
+//     else if (($numChars >= 75 && ($numChars < 100))) {
+//         $quote.css("font-size", "1.3em");
+//     }   else {
+//           $quote.css("font-size", "1.2em");
+//       }
 //
+// });
+//
+// $('#aggregator-container').masonry({
+//   // options
+//   itemSelector: '.aggregator-entry-wrapper',
 // });
 
 });

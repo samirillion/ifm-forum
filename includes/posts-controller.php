@@ -22,15 +22,41 @@ class crowdsortPostsController
         add_action('wp_ajax_nopriv_vote_on_comment', array( $plugin, 'redirect_to_login_ajax'));
         add_action('admin_post_submit_post', array( $plugin, 'submit_post'));
         add_action('admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login'));
+        add_shortcode('edit-aggpost', array( $plugin, 'render_edit_post_container'));
+        add_action('admin_post_edit_post', array( $plugin, 'edit_post'));
     }
     public function __construct()
     {
+    }
+
+    public function edit_post() {
+
+      if (get_post_field( 'post_author', $_POST['post-id']) != get_current_user_id()) {
+        wp_safe_redirect(add_query_arg('agg_post_id', $_POST['post-id'], home_url('edit')));
+      }
+
+      $the_post = array(
+      'ID'           => $_POST['post-id'],
+      'post_title'   => $_POST['post-title'],
+      );
+
+      update_post_meta( $_POST['post-id'], 'aggregator_entry_url', $_POST['post-url'] );
+      wp_set_object_terms( $_POST['post-id'], $_POST['post-type'], 'aggpost-type', false );
+      wp_update_post( $the_post );
+
+      wp_safe_redirect(add_query_arg('agg_post_id', $_POST['post-id'], home_url('edit')));
+    }
+
+    public function render_edit_post_container() {
+      require_once('views/edit-posts.php');
+      crowdsorterEditPosts::render();
     }
 
     public function add_query_vars($vars)
     {
         $vars[] .= 'agg_post_id';
         $vars[] .= 'status';
+        $vars[] .= 'user_id';
         return $vars;
     }
 

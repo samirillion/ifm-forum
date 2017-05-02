@@ -59,14 +59,15 @@ class commentContainer
       echo $comment['comment_content'];
       ?>
       <br>
-      <div class="reply-to-comment">reply</div><a class="vote_on_comment" data-upordown="up">
+      <a class="vote_on_comment" data-upordown="up">
         <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
-          echo '++';
+          echo 'unvote';
         }
         else {
-          echo 'unvote';
+          echo '++';
         }?>
         </a>
+        <div class="reply-to-comment">reply</div>
       <?php
   		// Print all our children
   		self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
@@ -85,7 +86,7 @@ class commentContainer
             'loginPage' => home_url( 'member-login' )
           ));
             wp_enqueue_script('news-aggregator');
-          echo "<h3>".get_the_title(get_query_var('agg_post_id'))."</h3>";
+          echo "<h3><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h3>";
           if (!$commentQuery) {
             echo "No comments here! start the discussion";
           }

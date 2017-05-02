@@ -24,9 +24,15 @@ class crowdsortUsersController
         add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
         add_shortcode( 'change-password', array($plugin, 'change_password_form'));
         add_action( 'admin_post_change_password', array($plugin, 'update_password'));
+        add_shortcode( 'user-profile', array($plugin, 'render_user_profile'));
     }
     public function __construct()
     {
+    }
+
+    public function render_user_profile() {
+      require_once('views/user-profile.php');
+      crowdsorterUserProfile::render();
     }
 
     public function change_password_form() {

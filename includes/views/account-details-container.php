@@ -13,6 +13,10 @@ class accountDetailsContainer
             wp_enqueue_script('news-aggregator');
             $current_user = wp_get_current_user();
               echo 'Username: ' . $current_user->user_login . '<br />';
+              require_once( plugin_dir_path( __DIR__ ) . 'models/news-aggregator-users.php');
+              $userKarma = newsAggregatorUsers::calculate_user_karma();
+              echo 'User Karma: ' . $userKarma. '<br />';
+              echo 'User Since: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . ' ago';
       ?>
     <form id="account-details" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
 

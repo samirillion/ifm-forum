@@ -41,6 +41,14 @@ public function define_pages()
  'change-password' => array(
      'title' => __( 'Change My Password', 'change-password' ),
      'content' => '[change-password]'
+ ),
+ 'edit-post' => array(
+     'title' => __( 'Edit My Post', 'edit-aggpost' ),
+     'content' => '[edit-aggpost]'
+ ),
+ 'view-user-profile' => array(
+     'title' => __( 'View User Profile', 'user-profile' ),
+     'content' => '[user-profile]'
  )
 );
 

@@ -6,6 +6,17 @@
   cursor: pointer;
 }
 
+.remove-reply {
+  float: right;
+  margin-left: 1em;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.comment-node {
+  list-style-type: none;
+}
+
 .reply-to-comment:hover {
   cursor: pointer;
 }
@@ -21,7 +32,7 @@ textarea {
 
 .aggregator-entry-wrapper {
   width: 50%;
-  height: 13em;
+  height: 14.5em;
   float: left;
   margin-bottom: .2em;
   margin-top: .2em;
@@ -57,6 +68,29 @@ textarea {
   /*border: 1px solid red;*/
 }
 
+.post-type {
+  font-weight: bold;
+}
+
+.short {
+  font-size: 1.8em;
+}
+
+.middle {
+  font-size: 1.6em;
+}
+.long {
+  font-size: 1.4em;
+}
+
+.longer {
+  font-size: 1.3em;
+}
+
+.longest {
+  font-size: 1.2em;
+}
+
 .entry-items-wrapper {
   clear: both;
   float: left;
@@ -70,6 +104,8 @@ textarea {
   clear: left;
   font-size: .9em;
   line-height: 1.3em;
+  display: inline;
+  float: left;
 }
 
 

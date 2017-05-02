@@ -9,7 +9,12 @@
             $querystr = "
           SELECT
             $wpdb->comments.*,
-            ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->comments.comment_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) as karma_divisor,
+            CASE
+              WHEN ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->comments.comment_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2) = 0
+              THEN .01
+              ELSE
+              ROUND(POW((TIMESTAMPDIFF( MINUTE, $wpdb->comments.comment_date_gmt, UTC_TIMESTAMP())/60), 1.8), 2)
+              END as karma_divisor,
             (SELECT count(*) FROM wp_commentmeta WHERE comment_id=$wpdb->comments.comment_ID AND meta_key='user_upvote_id') as karma
           FROM $wpdb->comments
             WHERE $wpdb->comments.comment_post_ID=".get_query_var('agg_post_id')."
