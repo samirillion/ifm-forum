@@ -9,7 +9,6 @@ class crowdsortPostsController
         add_shortcode('crowdsortcontainer', array( $plugin, 'create_container' ));
         add_shortcode('crowdsorter-post', array( $plugin, 'create_new_post_template' ));
         add_shortcode('edit-aggpost', array( $plugin, 'render_edit_post_container'));
-        add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
 
         add_action('init', array( $plugin, 'generate_sorter' ));
         add_action('wp_ajax_add_entry_karma', array( $plugin, 'my_user_vote' ));

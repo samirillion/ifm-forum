@@ -1,1 +1,29 @@
+#aggregator-container {
+  margin-top: 20px;
+  font-family: Montserrat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#aggregator-container .vote-wrapper {
+  display: block;
+  width: 10%;
+  float: left;
+}
 
+#aggregator-container .right-wrapper {
+  display: block;
+  width: calc(90% - 20px);
+  float: right;
+  margin-left: 20px;
+  font-size: 18px;
+} 
+
+#aggregator-container .right-wrapper .first-row, 
+#aggregator-container .right-wrapper .second-row {
+  display: flex;
+}
+
+#aggregator-container .aggregator-karma {
+  font-size: 12px;
+}

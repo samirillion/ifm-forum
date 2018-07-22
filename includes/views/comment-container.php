@@ -57,15 +57,15 @@ class commentContainer
       <?php
       // $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
       echo '<div class="comment-content">' . $comment['comment_content'] . '</div>';
-      ?>
-      <a class="vote_on_comment" data-upordown="up">
-        <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
-          echo 'unvote';
-        }
-        else {
-          echo '++';
-        }?>
-        </a>
+          ?>
+          <a class="vote_on_comment" data-upordown="up">
+            <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
+              echo 'unvote';
+            }
+            else {
+              echo '++';
+            }?>
+            </a>
         <div class="reply-to-comment">reply</div>
         <div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" ></textarea><a class="submit-reply">Reply</a><div class="remove-reply">cancel</div></div>
         <hr>
