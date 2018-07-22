@@ -4,7 +4,9 @@ class crowdsortCommentsController
     public static function register()
     {
         $plugin = new self();
+        
         add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
+        
         add_action('wp_ajax_addComment', array( $plugin, 'comment_on_post'));
         add_action('wp_ajax_nopriv_addComment', array( $plugin, 'redirect_to_login'));
         add_action('wp_ajax_vote_on_comment', array( $plugin, 'vote_on_comment'));

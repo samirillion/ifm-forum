@@ -8,6 +8,11 @@ class crowdsortUsersController
 
         add_shortcode('custom-login-form', array( $plugin, 'custom_login_form' ));
         add_shortcode( 'custom-register-form', array( $plugin, 'render_register_form' ) );
+        add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
+        add_shortcode('crowdsorter-account-details', array( $plugin, 'show_account_details' ));
+        add_shortcode( 'change-password', array($plugin, 'change_password_form'));
+        add_shortcode( 'user-profile', array($plugin, 'render_user_profile'));
+        
         add_action('admin_post_nopriv_registration_form', array( $plugin, 'register_account'));
         add_action('login_form_login', array( $plugin, 'redirect_to_custom_login' ));
         add_filter('authenticate', array( $plugin, 'maybe_redirect_at_authenticate' ), 101, 3);
@@ -16,15 +21,11 @@ class crowdsortUsersController
         add_action( 'login_form_register', array( $plugin, 'redirect_to_custom_register' ) );
         add_action( 'login_form_register', array( $plugin, 'do_register_user' ) );
         add_action( 'login_form_lostpassword', array( $plugin, 'redirect_to_custom_lostpassword' ) );
-        add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
         add_action( 'login_form_lostpassword', array( $plugin, 'do_password_lost' ) );
         add_filter( 'retrieve_password_message', array( $plugin, 'replace_retrieve_password_message' ), 10, 4 );
-        add_shortcode('crowdsorter-account-details', array( $plugin, 'show_account_details' ));
         add_action( 'wp_footer', array($plugin,'user_login_logout' ));
         add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
-        add_shortcode( 'change-password', array($plugin, 'change_password_form'));
         add_action( 'admin_post_change_password', array($plugin, 'update_password'));
-        add_shortcode( 'user-profile', array($plugin, 'render_user_profile'));
     }
     public function __construct()
     {

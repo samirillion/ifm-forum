@@ -6,12 +6,14 @@ class crowdsortPostsController
     {
         $plugin = new self();
 
-        add_action('init', array( $plugin, 'generate_sorter' ));
         add_shortcode('crowdsortcontainer', array( $plugin, 'create_container' ));
         add_shortcode('crowdsorter-post', array( $plugin, 'create_new_post_template' ));
+        add_shortcode('edit-aggpost', array( $plugin, 'render_edit_post_container'));
+        add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
+
+        add_action('init', array( $plugin, 'generate_sorter' ));
         add_action('wp_ajax_add_entry_karma', array( $plugin, 'my_user_vote' ));
         add_action('wp_ajax_nopriv_add_entry_karma', array( $plugin, 'redirect_to_login_ajax'));
-        add_shortcode('custom-comments', array( $plugin, 'render_comments_page'));
         add_filter('query_vars', array( $plugin, 'add_query_vars'));
         add_action('post_ranking_cron', array( $plugin, 'update_post_rank'));
         add_action('wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts'));
@@ -22,7 +24,6 @@ class crowdsortPostsController
         add_action('wp_ajax_nopriv_vote_on_comment', array( $plugin, 'redirect_to_login_ajax'));
         add_action('admin_post_submit_post', array( $plugin, 'submit_post'));
         add_action('admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login'));
-        add_shortcode('edit-aggpost', array( $plugin, 'render_edit_post_container'));
         add_action('admin_post_edit_post', array( $plugin, 'edit_post'));
     }
     public function __construct()

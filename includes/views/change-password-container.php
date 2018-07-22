@@ -4,7 +4,6 @@ class crowdsorterChangePassword
 {
   public static function render()
         {
-          wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
           if ( !is_user_logged_in() ) {
             echo "you need to be logged in to change your password<br>";
           } else if ( get_query_var('status') == 'failed') {
