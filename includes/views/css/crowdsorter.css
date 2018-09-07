@@ -1,16 +1,21 @@
 #aggregator-container {
   margin-top: 20px;
-  font-family: Montserrat;
+  font-family: helvetica;
+}
+#aggregator-container .aggregator-entry-wrapper {
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 #aggregator-container .vote-wrapper {
   display: block;
   width: 10%;
   float: left;
+  text-align: right;
 }
-
+#aggregator-container .upvote-img {
+  width: 30%;
+}
 #aggregator-container .right-wrapper {
   display: block;
   width: calc(90% - 20px);
@@ -18,12 +23,47 @@
   margin-left: 20px;
   font-size: 18px;
 } 
-
+#aggregator-container .right-wrapper .first-row {
+  margin-bottom: 6px;
+}
 #aggregator-container .right-wrapper .first-row, 
 #aggregator-container .right-wrapper .second-row {
   display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+#aggregator-container .first-row > div {
+  margin-right: 12px;
+  margin-left: 12px;
+}
+#aggregator-container .first-row > div.host-url {
+  margin-left: 0;
+}
+#aggregator-container .right-wrapper .post-type {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-right: 8px;
+  margin-left: 0;
 }
 
 #aggregator-container .aggregator-karma {
   font-size: 12px;
+}
+
+#aggregator-container .tags > a {
+    display: inline-block;
+    font-size: 14px;
+    padding: 4px;
+    background: #bbb;
+    transition: .2s all;
+}
+#aggregator-container .tags > a:hover {
+    color: white;
+    background: #999
+}
+#aggregator-container .divider {
+  margin-left: 5px;
+  margin-right: 5px;
 }

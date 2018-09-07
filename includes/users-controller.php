@@ -23,7 +23,7 @@ class crowdsortUsersController
         add_action( 'login_form_lostpassword', array( $plugin, 'redirect_to_custom_lostpassword' ) );
         add_action( 'login_form_lostpassword', array( $plugin, 'do_password_lost' ) );
         add_filter( 'retrieve_password_message', array( $plugin, 'replace_retrieve_password_message' ), 10, 4 );
-        add_action( 'wp_footer', array($plugin,'user_login_logout' ));
+        // add_action( 'wp_footer', array($plugin,'user_login_logout' ));
         add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
         add_action( 'admin_post_change_password', array($plugin, 'update_password'));
     }

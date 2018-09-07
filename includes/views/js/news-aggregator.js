@@ -15,6 +15,8 @@ jQuery(document).ready( function($) {
          data : {action: "add_entry_karma", post_id : post_id, nonce: nonce},
          success: function(response) {
             if(response.redirect) {
+              // window.alert("you need to login <a href='" + response.redirect + "'>here</a> to comment ")
+              // console.log(response.redirect)
               window.location.href = response.redirect;
             }
             if(response.type == "success") {
