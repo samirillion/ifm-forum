@@ -43,9 +43,11 @@ class postTemplate
                 <?php 
                     if ($upvoted) {
                         //slightly ghetto solution where I finish the div with the php
-                        echo '<img class="upvote-img" src="'.plugin_dir_url(__DIR__).'assets/up-arrow-selected@2x.png">';
+                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow-selected@2x.png">';
+                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow@2x.png" style="display:none;">';
                     } else {
-                        echo '<img class="upvote-img" src="'.plugin_dir_url(__DIR__).'assets/up-arrow@2x.png">';
+                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow-selected@2x.png" style="display:none;">';
+                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow@2x.png">';
                     } ?>
              </div>
             <div class="aggregator-karma aggregator-item"><?php if ($upvotes == 1) {

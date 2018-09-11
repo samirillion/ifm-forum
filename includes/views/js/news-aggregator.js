@@ -3,8 +3,9 @@ window.onload = function(){
   }
 jQuery(document).ready( function($) {
 
-   jQuery("#aggregator-container").on( "click", ".upvote_entry", function() {
-      upvoter = jQuery(this)
+   jQuery("#aggregator-container").on( "click", ".aggreggator-vote", function() {
+      voter = jQuery(this)
+      console.log(voter)
       post_id = jQuery(this).attr("data-post_id")
       nonce = jQuery(this).attr("data-nonce")
 
@@ -20,17 +21,19 @@ jQuery(document).ready( function($) {
               window.location.href = response.redirect;
             }
             if(response.type == "success") {
-              upvoter.toggleClass('bottom-left bottom-right')
+              console.log('success')
             if (response.upvoted == 1) {
-              upvoter.html('++')
+              voter.hide()
             } else {
-              upvoter.html('unvote')
+              voter.hide()
               }
             if (response.entry_karma == 1) {
-              upvoter.prev().html(response.entry_karma + " point")
+              voter.prev().html(response.entry_karma + " point")
             } else {
-            upvoter.prev().html(response.entry_karma + " points")
+            voter.prev().html(response.entry_karma + " points")
           }
+          } else {
+            console.log('failure')
           }
          }
       })
@@ -135,7 +138,7 @@ jQuery(document).ready( function($) {
  //Script for voting on a comment
     $(".vote_on_comment").on( "click", function(e) {
        e.preventDefault();
-      var upvoter = $(this)
+      var voter = $(this)
       var comment_id = $(this).closest("li").attr('id')
       var nonce = $(this).closest("li").attr('data-nonce')
       var upordown = $(this).attr("data-upordown")
@@ -155,9 +158,9 @@ jQuery(document).ready( function($) {
              }
              if(response.type == "success") {
                if (response.upvoted == 0) {
-               upvoter.html('++')
+               voter.html('++')
              } else {
-               upvoter.html('unvote')
+               voter.html('unvote')
              }
            }
           }
