@@ -18,11 +18,13 @@
 
                 <p class="form-row">
                     <label for="post-title"><?php _e( 'Post Title', 'submit-post' ); ?></label>
+                    <br>
                     <input type="text" name="post-title" id="post-title" class="post-input" required>
                 </p>
 
                 <p class="form-row">
                     <label for="url"><?php _e( 'URL', 'submit-post' ); ?></label>
+                    <br>
                     <input type="url" name="post-url" id="post-url" class="post-input" required>
                 </p>
                 <p class="form-row">

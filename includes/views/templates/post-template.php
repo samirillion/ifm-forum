@@ -10,9 +10,9 @@ class postTemplate
             $postmeta = get_post_meta($post_ID);
             $posturl = $postmeta["aggregator_entry_url"]["0"];
             $nonce = wp_create_nonce("aggregator_page_nonce");
-            $commentslink = add_query_arg('agg_post_id', $post_ID, home_url('comments'));
+            $commentslink = add_query_arg('aggregator_post_id', $post_ID, home_url('comments'));
             $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
-            $editlink = add_query_arg('agg_post_id', $post_ID, home_url('edit'));
+            $editlink = add_query_arg('aggregator_post_id', $post_ID, home_url('edit'));
             $upvotes = $wpdb->get_var($wpdb->prepare(
     "
       SELECT count(*)
@@ -36,54 +36,52 @@ class postTemplate
   ));
             } else {
                 $upvoted = false;
-            } ?>
-    <div class="aggregator-entry-wrapper clearfix">
-      <div class="vote-wrapper">
-              <div data-nonce="<?php echo $nonce ?>" data-post_id="<?php echo $post_ID ?>" href="<?php echo $link ?>" class="upvote_entry aggregator-item">
+            } 
+$user_is_op = $post->post_author == get_current_user_id() ? true : false;
+    ?>
+    <div class="agg-entry-wrapper clearfix">
+      <div class="agg-item-voter">
+              <div data-nonce="<?php echo $nonce ?>" data-post_id="<?php echo $post_ID ?>" href="<?php echo $link ?>" class="upvote_entry">
                 <?php 
                     if ($upvoted) {
-                        //slightly ghetto solution where I finish the div with the php
-                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow-selected@2x.png">';
-                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow@2x.png" style="display:none;">';
+                        echo '<div class="agg-vote"></div>';
                     } else {
-                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow-selected@2x.png" style="display:none;">';
-                        echo '<img class="aggreggator-vote" src="'.plugin_dir_url(__DIR__).'assets/up-arrow@2x.png">';
+                        echo '<div class="agg-vote"></div>';
                     } ?>
              </div>
-            <div class="aggregator-karma aggregator-item"><?php if ($upvotes == 1) {
-                        echo $upvotes . " point";
+            <div class="agg-karma"><?php if ($upvotes == 1) {
+                        echo $upvotes;
                     } else {
-                        echo $upvotes . " points";
+                        echo $upvotes;
                     } ?>
+            </div>
+      </div>
+      <div class="agg-item-content">
+        <div class="agg-post-title">
+          <span class="title">
+          <span class="agg-post-type"><?php echo(wp_get_object_terms($post_ID, 'aggpost-type'))[0]->{'name'}; ?> &ndash; </span>
+          </span>
+          <a class="agg-entry-link" href="<?php echo $posturl ?>"><?php echo $post->post_title ?></a>
+          <span class="host-url">(<?php echo preg_replace("#^www\.#", "", parse_url($posturl)["host"]) ?>)</span>
+        </div>
+        <div class="agg-post-meta">
+            <span class="agg-time-since-post">
+              <?php echo human_time_diff($post_Date_GMT, current_time('timestamp', 1)) . ' ago'; ?>
+            </span>
+            <span class="agg-op  <?php if ($user_is_op) { echo 'agg-user-is-op';}?>">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a>
+            </span>
+          <a class="agg-comments-link" href="<?php echo $commentslink ?>">comments (<?php echo wp_count_comments($post_ID)->total_comments; ?>)</a>
+          <?php if ($user_is_op) {
+                echo "<a href='".$editlink."'>edit</a>";
+          } ?>
+          <span class="agg-tags">
+            <a href="#">urban ag</a>
+            <a href="#">louisville</a>
+            <a href="#">world</a>
+          </span>
         </div>
       </div>
-      <div class="right-wrapper">
-        <div class="first-row">
-            <div class="aggregator-item post-type"><?php echo(wp_get_object_terms($post_ID, 'aggpost-type'))[0]->{'name'}; ?>Post-type:</div>
-            <a class="aggregator-entry-link" href="<?php echo $posturl ?>" target="new"><?php echo $post->post_title ?></a><br>
-            <?php if ($post->post_author != get_current_user_id()) {
-                        ?>
-            <div class="tags">
-              <a href="" class="tag-1">Example</a>
-              <a href="" class="tag-1">Second Example</a>
-            </div>
-            <div class="host-url aggregator-item">(<?php echo preg_replace("#^www\.#", "", parse_url($posturl)["host"]) ?>)</div>
-        </div>
-          <div class="second-row">
-            <div class="original-poster aggregator-item">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>" target="_blank"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a></div>
-          <?php
-                    } ?>
-                      <span class="divider">|</span>
-          <div class="post-time aggregator-item"><?php echo human_time_diff($post_Date_GMT, current_time('timestamp', 1)) . ' ago'; ?></div>
-                                <span class="divider">|</span>
-          <a class="comments-link aggregator-item" href="<?php echo $commentslink ?>">comments (<?php echo wp_count_comments($post_ID)->total_comments; ?>)</a>
-          <?php if ($post->post_author == get_current_user_id()) {
-                        echo "<a href='".$editlink."' target='_blank' class='aggregator-item'>edit</a>";
-                    } ?>
-        </div>
-        </div>
     </div>
-    <hr>
   <?php
         }
     }

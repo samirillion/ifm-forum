@@ -87,7 +87,7 @@ class commentContainer
             'loginPage' => home_url( 'member-login' )
           ));
             wp_enqueue_script('news-aggregator');
-          echo "<h3 class='comment-post-title'><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h3>";
+          echo "<h4 class='comment-post-title'><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h4>";
           echo '<div class="post-type">(' . (wp_get_object_terms( get_query_var('agg_post_id'), 'aggpost-type'))[0]->{'name'} . ')</div>';
           if (!$commentQuery) {
             echo "No comments here! start the discussion";

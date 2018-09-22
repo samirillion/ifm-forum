@@ -59,7 +59,7 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
                       // Lost password
 
             case 'empty_username':
-              return __( 'You need to enter your email address to continue.', 'personalize-login' );
+              return __( 'You need to enter your username  to continue.', 'personalize-login' );
 
             case 'invalidcombo':
               return __( 'There are no users registered with this email address.', 'personalize-login' );

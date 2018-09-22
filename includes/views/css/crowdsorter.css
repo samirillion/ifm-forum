@@ -1,69 +1,82 @@
-#aggregator-container {
-  margin-top: 20px;
-  font-family: helvetica;
-}
-#aggregator-container .aggregator-entry-wrapper {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}
-#aggregator-container .vote-wrapper {
-  display: block;
-  width: 10%;
+.agg-item-voter {
+  width: 40px;
+  height: 70px;
   float: left;
-  text-align: right;
+  text-align: center;
 }
-#aggregator-container .aggreggator-vote {
-  width: 30%;
-}
-#aggregator-container .right-wrapper {
+.agg-vote {
+  width: 0px;
+  height: 0;
+  border-color: transparent transparent #D3D3D3 transparent;
+  border-style: solid;
+  border-width: 9px;
+  border-bottom-width: 17px;
+  text-decoration: none;
+  margin: 0 auto;
   display: block;
-  width: calc(90% - 20px);
-  float: right;
-  margin-left: 20px;
-  font-size: 18px;
-} 
-#aggregator-container .right-wrapper .first-row {
-  margin-bottom: 6px;
 }
-#aggregator-container .right-wrapper .first-row, 
-#aggregator-container .right-wrapper .second-row {
+.agg-vote:hover {
+  border-bottom-color: #7BBA22;
+  cursor: pointer;
+}
+.agg-post-title {
+  font-size: 18px;
+}
+.agg-item-voter {
   display: flex;
   align-items: center;
-  justify-content: left;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #999999;
+  border-bottom: none;
 }
-
-#aggregator-container .first-row > div {
-  margin-right: 12px;
-  margin-left: 12px;
+.agg-item-content {
+  height: 70px;
+  width: calc(100% - 50px);
+  float: left;
+  padding: 10px;
+  border: 1px solid #999999;
+  border-left: none;
+  border-bottom: none;
 }
-#aggregator-container .first-row > div.host-url {
-  margin-left: 0;
+.agg-entry-wrapper:last-child .agg-item-content, .agg-entry-wrapper:last-child .agg-item-voter {
+  border-bottom: 1px solid #999999;
 }
-#aggregator-container .right-wrapper .post-type {
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #aaa;
-  margin-right: 8px;
-  margin-left: 0;
+.agg-post-meta, .agg-post-title {
+  width: 100%;
 }
-
-#aggregator-container .aggregator-karma {
-  font-size: 12px;
+.agg-post-type {
+  font-variant: small-caps;
+  font-size: 20px;
 }
-
-#aggregator-container .tags > a {
-    display: inline-block;
-    font-size: 14px;
-    padding: 4px;
-    background: #bbb;
-    transition: .2s all;
+.host-url {
+  color: #999999;
+  font-size: 15px;
 }
-#aggregator-container .tags > a:hover {
-    color: white;
-    background: #999
+.agg-time-since-post, .agg-op, .agg-op a {
+  color: #999999;
+  font-size: 13px;
+  font-weight: 300;
 }
-#aggregator-container .divider {
+.agg-op {
+  margin-left: 1px;
+}
+.agg-comments-link{
+  color: #999999;
+  font-size: 15px;
+  font-weight: 900;
   margin-left: 5px;
   margin-right: 5px;
+}
+.agg-tags a {
+  margin-left: 2px;
+  margin-right: 2px;
+  color: #91056D;
+  text-decoration: underline;
+}
+.agg-user-is-op a {
+  color: #FF6F33;
+}
+.agg-post-types {
+  display: flex;
 }
