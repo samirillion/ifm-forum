@@ -2,7 +2,7 @@
 
     class postRankTracker
     {
-        public static function sort_posts()
+        public static function sort_posts($post_type = '')
         {
             global $wpdb;
             $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;

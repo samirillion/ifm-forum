@@ -27,7 +27,7 @@ class crowdsortUsersController
         add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
         add_action('admin_post_change_password', array($plugin, 'update_password'));
 
-        add_filter('wp_nav_menu_items', array($plugin, 'add_login_logout_links'), 10, 2);
+        add_filter('wp_nav_menu_items', array($plugin, 'add_conditional_menu_items'), 10, 2);
     }
     public function __construct()
     {
@@ -406,12 +406,14 @@ class crowdsortUsersController
         $userAccount::render();
     }
 
-    public function add_login_logout_links($items, $args){
+    public function add_conditional_menu_items($items, $args){
       if( $args->theme_location == 'primary' && is_admin()){
           $items .= '<li><a title="Admin" href="'. esc_url( admin_url() ) .'">' . __( 'Admin' ) . '</a></li>';
       } 
       if ( $args->theme_location == 'primary' && is_user_logged_in()) {
-          $items .= '<li><a title="Logout" href="'. esc_url( wp_logout_url('/fin-forum') ) .'">' . __( 'Logout' ) . '</a></li>';
+          require_once( plugin_dir_path( __FILE__ ) . 'models/news-aggregator-users.php');
+          $userKarma = newsAggregatorUsers::calculate_user_karma();
+          $items .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' ('.$userKarma.')</a></li>';
       } elseif ( $args->theme_location == 'primary'  && !is_user_logged_in()) {
          $items .= '<li><a title="Login" href="'. esc_url( wp_login_url('/fin-forum') ) .'">' . __( 'Login' ) . '</a></li>';
       }

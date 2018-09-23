@@ -34,6 +34,8 @@ class accountDetailsContainer
                       echo stripslashes(get_user_meta(get_current_user_id(), 'about_user', true));
                       ?></textarea>
                 </p>
+                <p class="form-row">
+                </p>
                 <?php wp_nonce_field( 'submit_aggregator_post' ); ?>
 
                 <p class="signup-submit">
@@ -42,7 +44,8 @@ class accountDetailsContainer
                 </p>
                 <input type="hidden" name="action" value="update_account_details">
             </form>
-            <a href=<?php echo home_url('change-password')?>>Change password</a>
+            <a class="agg-change-password" href=<?php echo home_url('change-password')?>>Change password</a>
+            <a title="Logout" class="agg-logout" href="<?php echo esc_url( wp_logout_url('/fin-forum') ) ?>">Logout</a>
       <?php
         }
 

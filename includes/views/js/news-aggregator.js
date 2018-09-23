@@ -82,7 +82,7 @@ jQuery( function($) {
 //Mention you must be logged in
    $('#post-title').one("focus", function(){
      if ( !myAjax.loggedIn){
-       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to post</div>");
+       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "' class='must-be-logged-in'>logged in</a> to post</div>");
      }
    })
 

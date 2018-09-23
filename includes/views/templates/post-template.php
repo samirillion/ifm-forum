@@ -71,11 +71,6 @@ $user_is_op = $post->post_author == get_current_user_id() ? true : false;
             <span class="agg-op  <?php if ($user_is_op) { echo 'agg-user-is-op';}?>">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a>
             </span>
           <a class="agg-comments-link" href="<?php echo $commentslink ?>">comments (<?php echo wp_count_comments($post_ID)->total_comments; ?>)</a>
-          <span class="agg-tags">
-            <a href="#">urban ag</a>
-            <a href="#">louisville</a>
-            <a href="#">world</a>
-          </span>
           <?php if ($user_is_op) {
                 echo "<a href='".$editlink."'> - edit</a>";
           } ?>

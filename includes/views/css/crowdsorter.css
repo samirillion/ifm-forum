@@ -143,11 +143,27 @@
   margin-bottom: 20px;
   display: block;
 }
+#account-details #user-email, #account-details #user-about {
+  width: 50%;
+}
+#account-details label {
+  display: block;
+}
+.agg-change-password, .agg-logout {
+  display: block;
+}
 .comment-content, .reply-to-comment, .comment-reply-container {
   margin-left: 16px;
 }
+.must-be-logged-in {
+  color: #E82C0C;
+}
 .submit-reply:hover {
   cursor: pointer;
+}
+.logged-in-user {
+  color: #FF6F33;
+  font-weight: 300;
 }
 .lcs_wrap {
   display: inline-block;  

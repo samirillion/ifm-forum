@@ -1,5 +1,10 @@
 <nav class="agg-nav">
-  <ul class="agg-post-types"><?php 
+  <ul class="agg-post-types">
+    <li class="aggpost-type-nav">
+      <a href="/fin-forum">
+        All
+      </a>
+    </li><?php
      $customterms =  get_terms( array(
                               'taxonomy' => 'aggpost-type',
                               'hide_empty' => false,
