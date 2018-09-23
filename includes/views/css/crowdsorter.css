@@ -15,12 +15,23 @@
   margin: 0 auto;
   display: block;
 }
-.agg-vote:hover, .agg-vote.upvoted {
+.vote_on_comment .agg-vote {
+  border-width: 6px;
+  border-bottom-width: 11px;
+  float: left;
+  margin-right: 4px;
+}
+.agg-vote.upvoted {
   border-bottom-color: #7BBA22;
   cursor: pointer;
 }
+.agg-vote:hover {
+  border-color: transparent transparent #999999 transparent;
+  cursor: pointer;
+}
 .agg-vote.upvoted:hover {
-  opacity: .8;
+  opacity: .6;
+  border-bottom-color: #7BBA22;
 }
 .agg-post-title {
   font-size: 18px;
@@ -99,10 +110,44 @@
   margin-top: 20px;
   color: #7bba22;
   font-size: 18px;
+  height: 50px;
+}
+#more_aggregator_posts img {
+  height: 100%;
+  margin-top: -15px;
 }
 #more_aggregator_posts:hover {
   cursor: pointer;
   opacity: .8;
+}
+.indented-list .comment-node {
+  display: block;
+  margin-top: 13px;
+}
+.reply-to-comment {
+  text-decoration: underline;
+}
+.reply-to-comment:hover {
+  cursor: pointer;
+}
+.comment-node .commenter, .comment-node .comment-time {
+  display: inline;
+  color: #999999;
+  font-size: 13px;
+  font-weight: 300;
+}
+#comment-text-area {
+  width: 60%;
+}
+#reply-to-post input[type="submit"] {
+  margin-bottom: 20px;
+  display: block;
+}
+.comment-content, .reply-to-comment, .comment-reply-container {
+  margin-left: 16px;
+}
+.submit-reply:hover {
+  cursor: pointer;
 }
 .lcs_wrap {
   display: inline-block;  

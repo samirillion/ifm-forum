@@ -52,23 +52,24 @@ class commentContainer
         );
       ?>
   		<li class="comment-node" id="<?php echo $comment['comment_ID']?>" data-nonce="<?php echo $nonce?>">
+      <a class="vote_on_comment" data-upordown="up">
+          <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
+                        echo '<div class="agg-vote upvoted"></div>';
+                    } else {
+                        echo '<div class="agg-vote"></div>';
+                    }?>
+      </a>
       <div class="commenter">by <?php echo $comment['comment_author'] ?></div>
       <div class="comment-time"><?php echo human_time_diff(strtotime($comment['comment_date_gmt']), current_time('timestamp', 1)) . ' ago'; ?></div>
       <?php
       // $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
       echo '<div class="comment-content">' . $comment['comment_content'] . '</div>';
           ?>
-          <a class="vote_on_comment" data-upordown="up">
-            <?php if ($upvoted[0]->{'COUNT(*)'} == 1 ){
-              echo 'unvote';
-            }
-            else {
-              echo '++';
-            }?>
-            </a>
         <div class="reply-to-comment">reply</div>
-        <div class="comment-reply-container"><textarea name="comment-reply-content" id="comment-reply-content" ></textarea><a class="submit-reply">Reply</a><div class="remove-reply">cancel</div></div>
-        <hr>
+        <div class="comment-reply-container" style="display:none;">
+          <textarea name="comment-reply-content" id="comment-reply-content" required></textarea>
+          <a class="submit-reply">submit</a>
+        </div>
       <?php
   		// Print all our children
   		self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
@@ -79,7 +80,7 @@ class commentContainer
   public static function render($commentQuery)
         {
           wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
-          wp_register_script("news-aggregator", WP_PLUGIN_URL.'/crowd-sorter/includes/views/js/news-aggregator.js', array('jquery'));
+          wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/js/news-aggregator.js', array('jquery'));
           wp_localize_script('news-aggregator', 'myAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'noposts' => esc_html__('No older posts found', 'aggregator'),
@@ -93,7 +94,7 @@ class commentContainer
             echo "No comments here! start the discussion";
           }
           echo "<form id='reply-to-post'>";
-          echo "<textarea type='textarea' id='comment-text-area' name='reply' cols='40' rows='5'></textarea>";
+          echo "<textarea id='comment-text-area' name='reply' cols='40' rows='5' required></textarea>";
           echo "<input type='hidden' name='action' value='addComment'/>";
           echo "<input type='submit' value='comment'>";
           echo "<input type='hidden' name='post_id' value='".get_query_var('agg_post_id')."'>";

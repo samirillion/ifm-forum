@@ -2,7 +2,6 @@ jQuery( function($) {
 
    $("#agg-container").on( "click", ".upvote_entry", function() {
       voter = $(this)
-      console.log(voter)
       post_id = $(this).attr("data-post_id")
       nonce = $(this).attr("data-nonce")
 
@@ -19,7 +18,6 @@ jQuery( function($) {
          url : myAjax.ajaxurl,
          data : {action: "add_entry_karma", post_id : post_id, nonce: nonce},
          success: function(response) {
-              console.log('true')
               voter.bind('click')
             if(response.redirect) {
               // window.alert("you need to login <a href='" + response.redirect + "'>here</a> to comment ")
@@ -39,7 +37,6 @@ jQuery( function($) {
             voter.next().html(response.entry_karma--)
           }
           } else {
-            console.log('failure')
           }
          }
       })
@@ -60,9 +57,10 @@ jQuery( function($) {
        data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber},
        success: function(data){
          var $data = $(data);
-           if(data.length){
-               $("#aggregator-container").append($data);
+           if($data.length){
+               $("#agg-container").append($data);
                $("#more_aggregator_posts").attr("disabled",false);
+               $("#more_aggregator_posts").html("Load More Posts")
            } else {
                $("#more_aggregator_posts").html('No More Posts');
                $("#more_aggregator_posts").attr("disabled",true);
@@ -76,7 +74,8 @@ jQuery( function($) {
    }
 
    $('#more_aggregator_posts').click( function() {
-     $("#more_aggregator_posts").attr("disabled",true);
+     $(this).attr("disabled",true);
+     $(this).html("<img src='http://fin.covertnine.com/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
      load_posts();
    })
 
@@ -165,9 +164,9 @@ jQuery( function($) {
              }
              if(response.type == "success") {
                if (response.upvoted == 0) {
-               voter.html('++')
+                voter.children('div.agg-vote').removeClass('upvoted')
              } else {
-               voter.html('unvote')
+                voter.children('div.agg-vote').addClass('upvoted')
              }
            }
           }
@@ -177,22 +176,32 @@ jQuery( function($) {
 
 ////////////////////////////////*  Code for turning Checkbox into Toggle #  */////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $('input').lc_switch();
-
-    // triggered each time a field is checked
-    $('body').delegate('.lcs_check', 'lcs-on', function() {
-      $('.new-post-url').hide();
-      $('.new-post-textarea').show();
-      $('#new-post-url').removeAttr('required');
-      $('#new-post-textarea').attr('required', true);
+$("#new-post-url").change(function() {
+        if (!/^http:\/\//.test(this.value)) {
+            this.value = "http://" + this.value;
+        }
     });
 
-    // triggered each time a is unchecked
-    $('body').delegate('.lcs_check', 'lcs-off', function() {
-      $('.new-post-url').show();
-      $('.new-post-textarea').hide();
-      $('#new-post-textarea').removeAttr('required');
-      $('#new-post-url').attr('required', true);
-    });
+////////////////////////////////*  Code for turning Checkbox into Toggle #  */////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (typeof $('input').lc_switch() === "function") {
+        $('input').lc_switch();
+
+        // triggered each time a field is checked
+        $('body').delegate('.lcs_check', 'lcs-on', function() {
+          $('.new-post-url').hide();
+          $('.new-post-textarea').show();
+          $('#new-post-url').removeAttr('required');
+          $('#new-post-textarea').attr('required', true);
+        });
+
+        // triggered each time a is unchecked
+        $('body').delegate('.lcs_check', 'lcs-off', function() {
+          $('.new-post-url').show();
+          $('.new-post-textarea').hide();
+          $('#new-post-textarea').removeAttr('required');
+          $('#new-post-url').attr('required', true);
+        });
+      }
 
 });

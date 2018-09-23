@@ -14,9 +14,7 @@
     </li><?php
     if (is_user_logged_in()) {
       $current_user_id = get_current_user_id();
-    ?><li class="agg-user-link">
-      <a href="<?php echo add_query_arg('user_id', $current_user_id, home_url('user')); ?>"><?php echo get_user_meta($current_user_id, 'nickname', true) ?></a>
-    </li>
+    ?>
  <?php } ?>
   </ul>
 </nav>
