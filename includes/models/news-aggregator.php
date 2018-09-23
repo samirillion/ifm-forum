@@ -25,6 +25,7 @@
               'not_found_in_trash' => __('Nothing found in Trash', 'newsaggregator'), /* This displays if there is nothing in the trash */
               'parent_item_colon' => ''
               ), /* end of arrays */
+              'menu_icon' => __('dashicons-share', 'newsaggregator'),
               'description' => __('For posting to the newsaggregator', 'newsaggregator'), /* Custom Type Description */
               'public' => true,
               'publicly_queryable' => true,

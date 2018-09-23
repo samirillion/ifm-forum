@@ -6,6 +6,8 @@
         public function query_comments()
         {
             global $wpdb;
+            $post_id = get_query_var('agg_post_id');
+            var_dump($post_id);
             $querystr = "
           SELECT
             $wpdb->comments.*,

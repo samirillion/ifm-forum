@@ -1,20 +1,26 @@
-window.onload = function(){
+jQuery( function($) {
 
-  }
-jQuery(document).ready( function($) {
-
-   jQuery("#aggregator-container").on( "click", ".aggreggator-vote", function() {
-      voter = jQuery(this)
+   $("#agg-container").on( "click", ".upvote_entry", function() {
+      voter = $(this)
       console.log(voter)
-      post_id = jQuery(this).attr("data-post_id")
-      nonce = jQuery(this).attr("data-nonce")
+      post_id = $(this).attr("data-post_id")
+      nonce = $(this).attr("data-nonce")
 
-      jQuery.ajax({
+      // if (voter.children('div.agg-vote').hasClass('upvoted')) {
+      //   console.log('upvoted');
+      //   voter.children('div.agg-vote').removeClass('upvoted')
+      // } else {
+      //   voter.children('div.agg-vote').addClass('upvoted')
+      // }
+
+      $.ajax({
          type : "post",
          dataType : "json",
          url : myAjax.ajaxurl,
          data : {action: "add_entry_karma", post_id : post_id, nonce: nonce},
          success: function(response) {
+              console.log('true')
+              voter.bind('click')
             if(response.redirect) {
               // window.alert("you need to login <a href='" + response.redirect + "'>here</a> to comment ")
               // console.log(response.redirect)
@@ -23,20 +29,21 @@ jQuery(document).ready( function($) {
             if(response.type == "success") {
               console.log('success')
             if (response.upvoted == 1) {
-              voter.hide()
+               voter.children('div.agg-vote').removeClass('upvoted')
             } else {
-              voter.hide()
+              voter.children('div.agg-vote').addClass('upvoted')
               }
             if (response.entry_karma == 1) {
-              voter.prev().html(response.entry_karma + " point")
+              voter.next().html(response.entry_karma++)
             } else {
-            voter.prev().html(response.entry_karma + " points")
+            voter.next().html(response.entry_karma--)
           }
           } else {
             console.log('failure')
           }
          }
       })
+
 
    });
 
@@ -46,19 +53,19 @@ jQuery(document).ready( function($) {
    $loader = $("#aggregator-container");
    function load_posts(){
      aggregatorPageNumber++;
-     jQuery.ajax({
+     $.ajax({
        type: "POST",
        dataType: "html",
        url: myAjax.ajaxurl,
        data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber},
        success: function(data){
-         var $data = jQuery(data);
+         var $data = $(data);
            if(data.length){
-               jQuery("#aggregator-container").append($data);
-               jQuery("#more_aggregator_posts").attr("disabled",false);
+               $("#aggregator-container").append($data);
+               $("#more_aggregator_posts").attr("disabled",false);
            } else {
-               jQuery("#more_aggregator_posts").html('No More Posts');
-               jQuery("#more_aggregator_posts").attr("disabled",true);
+               $("#more_aggregator_posts").html('No More Posts');
+               $("#more_aggregator_posts").attr("disabled",true);
            }
        },
        error : function(jqXHR, textStatus, errorThrown) {
@@ -68,8 +75,8 @@ jQuery(document).ready( function($) {
      return false;
    }
 
-   jQuery('#more_aggregator_posts').click( function() {
-     jQuery("#more_aggregator_posts").attr("disabled",true);
+   $('#more_aggregator_posts').click( function() {
+     $("#more_aggregator_posts").attr("disabled",true);
      load_posts();
    })
 
@@ -168,34 +175,24 @@ jQuery(document).ready( function($) {
 
     });
 
+////////////////////////////////*  Code for turning Checkbox into Toggle #  */////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $('input').lc_switch();
 
-//    $( ".aggregator-entry-link" ).each( function( ) {
-//
-//     var $quote = $(this);
-//
-//     var $numChars = $quote.text().length;
-//     // $(this).html($numChars);
-//
-//     if (($numChars > 0) && ($numChars < 25)) {
-//         $quote.css("font-size", "1.8em");
-//     }
-//     else if (($numChars >= 25) && ($numChars < 50)) {
-//         $quote.css("font-size", "1.6em");
-//     }
-//     else if (($numChars >= 50) && ($numChars < 75)) {
-//         $quote.css("font-size", "1.4em");
-//     }
-//     else if (($numChars >= 75 && ($numChars < 100))) {
-//         $quote.css("font-size", "1.3em");
-//     }   else {
-//           $quote.css("font-size", "1.2em");
-//       }
-//
-// });
-//
-// $('#aggregator-container').masonry({
-//   // options
-//   itemSelector: '.aggregator-entry-wrapper',
-// });
+    // triggered each time a field is checked
+    $('body').delegate('.lcs_check', 'lcs-on', function() {
+      $('.new-post-url').hide();
+      $('.new-post-textarea').show();
+      $('#new-post-url').removeAttr('required');
+      $('#new-post-textarea').attr('required', true);
+    });
+
+    // triggered each time a is unchecked
+    $('body').delegate('.lcs_check', 'lcs-off', function() {
+      $('.new-post-url').show();
+      $('.new-post-textarea').hide();
+      $('#new-post-textarea').removeAttr('required');
+      $('#new-post-url').attr('required', true);
+    });
 
 });

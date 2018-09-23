@@ -14,29 +14,29 @@ class postTemplate
             $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
             $editlink = add_query_arg('aggregator_post_id', $post_ID, home_url('edit'));
             $upvotes = $wpdb->get_var($wpdb->prepare(
-    "
-      SELECT count(*)
-      FROM $wpdb->postmeta
-      WHERE post_id=%d
-      AND meta_key='user_upvote_id'
-    ",
-    $post_ID
-  ));
-            if (is_user_logged_in()) {
-                $upvoted = $wpdb->get_var($wpdb->prepare(
-    "
-      SELECT count(*)
-      FROM $wpdb->postmeta
-      WHERE post_id=%d
-      AND meta_key='user_upvote_id'
-      AND meta_value=%d
-    ",
-    $post_ID,
-    get_current_user_id()
-  ));
-            } else {
-                $upvoted = false;
-            } 
+            "
+              SELECT count(*)
+              FROM $wpdb->postmeta
+              WHERE post_id=%d
+              AND meta_key='user_upvote_id'
+            ",
+            $post_ID
+          ));
+                    if (is_user_logged_in()) {
+                        $upvoted = $wpdb->get_var($wpdb->prepare(
+            "
+              SELECT count(*)
+              FROM $wpdb->postmeta
+              WHERE post_id=%d
+              AND meta_key='user_upvote_id'
+              AND meta_value=%d
+            ",
+            $post_ID,
+            get_current_user_id()
+          ));
+          } else {
+              $upvoted = false;
+          } 
 $user_is_op = $post->post_author == get_current_user_id() ? true : false;
     ?>
     <div class="agg-entry-wrapper clearfix">
@@ -44,7 +44,7 @@ $user_is_op = $post->post_author == get_current_user_id() ? true : false;
               <div data-nonce="<?php echo $nonce ?>" data-post_id="<?php echo $post_ID ?>" href="<?php echo $link ?>" class="upvote_entry">
                 <?php 
                     if ($upvoted) {
-                        echo '<div class="agg-vote"></div>';
+                        echo '<div class="agg-vote upvoted"></div>';
                     } else {
                         echo '<div class="agg-vote"></div>';
                     } ?>
@@ -71,14 +71,14 @@ $user_is_op = $post->post_author == get_current_user_id() ? true : false;
             <span class="agg-op  <?php if ($user_is_op) { echo 'agg-user-is-op';}?>">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a>
             </span>
           <a class="agg-comments-link" href="<?php echo $commentslink ?>">comments (<?php echo wp_count_comments($post_ID)->total_comments; ?>)</a>
-          <?php if ($user_is_op) {
-                echo "<a href='".$editlink."'>edit</a>";
-          } ?>
           <span class="agg-tags">
             <a href="#">urban ag</a>
             <a href="#">louisville</a>
             <a href="#">world</a>
           </span>
+          <?php if ($user_is_op) {
+                echo "<a href='".$editlink."'> - edit</a>";
+          } ?>
         </div>
       </div>
     </div>
