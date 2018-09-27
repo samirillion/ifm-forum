@@ -111,19 +111,26 @@
           // if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
           //     exit("No naughty business please");
           // }
-          $post = wp_insert_post(
-          array(
-            'post_title' => $_POST['post-title'],
+
+          $postArray =  array(
+            'post_title' => sanitize_text_field($_POST['post-title']),
             'post_type' => 'aggregator-posts',
             'post_status' => 'publish'
-          )
-        );
+          );
+          if ( $_POST['link-toggle'] && strlen(trim($_POST['post-text-content']))) {
+            $postArray['post_content'] = sanitize_text_field($_POST['post-text-content']);
+          } else {
+            $isURL = true;
+          }
+          $post = wp_insert_post( $postArray );
           wp_set_object_terms( $post, $_POST['post-type'], 'aggpost-type', false );
           global $wpdb;
           $firstvote = $wpdb->insert($wpdb->postmeta, array("comment_id" => $post, "meta_key" => "user_upvote_id", "meta_value" => get_current_user_id()),
           array("%d", "%s", "%d"));
 
-          add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
+          if ($isURL) {
+            add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
+          }
 
           wp_redirect( home_url() . '/fin-forum' );
           exit();

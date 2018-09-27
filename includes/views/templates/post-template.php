@@ -8,9 +8,13 @@ class postTemplate
             $post_ID = $post->ID;
             $post_Date_GMT = strtotime($post->post_date_gmt);
             $postmeta = get_post_meta($post_ID);
-            $posturl = $postmeta["aggregator_entry_url"]["0"];
             $nonce = wp_create_nonce("aggregator_page_nonce");
             $commentslink = add_query_arg('agg_post_id', $post_ID, home_url('comments'));
+            if (get_post($post_ID)->post_content != "") { 
+              $posturl = $commentslink;
+            } else {
+              $posturl = $postmeta["aggregator_entry_url"]["0"];
+            }
             $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
             $editlink = add_query_arg('agg_post_id', $post_ID, home_url('edit'));
             $upvotes = $wpdb->get_var($wpdb->prepare(

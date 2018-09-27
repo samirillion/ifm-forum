@@ -39,12 +39,12 @@
               'capability_type' => 'post',
               'hierarchical' => false,
               /* the next one is important, it tells what's enabled in the post editor */
-              'supports' => array( 'title', 'thumbnail', 'revisions', 'sticky', 'comments', 'tags', 'author')
+              'supports' => array( 'title', 'thumbnail', 'revisions', 'sticky', 'comments', 'tags', 'author', 'editor')
             ) /* end of options */
           ); /* end of register post type */
 
           // need to add this programmatically somewhere because of 404s...
-          flush_rewrite_rules();
+          // flush_rewrite_rules();
         }
 
         public function define_meta_on_publish($post_ID) {

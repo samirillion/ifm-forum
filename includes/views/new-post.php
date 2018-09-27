@@ -40,7 +40,7 @@
                 </p>
 
                 <p class="form-row">
-                    <label for="linke-or-oc-toggle"><?php _e( 'Link or Text?', 'submit-post' ); ?></label>
+                    <label for="link-or-oc-toggle"><?php _e( 'Link or Text?', 'submit-post' ); ?></label>
                     <br>
                     <input type="checkbox" name="link-toggle" id="link-toggle" class="post-input lcs_check">
                 </p>

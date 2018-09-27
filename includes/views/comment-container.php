@@ -64,7 +64,7 @@ class commentContainer
       <?php
       // $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
       echo '<div class="comment-content">' . $comment['comment_content'] . '</div>';
-          ?>
+          ?>i
         <div class="reply-to-comment">reply</div>
         <div class="comment-reply-container" style="display:none;">
           <textarea name="comment-reply-content" id="comment-reply-content" required></textarea>
@@ -90,6 +90,11 @@ class commentContainer
             wp_enqueue_script('news-aggregator');
           echo "<h4 class='comment-post-title'><a href='".get_post_meta(get_query_var('agg_post_id'))["aggregator_entry_url"]["0"]."' target='_blank'>".get_the_title(get_query_var('agg_post_id'))."</a></h4>";
           echo '<div class="post-type">(' . (wp_get_object_terms( get_query_var('agg_post_id'), 'aggpost-type'))[0]->{'name'} . ')</div>';
+          if ( get_post(get_query_var('agg_post_id'))->post_content != "") {
+              echo '<div class="comment-post-content-wrapper">';
+              echo '<div class="comment-post-content">' . get_post(get_query_var('agg_post_id'))->post_content . '</div>';
+              echo '</div>';
+          }
           if (!$commentQuery) {
             echo "No comments here! start the discussion";
           }

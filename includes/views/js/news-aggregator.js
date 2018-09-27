@@ -177,31 +177,30 @@ jQuery( function($) {
 ////////////////////////////////*  Code for turning Checkbox into Toggle #  */////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $("#new-post-url").change(function() {
-        if (!/^http:\/\//.test(this.value)) {
-            this.value = "http://" + this.value;
+        if (!/^https?:\/\//.test(this.value)) {
+            this.value = "https://" + this.value;
         }
     });
 
 ////////////////////////////////*  Code for turning Checkbox into Toggle #  */////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (typeof $('input').lc_switch() === "function") {
-        $('input').lc_switch();
+      $('#link-toggle').lc_switch('Text', 'URL');
 
-        // triggered each time a field is checked
-        $('body').delegate('.lcs_check', 'lcs-on', function() {
+         // triggered each time a field is checked
+      $('body').delegate('.lcs_check', 'lcs-on', function() {
           $('.new-post-url').hide();
           $('.new-post-textarea').show();
           $('#new-post-url').removeAttr('required');
           $('#new-post-textarea').attr('required', true);
         });
+  
 
-        // triggered each time a is unchecked
-        $('body').delegate('.lcs_check', 'lcs-off', function() {
-          $('.new-post-url').show();
-          $('.new-post-textarea').hide();
-          $('#new-post-textarea').removeAttr('required');
-          $('#new-post-url').attr('required', true);
-        });
-      }
+    // triggered each time a field is unchecked
+    $('body').delegate('.lcs_check', 'lcs-off', function() {
+      $('.new-post-url').show();
+      $('.new-post-textarea').hide();
+      $('#new-post-textarea').removeAttr('required');
+      $('#new-post-url').attr('required', true);
+  });
 
 });

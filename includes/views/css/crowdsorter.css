@@ -82,6 +82,16 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+.comment-post-content-wrapper {
+  width: 50%;
+  margin: 10px 0 20px 0px;
+  padding-left: 10px;
+  border-left: 3px solid #d3d3d3;
+  position: relative;
+}
+.comment-post-content {
+  color: #999;
+}
 .agg-tags a {
   margin-left: 2px;
   margin-right: 2px;
