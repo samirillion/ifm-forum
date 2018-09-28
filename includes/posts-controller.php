@@ -40,11 +40,15 @@ class crowdsortPostsController
       'post_title'   => $_POST['post-title'],
       );
 
-      update_post_meta( $_POST['post-id'], 'aggregator_entry_url', $_POST['post-url'] );
+      if ($_POST['post-text-content'] != '') {
+        $the_post['post_content'] = $_POST['post-text-content'];
+      } else {
+        update_post_meta( $_POST['post-id'], 'aggregator_entry_url', $_POST['post-url'] );
+      }
       wp_set_object_terms( $_POST['post-id'], $_POST['post-type'], 'aggpost-type', false );
       wp_update_post( $the_post );
 
-      wp_safe_redirect(add_query_arg('agg_post_id', $_POST['post-id'], home_url('edit')));
+      wp_safe_redirect(home_url('fin-forum'));
     }
 
     public function render_edit_post_container() {

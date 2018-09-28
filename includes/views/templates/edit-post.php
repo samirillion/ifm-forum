@@ -2,17 +2,25 @@
 
     <?php
       $post = get_post(get_query_var('agg_post_id'));
-      $postUrl = get_post_meta($post->ID, 'aggregator_entry_url', true);
+      $postcontent = get_post($post)->post_content;
+      $posturl = get_post_meta($post->ID, 'aggregator_entry_url', true);
           ?>
     <p class="form-row">
         <label for="post-title"><?php _e( 'Post Title', 'submit-post' ); ?></label>
         <input type="text" name="post-title" id="post-title" class="post-input" value="<?php echo $post->post_title; ?>" required>
     </p>
-
-    <p class="form-row">
-        <label for="url"><?php _e( 'URL', 'submit-post' ); ?></label>
-        <input type="url" name="post-url" id="post-url" class="post-input" value="<?php echo $postUrl ?>" required>
-    </p>
+    <?php if ($postcontent != '') { ?>
+        <p class="form-row new-post-textarea">
+            <label for="content"><?php _e( 'Content', 'submit-post' ); ?></label>
+            <br>
+            <textarea name="post-text-content" id="new-post-text-content" class="post-input" rows="10" required><?php echo $postcontent ?></textarea>
+        </p>
+    <?php } else { ?>
+        <p class="form-row">
+          <label for="url"><?php _e( 'URL', 'submit-post' ); ?></label>
+          <input type="url" name="post-url" id="post-url" class="post-input" value="<?php echo $postUrl ?>" required>
+        </p>
+    <?php } ?>
     <p class="form-row">
         <label for="dropdown"><?php _e( 'Post Type', 'post-type' ); ?></label>
         <select name="post-type" id="post-type" class="post-input" required>
