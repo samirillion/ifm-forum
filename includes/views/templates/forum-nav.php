@@ -36,4 +36,13 @@
     ?>
  <?php } ?>
   </ul>
+  <form role="search" method="get" class="agg-searchform" action="agg-search">
+    <div class="agg-search-wrapper">
+    <label class="screen-reader-text" for="s">Search for:</label>
+    <input type="text" placeholder="search fin" name="agg-query" class="agg-query-input" />
+    <input type="submit" class="agg-search-submit" value="Search" />
+    </div>
+  </form>
+
+
 </nav>

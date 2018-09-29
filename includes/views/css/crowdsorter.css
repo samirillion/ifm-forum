@@ -111,6 +111,39 @@
   width: 99%;
   border: 1px solid #999999;
   border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+}
+.agg-searchform {
+  width: 30%;
+}
+.agg-searchform .agg-search-wrapper {
+  display: flex;
+  height: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+}
+input[type="submit"].agg-search-submit {
+  font-size: 1rem;
+  padding: 0;
+  float: right;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0;
+
+}
+.agg-searchform input.agg-query-input {
+  border-bottom: none;
+  background: #eeeeeeee;
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin-bottom: 0;
+  height: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 5px;
 }
 #agg-container .agg-nothing-here {
   margin-top: 0;
