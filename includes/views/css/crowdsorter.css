@@ -112,6 +112,13 @@
   border: 1px solid #999999;
   border-bottom: none;
 }
+#agg-container .agg-nothing-here {
+  margin-top: 0;
+  margin-bottom: 0;
+  border: 1px solid #999999;
+  border-top: none;
+  padding: 20px;
+}
 .agg-post-types {
   display: flex;
 }

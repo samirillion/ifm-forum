@@ -4,7 +4,6 @@
     {
         public static function render($pageposts)
         {
-            //  var_dump( $the_query );
             wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
             wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/js/news-aggregator.js', array('jquery'));
             wp_register_script("toggle-switch", plugin_dir_url(__FILE__).'/js/toggle-switch.js', array('jquery'));

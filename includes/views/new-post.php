@@ -4,9 +4,10 @@
     {
         public static function render()
         {
+          wp_cache_flush();
           wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
           wp_register_script("toggle-switch", plugin_dir_url(__FILE__).'/js/toggle-switch.js', array('jquery'));
-          wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/js/news-aggregator.js', array('jquery', 'toggle-switch'));
+          wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/js/news-aggregator.js', array('jquery', 'toggle-switch'), false, true);
           wp_localize_script('news-aggregator', 'myAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'noposts' => esc_html__('No older posts found', 'aggregator'),
