@@ -10,7 +10,8 @@
             wp_register_script("toggle-switch", plugin_dir_url(__FILE__).'/js/toggle-switch.js', array('jquery'));
             wp_localize_script('news-aggregator', 'myAjax', array(
               'ajaxurl' => admin_url('admin-ajax.php'),
-              'noposts' => esc_html__('No older posts found', 'aggregator')
+              'noposts' => esc_html__('No older posts found', 'aggregator'),
+              'aggpost_tax' => get_query_var('aggpost_tax')
             ));
             wp_enqueue_script("jquery");
             wp_enqueue_script('toggle-switch');

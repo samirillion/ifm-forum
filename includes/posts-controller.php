@@ -32,7 +32,7 @@ class crowdsortPostsController
     public function edit_post() {
 
       if (get_post_field( 'post_author', $_POST['post-id']) != get_current_user_id()) {
-        wp_safe_redirect(add_query_arg('agg_post_id', $_POST['post-id'], home_url('edit')));
+        wp_safe_redirect(esc_url(add_query_arg('agg_post_id', $_POST['post-id'], home_url('edit'))));
       }
 
       $the_post = array(
@@ -61,6 +61,7 @@ class crowdsortPostsController
         $vars[] .= 'agg_post_id';
         $vars[] .= 'status';
         $vars[] .= 'user_id';
+        $vars[] .= 'aggpost_tax';
         return $vars;
     }
 

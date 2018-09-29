@@ -63,6 +63,9 @@
   font-variant: small-caps;
   font-size: 20px;
 }
+.aggpost-type-nav-item.active a {
+  color: #91056d;
+}
 .host-url {
   color: #999999;
   font-size: 15px;
@@ -112,7 +115,7 @@
 .agg-post-types {
   display: flex;
 }
-.agg-submit-post a {
+.agg-submit-post a, .agg-submit-post a:visited  {
   color: #7bba22;
 }
 #more_aggregator_posts {

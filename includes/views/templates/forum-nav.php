@@ -1,8 +1,17 @@
+<?php 
+        if (get_query_var('aggpost_tax') !== "") { 
+          $agg_query_var = get_query_var('aggpost_tax');
+          $agg_all_active = "";
+        } else {
+          $agg_query_var = "";
+          $agg_all_active = "active";
+        }
+?>
 <nav class="agg-nav">
   <ul class="agg-post-types">
-    <li class="aggpost-type-nav">
+    <li class="aggpost-type-nav-item <?php echo $agg_all_active ?>">
       <a href="/fin-forum">
-        All
+        all
       </a>
     </li><?php
      $customterms =  get_terms( array(
@@ -12,8 +21,13 @@
                               );
                               // var_dump($customterms);
       foreach ( $customterms as $term) {
-         echo "<li class='aggpost-type-nav-item'><a href='#'>" .$term->{'name'} . "</li>";
-      };
+          if ($term->{'slug'} === $agg_query_var) { 
+            $activeClass = "active";
+          } else { 
+            $activeClass = "";
+          }
+         echo "<li class='aggpost-type-nav-item ".$activeClass."'><a href='". add_query_arg( 'aggpost_tax', $term->{'slug'}, home_url('fin-forum') ) ."'>" .$term->{'name'} . "</li>";
+      }
   ?><li class="agg-submit-post">
       <a href="/new-post">Submit New Post</a>
     </li><?php

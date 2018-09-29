@@ -9,7 +9,15 @@
             $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
             $offset = ($page -1)*$ppp;
 	    //JUST FIGURE OUT HOW TO SET TAX TERM AND YOU SHOULD BE GOOD TO GO
-            $tax_term = "ask-fin";
+            if( get_query_var('aggpost_tax')) { 
+              $filter_by = "
+              AND $wpdb->terms.slug = '" . sanitize_text_field(get_query_var('aggpost_tax')) . "' "; 
+            } elseif ( isset($_POST['aggpostTax']) ) {
+              $filter_by = "
+               AND $wpdb->terms.slug = '" . sanitize_text_field($_POST['aggpostTax']) . "' "; 
+            } else {
+              $filter_by = "";
+            }
             $querystr = "
           SELECT
             $wpdb->posts.*,
@@ -23,8 +31,8 @@
             LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
             INNER JOIN $wpdb->terms ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
             WHERE $wpdb->posts.post_type= 'aggregator-posts'
-	    AND $wpdb->posts.post_status = 'publish'
-            AND $wpdb->terms.slug = '$tax_term'
+            ". $filter_by . "
+            AND $wpdb->posts.post_status = 'publish'
           ORDER BY  (
                     (
                      SELECT count(*)

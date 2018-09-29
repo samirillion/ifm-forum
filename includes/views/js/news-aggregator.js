@@ -54,7 +54,7 @@ jQuery( function($) {
        type: "POST",
        dataType: "html",
        url: myAjax.ajaxurl,
-       data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber},
+       data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber, aggpostTax: myAjax.aggpost_tax},
        success: function(data){
          var $data = $(data);
            if($data.length){
@@ -99,7 +99,7 @@ jQuery( function($) {
   })
    var replyToPost = $("#reply-to-post");
    replyToPost.submit(function(e) {
-    //  e.preventDefault();
+       e.preventDefault();
 
        // Serialize the form data.
        var formData = $(replyToPost).serialize();
