@@ -24,6 +24,9 @@ class crowdsortPostsController
         add_action('admin_post_submit_post', array( $plugin, 'submit_post'));
         add_action('admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login'));
         add_action('admin_post_edit_post', array( $plugin, 'edit_post'));
+
+        add_action( 'admin_post_agg_search_posts', array( $plugin, 'agg_search_posts' ));
+
     }
     public function __construct()
     {
@@ -71,15 +74,32 @@ class crowdsortPostsController
         newsAggregator::update_temporal_karma();
     }
 
-    public function create_container()
-    {
-        require_once('models/news-aggregator-posts.php');
-        $query = postRankTracker::sort_posts();
-        $pageposts = $query[0];
+    public function create_container($search_results = [])
+    { 
+        if (!isset($_GET['agg_query'])) {
+          require_once('models/news-aggregator-posts.php');
+          $query = postRankTracker::sort_posts();
+          $pageposts = $query[0];
+        } else {
+          $pageposts = $this->agg_search_posts();
+        }
 
         require_once('views/post-container.php');
         $content = crowdsorterContainer::render($pageposts);
         return $content;
+    }
+
+    public function agg_search_posts()
+    {
+      $query->query_vars['s'] = sanitize_text_field($_GET['agg_query']);
+      $query->query_vars['posts_per_page'] = 30;
+      $posts = [];
+      foreach (relevanssi_do_query($query) as $post) {
+        if ($post->post_type === 'aggregator-posts') {
+          $posts[] = $post;
+        }
+      }
+      return $posts;
     }
 
     public function load_more_posts()

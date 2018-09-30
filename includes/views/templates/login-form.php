@@ -17,7 +17,7 @@
     <p class="login-info">
         <?php
             printf(
-                __( 'You have successfully registered to <strong>%s</strong>.', 'personalize-login' ),
+                __( 'You have successfully registered to the <strong>%s</strong> forum.', 'personalize-login' ),
                 get_bloginfo( 'name' )
             );
         ?>

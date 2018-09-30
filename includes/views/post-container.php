@@ -20,11 +20,16 @@
             <?php
               require('templates/post-template.php');
               require('templates/forum-nav.php');
+              if (is_array($pageposts) && $pageposts !== []) {
               $html = postTemplate::render($pageposts);
-
+             } else { ?>
+              <div class='agg-item-no-content'><div class='agg-post-title'><span clas='title'>No posts here! You should submit one!</span></div></div>
+            <?php  }
             echo $html; ?>
             </div>
+            <?php if (is_array($pageposts) && $pageposts !== []) { ?>
             <div id="more_aggregator_posts"><?php esc_html_e('Load More Posts', 'aggregator') ?></div>
         <?php
+            } 
         }
     }

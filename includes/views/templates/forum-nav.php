@@ -36,10 +36,11 @@
     ?>
  <?php } ?>
   </ul>
-  <form role="search" method="get" class="agg-searchform" action="agg-search">
+  <form role="search" method="get" class="agg-searchform" action="<?php echo esc_url( home_url('/fin-forum') ); ?>">
     <div class="agg-search-wrapper">
     <label class="screen-reader-text" for="s">Search for:</label>
-    <input type="text" placeholder="search fin" name="agg-query" class="agg-query-input" />
+    <input type="text" placeholder="search fin" name="agg_query" class="agg-query-input" />
+    <input type="hidden" name="action" value="agg_search_posts">
     <input type="submit" class="agg-search-submit" value="Search" />
     </div>
   </form>
