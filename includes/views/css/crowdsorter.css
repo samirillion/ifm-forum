@@ -57,6 +57,7 @@
   border: 1px solid #999999;
   width: 99%;
   margin-bottom: 100px;
+  padding-left: 20px;
 }
 .agg-entry-wrapper:last-child .agg-item-content, .agg-entry-wrapper:last-child .agg-item-voter {
   border-bottom: 1px solid #999999;
@@ -67,6 +68,10 @@
 .agg-post-type, .aggpost-type-nav-item {
   font-variant: small-caps;
   font-size: 20px;
+}
+.agg-post-types .aggpost-type-nav-item, .agg-post-types .agg-submit-post {
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 .aggpost-type-nav-item.active a {
   color: #91056d;
@@ -98,12 +103,21 @@
   position: relative;
 }
 .comment-post-content {
-  color: #999;
+  color: #333333;
+}
+.view-user-posts, .agg-change-password, .agg-logout {
+  text-decoration: underline;
 }
 .agg-tags a {
   margin-left: 2px;
   margin-right: 2px;
   color: #91056D;
+  text-decoration: underline;
+}
+.agg-user-edit {
+  margin-top: 15px;
+}
+.agg-user-edit a {
   text-decoration: underline;
 }
 .agg-user-is-op a, .agg-user-is-op a:visited {
@@ -112,12 +126,25 @@
 .agg-user-is-op a:hover {
   opacity: .8;
 }
+.agg-about-user {
+  width: 60%;
+  background: #eeeeee;
+  padding: 20px;
+  margin-top: 5px;
+}
 .agg-nav {
   width: 99%;
   border: 1px solid #999999;
   border-bottom: none;
   display: flex;
   justify-content: space-between;
+}
+.agg-term-description {
+  padding: 5px;
+  padding-left: 20px;
+  border: 1px solid #999999;
+  width: 99%;
+  border-bottom: none;
 }
 .agg-searchform {
   width: 30%;
@@ -207,11 +234,21 @@ input[type="submit"].agg-search-submit {
 #account-details label {
   display: block;
 }
+.user-account-details h5 {
+  margin: 0;
+  margin-top: 10px;
+}
+.user-account-details .view-user-posts {
+  margin-top: 20px;
+}
 .agg-change-password, .agg-logout {
   display: block;
 }
 .comment-content, .reply-to-comment, .comment-reply-container {
   margin-left: 16px;
+}
+#submit-post {
+  width: 60%;
 }
 #submit-post .must-be-logged-in {
   color: #E82C0C;

@@ -12,8 +12,10 @@ class postTemplate
             $commentslink = add_query_arg('agg_post_id', $post_ID, home_url('comments'));
             if (get_post($post_ID)->post_content != "") { 
               $posturl = $commentslink;
+              $target = "";
             } else {
               $posturl = $postmeta["aggregator_entry_url"]["0"];
+              $target = "target='_blank'";
             }
             $link = admin_url('admin-ajax.php?action=add_entry_karma&post_id='.$post_ID.'&nonce='.$nonce);
             $editlink = add_query_arg('agg_post_id', $post_ID, home_url('edit'));
@@ -65,14 +67,14 @@ $user_is_op = $post->post_author == get_current_user_id() ? true : false;
           <span class="title">
           <span class="agg-post-type"><?php echo(wp_get_object_terms($post_ID, 'aggpost-type'))[0]->{'name'}; ?> &ndash; </span>
           </span>
-          <a class="agg-entry-link" href="<?php echo $posturl ?>"><?php echo $post->post_title ?></a>
+          <a class="agg-entry-link" href="<?php echo $posturl ?>" <?php echo $target ?>><?php echo $post->post_title ?></a>
           <span class="host-url">(<?php echo preg_replace("#^www\.#", "", parse_url($posturl)["host"]) ?>)</span>
         </div>
         <div class="agg-post-meta">
-            <span class="agg-time-since-post">
+          <span class="agg-time-since-post">
               <?php echo human_time_diff($post_Date_GMT, current_time('timestamp', 1)) . ' ago'; ?>
             </span>
-            <span class="agg-op  <?php if ($user_is_op) { echo 'agg-user-is-op';}?>">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>"><?php echo get_user_meta($post->post_author, 'nickname', true) ?></a>
+            <span class="agg-op <?php if ($user_is_op) { echo 'agg-user-is-op';}?>">by <a href="<?php echo add_query_arg('user_id', $post->post_author, home_url('user')); ?>"><?php echo get_userdata($post->post_author)->user_nicename; ?></a>
             </span>
           <a class="agg-comments-link" href="<?php echo $commentslink ?>">comments (<?php echo wp_count_comments($post_ID)->total_comments; ?>)</a>
           <?php if ($user_is_op) {

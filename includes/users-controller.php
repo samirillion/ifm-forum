@@ -63,7 +63,7 @@ class crowdsortUsersController
         echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
         if (is_user_logged_in()) {
             require_once('models/news-aggregator-users.php');
-            $userKarma = newsAggregatorUsers::calculate_user_karma(); ?><a href="<?php echo home_url('account'); ?>"><?php echo wp_get_current_user()->user_login?></a> (<?php echo $userKarma ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+            $userKarma = newsAggregatorUsers::calculate_user_karma(); ?><a href="<?php echo home_url('my-account'); ?>"><?php echo wp_get_current_user()->user_login?></a> (<?php echo $userKarma ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
         <?php
         } else {
             ?><a  href="<?php echo home_url('member-login'); ?>">login</a>
@@ -402,8 +402,7 @@ class crowdsortUsersController
             $this->redirect_to_login;
         }
         require_once('views/account-details-container.php');
-        $userAccount = new accountDetailsContainer;
-        $userAccount::render();
+        accountDetailsContainer::render();
     }
 
     public function add_conditional_menu_items($items, $args){

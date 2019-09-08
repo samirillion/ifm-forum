@@ -50,6 +50,12 @@ class commentContainer
           $comment['comment_ID']
           )
         );
+      $upvotes = $wpdb->get_results(
+        $wpdb->prepare(
+          "SELECT COUNT(*) FROM $wpdb->commentmeta WHERE comment_id=%d",
+          $comment['comment_ID']
+          )
+        )[0]->{'COUNT(*)'};
       ?>
   		<li class="comment-node" id="<?php echo $comment['comment_ID']?>" data-nonce="<?php echo $nonce?>">
       <a class="vote_on_comment" data-upordown="up">
@@ -59,7 +65,16 @@ class commentContainer
                         echo '<div class="agg-vote"></div>';
                     }?>
       </a>
-      <div class="commenter">by <?php echo $comment['comment_author'] ?></div>
+      <div class="commenter"><?php 
+      if($user_id === (int)$comment['user_id']) { 
+        echo $upvotes; 
+        if ((int)$upvotes === 1) { 
+          echo " point"; 
+        } else { 
+          echo " points";} 
+        }  ?> by <?php
+          echo $comment['comment_author'];
+    ?></div>
       <div class="comment-time"><?php echo human_time_diff(strtotime($comment['comment_date_gmt']), current_time('timestamp', 1)) . ' ago'; ?></div>
       <?php
       // $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);

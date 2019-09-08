@@ -8,13 +8,16 @@
             $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 9;
             $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
             $offset = ($page -1)*$ppp;
-	    //JUST FIGURE OUT HOW TO SET TAX TERM AND YOU SHOULD BE GOOD TO GO
             if( get_query_var('aggpost_tax')) { 
               $filter_by = "
               AND $wpdb->terms.slug = '" . sanitize_text_field(get_query_var('aggpost_tax')) . "' "; 
             } elseif ( isset($_POST['aggpostTax']) ) {
               $filter_by = "
                AND $wpdb->terms.slug = '" . sanitize_text_field($_POST['aggpostTax']) . "' "; 
+            } elseif (get_query_var('user_id')) {
+               $filter_by = "
+               AND $wpdb->posts.post_author = '" . sanitize_text_field(get_query_var('user_id')) . "' 
+                ";
             } else {
               $filter_by = "";
             }

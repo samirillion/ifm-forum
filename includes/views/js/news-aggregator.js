@@ -75,7 +75,7 @@ jQuery( function($) {
 
    $('#more_aggregator_posts').click( function() {
      $(this).attr("disabled",true);
-     $(this).html("<img src='http://fin.covertnine.com/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
+     $(this).html("<img src='http://foodinneighborhoods.org/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
      load_posts();
    })
 
