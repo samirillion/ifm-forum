@@ -189,17 +189,17 @@ $("#new-post-url").change(function() {
          // triggered each time a field is checked
       $('body').delegate('.lcs_check', 'lcs-on', function() {
           $('.new-post-url').hide();
-          $('.new-post-textarea').show();
+          $('#wp-new-post-text-content-wrap').show();
           $('#new-post-url').removeAttr('required');
-          $('#new-post-textarea').attr('required', true);
+          $('#wp-new-post-text-content-wrap').attr('required', true);
         });
   
 
     // triggered each time a field is unchecked
     $('body').delegate('.lcs_check', 'lcs-off', function() {
       $('.new-post-url').show();
-      $('.new-post-textarea').hide();
-      $('#new-post-textarea').removeAttr('required');
+      $('#wp-new-post-text-content-wrap').hide();
+      $('#wp-new-post-text-content-wrap').removeAttr('required');
       $('#new-post-url').attr('required', true);
   });
 
