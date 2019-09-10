@@ -1,51 +1,51 @@
 <?php
 
-    class crowdsorterUserForm
+class crowdsorterUserForm
+{
+    public function render_form($template_name, $attributes = null)
     {
-        public function render_form($template_name, $attributes = null)
-        {
-            // Parse shortcode attributes
-            wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
-     if (! $attributes) {
-         $attributes = array();
-     }
-     // Check if the user just requested a new password
-$attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUEST['checkemail'] == 'confirm';
-     // Error messages
+        // Parse shortcode attributes
+        wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
+        if (!$attributes) {
+            $attributes = array();
+        }
+        // Check if the user just requested a new password
+        $attributes['lost_password_sent'] = isset($_REQUEST['checkemail']) && $_REQUEST['checkemail'] == 'confirm';
+        // Error messages
         $errors = array();
         //Return errors for Login Page
-            if (isset($_REQUEST['login'])) {
-                $error_codes = explode(',', $_REQUEST['login']);
+        if (isset($_REQUEST['login'])) {
+            $error_codes = explode(',', $_REQUEST['login']);
 
-                foreach ($error_codes as $code) {
-                    $errors []= $this->get_error_message($code);
-                }
+            foreach ($error_codes as $code) {
+                $errors[] = $this->get_error_message($code);
             }
-          //Return errors for Registration Page
-            if ( isset( $_REQUEST['register-errors'] ) ) {
-                $error_codes = explode( ',', $_REQUEST['register-errors'] );
-
-                foreach ( $error_codes as $error_code ) {
-                    $errors []= $this->get_error_message( $error_code );
-                }
-            }
-            $attributes['errors'] = $errors;
-
-            ob_start();
-
-            do_action('personalize_login_before_' . $template_name);
-
-            require('templates/' . $template_name . '.php');
-
-            do_action('personalize_login_after_' . $template_name);
-
-            $html = ob_get_contents();
-            ob_end_clean();
-
-            return $html;
         }
+        //Return errors for Registration Page
+        if (isset($_REQUEST['register-errors'])) {
+            $error_codes = explode(',', $_REQUEST['register-errors']);
 
-        /**
+            foreach ($error_codes as $error_code) {
+                $errors[] = $this->get_error_message($error_code);
+            }
+        }
+        $attributes['errors'] = $errors;
+
+        ob_start();
+
+        do_action('personalize_login_before_' . $template_name);
+
+        require('templates/' . $template_name . '.php');
+
+        do_action('personalize_login_after_' . $template_name);
+
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        return $html;
+    }
+
+    /**
      * Finds and returns a matching error message for the given error code.
      *
      * @param string $error_code    The error code to look up.
@@ -56,16 +56,16 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
     {
         switch ($error_code) {
 
-                      // Lost password
+                // Lost password
 
             case 'empty_username':
-              return __( 'You need to enter your username  to continue.', 'personalize-login' );
+                return __('You need to enter your username  to continue.', 'personalize-login');
 
             case 'invalidcombo':
-              return __( 'There are no users registered with this email address.', 'personalize-login' );
+                return __('There are no users registered with this email address.', 'personalize-login');
 
             case 'invalid_username':
-              return __( 'There are no users registered with this username.', 'personalize-login' );
+                return __('There are no users registered with this username.', 'personalize-login');
 
             case 'empty_username':
                 return __('You do have an email address, right?', 'personalize-login');
@@ -82,7 +82,7 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
                     'personalize-login'
                 );
             case 'email':
-            return __('The email address you entered is not valid.', 'personalize-login');
+                return __('The email address you entered is not valid.', 'personalize-login');
 
             case 'email_exists':
                 return __('An account already exists with this email address.', 'personalize-login');
@@ -103,4 +103,4 @@ $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUES
 
         return __('An unknown error occurred. Please try again later.', 'personalize-login');
     }
-    }
+}

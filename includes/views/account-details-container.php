@@ -4,8 +4,8 @@ class accountDetailsContainer
 {
   public static function render()
         {
-          wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/css/crowdsorter.css', null);
-          wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/js/news-aggregator.js', array('jquery'));
+          wp_enqueue_style('crowdsorter.css', plugin_dir_url(__FILE__) . '/assets/css/crowdsorter.css', null);
+          wp_register_script("news-aggregator", plugin_dir_url(__FILE__).'/assets/js/news-aggregator.js', array('jquery'));
           wp_localize_script('news-aggregator', 'myAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'loggedIn' => is_user_logged_in(),
