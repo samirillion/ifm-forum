@@ -1,11 +1,21 @@
 <?php
-/*
-Plugin Name: Crowd-Sorter
-Description: Sorts things based on user-votes + algorithms. Good for news aggregation, among other things
-Version:     0.0.1
-Author:      samirillian
-Author URI:  https://viridian.tech
-*/
+/**
+ * Crowd Sorter
+ *
+ * @package crowdsorter
+ * @link https://foodinneighborhoods.com/connect
+ * @since 1.0.0
+ *
+ * Plugin Name: Crowd Sorter
+ * Plugin URI: https://github.com/samirillion/crowdsorter
+ * Description: A Reddit-like forum
+ * Version:     1.0.0
+ * Author:      samirillion
+ * Author URI:  https://idealforum.org
+ * License:           GPL-2.0+
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: crowdsorter
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -13,8 +23,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'CROWDSORTER_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
-define( 'CROWDSORTER_REQUIRED_WP_VERSION',  '3.0' );
-define( 'CROWDSORTER_REQUIRED_WP_NETWORK',  false ); // because plugin is not compatible with WordPress multisite
+define( 'CROWDSORTER_REQUIRED_WP_VERSION', '3.0' );
+define( 'CROWDSORTER_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
 
 /**
  * Checks if the system requirements are met
@@ -32,7 +42,7 @@ function crowdsorter_requirements_met() {
 	if ( version_compare( $wp_version, CROWDSORTER_REQUIRED_WP_VERSION, '<' ) ) {
 		return false;
 	}
-	if ( is_multisite() != CROWDSORTER_REQUIRED_WP_NETWORK ) {
+	if ( is_multisite() !== CROWDSORTER_REQUIRED_WP_NETWORK ) {
 		return false;
 	}
 
@@ -63,27 +73,10 @@ function run_crowdsorter() {
 	 * Check requirements and load main class
 	 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
 	 * Otherwise older PHP installations could crash when trying to parse it.
-	 **/
+	 */
 	if ( crowdsorter_requirements_met() ) {
 
-		/**
-		 * The core plugin class that is used to define internationalization,
-		 * admin-specific hooks, and public-facing site hooks.
-		 */
-		// require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
-    //
-		// /**
-		//  * Begins execution of the plugin.
-		//  *
-		//  * Since everything within the plugin is registered via hooks,
-		//  * then kicking off the plugin from this point in the file does
-		//  * not affect the page life cycle.
-		//  *
-		//  * @since    1.0.0
-		//  */
-		// $plugin = Ponds_Aggregator::get_instance();
-
-    require_once plugin_dir_path( __FILE__ ) . 'includes/posts-controller.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/posts-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/users-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/activation-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/comments-controller.php';
