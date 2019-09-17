@@ -28,36 +28,36 @@ class CrowdCommentController {
 		$comment_query  = $crowd_comments->query_comments();
 		$comment_array  = json_decode( json_encode( $comment_query ), true );
 
-		require_once( 'views/comment-container.php' );
-		return commentContainer::render( $comment_array );
+		require_once( 'views/class-comment-container.php' );
+		return CrowdCommentContainer::render( $comment_array );
 	}
 
 	public function vote_on_comment() {
-	  require_once( 'models/news-aggregator-comments.php' );
-	  $crowd_comments = new newsAggregatorComments;
-	  $crowd_comments->update_comment_karma();
+		require_once( 'models/news-aggregator-comments.php' );
+		$crowd_comments = new newsAggregatorComments;
+		$crowd_comments->update_comment_karma();
 
-   }
+	}
 
-   public function comment_on_post() {
+	public function comment_on_post() {
 		require_once( 'models/news-aggregator-comments.php' );
 		$crowd_comments = new newsAggregatorComments;
 		$crowd_comments->add_comment_to_post( $postID );
-   }
+	}
 
-   public function comment_on_comment() {
+	public function comment_on_comment() {
 		require_once( 'models/news-aggregator-comments.php' );
 		$crowd_comments = new newsAggregatorComments;
 		$crowd_comments->comment_on_comment();
-   }
+	}
 
-   public function redirect_to_login() {
+	public function redirect_to_login() {
 		$redirect_url         = home_url( 'member-login' );
 		$response[ redirect ] = $redirect_url;
 		$response             = json_encode( $response );
 		echo $response;
 		die();
-   }
+	}
 }
 
 CrowdCommentController::register();

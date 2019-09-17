@@ -1,6 +1,6 @@
 <?php
 
-class postRankTracker {
+class CrowdPost {
 	public static function sort_posts( $tax_term = '' ) {
 		global $wpdb;
 		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 9;
@@ -19,7 +19,7 @@ class postRankTracker {
 		} else {
 		  $filter_by = '';
 		}
-		$querystr = "
+		$query_str = "
       SELECT
         $wpdb->posts.*,
         CASE
@@ -44,7 +44,7 @@ class postRankTracker {
                 ) DESC
 LIMIT " . $offset . ', ' . $ppp . '; ';
 
-		$pageposts = $wpdb->get_results( $querystr, OBJECT );
+		$pageposts = $wpdb->get_results( $query_str, OBJECT );
 	// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
 	// $max_num_pages = ceil($sql_posts_total / $ppp);
 	return [ $pageposts, $page ];
@@ -118,7 +118,7 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 		)
 			);
 
-		if ( $vote === false ) {
+		if ( false === $vote ) {
 			$result['type']        = 'error';
 			$result['entry_karma'] = $entry_karma;
 			$result['redirect']    = 'wat';
@@ -143,36 +143,39 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 	  // if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
 	  // exit("No naughty business please");
 	  // }
+	xdebug_break();
+	$post_array = array(
+		'post_title'  => sanitize_text_field( $_POST['post-title'] ),
+		'post_type'   => 'aggregator-posts',
+		'post_status' => 'publish',
+	);
 
-	  $postArray = array(
-		  'post_title'  => sanitize_text_field( $_POST['post-title'] ),
-		  'post_type'   => 'aggregator-posts',
-		  'post_status' => 'publish',
-	  );
-	  if ( $_POST['link-toggle'] && strlen( trim( $_POST['post-text-content'] ) ) ) {
-			$postArray['post_content'] = sanitize_text_field( $_POST['post-text-content'] );
-	  } else {
-			$isURL = true;
-	  }
-	  $post = wp_insert_post( $postArray );
-	  wp_set_object_terms( $post, $_POST['post-type'], 'aggpost-type', false );
-	  global $wpdb;
-	$firstvote = $wpdb->insert(
-		  $wpdb->postmeta,
-		  array(
-			  'comment_id' => $post,
-			  'meta_key'   => 'user_upvote_id',
-			  'meta_value' => get_current_user_id(),
-		  ),
-	  array( '%d', '%s', '%d' )
-		  );
-
-	  if ( $isURL ) {
-			add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
-	  }
-
-	  wp_redirect( home_url() . '/fin-forum' );
-	  exit();
+	$post_content = wp_kses_post( $_POST['post-text-content'] );
+	if ( $_POST['link-toggle'] && strlen( trim( $_POST['post-text-content'] ) ) ) {
+			$post_array['post_content'] = wp_kses_post( $_POST['post-text-content'] );
+			$is_url                     = false;
+	} else {
+			$is_url = true;
 	}
+	$post = wp_insert_post( $post_array );
+	wp_set_object_terms( $post, $_POST['post-type'], 'aggpost-type', false );
+	global $wpdb;
+	$firstvote = $wpdb->insert(
+		$wpdb->postmeta,
+		array(
+			'comment_id' => $post,
+			'meta_key'   => 'user_upvote_id',
+			'meta_value' => get_current_user_id(),
+		),
+		array( '%d', '%s', '%d' )
+	);
+
+	if ( $is_url ) {
+			add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
+	}
+
+	wp_redirect( home_url() . '/fin-forum' );
+	exit();
+}
 
 }

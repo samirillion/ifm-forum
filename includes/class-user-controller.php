@@ -57,8 +57,8 @@ class CrowdUserController {
 	public function user_login_logout() {
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if ( is_user_logged_in() ) {
-			require_once( 'models/news-aggregator-users.php' );
-			$userKarma = newsAggregatorUsers::calculate_user_karma(); ?><a href="<?php echo home_url( 'my-account' ); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			require_once( 'models/user.php' );
+			$userKarma = CrowdUser::calculate_user_karma(); ?><a href="<?php echo home_url( 'my-account' ); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
 			?>
@@ -73,9 +73,9 @@ class CrowdUserController {
 			wp_redirect( 'home_url()' );
 			exit();
 		}
-		require_once( 'models/news-aggregator-users.php' );
-		$usersClass = new newsAggregatorUsers;
-		$usersClass->update_user_information();
+		require_once( 'models/user.php' );
+		$crowd_user = new CrowdUser;
+		$crowd_user->update_user_information();
 	}
 	public function replace_retrieve_password_message( $message, $key, $user_login, $user_data ) {
 		// Create new message
@@ -91,23 +91,23 @@ class CrowdUserController {
 	/**
 	 * Initiates password reset.
 	 */
-	  public function do_password_lost() {
+	public function do_password_lost() {
 		if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
-			$errors = retrieve_password();
-			if ( is_wp_error( $errors ) ) {
-				// Errors found
-				$redirect_url = home_url( 'member-password-lost' );
-				$redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
-			  } else {
-				// Email sent
-				$redirect_url = home_url( 'member-login' );
-				$redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
-			  }
+		$errors = retrieve_password();
+		if ( is_wp_error( $errors ) ) {
+			// Errors found
+			$redirect_url = home_url( 'member-password-lost' );
+			$redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
+			} else {
+			// Email sent
+			$redirect_url = home_url( 'member-login' );
+			$redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
+			}
 
-			wp_redirect( $redirect_url );
-			exit;
-		  }
-	  }
+		wp_redirect( $redirect_url );
+		exit;
+		}
+	}
 
 	/**
 	 * A shortcode for rendering the form used to initiate the password reset.
@@ -388,8 +388,8 @@ class CrowdUserController {
 			$items .= '<li><a title="Admin" href="' . esc_url( admin_url() ) . '">' . __( 'Admin' ) . '</a></li>';
 	  }
 	  if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
-			require_once( plugin_dir_path( __FILE__ ) . 'models/news-aggregator-users.php' );
-			$userKarma = newsAggregatorUsers::calculate_user_karma();
+			require_once( plugin_dir_path( __FILE__ ) . 'models/user.php' );
+			$userKarma = CrowdUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta( get_current_user_id(), 'nickname', true ) . ' (' . $userKarma . ')</a></li>';
 	  } elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {
 			 $items .= '<li><a title="Login" href="' . esc_url( wp_login_url( '/fin-forum' ) ) . '">' . __( 'Login' ) . '</a></li>';

@@ -64,19 +64,19 @@ public static function render() {
 	  </p>
 	  <label for="content"><?php _e( 'Content', 'submit-post' ); ?></label>
 	  <br>
-				<?php
-				wp_editor(
-				'',
-				'new-post-text-content',
-				array(
-					'editor_css'    => '<style scoped>#wp-new-post-text-content-wrap { display: none; }</style>',
-					'textarea_name' => 'post-text-content',
-					'editor_height' => 200,
-					'teeny'         => true,
-				)
-				);
-				wp_nonce_field( 'submit_aggregator_post' );
-				?>
+		<?php
+		wp_editor(
+		'',
+		'new-post-text-content',
+		array(
+			'editor_css'    => '<style scoped>#wp-new-post-text-content-wrap { display: none; }</style>',
+			'textarea_name' => 'post-text-content',
+			'editor_height' => 200,
+			'teeny'         => true,
+		)
+		);
+		wp_nonce_field( 'submit_aggregator_post' );
+		?>
 	  <br>
 	  <p class="signup-submit">
 		<input type="submit" name="submit" class="register-button" value="<?php _e( 'Submit', 'submit-post' ); ?>" />

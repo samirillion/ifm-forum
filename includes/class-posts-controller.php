@@ -67,8 +67,8 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function render_edit_post_container() {
-		require_once( 'views/edit-posts.php' );
-		crowdsorterEditPosts::render();
+		require_once( 'views/class-edit-post.php' );
+		CrowdEditPost::render();
 	}
 
 	/**
@@ -100,15 +100,15 @@ class CrowdPostsController {
 	 */
 	public function create_container( $search_results = [] ) {
 		if ( ! isset( $_GET['agg_query'] ) ) {
-			require_once( 'models/news-aggregator-posts.php' );
-			$query     = postRankTracker::sort_posts();
+			require_once( 'models/post.php' );
+			$query     = CrowdPost::sort_posts();
 			$pageposts = $query[0];
 		} else {
 			$pageposts = $this->agg_search_posts();
 		}
 
 		require_once( 'views/class-posts-container.php' );
-		$content = crowdPostsContainer::render( $pageposts );
+		$content = CrowdPostsContainer::render( $pageposts );
 		return $content;
 	}
 
@@ -118,15 +118,15 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function agg_search_posts() {
-	$query->query_vars['s']              = sanitize_text_field( $_GET['agg_query'] );
-	$query->query_vars['posts_per_page'] = 30;
-	$posts                               = [];
-	foreach ( relevanssi_do_query( $query ) as $post ) {
-			if ( $post->post_type === 'aggregator-posts' ) {
-				$posts[] = $post;
-				}
-	}
-	return $posts;
+		$query->query_vars['s']              = sanitize_text_field( $_GET['agg_query'] );
+		$query->query_vars['posts_per_page'] = 30;
+		$posts                               = [];
+		foreach ( relevanssi_do_query( $query ) as $post ) {
+				if ( $post->post_type === 'aggregator-posts' ) {
+					$posts[] = $post;
+					}
+		}
+		return $posts;
 	}
 
 	/**
@@ -135,13 +135,13 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function load_more_posts() {
-	  require_once( 'models/news-aggregator-posts.php' );
-	  $query     = postRankTracker::sort_posts();
-	  $pageposts = $query[0];
+		require_once( 'models/post.php' );
+		$query     = CrowdPost::sort_posts();
+		$pageposts = $query[0];
 
-	  require_once( 'views/templates/post-template.php' );
-	  $content = postTemplate::render( $pageposts );
-	  return $content;
+		require_once( 'views/templates/class-post-template.php' );
+		$content = CrowdPostTemplate::render( $pageposts );
+		return $content;
 	}
 
 	/**
@@ -172,8 +172,8 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function redirect_to_login() {
-	  wp_redirect( home_url( 'member-login' ) );
-	  die();
+		wp_redirect( home_url( 'member-login' ) );
+		die();
 	}
 
 	/**
@@ -182,11 +182,11 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function redirect_to_login_ajax() {
-	  $redirect_url         = home_url( 'member-login' );
-	  $response[ redirect ] = $redirect_url;
-	  $response             = json_encode( $response );
-	  echo $response;
-	  die();
+		$redirect_url         = home_url( 'member-login' );
+		$response[ redirect ] = $redirect_url;
+		$response             = json_encode( $response );
+		echo $response;
+		die();
 	}
 
 	/**
@@ -195,8 +195,8 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function my_user_vote() {
-		require_once( 'models/news-aggregator-posts.php' );
-		$karma_tracker = new postRankTracker;
+		require_once( 'models/post.php' );
+		$karma_tracker = new CrowdPost;
 		$karma_tracker->update_post_karma();
 	}
 
@@ -206,9 +206,9 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function create_new_post_template() {
-	  require_once( 'views/class-new-post.php' );
-	  $crowd_post_template = new CrowdNewPost;
-	  $crowd_post_template->render();
+		require_once( 'views/class-new-post.php' );
+		$crowd_post_template = new CrowdNewPost;
+		$crowd_post_template->render();
 	}
 
 	/**
@@ -217,9 +217,9 @@ class CrowdPostsController {
 	 * @return void
 	 */
 	public function submit_post() {
-	  require_once( 'models/news-aggregator-posts.php' );
-	  $crowd_posts = new postRankTracker;
-	  $crowd_posts->submit_post();
+		require_once( 'models/post.php' );
+		$crowd_posts = new CrowdPost;
+		$crowd_posts->submit_post();
 	}
 }
 

@@ -21,6 +21,9 @@ if ( isset( $user_nav_item ) ) {
 	echo '<br>';
 } else {
 ?>
+<div class="agg-submit-post">
+	<a href="/new-post">+ Submit New Post</a>
+</div>
 <nav class="agg-nav">
 	<ul class="agg-post-types">
 		<li class="aggpost-type-nav-item <?php echo $agg_all_active; ?>">
@@ -46,9 +49,6 @@ if ( isset( $user_nav_item ) ) {
 			echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg( 'aggpost_tax', $term->{'slug'}, home_url( 'fin-forum' ) ) . "'>" . $term->{'name'} . '</li>';
 		}
 		?>
-		<li class="agg-submit-post">
-			<a href="/new-post">Submit New Post</a>
-		</li>
 		<?php
 		if ( is_user_logged_in() ) {
 			$current_user_id = get_current_user_id();
