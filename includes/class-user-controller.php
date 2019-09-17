@@ -1,6 +1,9 @@
 <?php
-
-class crowdsortUsersController {
+/**
+ *
+ * @package CrowdSorter
+ */
+class CrowdUserController {
 
 	public static function register() {
 		$plugin = new self();
@@ -395,4 +398,4 @@ class crowdsortUsersController {
    }
 }
 
-crowdsortUsersController::register();
+CrowdUserController::register();

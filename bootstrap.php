@@ -2,7 +2,7 @@
 /**
  * Crowd Sorter
  *
- * @package crowdsorter
+ * @package CrowdSort
  * @link https://foodinneighborhoods.com/connect
  * @since 1.0.0
  *
@@ -14,7 +14,7 @@
  * Author URI:  https://idealforum.org
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: crowdsorter
+ * Text Domain: CrowdSort
  */
 
 // If this file is called directly, abort.
@@ -76,11 +76,11 @@ function run_crowdsorter() {
 	 */
 	if ( crowdsorter_requirements_met() ) {
 
-	require_once plugin_dir_path( __FILE__ ) . 'includes/posts-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/users-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/activation-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/comments-controller.php';
-		register_activation_hook( __FILE__, array( 'crowdSort', 'plugin_activated' ) );
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-posts-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-user-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activation-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-comment-controller.php';
+		register_activation_hook( __FILE__, array( 'Crowdsort', 'plugin_activated' ) );
 
 	} else {
 

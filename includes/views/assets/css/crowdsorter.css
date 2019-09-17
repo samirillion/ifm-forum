@@ -108,6 +108,10 @@
 .view-user-posts, .agg-change-password, .agg-logout {
   text-decoration: underline;
 }
+.csort-login-error {
+  color: #FF6F33;
+  background: white;
+}
 .agg-tags a {
   margin-left: 2px;
   margin-right: 2px;
