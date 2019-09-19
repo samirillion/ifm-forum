@@ -126,17 +126,17 @@ class CrowdUserController {
 			return __( 'You are already signed in.', 'personalize-login' );
 		} else {
 			// Retrieve possible errors from request parameters
-			require_once( 'views/user-forms.php' );
-			$crowdsorterRegister  = new crowdsorterUserForm;
+			require_once( 'views/class-form-renderer.php' );
+			$crowd_form_renderer  = new CrowdFormRenderer;
 			$attributes['errors'] = array();
 			if ( isset( $_REQUEST['errors'] ) ) {
 				$error_codes = explode( ',', $_REQUEST['errors'] );
 
 				foreach ( $error_codes as $error_code ) {
-					$attributes['errors'] [] = $crowdsorterRegister->get_error_message( $error_code );
+					$attributes['errors'][] = $crowd_form_renderer->get_error_message( $error_code );
 				}
 			}
-			$content = $crowdsorterRegister->render_form( 'password-lost-form', $attributes );
+			$content = $crowd_form_renderer->render_form( 'password-lost-form', $attributes );
 			return $content;
 		}
 	}
@@ -177,7 +177,7 @@ class CrowdUserController {
 		$attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
 		require_once( 'views/user-forms.php' );
-		$crowdsorterLogin = new crowdsorterUserForm;
+		$crowdsorterLogin = new crowd_form_renderer;
 		$content          = $crowdsorterLogin->render_form( 'login-form', $attributes );
 		return $content;
 	}
@@ -280,8 +280,8 @@ class CrowdUserController {
 			return __( 'Registering new users is currently not allowed.', 'personalize-login' );
 		} else {
 			require_once( 'views/user-forms.php' );
-			$crowdsorterRegister = new crowdsorterUserForm;
-			$content             = $crowdsorterRegister->render_form( 'register-form', $attributes );
+			$crowd_form_renderer = new crowd_form_renderer;
+			$content             = $crowd_form_renderer->render_form( 'register-form', $attributes );
 			return $content;
 		}
 	}
@@ -303,17 +303,17 @@ class CrowdUserController {
 
 	private function register_user( $email, $username, $password ) {
 		$errors = new WP_Error();
-		require_once( 'views/user-forms.php' );
-		$crowdsorterUserForm = new crowdsorterUserForm;
+		require_once( 'views/class-form-renderer.php' );
+		$crowd_form_renderer = new CrowdFormRenderer;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if ( ! is_email( $email ) && $email != 0 ) {
-			$errors->add( 'email', $crowdsorterUserForm->get_error_message( 'email' ) );
+			$errors->add( 'email', $crowd_form_renderer->get_error_message( 'email' ) );
 			return $errors;
 		}
 
 		if ( username_exists( $username ) ) {
-			$errors->add( 'username_exists', $crowdsorterUserForm->get_error_message( 'username_exists' ) );
+			$errors->add( 'username_exists', $crowd_form_renderer->get_error_message( 'username_exists' ) );
 			return $errors;
 		}
 

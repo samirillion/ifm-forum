@@ -1,6 +1,6 @@
 .agg-item-voter {
   width: 40px;
-  height: 70px;
+  height: 64px;
   float: left;
   text-align: center;
 }
@@ -34,7 +34,7 @@
   border-bottom-color: #7BBA22;
 }
 .agg-post-title {
-  font-size: 18px;
+  font-size: 16px;
 }
 .agg-item-voter {
   display: flex;
@@ -45,13 +45,18 @@
   border-bottom: none;
 }
 .agg-item-content, .agg-item-no-content {
-  height: 70px;
+  height: 64px;
   width: calc(100% - 50px);
   float: left;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 4px;
+  padding-top: 0;
   border: 1px solid #999999;
   border-left: none;
   border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .agg-item-no-content {
   border: 1px solid #999999;
@@ -64,14 +69,18 @@
 }
 .agg-post-meta, .agg-post-title {
   width: 100%;
+  line-height: 1.3;
+}
+.agg-post-meta {
+  padding-top: 2px;
 }
 .agg-post-type, .aggpost-type-nav-item {
   font-variant: small-caps;
   font-size: 15px;
 }
 .agg-post-types .aggpost-type-nav-item, .agg-post-types .agg-submit-post {
-  margin-top: 6px;
-  margin-bottom: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .agg-submit-post {
   margin-bottom: 8px;
@@ -158,7 +167,7 @@
   border-bottom: none;
 }
 .agg-searchform {
-  width: 100%;
+  width: 30%;
 }
 .agg-searchform .agg-search-wrapper {
   display: flex;
@@ -200,6 +209,9 @@ input[type="submit"].agg-search-submit {
 }
 .agg-submit-post a, .agg-submit-post a:visited  {
   color: #7bba22;
+}
+.edit-submit {
+  margin-top: 10px;
 }
 #more_aggregator_posts {
   text-align: center;
@@ -389,11 +401,10 @@ input[type="submit"].agg-search-submit {
     width: 100%;
   }
   .agg-post-title {
-    font-size: 14px;
+    font-size: 13px;
   }
   .agg-item-content {
-    padding: 4px;
-    padding-left: 7px;
+    padding: 0 4px 0 7px;
     width: calc(100% - 40px);
     border-right: none;
     line-height: 16px;

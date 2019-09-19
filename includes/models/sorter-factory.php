@@ -5,20 +5,20 @@ include_once( 'news-aggregator.php' );
 
 class sorterFactory {
 
-    public function get_sorter ( $type ) {
+	public function get_sorter( $type ) {
 
-        switch( strtolower( $type ) ) {
+		switch ( strtolower( $type ) ) {
 
-            case 'news-aggregator':
-                $sorter = new newsAggregator();
-                break;
+			case 'news-aggregator':
+				$sorter = new newsAggregator();
+				break;
 
-        }
+		}
 
-        return $sorter;
+		return $sorter;
 
-    }
+	}
 
 }
 
-?>
+

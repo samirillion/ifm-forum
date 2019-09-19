@@ -32,21 +32,21 @@ if ( isset( $user_nav_item ) ) {
 			</a>
 		</li>
 		<?php
-		$customterms = get_terms(
+		$custom_terms = get_terms(
 		array(
 			'taxonomy'   => 'aggpost-type',
 			'hide_empty' => false,
 		)
 		);
-		// var_dump($customterms);
-		foreach ( $customterms as $term ) {
+		// var_dump($custom_terms);
+		foreach ( $custom_terms as $term ) {
 			if ( $term->{'slug'} === $agg_query_var ) {
 			$active_class     = 'active';
 			$term_description = '<div class="agg-term-description">' . $term->description . '</div>';
 					} else {
 				$active_class = '';
 					}
-			echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg( 'aggpost_tax', $term->{'slug'}, home_url( 'fin-forum' ) ) . "'>" . $term->{'name'} . '</li>';
+			echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg( 'aggpost_tax', $term->{'slug'}, home_url( 'fin-forum' ) ) . "'>" . $term->{'name'} . '</a></li>';
 		}
 		?>
 		<?php
