@@ -1,9 +1,9 @@
 <?php
 
-class crowdsorterUserProfile {
+class CrowdUserProfile {
 
   public static function render() {
-		wp_enqueue_style( 'crowdsorter.css', plugin_dir_url( __FILE__ ) . '/assets/css/crowdsorter.css', null );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', null );
 		wp_register_script( 'news-aggregator', WP_PLUGIN_URL . '/crowd-sorter/includes/views/assets/js/news-aggregator.js', array( 'jquery' ) );
 		wp_localize_script(
 		'news-aggregator',
@@ -25,7 +25,7 @@ class crowdsorterUserProfile {
 			  if ( get_user_meta( $user_id, 'about_user', true ) ) {
 		  echo '<h5>About:</h5><div class="agg-about-user">' . stripslashes( get_user_meta( $user_id, 'about_user', true ) ) . '</div>';
 			  }
-			  if ( count_user_posts( $userid, 'aggregator-posts' ) ) {
+			  if ( count_user_posts( $user_id, 'aggregator-posts' ) ) {
 		  echo "<a class='btn btn-default view-user-posts' href='" . add_query_arg( 'user_id', $user_id, home_url( 'fin-forum' ) ) . "'>" . $current_user->user_nicename . "'s posts</a>";
 			  }
 			  if ( get_current_user_id() === (int) get_query_var( 'user_id' ) ) {

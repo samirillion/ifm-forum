@@ -32,6 +32,9 @@ class CrowdPostsController {
 		add_action( 'admin_post_edit_post', array( $plugin, 'edit_post' ) );
 
 		add_action( 'admin_post_agg_search_posts', array( $plugin, 'agg_search_posts' ) );
+
+		// Limit media library access
+		// add_filter( 'ajax_query_attachments_args', array( $plugin, 'crowd_limit_media_upload_to_user' ) );
 	}
 
 	/**
@@ -59,6 +62,17 @@ class CrowdPostsController {
 		wp_update_post( $the_post );
 
 		wp_safe_redirect( home_url( 'fin-forum' ) );
+	}
+
+	/**
+	 * Limit media upload options on the frontend visual editor to the user's personal media.
+	 */
+	function crowd_limit_media_upload_to_user( $query ) {
+		$user_id = get_current_user_id();
+		if ( $user_id && ! current_user_can( 'activate_plugins' ) && ! current_user_can( 'edit_others_posts' ) ) {
+			$query['author'] = $user_id;
+		}
+		return $query;
 	}
 
 	/**
@@ -123,7 +137,7 @@ class CrowdPostsController {
 		$posts                               = [];
 		foreach ( relevanssi_do_query( $query ) as $post ) {
 				if ( $post->post_type === 'aggregator-posts' ) {
-					$posts[] = $post;
+				$posts[] = $post;
 					}
 		}
 		return $posts;

@@ -10,7 +10,7 @@ class CrowdNewPost {
  */
 public static function render() {
 		wp_cache_flush();
-		wp_enqueue_style( 'crowdsorter.css', plugin_dir_url( __FILE__ ) . '/assets/css/crowdsorter.css', null );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', null );
 		wp_register_script( 'toggle-switch', plugin_dir_url( __FILE__ ) . '/assets/js/toggle-switch.js', array( 'jquery' ) );
 		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/news-aggregator.js', array( 'jquery', 'toggle-switch' ), false, true );
 		wp_localize_script(
@@ -73,6 +73,7 @@ public static function render() {
 			'textarea_name' => 'post-text-content',
 			'editor_height' => 200,
 			'teeny'         => true,
+			'media_buttons' => true,
 		)
 		);
 		wp_nonce_field( 'submit_aggregator_post' );

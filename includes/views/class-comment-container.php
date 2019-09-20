@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Container for comments under posts
+ */
 class CrowdCommentContainer {
   // O(N) - Will visit every node exactly once
   public static function sort_by_parent( $comment_object ) {
@@ -22,14 +24,14 @@ class CrowdCommentContainer {
   }
 
   // O(N) - Will visit each node exactly once (assuming no loops)
-  public static function build_comment_structure( $obj, $currentID = 0, $depth = 0 ) {
+  public static function build_comment_structure( $obj, $current_id = 0, $depth = 0 ) {
 		// Quit out if we don't have any children
 		global $wpdb;
 		$user_id = get_current_user_id();
-		if ( ! array_key_exists( $currentID, $obj ) ) {
+		if ( ! array_key_exists( $current_id, $obj ) ) {
 			return;
 			}
-		$children = $obj[ $currentID ];
+		$children = $obj[ $current_id ];
 
 		// Each node prints its own contents, then prints the contents of its children
 		echo "<ul class='indented-list'>";
@@ -92,7 +94,7 @@ class CrowdCommentContainer {
   }
 
   public static function render( $comment_query ) {
-		wp_enqueue_style( 'crowdsorter.css', plugin_dir_url( __FILE__ ) . '/assets/css/crowdsorter.css', null );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', null );
 		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/news-aggregator.js', array( 'jquery' ) );
 		wp_localize_script(
 			  'news-aggregator',
@@ -105,16 +107,21 @@ class CrowdCommentContainer {
 			  )
 			);
 		wp_enqueue_script( 'news-aggregator' );
-		echo "<h4 class='comment-post-title'><a href='" . get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] . "' target='_blank'>" . get_the_title( get_query_var( 'agg_post_id' ) ) . '</a></h4>';
+		if ( isset( get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] ) ) {
+			$post_title_content = '<a href="' . get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title( get_query_var( 'agg_post_id' ) ) . '</a>';
+		} else {
+			$post_title_content = get_the_title( get_query_var( 'agg_post_id' ) );
+		}
+		echo '<h4 class="comment-post-title">' . $post_title_content . '</h4>';
 		echo '<div class="post-type">(' . ( wp_get_object_terms( get_query_var( 'agg_post_id' ), 'aggpost-type' ) )[0]->{'name'} . ')</div>';
 		if ( get_post( get_query_var( 'agg_post_id' ) )->post_content != '' ) {
-			echo '<div class="comment-post-content-wrapper">';
-			echo '<div class="comment-post-content">' . get_post( get_query_var( 'agg_post_id' ) )->post_content . '</div>';
-			echo '</div>';
-		}
+		  echo '<div class="comment-post-content-wrapper">';
+		  echo '<div class="comment-post-content">' . get_post( get_query_var( 'agg_post_id' ) )->post_content . '</div>';
+		  echo '</div>';
+			}
 		if ( ! $comment_query ) {
-			echo 'No comments here! start the discussion';
-		}
+		  echo 'No comments here! start the discussion';
+			}
 		echo "<form id='reply-to-post'>";
 		echo "<textarea id='comment-text-area' name='reply' cols='40' rows='5' required></textarea>";
 		echo "<input type='hidden' name='action' value='addComment'/>";
@@ -125,7 +132,7 @@ class CrowdCommentContainer {
 		if ( $comment_query ) {
 		$object = self::sort_by_parent( $comment_query );
 		self::build_comment_structure( $object );
-		}
+			}
 	}
 }
 ?>

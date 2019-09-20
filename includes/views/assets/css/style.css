@@ -207,6 +207,9 @@ input[type="submit"].agg-search-submit {
 .agg-post-types {
   display: flex;
 }
+.agg-submit-post a {
+  font-size: 18px;
+}
 .agg-submit-post a, .agg-submit-post a:visited  {
   color: #7bba22;
 }

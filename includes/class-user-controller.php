@@ -33,8 +33,8 @@ class CrowdUserController {
 	}
 
 	public function render_user_profile() {
-		require_once( 'views/user-profile.php' );
-		crowdsorterUserProfile::render();
+		require_once( 'views/class-user-profile.php' );
+		CrowdUserProfile::render();
 	}
 
 	public function change_password_form() {
@@ -95,9 +95,9 @@ class CrowdUserController {
 		if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 		$errors = retrieve_password();
 		if ( is_wp_error( $errors ) ) {
-			// Errors found
-			$redirect_url = home_url( 'member-password-lost' );
-			$redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
+				// Errors found
+				$redirect_url = home_url( 'member-password-lost' );
+				$redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
 			} else {
 			// Email sent
 			$redirect_url = home_url( 'member-login' );
@@ -176,9 +176,9 @@ class CrowdUserController {
 
 		$attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
-		require_once( 'views/user-forms.php' );
-		$crowdsorterLogin = new crowd_form_renderer;
-		$content          = $crowdsorterLogin->render_form( 'login-form', $attributes );
+		require_once( 'views/class-form-renderer.php' );
+		$crowd_login = new CrowdFormRenderer;
+		$content     = $crowd_login->render_form( 'login-form', $attributes );
 		return $content;
 	}
 
@@ -279,8 +279,8 @@ class CrowdUserController {
 		} elseif ( ! get_option( 'users_can_register' ) ) {
 			return __( 'Registering new users is currently not allowed.', 'personalize-login' );
 		} else {
-			require_once( 'views/user-forms.php' );
-			$crowd_form_renderer = new crowd_form_renderer;
+			require_once( 'views/class-form-renderer.php' );
+			$crowd_form_renderer = new CrowdFormRenderer;
 			$content             = $crowd_form_renderer->render_form( 'register-form', $attributes );
 			return $content;
 		}
@@ -379,23 +379,23 @@ class CrowdUserController {
 		if ( ! is_user_logged_in() ) {
 			$this->redirect_to_login;
 		}
-		require_once( 'views/account-details-container.php' );
-		accountDetailsContainer::render();
+		require_once( 'views/class-account-details.php' );
+		CrowdAccountDetails::render();
 	}
 
 	public function add_conditional_menu_items( $items, $args ) {
-	  if ( $args->theme_location == 'primary' && is_admin() ) {
+		if ( $args->theme_location == 'primary' && is_admin() ) {
 			$items .= '<li><a title="Admin" href="' . esc_url( admin_url() ) . '">' . __( 'Admin' ) . '</a></li>';
-	  }
-	  if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
+		}
+		if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
 			require_once( plugin_dir_path( __FILE__ ) . 'models/user.php' );
 			$userKarma = CrowdUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta( get_current_user_id(), 'nickname', true ) . ' (' . $userKarma . ')</a></li>';
-	  } elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {
-			 $items .= '<li><a title="Login" href="' . esc_url( wp_login_url( '/fin-forum' ) ) . '">' . __( 'Login' ) . '</a></li>';
-	  }
-	  return $items;
-   }
+		} elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {
+			$items .= '<li><a title="Login" href="' . esc_url( wp_login_url( '/fin-forum' ) ) . '">' . __( 'Login' ) . '</a></li>';
+		}
+		return $items;
+	}
 }
 
 CrowdUserController::register();
