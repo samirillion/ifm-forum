@@ -3,8 +3,8 @@
 class CrowdUserProfile {
 
   public static function render() {
-		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', null );
-		wp_register_script( 'news-aggregator', WP_PLUGIN_URL . '/crowd-sorter/includes/views/assets/js/news-aggregator.js', array( 'jquery' ) );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
+		wp_register_script( 'news-aggregator', WP_PLUGIN_URL . '/crowd-sorter/includes/views/assets/js/main.js', array( 'jquery' ) );
 		wp_localize_script(
 		'news-aggregator',
 		'myAjax',

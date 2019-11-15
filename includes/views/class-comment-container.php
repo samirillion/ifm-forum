@@ -94,8 +94,8 @@ class CrowdCommentContainer {
   }
 
   public static function render( $comment_query ) {
-		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', null );
-		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/news-aggregator.js', array( 'jquery' ) );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
+		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/main.js', array( 'jquery' ) );
 		wp_localize_script(
 			  'news-aggregator',
 			  'myAjax',
@@ -109,18 +109,22 @@ class CrowdCommentContainer {
 		wp_enqueue_script( 'news-aggregator' );
 		if ( isset( get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] ) ) {
 			$post_title_content = '<a href="' . get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title( get_query_var( 'agg_post_id' ) ) . '</a>';
-		} else {
+			$post_url           = '<a href="' . get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] . '">' . get_post_meta( get_query_var( 'agg_post_id' ) )['aggregator_entry_url']['0'] . '</a> &ndash; ';
+			} else {
 			$post_title_content = get_the_title( get_query_var( 'agg_post_id' ) );
-		}
+			$post_url           = '';
+			}
 		echo '<h4 class="comment-post-title">' . $post_title_content . '</h4>';
-		echo '<div class="post-type">(' . ( wp_get_object_terms( get_query_var( 'agg_post_id' ), 'aggpost-type' ) )[0]->{'name'} . ')</div>';
-		if ( get_post( get_query_var( 'agg_post_id' ) )->post_content != '' ) {
+		echo $post_url;
+		echo '<span class="crowd-post-type">' . ( wp_get_object_terms( get_query_var( 'agg_post_id' ), 'aggpost-type' ) )[0]->{'name'} . '</span>';
+		if ( get_post( get_query_var( 'agg_post_id' ) )->post_content !== '' ) {
 		  echo '<div class="comment-post-content-wrapper">';
 		  echo '<div class="comment-post-content">' . get_post( get_query_var( 'agg_post_id' ) )->post_content . '</div>';
 		  echo '</div>';
 			}
+		echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;">';
 		if ( ! $comment_query ) {
-		  echo 'No comments here! start the discussion';
+		  echo 'No comments here! Start the discussion.';
 			}
 		echo "<form id='reply-to-post'>";
 		echo "<textarea id='comment-text-area' name='reply' cols='40' rows='5' required></textarea>";

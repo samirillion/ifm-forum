@@ -74,6 +74,9 @@
 .agg-post-meta {
   padding-top: 2px;
 }
+.crowd-post-type {
+  font-variant: small-caps;
+}
 .agg-post-type, .aggpost-type-nav-item {
   font-variant: small-caps;
   font-size: 15px;

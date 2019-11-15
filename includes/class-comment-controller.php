@@ -23,8 +23,8 @@ class CrowdCommentController {
 	}
 
 	public function render_comments_page() {
-		require_once( 'models/news-aggregator-comments.php' );
-		$crowd_comments = new newsAggregatorComments;
+		require_once( 'models/class-comments.php' );
+		$crowd_comments = new CrowdComments;
 		$comment_query  = $crowd_comments->query_comments();
 		$comment_array  = json_decode( json_encode( $comment_query ), true );
 
@@ -33,21 +33,21 @@ class CrowdCommentController {
 	}
 
 	public function vote_on_comment() {
-		require_once( 'models/news-aggregator-comments.php' );
-		$crowd_comments = new newsAggregatorComments;
+		require_once( 'models/class-comments.php' );
+		$crowd_comments = new CrowdComments;
 		$crowd_comments->update_comment_karma();
 
 	}
 
 	public function comment_on_post() {
-		require_once( 'models/news-aggregator-comments.php' );
-		$crowd_comments = new newsAggregatorComments;
+		require_once( 'models/class-comments.php' );
+		$crowd_comments = new CrowdComments;
 		$crowd_comments->add_comment_to_post( $postID );
 	}
 
 	public function comment_on_comment() {
-		require_once( 'models/news-aggregator-comments.php' );
-		$crowd_comments = new newsAggregatorComments;
+		require_once( 'models/class-comments.php' );
+		$crowd_comments = new CrowdComments;
 		$crowd_comments->comment_on_comment();
 	}
 

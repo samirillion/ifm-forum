@@ -58,7 +58,7 @@
 	<?php wp_nonce_field( 'submit_aggregator_post' ); ?>
 
 	<p class="edit-submit">
-		<input type="submit" name="submit" class="edit-post-button" value="<?php _e( 'Edit', 'edit-post' ); ?>" />
+		<input type="submit" name="submit" class="edit-post-button" value="<?php _e( 'Submit', 'edit-post' ); ?>" />
 	</p>
 	<input type="hidden" name="post-id" value="<?php echo get_query_var( 'agg_post_id' ); ?>">
 	<input type="hidden" name="action" value="edit_post">

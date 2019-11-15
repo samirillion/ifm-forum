@@ -6,7 +6,7 @@ class CrowdFormRenderer {
 
 	public function render_form( $template_name, $attributes = null ) {
 		// Parse shortcode attributes
-		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/css/style.css', null );
+		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/style.css', null );
 		if ( ! $attributes ) {
 			$attributes = array();
 		}
