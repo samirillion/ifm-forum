@@ -20,7 +20,9 @@ public static function render( $page_posts ) {
 			);
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'toggle-switch' );
-		wp_enqueue_script( 'news-aggregator' ); ?>
+		wp_enqueue_script( 'news-aggregator' ); 
+		$page   = ( isset( $_POST['pageNumber'] ) ) ? $_POST['pageNumber'] : 1;
+		?>
 		<div id="agg-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
 			require( 'templates/class-post-template.php' );
@@ -36,7 +38,7 @@ public static function render( $page_posts ) {
 			?>
 		</div>
 			<?php if ( is_array( $page_posts ) && [] !== $page_posts ) { ?>
-			<div id="more_aggregator_posts"><?php esc_html_e( 'Load More Posts', 'aggregator' ); ?></div>
+			<div id="more_aggregator_posts" ><?php esc_html_e( 'Load More Posts', 'aggregator' ); ?></div>
 			<?php
 			}
 	}

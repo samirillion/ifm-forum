@@ -220,11 +220,12 @@ input[type="submit"].agg-search-submit {
   margin-top: 10px;
 }
 #more_aggregator_posts {
-  text-align: center;
+  text-align: left;
   margin-top: 20px;
   color: #7bba22;
   font-size: 18px;
   height: 50px;
+  margin-left: 57px;
 }
 #more_aggregator_posts img {
   height: 100%;
