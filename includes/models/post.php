@@ -3,7 +3,7 @@
 class CrowdPost {
 	public static function sort_posts( $tax_term = '' ) {
 		global $wpdb;
-		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 9;
+		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 30;
 		$page   = ( isset( $_POST['pageNumber'] ) ) ? $_POST['pageNumber'] : 1;
 		$offset = ( $page - 1 ) * $ppp;
 		if ( get_query_var( 'aggpost_tax' ) ) {
