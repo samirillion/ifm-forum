@@ -7,6 +7,13 @@
 class CrowdPostsController {
 
 	/**
+	 * Define Posts Per Page for Pagination. Eventually set in WordPress Admin.
+	 *
+	 * @var integer
+	 */
+	private $posts_per_page = 30;
+
+	/**
 	 * Registration function.
 	 */
 	public static function register() {
@@ -133,10 +140,10 @@ class CrowdPostsController {
 	 */
 	public function agg_search_posts() {
 		$query->query_vars['s']              = sanitize_text_field( $_GET['agg_query'] );
-		$query->query_vars['posts_per_page'] = 30;
+		$query->query_vars['posts_per_page'] = $this->posts_per_page;
 		$posts                               = [];
 		foreach ( relevanssi_do_query( $query ) as $post ) {
-				if ( $post->post_type === 'aggregator-posts' ) {
+				if ( 'aggregator-posts' === $post->post_type ) {
 				$posts[] = $post;
 					}
 		}

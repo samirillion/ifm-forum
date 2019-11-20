@@ -1,6 +1,6 @@
 .agg-item-voter {
   width: 40px;
-  height: 64px;
+  height: 54px;
   float: left;
   text-align: center;
 }
@@ -9,8 +9,8 @@
   height: 0;
   border-color: transparent transparent #D3D3D3 transparent;
   border-style: solid;
-  border-width: 9px;
-  border-bottom-width: 17px;
+  border-width: 6px;
+  border-bottom-width: 12px;
   text-decoration: none;
   margin: 0 auto;
   display: block;
@@ -45,7 +45,7 @@
   border-bottom: none;
 }
 .agg-item-content, .agg-item-no-content {
-  height: 64px;
+  height: 54px;
   width: calc(100% - 50px);
   float: left;
   padding-left: 10px;
@@ -69,7 +69,7 @@
 }
 .agg-post-meta, .agg-post-title {
   width: 100%;
-  line-height: 1.3;
+  line-height: 1.1;
 }
 .agg-post-meta {
   padding-top: 2px;
@@ -108,7 +108,7 @@
 }
 .agg-comments-link{
   color: #999999;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 900;
   margin-left: 5px;
   margin-right: 5px;
@@ -407,7 +407,7 @@ input[type="submit"].agg-search-submit {
     width: 100%;
   }
   .agg-post-title {
-    font-size: 13px;
+    font-size: 14px;
   }
   .agg-item-content {
     padding: 0 4px 0 7px;
