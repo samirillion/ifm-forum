@@ -186,7 +186,7 @@ class CrowdUserController {
 	 * Redirect the user to the custom login page instead of wp-login.php.
 	 */
 	public function redirect_to_custom_login() {
-		if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
+		if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
 			$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : null;
 
 			if ( is_user_logged_in() ) {

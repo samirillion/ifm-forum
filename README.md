@@ -11,4 +11,4 @@ Current plugin functionality:
 Roadmap:
 - integration with Relevanssi
 - integration with FrontEnd PM (or code from scratch?)
-- 
+- de-Ajax paging functions
