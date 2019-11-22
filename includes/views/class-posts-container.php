@@ -20,8 +20,11 @@ public static function render( $page_posts ) {
 			);
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'toggle-switch' );
-		wp_enqueue_script( 'news-aggregator' ); 
-		$page   = ( isset( $_POST['pageNumber'] ) ) ? $_POST['pageNumber'] : 1;
+		wp_enqueue_script( 'news-aggregator' );
+		$page = ( isset( $_REQUEST['crowd_p'] ) ) ? $_REQUEST['crowd_p'] : 1;
+		global $wp;
+		$current_url = home_url( add_query_arg( array(), $wp->request ) );
+		$next_page   = add_query_arg( 'crowd_p', $page + 1, $current_url );
 		?>
 		<div id="agg-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
@@ -38,8 +41,8 @@ public static function render( $page_posts ) {
 			?>
 		</div>
 			<?php if ( is_array( $page_posts ) && [] !== $page_posts ) { ?>
-			<div id="more_aggregator_posts" ><?php esc_html_e( 'Load More Posts', 'aggregator' ); ?></div>
+			<a id="more_aggregator_posts" href="<?php echo $next_page; ?>" ><?php esc_html_e( 'Load More Posts', 'aggregator' ); ?></a>
 			<?php
-			}
+				}
 	}
 }

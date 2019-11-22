@@ -45,39 +45,39 @@ jQuery( function($) {
    });
 
 //'paging' function for posts
-   var aggregatorPPP = 9;
-   var aggregatorPageNumber = 1;
-   $loader = $("#aggregator-container");
-   function load_posts(){
-     aggregatorPageNumber++;
-     $.ajax({
-       type: "POST",
-       dataType: "html",
-       url: myAjax.ajaxurl,
-       data: {action: "more_aggregator_posts", ppp: aggregatorPPP, pageNumber: aggregatorPageNumber, aggpostTax: myAjax.aggpost_tax},
-       success: function(data){
-         var $data = $(data);
-           if($data.length){
-               $("#agg-container").append($data);
-               $("#more_aggregator_posts").attr("disabled",false);
-               $("#more_aggregator_posts").html("Load More Posts")
-           } else {
-               $("#more_aggregator_posts").html('No More Posts');
-               $("#more_aggregator_posts").attr("disabled",true);
-           }
-       },
-       error : function(jqXHR, textStatus, errorThrown) {
-           $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
-       }
-     });
-     return false;
-   }
+  //  var aggregatorPPP = 9;
+  //  var aggregatorPageNumber = 1;
+  //  $loader = $("#aggregator-container");
+  //  function load_posts(){
+  //    aggregatorPageNumber++;
+  //    $.ajax({
+  //      type: "POST",
+  //      dataType: "html",
+  //      url: myAjax.ajaxurl,
+  //      data: {action: "more_aggregator_posts", ppp: aggregatorPPP, crowd_p: aggregatorPageNumber, aggpostTax: myAjax.aggpost_tax},
+  //      success: function(data){
+  //        var $data = $(data);
+  //          if($data.length){
+  //              $("#agg-container").append($data);
+  //              $("#more_aggregator_posts").attr("disabled",false);
+  //              $("#more_aggregator_posts").html("Load More Posts")
+  //          } else {
+  //              $("#more_aggregator_posts").html('No More Posts');
+  //              $("#more_aggregator_posts").attr("disabled",true);
+  //          }
+  //      },
+  //      error : function(jqXHR, textStatus, errorThrown) {
+  //          $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+  //      }
+  //    });
+  //    return false;
+  //  }
 
-   $('#more_aggregator_posts').click( function() {
-     $(this).attr("disabled",true);
-     $(this).html("<img src='http://foodinneighborhoods.org/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
-     load_posts();
-   })
+  //  $('#more_aggregator_posts').click( function() {
+  //    $(this).attr("disabled",true);
+  //    $(this).html("<img src='http://foodinneighborhoods.org/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
+  //    load_posts();
+  //  })
 
 //Mention you must be logged in
    $('#post-title').one("focus", function(){
