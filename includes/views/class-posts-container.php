@@ -28,8 +28,8 @@ public static function render( $page_posts ) {
 		?>
 		<div id="agg-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
-			require( 'templates/class-post-template.php' );
-			require( 'templates/forum-nav.php' );
+			require( 'partials/class-post-template.php' );
+			require( 'partials/forum-nav.php' );
 			if ( is_array( $page_posts ) && [] !== $page_posts ) {
 				$html = CrowdPostTemplate::render( $page_posts );
 				} else {

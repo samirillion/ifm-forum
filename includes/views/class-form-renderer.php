@@ -36,7 +36,7 @@ class CrowdFormRenderer {
 
 		do_action( 'personalize_login_before_' . $template_name );
 
-		require( 'templates/' . $template_name . '.php' );
+		require( 'partials/' . $template_name . '.php' );
 
 		do_action( 'personalize_login_after_' . $template_name );
 

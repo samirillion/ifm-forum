@@ -160,7 +160,7 @@ class CrowdPostsController {
 		$query     = CrowdPost::sort_posts();
 		$pageposts = $query[0];
 
-		require_once( 'views/templates/class-post-template.php' );
+		require_once( 'views/partials/class-post-template.php' );
 		$content = CrowdPostTemplate::render( $pageposts );
 		return $content;
 	}

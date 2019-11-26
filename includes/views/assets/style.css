@@ -222,18 +222,18 @@ input[type="submit"].agg-search-submit {
 .edit-submit {
   margin-top: 10px;
 }
-#more_aggregator_posts {
+.crowd-more-posts {
   text-align: left;
   color: #7bba22;
   font-size: 18px;
   height: 50px;
   padding-bottom: 10px;
 }
-#more_aggregator_posts img {
+.crowd-more-posts img {
   height: 100%;
   margin-top: -15px;
 }
-#more_aggregator_posts:hover {
+.crowd-more-posts:hover {
   cursor: pointer;
   opacity: .8;
 }

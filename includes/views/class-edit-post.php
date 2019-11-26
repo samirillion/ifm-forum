@@ -19,7 +19,7 @@ public static function render() {
 		);
 		wp_enqueue_script( 'news-aggregator' );
 		ob_start();
-		require_once( 'templates/edit-post.php' );
+		require_once( 'partials/edit-post.php' );
 		$output = ob_get_clean();
 
 		echo $output;

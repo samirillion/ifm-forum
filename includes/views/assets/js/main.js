@@ -59,11 +59,11 @@ jQuery( function($) {
   //        var $data = $(data);
   //          if($data.length){
   //              $(".crowd-container").append($data);
-  //              $("#more_aggregator_posts").attr("disabled",false);
-  //              $("#more_aggregator_posts").html("Load More Posts")
+  //              $(".crowd-more-posts").attr("disabled",false);
+  //              $(".crowd-more-posts").html("Load More Posts")
   //          } else {
-  //              $("#more_aggregator_posts").html('No More Posts');
-  //              $("#more_aggregator_posts").attr("disabled",true);
+  //              $(".crowd-more-posts").html('No More Posts');
+  //              $(".crowd-more-posts").attr("disabled",true);
   //          }
   //      },
   //      error : function(jqXHR, textStatus, errorThrown) {
@@ -73,7 +73,7 @@ jQuery( function($) {
   //    return false;
   //  }
 
-  //  $('#more_aggregator_posts').click( function() {
+  //  $('.crowd-more-posts').click( function() {
   //    $(this).attr("disabled",true);
   //    $(this).html("<img src='http://foodinneighborhoods.org/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
   //    load_posts();
