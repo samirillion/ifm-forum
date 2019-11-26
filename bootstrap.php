@@ -7,7 +7,7 @@
  * @since 1.0.0
  *
  * Plugin Name: Ifm Sorter
- * Plugin URI: https://github.com/samirillion/ifm
+ * Plugin URI: https://github.com/samirillion/crowdsorter
  * Description: A Reddit-like forum
  * Version:     1.0.0
  * Author:      samirillion
@@ -22,9 +22,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'CROWDSORTER_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
-define( 'CROWDSORTER_REQUIRED_WP_VERSION', '3.0' );
-define( 'CROWDSORTER_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
+define( 'IFM_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
+define( 'IFM_REQUIRED_WP_VERSION', '3.0' );
+define( 'IFM_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
 
 /**
  * Checks if the system requirements are met
@@ -36,13 +36,13 @@ function ifm_requirements_met() {
 
 	global $wp_version;
 
-	if ( version_compare( PHP_VERSION, CROWDSORTER_REQUIRED_PHP_VERSION, '<' ) ) {
+	if ( version_compare( PHP_VERSION, IFM_REQUIRED_PHP_VERSION, '<' ) ) {
 		return false;
 	}
-	if ( version_compare( $wp_version, CROWDSORTER_REQUIRED_WP_VERSION, '<' ) ) {
+	if ( version_compare( $wp_version, IFM_REQUIRED_WP_VERSION, '<' ) ) {
 		return false;
 	}
-	if ( is_multisite() !== CROWDSORTER_REQUIRED_WP_NETWORK ) {
+	if ( is_multisite() !== IFM_REQUIRED_WP_NETWORK ) {
 		return false;
 	}
 
