@@ -253,7 +253,7 @@ input[type="submit"].ifm-search-submit {
   font-size: 13px;
   font-weight: 300;
 }
-#comment-text-area {
+.ifm-comment {
   width: 50%;
   color: #333333;
   letter-spacing: .5px;
@@ -440,7 +440,7 @@ input[type="submit"].ifm-search-submit {
   .ifm-searchform input.ifm-query-input {
     margin-left: 5px;
   }
-  #comment-text-area {
+  .ifm-comment {
     width: 100%;
   }
 }

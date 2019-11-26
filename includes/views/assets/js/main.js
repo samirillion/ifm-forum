@@ -87,7 +87,7 @@ jQuery( function($) {
    })
 
 //Script for replying to post
-  $('#comment-text-area').one("focus", function(){
+  $('.ifm-comment').one("focus", function(){
     if ( !myAjax.loggedIn){
       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
     }
