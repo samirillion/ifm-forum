@@ -2,9 +2,9 @@
 
 /**
  *
- * @package CrowdSorter
+ * @package IfmSorter
  */
-class CrowdCommentController {
+class IfmCommentController {
 
 	public static function register() {
 		$plugin = new self();
@@ -24,30 +24,30 @@ class CrowdCommentController {
 
 	public function render_comments_page() {
 		require_once( 'models/class-comments.php' );
-		$crowd_comments = new CrowdComments;
+		$crowd_comments = new IfmComments;
 		$comment_query  = $crowd_comments->query_comments();
 		$comment_array  = json_decode( json_encode( $comment_query ), true );
 
 		require_once( 'views/class-comment-container.php' );
-		return CrowdCommentContainer::render( $comment_array );
+		return IfmCommentContainer::render( $comment_array );
 	}
 
 	public function vote_on_comment() {
 		require_once( 'models/class-comments.php' );
-		$crowd_comments = new CrowdComments;
+		$crowd_comments = new IfmComments;
 		$crowd_comments->update_comment_karma();
 
 	}
 
 	public function comment_on_post() {
 		require_once( 'models/class-comments.php' );
-		$crowd_comments = new CrowdComments;
+		$crowd_comments = new IfmComments;
 		$crowd_comments->add_comment_to_post( $postID );
 	}
 
 	public function comment_on_comment() {
 		require_once( 'models/class-comments.php' );
-		$crowd_comments = new CrowdComments;
+		$crowd_comments = new IfmComments;
 		$crowd_comments->comment_on_comment();
 	}
 
@@ -60,4 +60,4 @@ class CrowdCommentController {
 	}
 }
 
-CrowdCommentController::register();
+IfmCommentController::register();

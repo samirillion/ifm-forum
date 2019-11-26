@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package CrowdSorter
+ * @package IfmSorter
  */
-class CrowdUserController {
+class IfmUserController {
 
 	public static function register() {
 		$plugin = new self();
@@ -34,7 +34,7 @@ class CrowdUserController {
 
 	public function render_user_profile() {
 		require_once( 'views/class-user-profile.php' );
-		CrowdUserProfile::render();
+		IfmUserProfile::render();
 	}
 
 	public function change_password_form() {
@@ -58,7 +58,7 @@ class CrowdUserController {
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if ( is_user_logged_in() ) {
 			require_once( 'models/user.php' );
-			$userKarma = CrowdUser::calculate_user_karma(); ?><a href="<?php echo home_url( 'my-account' ); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			$userKarma = IfmUser::calculate_user_karma(); ?><a href="<?php echo home_url( 'my-account' ); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
 			?>
@@ -74,7 +74,7 @@ class CrowdUserController {
 			exit();
 		}
 		require_once( 'models/user.php' );
-		$crowd_user = new CrowdUser;
+		$crowd_user = new IfmUser;
 		$crowd_user->update_user_information();
 	}
 	public function replace_retrieve_password_message( $message, $key, $user_login, $user_data ) {
@@ -127,7 +127,7 @@ class CrowdUserController {
 		} else {
 			// Retrieve possible errors from request parameters
 			require_once( 'views/class-form-renderer.php' );
-			$crowd_form_renderer  = new CrowdFormRenderer;
+			$crowd_form_renderer  = new IfmFormRenderer;
 			$attributes['errors'] = array();
 			if ( isset( $_REQUEST['errors'] ) ) {
 				$error_codes = explode( ',', $_REQUEST['errors'] );
@@ -177,7 +177,7 @@ class CrowdUserController {
 		$attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
 		require_once( 'views/class-form-renderer.php' );
-		$crowd_login = new CrowdFormRenderer;
+		$crowd_login = new IfmFormRenderer;
 		$content     = $crowd_login->render_form( 'login-form', $attributes );
 		return $content;
 	}
@@ -280,7 +280,7 @@ class CrowdUserController {
 			return __( 'Registering new users is currently not allowed.', 'personalize-login' );
 		} else {
 			require_once( 'views/class-form-renderer.php' );
-			$crowd_form_renderer = new CrowdFormRenderer;
+			$crowd_form_renderer = new IfmFormRenderer;
 			$content             = $crowd_form_renderer->render_form( 'register-form', $attributes );
 			return $content;
 		}
@@ -304,7 +304,7 @@ class CrowdUserController {
 	private function register_user( $email, $username, $password ) {
 		$errors = new WP_Error();
 		require_once( 'views/class-form-renderer.php' );
-		$crowd_form_renderer = new CrowdFormRenderer;
+		$crowd_form_renderer = new IfmFormRenderer;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if ( ! is_email( $email ) && $email != 0 ) {
@@ -380,7 +380,7 @@ class CrowdUserController {
 			$this->redirect_to_login;
 		}
 		require_once( 'views/class-account-details.php' );
-		CrowdAccountDetails::render();
+		IfmAccountDetails::render();
 	}
 
 	public function add_conditional_menu_items( $items, $args ) {
@@ -389,7 +389,7 @@ class CrowdUserController {
 		}
 		if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
 			require_once( plugin_dir_path( __FILE__ ) . 'models/user.php' );
-			$userKarma = CrowdUser::calculate_user_karma();
+			$userKarma = IfmUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta( get_current_user_id(), 'nickname', true ) . ' (' . $userKarma . ')</a></li>';
 		} elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {
 			$items .= '<li><a title="Login" href="' . esc_url( wp_login_url( '/fin-forum' ) ) . '">' . __( 'Login' ) . '</a></li>';
@@ -398,4 +398,4 @@ class CrowdUserController {
 	}
 }
 
-CrowdUserController::register();
+IfmUserController::register();

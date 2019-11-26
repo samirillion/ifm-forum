@@ -2,9 +2,9 @@
 /**
  * Definitions for pages with accompanying shortcodes
  *
- * @package CrowdSort
+ * @package IfmSort
  */
-class CrowdPageDefinitions {
+class IfmPageDefinitions {
 	/**
 	 *  Information needed for creating the plugin's pages
 	 */

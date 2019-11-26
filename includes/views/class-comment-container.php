@@ -2,7 +2,7 @@
 /**
  * Container for comments under posts
  */
-class CrowdCommentContainer {
+class IfmCommentContainer {
   // O(N) - Will visit every node exactly once
   public static function sort_by_parent( $comment_object ) {
 		$comments_by_parent = array();

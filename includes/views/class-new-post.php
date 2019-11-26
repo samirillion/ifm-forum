@@ -2,9 +2,9 @@
 /**
  * New Post Form
  *
- * @package CrowdSort
+ * @package IfmSort
  */
-class CrowdNewPost {
+class IfmNewPost {
 /**
  * Render function.
  */

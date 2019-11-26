@@ -2,7 +2,7 @@
 /**
  * Undocumented class
  */
-class CrowdComments {
+class IfmComments {
 
 	// Information needed for creating the plugin's pages
 	public function query_comments() {

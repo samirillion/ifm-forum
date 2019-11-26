@@ -1,12 +1,12 @@
 <?php
 /**
- * Crowd Sorter
+ * Ifm Sorter
  *
- * @package CrowdSort
+ * @package IfmSort
  * @link https://foodinneighborhoods.com/connect
  * @since 1.0.0
  *
- * Plugin Name: Crowd Sorter
+ * Plugin Name: Ifm Sorter
  * Plugin URI: https://github.com/samirillion/crowdsorter
  * Description: A Reddit-like forum
  * Version:     1.0.0
@@ -14,7 +14,7 @@
  * Author URI:  https://idealforum.org
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: CrowdSort
+ * Text Domain: IfmSort
  */
 
 // If this file is called directly, abort.
@@ -80,7 +80,7 @@ function run_crowdsorter() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-user-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activation-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-comment-controller.php';
-		register_activation_hook( __FILE__, array( 'Crowdsort', 'plugin_activated' ) );
+		register_activation_hook( __FILE__, array( 'Ifmsort', 'plugin_activated' ) );
 
 	} else {
 

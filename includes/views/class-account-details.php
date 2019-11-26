@@ -1,6 +1,6 @@
 <?php
 
-class CrowdAccountDetails {
+class IfmAccountDetails {
 	public static function render() {
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
 		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/main.js', array( 'jquery' ) );
@@ -16,7 +16,7 @@ class CrowdAccountDetails {
 			$current_user = wp_get_current_user();
 			echo 'Username: ' . $current_user->user_login . '<br />';
 			require_once( plugin_dir_path( __DIR__ ) . 'models/user.php' );
-			$user_karma = CrowdUser::calculate_user_karma();
+			$user_karma = IfmUser::calculate_user_karma();
 			echo 'User Karma: ' . $user_karma . '<br />';
 			echo 'User Since: ' . human_time_diff( strtotime( $current_user->user_registered ), current_time( 'timestamp', 1 ) ) . ' ago';
 			?>

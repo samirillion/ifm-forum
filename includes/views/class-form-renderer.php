@@ -2,7 +2,7 @@
 /**
  * A Class for Rendering User Forms
  */
-class CrowdFormRenderer {
+class IfmFormRenderer {
 
 	public function render_form( $template_name, $attributes = null ) {
 		// Parse shortcode attributes

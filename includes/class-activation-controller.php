@@ -2,9 +2,9 @@
 /**
  * Class For activation
  *
- * @package CrowdSort
+ * @package IfmSort
  */
-class CrowdActivationController {
+class IfmActivationController {
 
 	/**
 	 * Registration Functions.
@@ -39,9 +39,9 @@ class CrowdActivationController {
 		}
 
 		require_once( 'models/page-definitions.php' );
-		$page_definitions = new CrowdPageDefinitions;
+		$page_definitions = new IfmPageDefinitions;
 		$page_definitions->define_pages();
 	}
 }
 
-CrowdActivationController::register();
+IfmActivationController::register();

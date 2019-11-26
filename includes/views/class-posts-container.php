@@ -3,7 +3,7 @@
 /**
  * Container for the the post lists themselves.
  */
-class CrowdPostsContainer {
+class IfmPostsContainer {
 
 public static function render( $page_posts ) {
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
@@ -31,7 +31,7 @@ public static function render( $page_posts ) {
 			require( 'partials/class-post-template.php' );
 			require( 'partials/forum-nav.php' );
 			if ( is_array( $page_posts ) && [] !== $page_posts ) {
-				$html = CrowdPostTemplate::render( $page_posts );
+				$html = IfmPostTemplate::render( $page_posts );
 				} else {
 			?>
 			<div class='agg-item-no-content'><div class='agg-post-title'><span clas='title'>No posts here! You should submit one!</span></div></div>

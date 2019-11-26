@@ -1,6 +1,6 @@
 <?php
 
-class CrowdPost {
+class IfmPost {
 	public static function sort_posts( $tax_term = '' ) {
 		global $wpdb;
 		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 31;

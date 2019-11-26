@@ -2,7 +2,7 @@
 /**
  * Container for Individual
  */
-class CrowdPostTemplate {
+class IfmPostTemplate {
 
 public static function render( $pageposts ) {
 		global $wpdb;

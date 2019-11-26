@@ -2,9 +2,9 @@
 /**
  * Undocumented class
  *
- * @package CrowdSort
+ * @package IfmSort
  */
-class CrowdPostsController {
+class IfmPostsController {
 
 	/**
 	 * Define Posts Per Page for Pagination. Eventually set in WordPress Admin.
@@ -89,7 +89,7 @@ class CrowdPostsController {
 	 */
 	public function render_edit_post_container() {
 		require_once( 'views/class-edit-post.php' );
-		CrowdEditPost::render();
+		IfmEditPost::render();
 	}
 
 	/**
@@ -122,14 +122,14 @@ class CrowdPostsController {
 	public function create_container( $search_results = [] ) {
 		if ( ! isset( $_GET['agg_query'] ) ) {
 			require_once( 'models/post.php' );
-			$query     = CrowdPost::sort_posts();
+			$query     = IfmPost::sort_posts();
 			$pageposts = $query[0];
 		} else {
 			$pageposts = $this->agg_search_posts();
 		}
 
 		require_once( 'views/class-posts-container.php' );
-		$content = CrowdPostsContainer::render( $pageposts );
+		$content = IfmPostsContainer::render( $pageposts );
 		return $content;
 	}
 
@@ -157,11 +157,11 @@ class CrowdPostsController {
 	 */
 	public function load_more_posts() {
 		require_once( 'models/post.php' );
-		$query     = CrowdPost::sort_posts();
+		$query     = IfmPost::sort_posts();
 		$pageposts = $query[0];
 
 		require_once( 'views/partials/class-post-template.php' );
-		$content = CrowdPostTemplate::render( $pageposts );
+		$content = IfmPostTemplate::render( $pageposts );
 		return $content;
 	}
 
@@ -217,7 +217,7 @@ class CrowdPostsController {
 	 */
 	public function my_user_vote() {
 		require_once( 'models/post.php' );
-		$karma_tracker = new CrowdPost;
+		$karma_tracker = new IfmPost;
 		$karma_tracker->update_post_karma();
 	}
 
@@ -228,7 +228,7 @@ class CrowdPostsController {
 	 */
 	public function create_new_post_template() {
 		require_once( 'views/class-new-post.php' );
-		$crowd_post_template = new CrowdNewPost;
+		$crowd_post_template = new IfmNewPost;
 		$crowd_post_template->render();
 	}
 
@@ -239,9 +239,9 @@ class CrowdPostsController {
 	 */
 	public function submit_post() {
 		require_once( 'models/post.php' );
-		$crowd_posts = new CrowdPost;
+		$crowd_posts = new IfmPost;
 		$crowd_posts->submit_post();
 	}
 }
 
-CrowdPostsController::register();
+IfmPostsController::register();

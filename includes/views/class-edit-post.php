@@ -2,7 +2,7 @@
 /**
  * Post Edit Render Class
  */
-class CrowdEditPost {
+class IfmEditPost {
 
 public static function render() {
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );

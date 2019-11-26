@@ -1,6 +1,6 @@
 <?php
 
-class CrowdUser {
+class IfmUser {
 
 public static function calculate_user_karma( $user_id = -1 ) {
 		global $wpdb;

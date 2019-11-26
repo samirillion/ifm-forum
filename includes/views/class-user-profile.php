@@ -1,6 +1,6 @@
 <?php
 
-class CrowdUserProfile {
+class IfmUserProfile {
 
   public static function render() {
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
@@ -19,7 +19,7 @@ class CrowdUserProfile {
 		echo '<div class="user-account-details">';
 			  echo '<h5>Username: ' . $current_user->user_nicename . '</h5>';
 			  require_once( plugin_dir_path( __DIR__ ) . 'models/user.php' );
-			  $user_karma = CrowdUser::calculate_user_karma( $user_id );
+			  $user_karma = IfmUser::calculate_user_karma( $user_id );
 			  echo '<h5>User Karma: ' . $user_karma . '</h5>';
 			  echo '<h5>User Since: ' . human_time_diff( strtotime( $current_user->user_registered ), current_time( 'timestamp', 1 ) ) . ' ago</h5>';
 			  if ( get_user_meta( $user_id, 'about_user', true ) ) {
