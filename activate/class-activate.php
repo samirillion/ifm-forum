@@ -38,7 +38,7 @@ class IfmActivationController {
 			wp_schedule_event( time(), '5min', 'post_ranking_cron' );
 		}
 
-		require_once( 'models/page-definitions.php' );
+		require_once( 'class-page-definitions.php' );
 		$page_definitions = new IfmPageDefinitions;
 		$page_definitions->define_pages();
 	}

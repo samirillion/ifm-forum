@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Helper Functions Defining Posts
+ */
 class IfmPost {
 	public static function sort_posts( $tax_term = '' ) {
 		global $wpdb;
@@ -143,7 +145,6 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 	  // if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
 	  // exit("No naughty business please");
 	  // }
-	xdebug_break();
 	$post_array = array(
 		'post_title'  => sanitize_text_field( $_POST['post-title'] ),
 		'post_type'   => 'aggregator-posts',

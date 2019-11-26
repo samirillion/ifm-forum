@@ -32,17 +32,21 @@ public static function render( $page_posts ) {
 			require( 'partials/forum-nav.php' );
 			if ( is_array( $page_posts ) && [] !== $page_posts ) {
 				$html = IfmPostTemplate::render( $page_posts );
+				?>
+				<div class="ifm-load-more">
+					<a href="<?php echo $next_page; ?>" >
+						<?php esc_html_e( 'Load More Posts', 'aggregator' ); ?>
+					</a>
+				</div>
+				<?php
 				} else {
 			?>
-			<div class='ifm-item-no-content'><div class='ifm-post-title'><span clas='title'>No posts here! You should submit one!</span></div></div>
+			<div class='ifm-item-no-content'><div class='ifm-post-title'>No posts here! You should submit one!</div></div>
 		<?php
 				}
-			echo $html;
-			?>
+				echo $html;
+				?>
 		</div>
-			<?php if ( is_array( $page_posts ) && [] !== $page_posts ) { ?>
-			<a id="more_aggregator_posts" href="<?php echo $next_page; ?>" ><?php esc_html_e( 'Load More Posts', 'aggregator' ); ?></a>
-			<?php
-				}
+				<?php
 	}
 }

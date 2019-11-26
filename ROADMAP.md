@@ -30,6 +30,10 @@
 
 [ ] Add backend options pages
 
+[ ] Implement unit testing
+
+[ ] Implement PHP router
+
 [ ] Implement ActivityPub
 
 [ ] Find way to integrate with Peertube instance(s)

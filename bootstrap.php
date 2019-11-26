@@ -76,16 +76,16 @@ function run_ifm() {
 	 */
 	if ( ifm_requirements_met() ) {
 
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-posts-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-user-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activation-controller.php';
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-comment-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'activate/class-activate.php';
+		require_once plugin_dir_path( __FILE__ ) . 'app/class-posts-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'app/class-user-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'app/class-comment-controller.php';
 		register_activation_hook( __FILE__, array( 'Ifmsort', 'plugin_activated' ) );
 
 	} else {
 
 		add_action( 'admin_notices', 'ifm_show_requirements_error' );
-		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		require_once( ABSPATH . 'wp-admin/app/plugin.php' );
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
 	}
