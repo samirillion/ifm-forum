@@ -6,9 +6,9 @@
  * @link https://foodinneighborhoods.com/connect
  * @since 1.0.0
  *
- * Plugin Name: Ifm Sorter
+ * Plugin Name: Ideal Forum
  * Plugin URI: https://github.com/samirillion/crowdsorter
- * Description: A Reddit-like forum
+ * Description: A Reddit-like forum plugin
  * Version:     1.0.0
  * Author:      samirillion
  * Author URI:  https://idealforum.org

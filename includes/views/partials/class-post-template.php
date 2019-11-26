@@ -51,18 +51,18 @@ public static function render( $pageposts ) {
 			}
 			$user_is_op = $post->post_author == get_current_user_id() ? true : false;
 			?>
-	<div class="agg-entry-wrapper clearfix">
-	<div class="agg-item-voter">
+	<div class="ifm-entry-wrapper clearfix">
+	<div class="ifm-item-voter">
 		<div data-nonce="<?php echo $nonce; ?>" data-post_id="<?php echo $post_ID; ?>" href="<?php echo $link; ?>" class="upvote_entry">
 		<?php
 				if ( $upvoted ) {
-			echo '<div class="agg-vote upvoted"></div>';
+			echo '<div class="ifm-vote upvoted"></div>';
 				} else {
-			echo '<div class="agg-vote"></div>';
+			echo '<div class="ifm-vote"></div>';
 				}
 				?>
 		</div>
-		<div class="agg-karma">
+		<div class="ifm-karma">
 			<?php
 			if ( $upvotes == 1 ) {
 				echo $upvotes;
@@ -72,27 +72,27 @@ public static function render( $pageposts ) {
 			?>
 		</div>
 	</div>
-	<div class="agg-item-content">
-		<div class="agg-post-title">
-		<a class="agg-entry-link" href="<?php echo $posturl; ?>" <?php echo $target; ?>><?php echo $post->post_title; ?></a>
+	<div class="ifm-item-content">
+		<div class="ifm-post-title">
+		<a class="ifm-entry-link" href="<?php echo $posturl; ?>" <?php echo $target; ?>><?php echo $post->post_title; ?></a>
 		<span class="host-url">(<?php echo preg_replace( '#^www\.#', '', parse_url( $posturl )['host'] ); ?>)</span>
 		<span class="title">
-			<span class="agg-post-type"> &ndash; <?php echo ( wp_get_object_terms( $post_ID, 'aggpost-type' ) )[0]->{'name'}; ?></span>
+			<span class="ifm-post-type"> &ndash; <?php echo ( wp_get_object_terms( $post_ID, 'aggpost-type' ) )[0]->{'name'}; ?></span>
 		</span>
 		</div>
-		<div class="agg-post-meta">
-		<span class="agg-time-since-post">
+		<div class="ifm-post-meta">
+		<span class="ifm-time-since-post">
 				<?php echo human_time_diff( $post_date_gmt, current_time( 'timestamp', 1 ) ) . ' ago'; ?>
 		</span>
-		<span class="agg-op 
+		<span class="ifm-op 
 		<?php
 			if ( $user_is_op ) {
-				echo 'agg-user-is-op';
+				echo 'ifm-user-is-op';
 				}
 				?>
 				">by <a href="<?php echo add_query_arg( 'user_id', $post->post_author, home_url( 'user' ) ); ?>"><?php echo get_userdata( $post->post_author )->user_nicename; ?></a>
 		</span>
-		<a class="agg-comments-link" href="<?php echo $commentslink; ?>">comments (<?php echo wp_count_comments( $post_ID )->total_comments; ?>)</a>
+		<a class="ifm-comments-link" href="<?php echo $commentslink; ?>">comments (<?php echo wp_count_comments( $post_ID )->total_comments; ?>)</a>
 				<?php
 				if ( $user_is_op ) {
 					echo "<a href='" . $editlink . "'> - edit</a>";

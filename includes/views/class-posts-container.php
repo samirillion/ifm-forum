@@ -26,7 +26,7 @@ public static function render( $page_posts ) {
 		$current_url = home_url( add_query_arg( array(), $wp->request ) );
 		$next_page   = add_query_arg( 'crowd_p', $page + 1, $current_url );
 		?>
-		<div id="agg-container" class="clearfix aggregator-main ajax_posts" role="main">
+		<div id="ifm-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
 			require( 'partials/class-post-template.php' );
 			require( 'partials/forum-nav.php' );
@@ -34,7 +34,7 @@ public static function render( $page_posts ) {
 				$html = IfmPostTemplate::render( $page_posts );
 				} else {
 			?>
-			<div class='agg-item-no-content'><div class='agg-post-title'><span clas='title'>No posts here! You should submit one!</span></div></div>
+			<div class='ifm-item-no-content'><div class='ifm-post-title'><span clas='title'>No posts here! You should submit one!</span></div></div>
 		<?php
 				}
 			echo $html;

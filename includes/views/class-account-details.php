@@ -46,8 +46,8 @@ class IfmAccountDetails {
 				<input type="hidden" name="action" value="update_account_details">
 			</form>
 			<a class="view-user-posts" href="<?php echo add_query_arg( 'user_id', get_current_user_id(), home_url( 'fin-forum' ) ); ?>">View My Posts</a>
-			<a class="agg-change-password" href=<?php echo home_url( 'change-password' ); ?>>Change password</a>
-			<a title="Logout" class="agg-logout" href="<?php echo esc_url( wp_logout_url( '/fin-forum' ) ); ?>">Logout</a>
+			<a class="ifm-change-password" href=<?php echo home_url( 'change-password' ); ?>>Change password</a>
+			<a title="Logout" class="ifm-logout" href="<?php echo esc_url( wp_logout_url( '/fin-forum' ) ); ?>">Logout</a>
 						<?php
 		}
 }

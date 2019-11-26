@@ -1,15 +1,15 @@
 jQuery( function($) {
 
-   $(".crowd-container").on( "click", ".upvote_entry", function() {
+   $(".ifm-container").on( "click", ".upvote_entry", function() {
       voter = $(this)
       post_id = $(this).attr("data-post_id")
       nonce = $(this).attr("data-nonce")
 
-      // if (voter.children('div.agg-vote').hasClass('upvoted')) {
+      // if (voter.children('div.ifm-vote').hasClass('upvoted')) {
       //   console.log('upvoted');
-      //   voter.children('div.agg-vote').removeClass('upvoted')
+      //   voter.children('div.ifm-vote').removeClass('upvoted')
       // } else {
-      //   voter.children('div.agg-vote').addClass('upvoted')
+      //   voter.children('div.ifm-vote').addClass('upvoted')
       // }
 
       $.ajax({
@@ -27,9 +27,9 @@ jQuery( function($) {
             if(response.type == "success") {
               console.log('success')
             if (response.upvoted == 1) {
-               voter.children('div.agg-vote').removeClass('upvoted')
+               voter.children('div.ifm-vote').removeClass('upvoted')
             } else {
-              voter.children('div.agg-vote').addClass('upvoted')
+              voter.children('div.ifm-vote').addClass('upvoted')
               }
             if (response.entry_karma == 1) {
               voter.next().html(response.entry_karma++)
@@ -58,12 +58,12 @@ jQuery( function($) {
   //      success: function(data){
   //        var $data = $(data);
   //          if($data.length){
-  //              $(".crowd-container").append($data);
-  //              $(".crowd-more-posts").attr("disabled",false);
-  //              $(".crowd-more-posts").html("Load More Posts")
+  //              $(".ifm-container").append($data);
+  //              $(".ifm-more-posts").attr("disabled",false);
+  //              $(".ifm-more-posts").html("Load More Posts")
   //          } else {
-  //              $(".crowd-more-posts").html('No More Posts');
-  //              $(".crowd-more-posts").attr("disabled",true);
+  //              $(".ifm-more-posts").html('No More Posts');
+  //              $(".ifm-more-posts").attr("disabled",true);
   //          }
   //      },
   //      error : function(jqXHR, textStatus, errorThrown) {
@@ -73,7 +73,7 @@ jQuery( function($) {
   //    return false;
   //  }
 
-  //  $('.crowd-more-posts').click( function() {
+  //  $('.ifm-more-posts').click( function() {
   //    $(this).attr("disabled",true);
   //    $(this).html("<img src='http://foodinneighborhoods.org/wp-content/uploads/2018/05/Ellipsis-2s-200px.gif'>")
   //    load_posts();
@@ -164,9 +164,9 @@ jQuery( function($) {
              }
              if(response.type == "success") {
                if (response.upvoted == 0) {
-                voter.children('div.agg-vote').removeClass('upvoted')
+                voter.children('div.ifm-vote').removeClass('upvoted')
              } else {
-                voter.children('div.agg-vote').addClass('upvoted')
+                voter.children('div.ifm-vote').addClass('upvoted')
              }
            }
           }

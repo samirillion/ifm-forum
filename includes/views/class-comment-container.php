@@ -55,9 +55,9 @@ class IfmCommentContainer {
 	  <a class="vote_on_comment" data-upordown="up">
 		  <?php
 			if ( $upvoted[0]->{'COUNT(*)'} == 1 ) {
-						echo '<div class="agg-vote upvoted"></div>';
+						echo '<div class="ifm-vote upvoted"></div>';
 					} else {
-				echo '<div class="agg-vote"></div>';
+				echo '<div class="ifm-vote"></div>';
 					}
 					?>
 	  </a>
@@ -116,7 +116,7 @@ class IfmCommentContainer {
 			}
 		echo '<h4 class="comment-post-title">' . $post_title_content . '</h4>';
 		echo $post_url;
-		echo '<span class="crowd-post-type">' . ( wp_get_object_terms( get_query_var( 'agg_post_id' ), 'aggpost-type' ) )[0]->{'name'} . '</span>';
+		echo '<span class="ifm-post-type">' . ( wp_get_object_terms( get_query_var( 'agg_post_id' ), 'aggpost-type' ) )[0]->{'name'} . '</span>';
 		if ( get_post( get_query_var( 'agg_post_id' ) )->post_content !== '' ) {
 		  echo '<div class="comment-post-content-wrapper">';
 		  echo '<div class="comment-post-content">' . get_post( get_query_var( 'agg_post_id' ) )->post_content . '</div>';

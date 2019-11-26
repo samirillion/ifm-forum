@@ -1,13 +1,13 @@
-.crowd-container {
+.ifm-container {
   margin-bottom: 10px;
 }
-.agg-item-voter {
+.ifm-item-voter {
   width: 40px;
   height: 54px;
   float: left;
   text-align: center;
 }
-.agg-vote {
+.ifm-vote {
   width: 0px;
   height: 0;
   border-color: transparent transparent #D3D3D3 transparent;
@@ -18,28 +18,28 @@
   margin: 0 auto;
   display: block;
 }
-.vote_on_comment .agg-vote {
+.vote_on_comment .ifm-vote {
   border-width: 6px;
   border-bottom-width: 11px;
   float: left;
   margin-right: 4px;
 }
-.agg-vote.upvoted {
+.ifm-vote.upvoted {
   border-bottom-color: #7BBA22;
   cursor: pointer;
 }
-.agg-vote:hover {
+.ifm-vote:hover {
   border-color: transparent transparent #999999 transparent;
   cursor: pointer;
 }
-.agg-vote.upvoted:hover {
+.ifm-vote.upvoted:hover {
   opacity: .6;
   border-bottom-color: #7BBA22;
 }
-.agg-post-title {
+.ifm-post-title {
   font-size: 14.5px;
 }
-.agg-item-voter {
+.ifm-item-voter {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -47,7 +47,7 @@
   border: 1px solid #999999;
   border-bottom: none;
 }
-.agg-item-content, .agg-item-no-content {
+.ifm-item-content, .ifm-item-no-content {
   height: 54px;
   width: calc(100% - 50px);
   float: left;
@@ -61,37 +61,37 @@
   flex-direction: column;
   justify-content: center;
 }
-.agg-item-no-content {
+.ifm-item-no-content {
   border: 1px solid #999999;
   width: 99%;
   margin-bottom: 100px;
   padding-left: 20px;
 }
-.agg-entry-wrapper:last-child .agg-item-content, .agg-entry-wrapper:last-child .agg-item-voter {
+.ifm-entry-wrapper:last-child .ifm-item-content, .ifm-entry-wrapper:last-child .ifm-item-voter {
   border-bottom: 1px solid #999999;
 }
-.agg-post-meta, .agg-post-title {
+.ifm-post-meta, .ifm-post-title {
   width: 100%;
   line-height: 1.1;
 }
-.agg-post-meta {
+.ifm-post-meta {
   padding-top: 2px;
 }
-.crowd-post-type {
+.ifm-post-type {
   font-variant: small-caps;
 }
-.agg-post-type, .aggpost-type-nav-item {
+.ifm-post-type, .aggpost-type-nav-item {
   font-variant: small-caps;
   font-size: 15px;
 }
-.agg-post-types .aggpost-type-nav-item, .agg-post-types .agg-submit-post {
+.ifm-post-types .aggpost-type-nav-item, .ifm-post-types .ifm-submit-post {
   margin-top: 8px;
   margin-bottom: 8px;
 }
-.agg-submit-post {
+.ifm-submit-post {
   margin-bottom: 8px;
 }
-.agg-submit-post:hover {
+.ifm-submit-post:hover {
   color: #7BBA22;
 }
 .aggpost-type-nav-item.active a {
@@ -101,15 +101,15 @@
   color: #999999;
   font-size: 13px;
 }
-.agg-time-since-post, .agg-op, .agg-op a {
+.ifm-time-since-post, .ifm-op, .ifm-op a {
   color: #999999;
   font-size: 13px;
   font-weight: 300;
 }
-.agg-op {
+.ifm-op {
   margin-left: 1px;
 }
-.agg-comments-link{
+.ifm-comments-link{
   color: #999999;
   font-size: 13px;
   font-weight: 900;
@@ -127,62 +127,62 @@
 .comment-post-content {
   color: #333333;
 }
-.view-user-posts, .agg-change-password, .agg-logout {
+.view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
 }
 .csort-login-error {
   color: #FF6F33;
   background: white;
 }
-.agg-tags a {
+.ifm-tags a {
   margin-left: 2px;
   margin-right: 2px;
   color: #91056D;
   text-decoration: underline;
 }
-.agg-user-edit {
+.ifm-user-edit {
   margin-top: 15px;
 }
-.agg-user-edit a {
+.ifm-user-edit a {
   text-decoration: underline;
 }
-.agg-user-is-op a, .agg-user-is-op a:visited {
+.ifm-user-is-op a, .ifm-user-is-op a:visited {
   color: #FF6F33;
 }
-.agg-user-is-op a:hover {
+.ifm-user-is-op a:hover {
   opacity: .8;
 }
-.agg-about-user {
+.ifm-about-user {
   width: 60%;
   background: #eeeeee;
   padding: 20px;
   margin-top: 5px;
 }
-.agg-nav {
+.ifm-nav {
   width: 99%;
   border: 1px solid #999999;
   border-bottom: none;
   display: flex;
   justify-content: space-between;
 }
-.agg-term-description {
+.ifm-term-description {
   padding: 5px;
   padding-left: 20px;
   border: 1px solid #999999;
   width: 99%;
   border-bottom: none;
 }
-.agg-searchform {
+.ifm-searchform {
   width: 30%;
 }
-.agg-searchform .agg-search-wrapper {
+.ifm-searchform .ifm-search-wrapper {
   display: flex;
   height: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-right: 5px;
 }
-input[type="submit"].agg-search-submit {
+input[type="submit"].ifm-search-submit {
   font-size: 1rem;
   padding: 0;
   float: right;
@@ -192,7 +192,7 @@ input[type="submit"].agg-search-submit {
   border-radius: 0;
 
 }
-.agg-searchform input.agg-query-input {
+.ifm-searchform input.ifm-query-input {
   border-bottom: none;
   background: #eeeeeeee;
   font-size: 1.2rem;
@@ -203,37 +203,37 @@ input[type="submit"].agg-search-submit {
   padding-bottom: 5px;
   margin-right: 5px;
 }
-.crowd-container .agg-nothing-here {
+.ifm-container .ifm-nothing-here {
   margin-top: 0;
   margin-bottom: 0;
   border: 1px solid #999999;
   border-top: none;
   padding: 20px;
 }
-.agg-post-types {
+.ifm-post-types {
   display: flex;
 }
-.agg-submit-post a {
+.ifm-submit-post a {
   font-size: 18px;
 }
-.agg-submit-post a, .agg-submit-post a:visited  {
+.ifm-submit-post a, .ifm-submit-post a:visited  {
   color: #7bba22;
 }
 .edit-submit {
   margin-top: 10px;
 }
-.crowd-more-posts {
+.ifm-more-posts {
   text-align: left;
   color: #7bba22;
   font-size: 18px;
   height: 50px;
   padding-bottom: 10px;
 }
-.crowd-more-posts img {
+.ifm-more-posts img {
   height: 100%;
   margin-top: -15px;
 }
-.crowd-more-posts:hover {
+.ifm-more-posts:hover {
   cursor: pointer;
   opacity: .8;
 }
@@ -276,7 +276,7 @@ input[type="submit"].agg-search-submit {
 .user-account-details .view-user-posts {
   margin-top: 20px;
 }
-.agg-change-password, .agg-logout {
+.ifm-change-password, .ifm-logout {
   display: block;
 }
 .comment-content, .reply-to-comment, .comment-reply-container {
@@ -390,7 +390,7 @@ input[type="submit"].agg-search-submit {
   cursor: default;
 }
 @media (max-width: 767px) {
-  .agg-item-no-content {
+  .ifm-item-no-content {
     width: 100%;
     border: none;
   }
@@ -400,44 +400,44 @@ input[type="submit"].agg-search-submit {
   .comment-post-content-wrapper {
     width: 100%;
   }
-  .agg-post-type, .aggpost-type-nav-item {
+  .ifm-post-type, .aggpost-type-nav-item {
     font-size: 15px;
   }
   .aggpost-type-nav-item {
     float: left;
   }
-  .agg-container {
+  .ifm-container {
     width: 100%;
   }
-  .agg-post-title {
+  .ifm-post-title {
     font-size: 14px;
   }
-  .agg-item-content {
+  .ifm-item-content {
     padding: 0 4px 0 7px;
     width: calc(100% - 40px);
     border-right: none;
     line-height: 16px;
   }
-  .agg-item-voter {
+  .ifm-item-voter {
     border-left: none;
   }
   .host-url {
     font-size: 10px;
     line-height: 10px;
   }
-  .agg-nav {
+  .ifm-nav {
     width: 100%;
     border-left: none;
     border-right: none;
     display: block;
   }
-  .agg-post-types {
+  .ifm-post-types {
     display: block;
   }
-  .agg-searchform {
+  .ifm-searchform {
     width: 100%;
   }
-  .agg-searchform input.agg-query-input {
+  .ifm-searchform input.ifm-query-input {
     margin-left: 5px;
   }
   #comment-text-area {

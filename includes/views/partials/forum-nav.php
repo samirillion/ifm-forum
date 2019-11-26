@@ -10,7 +10,7 @@ if ( get_query_var( 'aggpost_tax' ) ) {
 } elseif ( get_query_var( 'user_id' ) ) {
 	$agg_all_active = '';
 	$user_id        = (int) get_query_var( 'user_id' );
-	$user_nav_item  = "<span class='agg-user-posts active h4'>" . get_userdata( $user_id )->user_nicename . "'s posts</span>";
+	$user_nav_item  = "<span class='ifm-user-posts active h4'>" . get_userdata( $user_id )->user_nicename . "'s posts</span>";
 } else {
 	$agg_query_var  = '';
 	$agg_all_active = 'active';
@@ -21,11 +21,11 @@ if ( isset( $user_nav_item ) ) {
 	echo '<br>';
 } else {
 ?>
-<div class="agg-submit-post">
+<div class="ifm-submit-post">
 	<a href="/new-post">+ Submit New Post</a>
 </div>
-<nav class="agg-nav">
-	<ul class="agg-post-types">
+<nav class="ifm-nav">
+	<ul class="ifm-post-types">
 		<li class="aggpost-type-nav-item <?php echo $agg_all_active; ?>">
 			<a href="/fin-forum">
 			all
@@ -42,7 +42,7 @@ if ( isset( $user_nav_item ) ) {
 		foreach ( $custom_terms as $term ) {
 			if ( $term->{'slug'} === $agg_query_var ) {
 			$active_class     = 'active';
-			$term_description = '<div class="agg-term-description">' . $term->description . '</div>';
+			$term_description = '<div class="ifm-term-description">' . $term->description . '</div>';
 					} else {
 				$active_class = '';
 					}
@@ -55,12 +55,12 @@ if ( isset( $user_nav_item ) ) {
 		}
 		?>
 	</ul>
-	<form role="search" method="get" class="agg-searchform" action="<?php echo esc_url( home_url( '/fin-forum' ) ); ?>">
-	<div class="agg-search-wrapper">
+	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url( home_url( '/fin-forum' ) ); ?>">
+	<div class="ifm-search-wrapper">
 		<label class="screen-reader-text" for="s">Search for:</label>
-		<input type="text" placeholder="search forum" name="agg_query" class="agg-query-input" />
+		<input type="text" placeholder="search forum" name="agg_query" class="ifm-query-input" />
 		<input type="hidden" name="action" value="agg_search_posts">
-		<input type="submit" class="agg-search-submit" value="Search" />
+		<input type="submit" class="ifm-search-submit" value="Search" />
 	</div>
 	</form>
 </nav>
