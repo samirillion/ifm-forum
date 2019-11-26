@@ -127,7 +127,7 @@ class IfmCommentContainer {
 		  echo 'No comments here! Start the discussion.';
 			}
 		echo "<form id='reply-to-post'>";
-		echo "<textarea id='comment-text-area' name='reply' cols='40' rows='5' required></textarea>";
+		echo "<textarea class='ifm-comment' name='reply' cols='40' rows='5' required></textarea>";
 		echo "<input type='hidden' name='action' value='addComment'/>";
 		echo "<input type='submit' value='comment'>";
 		echo "<input type='hidden' name='post_id' value='" . get_query_var( 'agg_post_id' ) . "'>";

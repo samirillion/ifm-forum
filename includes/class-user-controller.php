@@ -39,7 +39,7 @@ class IfmUserController {
 
 	public function change_password_form() {
 		require_once( 'views/change-password-container.php' );
-		ifmChangePassword::render();
+		IfmChangePassword::render();
 	}
 
 	public function update_password() {

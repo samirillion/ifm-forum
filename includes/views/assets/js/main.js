@@ -97,7 +97,7 @@ jQuery( function($) {
       $(this).before("<div>You must be <a href='" + myAjax.loginPage + "'>logged in</a> to comment</div>");
     }
   })
-   var replyToPost = $("#reply-to-post");
+   var replyToPost = $(".ifm-post-reply");
    replyToPost.submit(function(e) {
        e.preventDefault();
 
