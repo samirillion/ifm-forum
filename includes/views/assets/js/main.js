@@ -1,6 +1,6 @@
 jQuery( function($) {
 
-   $("#agg-container").on( "click", ".upvote_entry", function() {
+   $(".crowd-container").on( "click", ".upvote_entry", function() {
       voter = $(this)
       post_id = $(this).attr("data-post_id")
       nonce = $(this).attr("data-nonce")
@@ -58,7 +58,7 @@ jQuery( function($) {
   //      success: function(data){
   //        var $data = $(data);
   //          if($data.length){
-  //              $("#agg-container").append($data);
+  //              $(".crowd-container").append($data);
   //              $("#more_aggregator_posts").attr("disabled",false);
   //              $("#more_aggregator_posts").html("Load More Posts")
   //          } else {

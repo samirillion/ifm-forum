@@ -1,3 +1,6 @@
+.crowd-container {
+  margin-bottom: 10px;
+}
 .agg-item-voter {
   width: 40px;
   height: 54px;
@@ -34,7 +37,7 @@
   border-bottom-color: #7BBA22;
 }
 .agg-post-title {
-  font-size: 16px;
+  font-size: 14.5px;
 }
 .agg-item-voter {
   display: flex;
@@ -96,7 +99,7 @@
 }
 .host-url {
   color: #999999;
-  font-size: 15px;
+  font-size: 13px;
 }
 .agg-time-since-post, .agg-op, .agg-op a {
   color: #999999;
@@ -200,7 +203,7 @@ input[type="submit"].agg-search-submit {
   padding-bottom: 5px;
   margin-right: 5px;
 }
-#agg-container .agg-nothing-here {
+.crowd-container .agg-nothing-here {
   margin-top: 0;
   margin-bottom: 0;
   border: 1px solid #999999;
@@ -221,11 +224,10 @@ input[type="submit"].agg-search-submit {
 }
 #more_aggregator_posts {
   text-align: left;
-  margin-top: 20px;
   color: #7bba22;
   font-size: 18px;
   height: 50px;
-  margin-left: 57px;
+  padding-bottom: 10px;
 }
 #more_aggregator_posts img {
   height: 100%;

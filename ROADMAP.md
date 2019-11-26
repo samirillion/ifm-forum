@@ -2,9 +2,13 @@
 ## Bug Fixes
 [ ] Pagination
 
+    [ ] For all categories
+
 [ ] Karma Calculation
 
 [ ] Disable, remove spam
+
+[ ] Double check how urls are parsed for links out
 
 ## Refactor
 [ ] Get working without any Javascript
@@ -30,5 +34,4 @@
 
 [ ] Find way to integrate with Peertube instance(s)
 
-## DevOps?
-[ ] Move to 
+## DevOps(?)
