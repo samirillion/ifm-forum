@@ -1,6 +1,6 @@
 <?php
 
-class crowdsorterChangePassword
+class ifmChangePassword
 {
   public static function render()
         {

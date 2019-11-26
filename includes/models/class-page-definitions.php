@@ -36,11 +36,11 @@ class IfmPageDefinitions {
 			),
 			'add-a-post'            => array(
 				'title'   => __( 'Create a New Post', 'create-post' ),
-				'content' => '[crowdsorter-post]',
+				'content' => '[ifm-post]',
 			),
 			'account-details'       => array(
 				'title'   => __( 'My Account Details', 'account-details' ),
-				'content' => '[crowdsorter-account-details]',
+				'content' => '[ifm-account-details]',
 			),
 			'change-password'       => array(
 				'title'   => __( 'Change My Password', 'change-password' ),

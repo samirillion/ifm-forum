@@ -20,7 +20,7 @@ class IfmPostsController {
 		$plugin = new self();
 
 		add_shortcode( 'crowdsortcontainer', array( $plugin, 'create_container' ) );
-		add_shortcode( 'crowdsorter-post', array( $plugin, 'create_new_post_template' ) );
+		add_shortcode( 'ifm-post', array( $plugin, 'create_new_post_template' ) );
 		add_shortcode( 'edit-aggpost', array( $plugin, 'render_edit_post_container' ) );
 
 		add_action( 'init', array( $plugin, 'generate_sorter' ) );

@@ -7,7 +7,7 @@
  * @since 1.0.0
  *
  * Plugin Name: Ifm Sorter
- * Plugin URI: https://github.com/samirillion/crowdsorter
+ * Plugin URI: https://github.com/samirillion/ifm
  * Description: A Reddit-like forum
  * Version:     1.0.0
  * Author:      samirillion
@@ -32,7 +32,7 @@ define( 'CROWDSORTER_REQUIRED_WP_NETWORK', false ); // because plugin is not com
  * @since    1.0.0
  * @return bool True if system requirements are met, false if not
  */
-function crowdsorter_requirements_met() {
+function ifm_requirements_met() {
 
 	global $wp_version;
 
@@ -55,7 +55,7 @@ function crowdsorter_requirements_met() {
  *
  * @since    1.0.0
  */
-function crowdsorter_show_requirements_error() {
+function ifm_show_requirements_error() {
 
 	global $wp_version;
 	require_once( dirname( __FILE__ ) . '/views/admin/errors/requirements-error.php' );
@@ -67,14 +67,14 @@ function crowdsorter_show_requirements_error() {
  *
  * @since    1.0.0
  */
-function run_crowdsorter() {
+function run_ifm() {
 
 	/**
 	 * Check requirements and load main class
 	 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
 	 * Otherwise older PHP installations could crash when trying to parse it.
 	 */
-	if ( crowdsorter_requirements_met() ) {
+	if ( ifm_requirements_met() ) {
 
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-posts-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-user-controller.php';
@@ -84,11 +84,11 @@ function run_crowdsorter() {
 
 	} else {
 
-		add_action( 'admin_notices', 'crowdsorter_show_requirements_error' );
+		add_action( 'admin_notices', 'ifm_show_requirements_error' );
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
 	}
 
 }
-run_crowdsorter();
+run_ifm();

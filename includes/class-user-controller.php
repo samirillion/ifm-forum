@@ -11,7 +11,7 @@ class IfmUserController {
 		add_shortcode( 'custom-login-form', array( $plugin, 'custom_login_form' ) );
 		add_shortcode( 'custom-register-form', array( $plugin, 'render_register_form' ) );
 		add_shortcode( 'custom-password-lost-form', array( $plugin, 'render_password_lost_form' ) );
-		add_shortcode( 'crowdsorter-account-details', array( $plugin, 'show_account_details' ) );
+		add_shortcode( 'ifm-account-details', array( $plugin, 'show_account_details' ) );
 		add_shortcode( 'change-password', array( $plugin, 'change_password_form' ) );
 		add_shortcode( 'user-profile', array( $plugin, 'render_user_profile' ) );
 
@@ -39,7 +39,7 @@ class IfmUserController {
 
 	public function change_password_form() {
 		require_once( 'views/change-password-container.php' );
-		crowdsorterChangePassword::render();
+		ifmChangePassword::render();
 	}
 
 	public function update_password() {

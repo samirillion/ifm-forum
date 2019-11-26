@@ -4,7 +4,7 @@ class IfmUserProfile {
 
   public static function render() {
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
-		wp_register_script( 'news-aggregator', WP_PLUGIN_URL . '/crowdsorter/includes/views/assets/js/main.js', array( 'jquery' ) );
+		wp_register_script( 'news-aggregator', WP_PLUGIN_URL . '/ifm/includes/views/assets/js/main.js', array( 'jquery' ) );
 		wp_localize_script(
 		'news-aggregator',
 		'myAjax',

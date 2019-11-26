@@ -1,4 +1,4 @@
-# Ifmsort Roadmap
+# Ideal Forum Roadmap
 ## Bug Fixes
 [ ] Pagination
 
