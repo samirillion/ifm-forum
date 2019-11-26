@@ -2,7 +2,7 @@
 /**
  * Forum Nav
  *
- * @package IfmSort
+ * @package Ifm
  */
 if ( get_query_var( 'aggpost_tax' ) ) {
 	$agg_query_var  = get_query_var( 'aggpost_tax' );

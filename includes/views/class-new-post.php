@@ -2,7 +2,7 @@
 /**
  * New Post Form
  *
- * @package IfmSort
+ * @package Ifm
  */
 class IfmNewPost {
 /**

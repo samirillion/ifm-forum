@@ -2,7 +2,7 @@
 
 /**
  *
- * @package IfmSorter
+ * @package Ifmer
  */
 class IfmCommentController {
 

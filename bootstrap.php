@@ -2,7 +2,7 @@
 /**
  * Ifm Sorter
  *
- * @package IfmSort
+ * @package Ifm
  * @link https://foodinneighborhoods.com/connect
  * @since 1.0.0
  *
@@ -14,7 +14,7 @@
  * Author URI:  https://idealforum.org
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: IfmSort
+ * Text Domain: Ifm
  */
 
 // If this file is called directly, abort.

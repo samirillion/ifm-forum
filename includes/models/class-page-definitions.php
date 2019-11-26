@@ -2,7 +2,7 @@
 /**
  * Definitions for pages with accompanying shortcodes
  *
- * @package IfmSort
+ * @package Ifm
  */
 class IfmPageDefinitions {
 	/**

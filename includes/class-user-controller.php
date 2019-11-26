@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @package IfmSorter
+ * @package Ifmer
  */
 class IfmUserController {
 

@@ -2,7 +2,7 @@
 /**
  * Class For activation
  *
- * @package IfmSort
+ * @package Ifm
  */
 class IfmActivationController {
 

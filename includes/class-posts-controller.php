@@ -2,7 +2,7 @@
 /**
  * Undocumented class
  *
- * @package IfmSort
+ * @package Ifm
  */
 class IfmPostsController {
 
