@@ -17,7 +17,6 @@ public static function render( $page_posts ) {
 				'aggpost_tax' => get_query_var( 'aggpost_tax' ),
 			)
 			);
-		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'toggle-switch' );
 		wp_enqueue_script( 'news-aggregator' );
 		$page = ( isset( $_REQUEST['crowd_p'] ) ) ? $_REQUEST['crowd_p'] : 1;

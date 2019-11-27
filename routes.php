@@ -20,3 +20,5 @@ function my_plugin_redirect() {
 	wp_redirect( $location );
 }
 add_action( 'my_plugin_redirect', 'my_plugin_redirect' );
+
+
