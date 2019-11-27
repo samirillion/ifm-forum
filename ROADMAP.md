@@ -2,8 +2,6 @@
 ## Bug Fixes
 [ ] Pagination
 
-    [ ] For all categories
-
 [ ] Karma Calculation
 
 [ ] Disable, remove spam
@@ -32,7 +30,7 @@
 
 [ ] Implement unit testing
 
-[ ] Implement PHP router
+[ ] Implement PHP router, c.f., https://carlalexander.ca/designing-system-wordpress-routing/
 
 [ ] Implement ActivityPub
 

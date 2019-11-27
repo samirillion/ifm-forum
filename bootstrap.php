@@ -76,6 +76,8 @@ function run_ifm() {
 	 */
 	if ( ifm_requirements_met() ) {
 
+		define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
+
 		require_once plugin_dir_path( __FILE__ ) . 'activate/class-activate.php';
 		require_once plugin_dir_path( __FILE__ ) . 'app/class-posts-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'app/class-user-controller.php';

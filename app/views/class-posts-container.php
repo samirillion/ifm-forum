@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Container for the the post lists themselves.
  */
