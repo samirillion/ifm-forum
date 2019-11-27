@@ -30,7 +30,13 @@
 
 [ ] Implement unit testing
 
-[ ] Implement PHP router, c.f., https://carlalexander.ca/designing-system-wordpress-routing/
+[ ] Implement PHP router, c.f., 
+
+- https://carlalexander.ca/designing-system-wordpress-routing/
+- https://developer.wordpress.org/reference/functions/rest_do_request/
+- https://developer.wordpress.org/rest-api/using-the-rest-api/frequently-asked-questions/
+- https://developer.wordpress.org/rest-api/extending-the-rest-api/
+
 
 [ ] Implement ActivityPub
 

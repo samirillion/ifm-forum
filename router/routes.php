@@ -2,9 +2,6 @@
 /**
  * Router that works with WordPress Hooks and Templates
  */
-require( IFM_BASE_PATH . 'includes/router/class-processor.php' );
-require( IFM_BASE_PATH . 'includes/router/class-route.php' );
-require( IFM_BASE_PATH . 'includes/router/class-router.php' );
 
 $router = new Router( 'ifm' );
 $routes = array(
@@ -19,6 +16,8 @@ function my_plugin_redirect() {
 	}
 	wp_redirect( $location );
 }
-add_action( 'my_plugin_redirect', 'my_plugin_redirect' );
+// add_action( 'my_plugin_redirect', 'my_plugin_redirect' );
+
+
 
 

@@ -32,7 +32,6 @@ class IfmPostsController {
 		add_action( 'admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login' ) );
 		add_action( 'admin_post_edit_post', array( $plugin, 'edit_post' ) );
 
-		add_action( 'admin_post_agg_search_posts', array( $plugin, 'agg_search_posts' ) );
 
 		// Limit media library access
 		// add_action( 'wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
