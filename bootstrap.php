@@ -63,6 +63,15 @@ function ifm_show_requirements_error() {
 }
 
 /**
+ * Redirect to Settings Page on Forum Activate
+ *
+ * @return void
+ */
+function plugin_activated() {
+	// add redirect code here
+}
+
+/**
  * Begins execution of the plugin.
  *
  * @since    1.0.0
@@ -78,13 +87,13 @@ function run_ifm() {
 
 		define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
 
-		require_once( IFM_BASE_PATH . 'routes.php' );
+		// require_once( IFM_BASE_PATH . 'routes.php' );
 
 		require_once( IFM_BASE_PATH . 'activate/class-activate.php' );
 		require_once( IFM_BASE_PATH . 'app/class-posts-controller.php' );
 		require_once( IFM_BASE_PATH . 'app/class-user-controller.php' );
 		require_once( IFM_BASE_PATH . 'app/class-comment-controller.php' );
-		register_activation_hook( __FILE__, array( 'ifm-forum', 'plugin_activated' ) );
+		register_activation_hook( __FILE__, 'plugin_activated' );
 
 	} else {
 

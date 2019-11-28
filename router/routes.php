@@ -9,6 +9,7 @@ $routes = array(
 	'my_plugin_redirect' => new Route( '/my-plugin/redirect', 'my_plugin_redirect' ),
 );
 Processor::init( $router, $routes );
+
 function my_plugin_redirect() {
 	 $location = '/';
 	if ( ! empty( $_GET['location'] ) ) {
