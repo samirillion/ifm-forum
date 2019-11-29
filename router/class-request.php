@@ -3,7 +3,7 @@ class IfmRequest {
 
 	// Here initialize our namespace and resource name.
 	public function __construct() {
-		$this->namespace     = '/my-namespace/v1';
+		$this->namespace     = IFM_NAMESPACE;
 		$this->resource_name = 'posts';
 	}
 
@@ -11,7 +11,7 @@ class IfmRequest {
 	public function register_routes() {
 		register_rest_route(
 			 $this->namespace,
-			'/' . $this->resource_name,
+			' / ' . $this->resource_name,
 			array(
 				// Here we register the readable endpoint for collections.
 				array(
@@ -25,7 +25,7 @@ class IfmRequest {
 			);
 		register_rest_route(
 			 $this->namespace,
-			'/' . $this->resource_name . '/(?P<id>[\d]+)',
+			' / ' . $this->resource_name . ' / ( ? P < id > [ \d ] + )',
 			array(
 				// Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
 				array(
@@ -46,7 +46,7 @@ class IfmRequest {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! current_user_can( 'read' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource . ' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -84,7 +84,7 @@ class IfmRequest {
 	 */
 	public function get_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'read' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource . ' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -167,7 +167,7 @@ class IfmRequest {
 	public function get_item_schema( $request ) {
 		$schema = array(
 			// This tells the spec of JSON Schema we are using which is draft 4.
-			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'$schema'    => 'http : // json-schema.org/draft-04/schema#',
 			// The title property marks the identity of the resource.
 			'title'      => 'post',
 			'type'       => 'object',

@@ -25,6 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'IFM_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
 define( 'IFM_REQUIRED_WP_VERSION', '3.0' );
 define( 'IFM_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
+define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
+
+// set this to determine the base namespace for the router. eventually use a WordPress admin setting
+define( 'IFM_NAMESPACE', 'ifm' );
 
 /**
  * Checks if the system requirements are met
@@ -85,15 +89,12 @@ function run_ifm() {
 	 */
 	if ( ifm_requirements_met() ) {
 
-		define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
-
-		// require_once( IFM_BASE_PATH . 'routes.php' );
-
+		register_activation_hook( __FILE__, 'plugin_activated' );
 		require_once( IFM_BASE_PATH . 'activate/class-activate.php' );
 		require_once( IFM_BASE_PATH . 'app/class-posts-controller.php' );
 		require_once( IFM_BASE_PATH . 'app/class-user-controller.php' );
 		require_once( IFM_BASE_PATH . 'app/class-comment-controller.php' );
-		register_activation_hook( __FILE__, 'plugin_activated' );
+		// require_once( IFM_BASE_PATH . 'routes.php' );
 
 	} else {
 
