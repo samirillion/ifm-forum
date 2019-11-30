@@ -26,6 +26,7 @@ define( 'IFM_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
 define( 'IFM_REQUIRED_WP_VERSION', '3.0' );
 define( 'IFM_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
 define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
+define( 'IFM_APP', IFM_BASE_PATH . 'app/' );
 
 // set this to determine the base namespace for the router. eventually use a WordPress admin setting
 define( 'IFM_NAMESPACE', 'ifm' );
@@ -89,11 +90,10 @@ function run_ifm() {
 	 */
 	if ( ifm_requirements_met() ) {
 
-		register_activation_hook( __FILE__, 'plugin_activated' );
-		require_once( IFM_BASE_PATH . 'activate/class-activate.php' );
-		require_once( IFM_BASE_PATH . 'app/class-posts-controller.php' );
-		require_once( IFM_BASE_PATH . 'app/class-user-controller.php' );
-		require_once( IFM_BASE_PATH . 'app/class-comment-controller.php' );
+		register_activation_hook( __FILE__, 'ifm_activated' );
+		require_once( IFM_BASE_PATH . 'app/controllers/class-posts-controller.php' );
+		require_once( IFM_BASE_PATH . 'app/controllers/class-user-controller.php' );
+		require_once( IFM_BASE_PATH . 'app/controllers/class-comment-controller.php' );
 		// require_once( IFM_BASE_PATH . 'routes.php' );
 
 	} else {
@@ -105,4 +105,22 @@ function run_ifm() {
 	}
 
 }
+
+/**
+ * Plugin activation hook
+ */
+function ifm_activated() {
+	xdebug_break();
+	// move this into user function at some point
+	show_admin_bar( false );
+
+	// Import $ifm_page_definitions
+	require_once( IFM_BASE_PATH . 'seeds/page-definitions.php' );
+	// Import IFmPageImporter Class
+	require_once( IFM_BASE_PATH . 'includes/importer/class-page-importer.php' );
+
+	// Pass Page Definitions to Class
+	IfmPageImporter::create_pages( $ifm_page_definitions );
+}
+
 run_ifm();

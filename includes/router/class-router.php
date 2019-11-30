@@ -1,5 +1,5 @@
 <?php
-class IfmRequest {
+class IfmRouter {
 
 	// Here initialize our namespace and resource name.
 	public function __construct() {
@@ -25,7 +25,7 @@ class IfmRequest {
 			);
 		register_rest_route(
 			 $this->namespace,
-			' / ' . $this->resource_name . ' / ( ? P < id > [ \d ] + )',
+			' / ' . $this->resource_name . '/(?P<id>[\d]+)',
 			array(
 				// Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
 				array(

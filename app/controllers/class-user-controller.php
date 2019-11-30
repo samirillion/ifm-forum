@@ -176,7 +176,7 @@ class IfmUserController {
 
 		$attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
-		require_once( 'views/class-form-renderer.php' );
+		require_once( IFM_APP . 'views/class-form-renderer.php' );
 		$crowd_login = new IfmFormRenderer;
 		$content     = $crowd_login->render_form( 'login-form', $attributes );
 		return $content;
@@ -388,7 +388,7 @@ class IfmUserController {
 			$items .= '<li><a title="Admin" href="' . esc_url( admin_url() ) . '">' . __( 'Admin' ) . '</a></li>';
 		}
 		if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
-			require_once( plugin_dir_path( __FILE__ ) . 'models/user.php' );
+			require_once( IFM_APP . 'models/user.php' );
 			$userKarma = IfmUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta( get_current_user_id(), 'nickname', true ) . ' (' . $userKarma . ')</a></li>';
 		} elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {

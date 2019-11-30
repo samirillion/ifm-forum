@@ -32,7 +32,6 @@ class IfmPostsController {
 		add_action( 'admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login' ) );
 		add_action( 'admin_post_edit_post', array( $plugin, 'edit_post' ) );
 
-
 		// Limit media library access
 		// add_action( 'wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
 		// add_action( 'wp_ajax_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
@@ -87,7 +86,7 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function render_edit_post_container() {
-		require_once( 'views/class-edit-post.php' );
+		require_once( IFM_APP . 'views/class-edit-post.php' );
 		IfmEditPost::render();
 	}
 
@@ -108,7 +107,7 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function update_post_rank() {
-		require_once( 'models/news-aggregator.php' );
+		require_once( IFM_APP . 'models/news-aggregator.php' );
 		newsAggregator::update_temporal_karma();
 	}
 
@@ -120,14 +119,14 @@ class IfmPostsController {
 	 */
 	public function create_container( $search_results = [] ) {
 		if ( ! isset( $_GET['agg_query'] ) ) {
-			require_once( 'models/post.php' );
+			require_once( IFM_APP . 'models/post.php' );
 			$query     = IfmPost::sort_posts();
 			$pageposts = $query[0];
 		} else {
 			$pageposts = $this->agg_search_posts();
 		}
 
-		require_once( 'views/class-posts-container.php' );
+		require_once( IFM_APP . 'views/class-posts-container.php' );
 		$content = IfmPostsContainer::render( $pageposts );
 		return $content;
 	}
@@ -155,7 +154,7 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function load_more_posts() {
-		require_once( 'models/post.php' );
+		require_once( IFM_APP . 'models/post.php' );
 		$query     = IfmPost::sort_posts();
 		$pageposts = $query[0];
 
@@ -170,7 +169,7 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function generate_sorter() {
-		require_once( 'models/sorter-factory.php' );
+		require_once( IFM_APP . 'models/sorter-factory.php' );
 		$sorter_factory = new sorterFactory;
 		$aggregator     = $sorter_factory->get_sorter( 'News-Aggregator' );
 
