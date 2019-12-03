@@ -3,7 +3,12 @@
  *
  * @package Ifm
  */
-require_once( 'views/class-user-profile.php' );
+require_once( IFM_APP . 'views/class-user-profile.php' );
+require_once( IFM_APP . 'views/change-password-container.php' );
+require_once( IFM_APP . 'views/class-form-renderer.php' );
+require_once( IFM_APP . 'views/class-account-details.php' );
+
+require_once( IFM_APP . 'models/user.php' );
 
 
 class IfmUserController {
@@ -40,7 +45,6 @@ class IfmUserController {
 	}
 
 	public function change_password_form() {
-		require_once( 'views/change-password-container.php' );
 		IfmChangePassword::render();
 	}
 
@@ -59,7 +63,6 @@ class IfmUserController {
 	public function user_login_logout() {
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if ( is_user_logged_in() ) {
-			require_once( 'models/user.php' );
 			$userKarma = IfmUser::calculate_user_karma(); ?><a href="<?php echo home_url( 'my-account' ); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
@@ -75,7 +78,6 @@ class IfmUserController {
 			wp_redirect( 'home_url()' );
 			exit();
 		}
-		require_once( 'models/user.php' );
 		$crowd_user = new IfmUser;
 		$crowd_user->update_user_information();
 	}
@@ -128,7 +130,6 @@ class IfmUserController {
 			return __( 'You are already signed in.', 'personalize-login' );
 		} else {
 			// Retrieve possible errors from request parameters
-			require_once( 'views/class-form-renderer.php' );
 			$crowd_form_renderer  = new IfmFormRenderer;
 			$attributes['errors'] = array();
 			if ( isset( $_REQUEST['errors'] ) ) {
@@ -178,7 +179,6 @@ class IfmUserController {
 
 		$attributes['logged_out'] = isset( $_REQUEST['logged_out'] ) && $_REQUEST['logged_out'] == true;
 
-		require_once( IFM_APP . 'views/class-form-renderer.php' );
 		$crowd_login = new IfmFormRenderer;
 		$content     = $crowd_login->render_form( 'login-form', $attributes );
 		return $content;
@@ -281,7 +281,6 @@ class IfmUserController {
 		} elseif ( ! get_option( 'users_can_register' ) ) {
 			return __( 'Registering new users is currently not allowed.', 'personalize-login' );
 		} else {
-			require_once( 'views/class-form-renderer.php' );
 			$crowd_form_renderer = new IfmFormRenderer;
 			$content             = $crowd_form_renderer->render_form( 'register-form', $attributes );
 			return $content;
@@ -305,7 +304,6 @@ class IfmUserController {
 
 	private function register_user( $email, $username, $password ) {
 		$errors = new WP_Error();
-		require_once( 'views/class-form-renderer.php' );
 		$crowd_form_renderer = new IfmFormRenderer;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
@@ -381,7 +379,6 @@ class IfmUserController {
 		if ( ! is_user_logged_in() ) {
 			$this->redirect_to_login;
 		}
-		require_once( 'views/class-account-details.php' );
 		IfmAccountDetails::render();
 	}
 
@@ -390,7 +387,6 @@ class IfmUserController {
 			$items .= '<li><a title="Admin" href="' . esc_url( admin_url() ) . '">' . __( 'Admin' ) . '</a></li>';
 		}
 		if ( $args->theme_location == 'primary' && is_user_logged_in() ) {
-			require_once( IFM_APP . 'models/user.php' );
 			$userKarma = IfmUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta( get_current_user_id(), 'nickname', true ) . ' (' . $userKarma . ')</a></li>';
 		} elseif ( $args->theme_location == 'primary' && ! is_user_logged_in() ) {

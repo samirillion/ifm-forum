@@ -14,11 +14,11 @@ class IfmRoute {
 	}
 
 	public static function get( string $uri, string $callback = null ) {
-		self::add_route( 'get', $uri, $callback );
+		self::add_route( 'GET', $uri, $callback );
 		return __CLASS__;
 	}
 	public static function post( string $uri, string $callback = null ) {
-		self::add_route( 'post', $uri, $callback );
+		self::add_route( 'POST', $uri, $callback );
 		return __CLASS__;
 	}
 

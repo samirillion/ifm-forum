@@ -6,30 +6,12 @@
  * But this is for defining all the HTTP stuff without using clunky hooks like admin_post etc.
  * Just a lot more scalable for a larger application.
  */
-// require_once( IFM_INC . 'router/class-route.php' );
+require_once( IFM_INC . 'router/class-route.php' );
 
 // // build up routes, composed of path and a callback
-// IfmRoute::get( '/connect', 'IfmPostsController@createview' )::auth( 'member' );
+IfmRoute::get( '/connect', 'IfmPostsController@create_main' )::auth( 'member' );
 // IfmRoute::get( '/fing-post', 'IfmPostsController@createview' );
 // IfmRoute::get( '/frip-post', 'IfmPostsController@createview' )::auth( 'admin' );
 
 // // pass the routes object to the router
-// IfmRoute::register();
-// add_action( 'rest_api_init', 'prefix_register_my_rest_routes' );
-function my_awesome_func() {
-	echo 'cool';
-}
-
-add_action(
-	'rest_api_init',
-	function () {
-	register_rest_route(
-		 'myplugin/v1',
-		'/author',
-		array(
-			'methods'  => 'GET',
-			'callback' => 'my_awesome_func',
-		)
-		);
-  }
-	);
+IfmRoute::register();

@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Set your app-specific constants here
@@ -16,5 +17,5 @@ define( 'IFM_INC', IFM_BASE_PATH . 'includes/' );
 /**
  * Set to determine the base namespace for the router. eventually use a WordPress admin setting
  */
-define( 'IFM_API_PREFIX', '' );
+define( 'IFM_API_PREFIX', 'api' );
 define( 'IFM_NAMESPACE', 'ifm' );

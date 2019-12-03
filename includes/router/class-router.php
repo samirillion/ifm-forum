@@ -11,6 +11,7 @@ class IfmRouter {
 	protected $routes;
 	protected $namespace;
 	protected $route;
+	protected $controllers;
 
 	public function __construct( array $routes ) {
 		$this->namespace = IFM_NAMESPACE;
@@ -24,43 +25,49 @@ class IfmRouter {
 	}
 
 	public function custom_api_prefix( $slug ) {
+		xdebug_break();
 		return IFM_API_PREFIX;
 	}
 
 	public function register_routes() {
-		foreach ( $this->routes as $method => $routes ) :
-			foreach ( $routes as $route ) :
-				$this->route = $route;
-				$this->register_route( $method );
-			endforeach;
+		foreach ( $this->routes as $route ) :
+			$this->register_route( $route );
 		endforeach;
 	}
 
 	// Register our routes.
-	protected function register_route( string $method ) {
+	protected function register_route( array $route ) {
+		$permission_callback = $route['permission_callback'];
+		$controller          = explode( '@', $route['callback'] )[0];
+		$method              = explode( '@', $route['callback'] )[1];
+		// Instantiate Controller Once
+		if ( ! in_array( $controller, $this->controllers ) ) :
+			$this->controllers[ $controller ] = new $controller;
+		endif;
 		register_rest_route(
 			$this->namespace,
-			$this->route['uri'],
+			$route['uri'],
 			array(
-				// Here we register the readable endpoint for collections.
-				array(
-					'methods'             => $method,
-					'callback'            => array( $this, 'get_items' ),
-					'permission_callback' => array( $this, 'member_auth' ),
-				),
+				'methods'             => $route['method'],
+				'callback'            => array( $this->controllers[ $controller ], $method ),
+				'permission_callback' => array( $this, 'member_auth' ),
 			)
-			);
+		);
+	}
+
+	public function member_auth() {
+		return true;
 	}
 
 	// Sets up the proper HTTP status code for authorization.
 	public function authorization_status_code() {
 
-		$status = 401;
+	$status = 401;
 
-		if ( is_user_logged_in() ) {
+	if ( is_user_logged_in() ) {
 			$status = 403;
 		}
 
-		return $status;
+	return $status;
 	}
 }

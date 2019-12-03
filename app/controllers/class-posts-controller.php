@@ -55,6 +55,23 @@ class IfmPostsController {
 	/**
 	 * Undocumented function
 	 *
+	 * @param array $search_results
+	 * @return void
+	 */
+	public function create_main( $search_results = [] ) {
+		if ( ! isset( $_GET['agg_query'] ) ) {
+			$query     = IfmPost::sort_posts();
+			$pageposts = $query[0];
+		} else {
+			$pageposts = $this->agg_search_posts();
+		}
+
+		return IfmPostsContainer::render( $pageposts );
+	}
+
+	/**
+	 * Undocumented function
+	 *
 	 * @return void
 	 */
 	public function edit_post() {
@@ -117,23 +134,6 @@ class IfmPostsController {
 	 */
 	public function update_post_rank() {
 		newsAggregator::update_temporal_karma();
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @param array $search_results
-	 * @return void
-	 */
-	public function create_main( $search_results = [] ) {
-		if ( ! isset( $_GET['agg_query'] ) ) {
-			$query     = IfmPost::sort_posts();
-			$pageposts = $query[0];
-		} else {
-			$pageposts = $this->agg_search_posts();
-		}
-
-		return IfmPostsContainer::render( $pageposts );
 	}
 
 	/**
