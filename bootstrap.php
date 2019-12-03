@@ -22,17 +22,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'IFM_REQUIRED_PHP_VERSION', '5.3' ); // because of get_called_class()
-define( 'IFM_REQUIRED_WP_VERSION', '3.0' );
-define( 'IFM_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
-define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
-define( 'IFM_APP', IFM_BASE_PATH . 'app/' );
-define( 'IFM_INC', IFM_BASE_PATH . 'includes/' );
-
-// set this to determine the base namespace for the router. eventually use a WordPress admin setting
-define( 'IFM_API_PREFIX', '' );
-define( 'IFM_NAMESPACE', 'ifm' );
-
 /**
  * Checks if the system requirements are met
  *
@@ -84,6 +73,8 @@ function plugin_activated() {
  * @since    1.0.0
  */
 function run_ifm() {
+
+	require_once( plugin_dir_path( __FILE__ ) . 'config.php' );
 
 	/**
 	 * Check requirements and load main class

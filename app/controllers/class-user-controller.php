@@ -1,8 +1,11 @@
 <?php
 /**
  *
- * @package Ifmer
+ * @package Ifm
  */
+require_once( 'views/class-user-profile.php' );
+
+
 class IfmUserController {
 
 	public static function register() {
@@ -33,7 +36,6 @@ class IfmUserController {
 	}
 
 	public function render_user_profile() {
-		require_once( 'views/class-user-profile.php' );
 		IfmUserProfile::render();
 	}
 

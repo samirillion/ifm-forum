@@ -4,6 +4,16 @@
  *
  * @package Ifm
  */
+require_once( IFM_APP . 'views/class-posts-container.php' );
+require_once( IFM_APP . 'views/class-edit-post.php' );
+require_once( IFM_APP . 'views/partials/class-post-template.php' );
+require_once( IFM_APP . 'views/class-new-post.php' );
+
+require_once( IFM_APP . 'models/post.php' );
+require_once( IFM_APP . 'models/sorter-factory.php' );
+require_once( IFM_APP . 'models/news-aggregator.php' );
+
+
 class IfmPostsController {
 
 	/**
@@ -19,7 +29,7 @@ class IfmPostsController {
 	public static function register() {
 		$plugin = new self();
 
-		add_shortcode( 'crowdsortcontainer', array( $plugin, 'create_container' ) );
+		add_shortcode( 'crowdsortcontainer', array( $plugin, 'create_main' ) );
 		add_shortcode( 'ifm-post', array( $plugin, 'create_new_post_template' ) );
 		add_shortcode( 'edit-aggpost', array( $plugin, 'render_edit_post_container' ) );
 
@@ -86,7 +96,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function render_edit_post_container() {
-		require_once( IFM_APP . 'views/class-edit-post.php' );
 		IfmEditPost::render();
 	}
 
@@ -107,7 +116,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function update_post_rank() {
-		require_once( IFM_APP . 'models/news-aggregator.php' );
 		newsAggregator::update_temporal_karma();
 	}
 
@@ -117,18 +125,15 @@ class IfmPostsController {
 	 * @param array $search_results
 	 * @return void
 	 */
-	public function create_container( $search_results = [] ) {
+	public function create_main( $search_results = [] ) {
 		if ( ! isset( $_GET['agg_query'] ) ) {
-			require_once( IFM_APP . 'models/post.php' );
 			$query     = IfmPost::sort_posts();
 			$pageposts = $query[0];
 		} else {
 			$pageposts = $this->agg_search_posts();
 		}
 
-		require_once( IFM_APP . 'views/class-posts-container.php' );
-		$content = IfmPostsContainer::render( $pageposts );
-		return $content;
+		return IfmPostsContainer::render( $pageposts );
 	}
 
 	/**
@@ -154,11 +159,9 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function load_more_posts() {
-		require_once( IFM_APP . 'models/post.php' );
 		$query     = IfmPost::sort_posts();
 		$pageposts = $query[0];
 
-		require_once( 'views/partials/class-post-template.php' );
 		$content = IfmPostTemplate::render( $pageposts );
 		return $content;
 	}
@@ -169,7 +172,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function generate_sorter() {
-		require_once( IFM_APP . 'models/sorter-factory.php' );
 		$sorter_factory = new sorterFactory;
 		$aggregator     = $sorter_factory->get_sorter( 'News-Aggregator' );
 
@@ -214,7 +216,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function my_user_vote() {
-		require_once( 'models/post.php' );
 		$karma_tracker = new IfmPost;
 		$karma_tracker->update_post_karma();
 	}
@@ -225,7 +226,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function create_new_post_template() {
-		require_once( 'views/class-new-post.php' );
 		$crowd_post_template = new IfmNewPost;
 		$crowd_post_template->render();
 	}
@@ -236,7 +236,6 @@ class IfmPostsController {
 	 * @return void
 	 */
 	public function submit_post() {
-		require_once( 'models/post.php' );
 		$crowd_posts = new IfmPost;
 		$crowd_posts->submit_post();
 	}

@@ -23,7 +23,7 @@ class IfmRoute {
 	}
 
 	public static function auth( string $minimum_level ) {
-		self::update_last_route( 'auth', $minimum_level );
+		self::update_last_route( 'permission_callback', $minimum_level );
 		return __CLASS__;
 	}
 

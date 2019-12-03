@@ -9,7 +9,7 @@
 // require_once( IFM_INC . 'router/class-route.php' );
 
 // // build up routes, composed of path and a callback
-// IfmRoute::get( '/create-post', 'IfmPostsController@createview' )::auth( 'member' );
+// IfmRoute::get( '/connect', 'IfmPostsController@createview' )::auth( 'member' );
 // IfmRoute::get( '/fing-post', 'IfmPostsController@createview' );
 // IfmRoute::get( '/frip-post', 'IfmPostsController@createview' )::auth( 'admin' );
 

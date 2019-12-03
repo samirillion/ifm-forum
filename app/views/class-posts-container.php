@@ -26,8 +26,8 @@ public static function render( $page_posts ) {
 		?>
 		<div id="ifm-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
-			require( 'partials/class-post-template.php' );
-			require( 'partials/forum-nav.php' );
+			require_once( 'partials/class-post-template.php' );
+			require_once( 'partials/forum-nav.php' );
 			if ( is_array( $page_posts ) && [] !== $page_posts ) {
 				$html = IfmPostTemplate::render( $page_posts );
 				?>
