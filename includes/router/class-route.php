@@ -2,15 +2,15 @@
 /**
  * Ifm Route
  */
+require( IFM_INC . 'router/class-router.php' );
+
 class IfmRoute {
 
 	protected static $routes = array();
 	protected $router;
 
 	public static function register() {
-		$namespace = IFM_NAMESPACE;
-		require( IFM_INC . 'router/class-router.php' );
-		new IfmRouter( $namespace, self::$routes );
+		new IfmRouter( self::$routes );
 	}
 
 	public static function get( string $uri, string $callback = null ) {
@@ -23,7 +23,6 @@ class IfmRoute {
 	}
 
 	public static function auth( string $minimum_level ) {
-		$route = end( self::$routes );
 		self::update_last_route( 'auth', $minimum_level );
 		return __CLASS__;
 	}
@@ -40,7 +39,7 @@ class IfmRoute {
 
 	protected static function update_last_route( $key, $value ) {
 		$index                  = count( self::$routes ) - 1;
-		$route                  = $fields[ $index ];
+		$route                  = self::$routes[ $index ];
 		$route[ $key ]          = $value;
 		self::$routes[ $index ] = $route;
 	}

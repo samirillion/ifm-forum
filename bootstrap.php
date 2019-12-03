@@ -30,6 +30,7 @@ define( 'IFM_APP', IFM_BASE_PATH . 'app/' );
 define( 'IFM_INC', IFM_BASE_PATH . 'includes/' );
 
 // set this to determine the base namespace for the router. eventually use a WordPress admin setting
+define( 'IFM_API_PREFIX', '' );
 define( 'IFM_NAMESPACE', 'ifm' );
 
 /**

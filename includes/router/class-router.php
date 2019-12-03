@@ -12,13 +12,19 @@ class IfmRouter {
 	protected $namespace;
 	protected $route;
 
-	public function __construct( string $namespace, array $routes ) {
-		$this->namespace = $namespace;
+	public function __construct( array $routes ) {
+		$this->namespace = IFM_NAMESPACE;
 		$this->routes    = $routes;
+		add_filter( 'rest_url_prefix', array( $this, 'custom_api_prefix' ) );
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
-	protected function register_routes() {
+	public function custom_api_prefix( $slug ) {
+		return IFM_API_PREFIX;
+	}
+
+	public function register_routes() {
+		xdebug_break();
 		foreach ( $this->routes as $method => $routes ) :
 			foreach ( $routes as $route ) :
 				$this->register_route( $method, $route );
