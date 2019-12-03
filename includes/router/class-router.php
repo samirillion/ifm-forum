@@ -1,37 +1,42 @@
 <?php
+/**
+ * Ifm Route
+ */
+require_once( IFM_APP . 'controllers/class-comment-controller.php' );
+require_once( IFM_APP . 'controllers/class-posts-controller.php' );
+require_once( IFM_APP . 'controllers/class-user-controller.php' );
+
 class IfmRouter {
 
-	// Here initialize our namespace and resource name.
-	public function __construct() {
-		$this->namespace     = IFM_NAMESPACE;
-		$this->resource_name = 'posts';
+	protected $routes;
+	protected $namespace;
+	protected $route;
+
+	public function __construct( string $namespace, array $routes ) {
+		$this->namespace = $namespace;
+		$this->routes    = $routes;
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+	}
+
+	protected function register_routes() {
+		foreach ( $this->routes as $method => $routes ) :
+			foreach ( $routes as $route ) :
+				$this->register_route( $method, $route );
+			endforeach;
+		endforeach;
 	}
 
 	// Register our routes.
-	public function register_routes() {
+	protected function register_route( string $method, array $route ) {
 		register_rest_route(
-			 $this->namespace,
-			' / ' . $this->resource_name,
+			$this->namespace,
+			$this->route['uri'],
 			array(
 				// Here we register the readable endpoint for collections.
 				array(
-					'methods'             => 'GET',
+					'methods'             => $method,
 					'callback'            => array( $this, 'get_items' ),
 					'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				),
-				// Register our schema callback.
-				'schema' => array( $this, 'get_item_schema' ),
-			)
-			);
-		register_rest_route(
-			 $this->namespace,
-			' / ' . $this->resource_name . '/(?P<id>[\d]+)',
-			array(
-				// Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
-				array(
-					'methods'             => 'GET',
-					'callback'            => array( $this, 'get_item' ),
-					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				),
 				// Register our schema callback.
 				'schema' => array( $this, 'get_item_schema' ),
@@ -46,7 +51,7 @@ class IfmRouter {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! current_user_can( 'read' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource . ' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -84,7 +89,7 @@ class IfmRouter {
 	 */
 	public function get_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'read' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource . ' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -167,7 +172,7 @@ class IfmRouter {
 	public function get_item_schema( $request ) {
 		$schema = array(
 			// This tells the spec of JSON Schema we are using which is draft 4.
-			'$schema'    => 'http : // json-schema.org/draft-04/schema#',
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			// The title property marks the identity of the resource.
 			'title'      => 'post',
 			'type'       => 'object',
@@ -201,11 +206,3 @@ class IfmRouter {
 		return $status;
 	}
 }
-
-// Function to register our new routes from the controller.
-function prefix_register_my_rest_routes() {
-	$controller = new My_REST_Posts_Controller();
-	$controller->register_routes();
-}
-
-add_action( 'rest_api_init', 'prefix_register_my_rest_routes' );

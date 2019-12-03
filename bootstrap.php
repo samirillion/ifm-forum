@@ -27,6 +27,7 @@ define( 'IFM_REQUIRED_WP_VERSION', '3.0' );
 define( 'IFM_REQUIRED_WP_NETWORK', false ); // because plugin is not compatible with WordPress multisite
 define( 'IFM_BASE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'IFM_APP', IFM_BASE_PATH . 'app/' );
+define( 'IFM_INC', IFM_BASE_PATH . 'includes/' );
 
 // set this to determine the base namespace for the router. eventually use a WordPress admin setting
 define( 'IFM_NAMESPACE', 'ifm' );
@@ -91,10 +92,10 @@ function run_ifm() {
 	if ( ifm_requirements_met() ) {
 
 		register_activation_hook( __FILE__, 'ifm_activated' );
-		require_once( IFM_BASE_PATH . 'app/controllers/class-posts-controller.php' );
-		require_once( IFM_BASE_PATH . 'app/controllers/class-user-controller.php' );
-		require_once( IFM_BASE_PATH . 'app/controllers/class-comment-controller.php' );
-		// require_once( IFM_BASE_PATH . 'routes.php' );
+		require_once( IFM_APP . 'controllers/class-posts-controller.php' );
+		require_once( IFM_APP . 'controllers/class-user-controller.php' );
+		require_once( IFM_APP . 'controllers/class-comment-controller.php' );
+		require_once( IFM_APP . 'routes.php' );
 
 	} else {
 
@@ -110,7 +111,6 @@ function run_ifm() {
  * Plugin activation hook
  */
 function ifm_activated() {
-	xdebug_break();
 	// move this into user function at some point
 	show_admin_bar( false );
 
