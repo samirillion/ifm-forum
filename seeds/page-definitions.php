@@ -5,7 +5,7 @@
 $ifm_page_definitions = array(
 	'main'                  => array(
 		'title'   => __( 'Aggregator', 'personalize-login' ),
-		'content' => '[crowdsortcontainer]',
+		'content' => '[ifm-container]',
 	),
 	'member-login'          => array(
 		'title'   => __( 'Sign In', 'personalize-login' ),

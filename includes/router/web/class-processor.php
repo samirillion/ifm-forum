@@ -6,7 +6,7 @@
  *
  * @author Carl Alexander <contact@carlalexander.ca>
  */
-class Processor
+class IfmWebProcessor
 {
     /**
      * The matched route found by the router.

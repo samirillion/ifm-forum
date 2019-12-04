@@ -303,7 +303,7 @@ class IfmUserController {
 	}
 
 	private function register_user( $email, $username, $password ) {
-		$errors = new WP_Error();
+		$errors              = new WP_Error();
 		$crowd_form_renderer = new IfmFormRenderer;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate

@@ -5,7 +5,7 @@
  *
  * @author Carl Alexander <contact@carlalexander.ca>
  */
-class Router
+class IfmWebRouter
 {
     /**
      * All registered routes.
@@ -53,7 +53,7 @@ class Router
      */
     public function compile()
     {
-        add_rewrite_tag('%'.$this->route_variable.'%', '(.+)');
+        add_rewrite_tag('%' . $this->route_variable . '%', '(.+)');
 
         foreach ($this->routes as $name => $route) {
             $this->add_rule($name, $route);
@@ -102,7 +102,7 @@ class Router
      */
     private function add_rule($name, Route $route, $position = 'top')
     {
-        add_rewrite_rule($this->generate_route_regex($route), 'index.php?'.$this->route_variable.'='.$name, $position);
+        add_rewrite_rule($this->generate_route_regex($route), 'index.php?' . $this->route_variable . '=' . $name, $position);
     }
 
     /**
@@ -114,6 +114,6 @@ class Router
      */
     private function generate_route_regex(Route $route)
     {
-        return '^'.ltrim(trim($route->get_path()), '/').'$';
+        return '^' . ltrim(trim($route->get_path()), '/') . '$';
     }
 }

@@ -6,7 +6,7 @@ require_once( IFM_APP . 'controllers/class-comment-controller.php' );
 require_once( IFM_APP . 'controllers/class-posts-controller.php' );
 require_once( IFM_APP . 'controllers/class-user-controller.php' );
 
-class IfmRouter {
+class IfmApiRouter {
 
 	protected $routes      = array();
 	protected $namespace   = '';
