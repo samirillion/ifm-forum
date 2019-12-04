@@ -96,7 +96,6 @@ function run_ifm()
 		/** Include the Web router for rendering custom templates and the API router for Getting and Receiving Data*/
 		require_once(IFM_BASE_PATH . 'routes/api.php');
 		require_once(IFM_BASE_PATH . 'routes/web.php');
-
 	} else {
 
 		add_action('admin_notices', 'ifm_show_requirements_error');

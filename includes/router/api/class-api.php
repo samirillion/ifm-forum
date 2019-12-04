@@ -3,7 +3,7 @@
 /**
  * Ifm Route
  */
-require(IFM_INC . 'router/api/class-router.php');
+require(IFM_INC . 'router/api/class-api-router.php');
 
 class IfmApi
 {
@@ -27,12 +27,6 @@ class IfmApi
 		return __CLASS__;
 	}
 
-	public static function auth(string $minimum_level)
-	{
-		self::update_last_route('permission_callback', $minimum_level);
-		return __CLASS__;
-	}
-
 	protected static function add_route(string $method, string $uri = null, string $callback = null)
 	{
 		if (isset($uri) && isset($callback)) :
@@ -42,6 +36,12 @@ class IfmApi
 				'callback' => $callback,
 			);
 		endif;
+	}
+
+	public static function permission_callback(string $minimum_level)
+	{
+		self::update_last_route('permission_callback', $minimum_level);
+		return __CLASS__;
 	}
 
 	protected static function update_last_route($key, $value)

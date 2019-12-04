@@ -17,7 +17,11 @@ define('IFM_ASSET', IFM_BASE_PATH . 'app/views/assets/');
 define('IFM_VIEW', IFM_BASE_PATH . 'app/views/');
 
 /**
- * Set to determine the base namespace for the router. eventually use a WordPress admin setting
+ * Set to determine the base namespace for the router. 
  */
 define('IFM_API_PREFIX', 'api');
 define('IFM_NAMESPACE', 'ifm');
+
+add_filter('rest_url_prefix', function ($prefix) {
+    return IFM_API_PREFIX;
+});
