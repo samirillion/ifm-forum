@@ -58,7 +58,7 @@ class IfmPostsController {
 	 * @param array $search_results
 	 * @return void
 	 */
-	public function render_container( $search_results = [] ) {
+	public static function render_container( $search_results = [] ) {
 		if ( ! isset( $_GET['agg_query'] ) ) {
 			$query     = IfmPost::sort_posts();
 			$pageposts = $query[0];
@@ -66,10 +66,7 @@ class IfmPostsController {
 			$pageposts = $this->agg_search_posts();
 		}
 
-		ob_start();
-		IfmPostsContainer::render( $pageposts );
-		$html = ob_get_clean();
-		return $html;
+		return IfmPostsContainer::render( $pageposts );
 	}
 
 	/**

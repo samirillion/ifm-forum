@@ -82,9 +82,7 @@ class IfmWebProcessor
             return $template;
         }
 
-        $aaaaaaaaa =  "noice";
-
-        $plugin_template_path = IFM_TEMPLATE . $this->matched_route->get_template() . '.php';
+        $plugin_template_path = IFM_VIEW . $this->matched_route->get_template() . '.php';
 
 
         $theme_template = get_query_template($this->matched_route->get_template());
@@ -106,8 +104,6 @@ class IfmWebProcessor
     public function match_request(WP $environment)
     {
         $matched_route = $this->router->match($environment->query_vars);
-
-        $environment->extra_query_vars["sick"] = 'wat';
 
         if ($matched_route instanceof IfmWebRoute) {
             $this->matched_route = $matched_route;

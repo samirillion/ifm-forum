@@ -77,7 +77,9 @@ function plugin_activated()
 function run_ifm()
 {
 
-	require_once(plugin_dir_path(__FILE__) . 'config.php');
+	require(plugin_dir_path(__FILE__) . 'config.php');
+
+	require(IFM_BASE_PATH . 'enqueue.php');
 
 	/**
 	 * Check requirements and load main class

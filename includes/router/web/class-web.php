@@ -19,9 +19,9 @@ class IfmWeb
 		IfmWebProcessor::init($router, $routes);
 	}
 
-	public static function render(string $uri, string $template, string $callback)
+	public static function render(string $uri, string $callback)
 	{
-		self::add_route($uri, '', $template, $callback);
+		self::add_route($uri, '', 'ifm-main', $callback);
 	}
 
 	protected static function add_route(string $uri, string $hoook, string $template, string $callback)

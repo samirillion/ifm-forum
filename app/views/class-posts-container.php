@@ -8,28 +8,12 @@ class IfmPostsContainer
 
 	public static function render($page_posts)
 	{
-		wp_enqueue_style('style.css', IFM_ASSET . 'style.css', null);
-		wp_register_script('news-aggregator', IFM_ASSET . 'js/main.js', array('jquery'));
-		wp_register_script('toggle-switch', IFM_ASSET . 'js/toggle-switch.js', array('jquery'));
-		wp_localize_script(
-			'news-aggregator',
-			'myAjax',
-			array(
-				'ajaxurl'     => admin_url('admin-ajax.php'),
-				'noposts'     => esc_html__('No older posts found', 'aggregator'),
-				'aggpost_tax' => get_query_var('aggpost_tax'),
-			)
-		);
-		wp_enqueue_script('toggle-switch');
-		wp_enqueue_script('news-aggregator');
 		$page = (isset($_REQUEST['crowd_p'])) ? $_REQUEST['crowd_p'] : 1;
 		global $wp;
 		$current_url = home_url(add_query_arg(array(), $wp->request));
 		$next_page   = add_query_arg('crowd_p', $page + 1, $current_url);
-
-		get_header();
 		?>
-		<div id="ifm-container" class="clearfix aggregator-main ajax_posts" role="main">
+		<div class="ifm-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php
 					require_once('partials/class-post-template.php');
 					require_once('partials/forum-nav.php');

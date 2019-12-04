@@ -14,7 +14,7 @@ define('IFM_BASE_PATH', plugin_dir_path(__FILE__));
 define('IFM_APP', IFM_BASE_PATH . 'app/');
 define('IFM_INC', IFM_BASE_PATH . 'includes/');
 define('IFM_ASSET', IFM_BASE_PATH . 'app/views/assets/');
-define('IFM_TEMPLATE', IFM_BASE_PATH . 'app/views/templates/');
+define('IFM_VIEW', IFM_BASE_PATH . 'app/views/');
 
 /**
  * Set to determine the base namespace for the router. eventually use a WordPress admin setting
