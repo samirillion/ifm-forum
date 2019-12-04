@@ -2,7 +2,7 @@
 /**
  * Ifm Route
  */
-require( IFM_INC . 'router/class-router.php' );
+require( IFM_INC . 'router/api/class-router.php' );
 
 class IfmRoute {
 

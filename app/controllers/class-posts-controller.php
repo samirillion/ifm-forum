@@ -42,6 +42,8 @@ class IfmPostsController {
 		add_action( 'admin_post_nopriv_submit_post', array( $plugin, 'redirect_to_login' ) );
 		add_action( 'admin_post_edit_post', array( $plugin, 'edit_post' ) );
 
+		add_filter( 'rest_pre_echo_response', array( $plugin, 'lets_see' ) );
+
 		// Limit media library access
 		// add_action( 'wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
 		// add_action( 'wp_ajax_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
@@ -50,6 +52,11 @@ class IfmPostsController {
 		// add_action( 'wp_ajax_vote_on_comment', array( $plugin, 'vote_on_comment' ) );
 		// add_action( 'wp_ajax_nopriv_vote_on_comment', array( $plugin, 'redirect_to_login_ajax' ) );
 		// add_filter( 'ajax_query_attachments_args', array( $plugin, 'crowd_limit_media_upload_to_user' ) );
+	}
+
+	public function lets_see( $result ) {
+		xdebug_break();
+		return $result;
 	}
 
 	/**
@@ -66,7 +73,15 @@ class IfmPostsController {
 			$pageposts = $this->agg_search_posts();
 		}
 
+		// load_template( dirname( __FILE__ ) . '/templates/some-template.php' );
+
+		// $route_template = get_query_template( '404' );
+		// add_action( 'template_include', $route_template );
+		// ob_start();
 		return IfmPostsContainer::render( $pageposts );
+		// $html = ob_get_clean();
+		// return $html;
+		// return trim( IfmPostsContainer::render( $pageposts ) );
 	}
 
 	/**

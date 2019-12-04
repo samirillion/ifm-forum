@@ -5,6 +5,8 @@
 class IfmPostsContainer {
 
 public static function render( $page_posts ) {
+		get_header();
+		wp_head();
 		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/assets/style.css', null );
 		wp_register_script( 'news-aggregator', plugin_dir_url( __FILE__ ) . '/assets/js/main.js', array( 'jquery' ) );
 		wp_register_script( 'toggle-switch', plugin_dir_url( __FILE__ ) . '/assets/js/toggle-switch.js', array( 'jquery' ) );
@@ -46,5 +48,6 @@ public static function render( $page_posts ) {
 				?>
 		</div>
 				<?php
+				get_footer();
 	}
 }

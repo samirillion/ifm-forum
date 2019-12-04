@@ -15,10 +15,6 @@ $ifm_page_definitions = array(
 		'title'   => __( 'Register', 'personalize-login' ),
 		'content' => '[custom-register-form]',
 	),
-	'member-account'        => array(
-		'title'   => __( 'your account', 'personalize-login' ),
-		'content' => '[account-info]',
-	),
 	'member-password-lost'  => array(
 		'title'   => __( 'Forgot Your Password?', 'personalize-login' ),
 		'content' => '[custom-password-lost-form]',

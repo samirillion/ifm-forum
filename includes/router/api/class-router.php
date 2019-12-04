@@ -8,10 +8,10 @@ require_once( IFM_APP . 'controllers/class-user-controller.php' );
 
 class IfmRouter {
 
-	protected $routes;
-	protected $namespace;
-	protected $route;
-	protected $controllers;
+	protected $routes      = array();
+	protected $namespace   = '';
+	protected $route       = array();
+	protected $controllers = array();
 
 	public function __construct( array $routes ) {
 		$this->namespace = IFM_NAMESPACE;
@@ -25,7 +25,6 @@ class IfmRouter {
 	}
 
 	public function custom_api_prefix( $slug ) {
-		xdebug_break();
 		return IFM_API_PREFIX;
 	}
 
