@@ -11,31 +11,31 @@ class IfmWebProcessor
     /**
      * The matched route found by the router.
      *
-     * @var Route
+     * @var IfmWebRoute
      */
     private $matched_route;
 
     /**
      * The router.
      *
-     * @var Router
+     * @var IfmWebRouter
      */
     private $router;
 
     /**
      * The routes we want to register with WordPress.
      *
-     * @var Route[]
+     * @var IfmWebRoute[]
      */
     private $routes;
 
     /**
      * Constructor.
      *
-     * @param Router  $router
-     * @param Route[] $routes
+     * @param IfmWebRouter  $router
+     * @param IfmWebRoute[] $routes
      */
-    public function __construct(Router $router, array $routes = array())
+    public function __construct(IfmWebRouter $router, array $routes = array())
     {
         $this->router = $router;
         $this->routes = $routes;
@@ -44,10 +44,10 @@ class IfmWebProcessor
     /**
      * Initialize processor with WordPress.
      *
-     * @param Router  $router
-     * @param Route[] $routes
+     * @param IfmWebRouter  $router
+     * @param IfmWebRoute[] $routes
      */
-    public static function init(Router $router, array $routes = array())
+    public static function init(IfmWebRouter $router, array $routes = array())
     {
         $self = new self($router, $routes);
 
@@ -62,7 +62,7 @@ class IfmWebProcessor
      */
     public function call_route_hook()
     {
-        if (!$this->matched_route instanceof Route || !$this->matched_route->has_hook()) {
+        if (!$this->matched_route instanceof IfmWebRoute || !$this->matched_route->has_hook()) {
             return;
         }
 
@@ -78,14 +78,21 @@ class IfmWebProcessor
      */
     public function load_route_template($template)
     {
-        if (!$this->matched_route instanceof Route || !$this->matched_route->has_template()) {
+        if (!$this->matched_route instanceof IfmWebRoute || !$this->matched_route->has_template()) {
             return $template;
         }
 
-        $route_template = get_query_template($this->matched_route->get_template());
+        $aaaaaaaaa =  "noice";
 
-        if (!empty($route_template)) {
-            $template = $route_template;
+        $plugin_template_path = IFM_TEMPLATE . $this->matched_route->get_template() . '.php';
+
+
+        $theme_template = get_query_template($this->matched_route->get_template());
+
+        if (!empty($theme_template)) {
+            $template = $theme_template;
+        } elseif (file_exists($plugin_template_path)) {
+            $template = $plugin_template_path;
         }
 
         return $template;
@@ -100,7 +107,9 @@ class IfmWebProcessor
     {
         $matched_route = $this->router->match($environment->query_vars);
 
-        if ($matched_route instanceof Route) {
+        $environment->extra_query_vars["sick"] = 'wat';
+
+        if ($matched_route instanceof IfmWebRoute) {
             $this->matched_route = $matched_route;
         }
 

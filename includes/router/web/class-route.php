@@ -5,7 +5,7 @@
  *
  * @author Carl Alexander <contact@carlalexander.ca>
  */
-class IfmRoute {
+class IfmWebRoute {
 
 	/**
 	 * The hook called when this route is matched.

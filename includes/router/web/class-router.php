@@ -10,7 +10,7 @@ class IfmWebRouter
     /**
      * All registered routes.
      *
-     * @var Route[]
+     * @var IfmWebRoute[]
      */
     private $routes;
 
@@ -25,7 +25,7 @@ class IfmWebRouter
      * Constructor.
      *
      * @param string  $route_variable
-     * @param Route[] $routes
+     * @param IfmWebRoute[] $routes
      */
     public function __construct($route_variable = 'route_name', array $routes = array())
     {
@@ -41,9 +41,9 @@ class IfmWebRouter
      * Add a route to the router. Overwrites a route if it shares the same name as an already registered one.
      *
      * @param string $name
-     * @param Route  $route
+     * @param IfmWebRoute  $route
      */
-    public function add_route($name, Route $route)
+    public function add_route($name, IfmWebRoute $route)
     {
         $this->routes[$name] = $route;
     }
@@ -76,7 +76,7 @@ class IfmWebRouter
      *
      * @param array $query_variables
      *
-     * @return Route|WP_Error
+     * @return IfmWebRoute|WP_Error
      */
     public function match(array $query_variables)
     {
@@ -97,10 +97,10 @@ class IfmWebRouter
      * Adds a new WordPress rewrite rule for the given Route.
      *
      * @param string $name
-     * @param Route  $route
+     * @param IfmWebRoute  $route
      * @param string $position
      */
-    private function add_rule($name, Route $route, $position = 'top')
+    private function add_rule($name, IfmWebRoute $route, $position = 'top')
     {
         add_rewrite_rule($this->generate_route_regex($route), 'index.php?' . $this->route_variable . '=' . $name, $position);
     }
@@ -108,11 +108,11 @@ class IfmWebRouter
     /**
      * Generates the regex for the WordPress rewrite API for the given route.
      *
-     * @param Route $route
+     * @param IfmWebRoute $route
      *
      * @return string
      */
-    private function generate_route_regex(Route $route)
+    private function generate_route_regex (IfmWebRoute $route)
     {
         return '^' . ltrim(trim($route->get_path()), '/') . '$';
     }

@@ -14,18 +14,18 @@ class IfmWeb
 
 	public static function register()
 	{
+		$router = new IfmWebRouter(IFM_NAMESPACE);
 		$routes = self::$routes;
-		$router = new IfmWebRouter(IFM_NAMESPACE, $routes);
-		IfmProcessor::init($router, $routes);
+		IfmWebProcessor::init($router, $routes);
 	}
 
-	public static function render(string $uri, string $template)
+	public static function render(string $uri, string $template, string $callback)
 	{
-		self::add_route($uri, '', $template);
+		self::add_route($uri, '', $template, $callback);
 	}
 
-	protected static function add_route(string $uri, string $hoook, string $template)
+	protected static function add_route(string $uri, string $hoook, string $template, string $callback)
 	{
-		self::$routes[] = new IfmRoute($uri, '', $template);
+		self::$routes[$callback] = new IfmWebRoute($uri, '', $template);
 	}
 }
