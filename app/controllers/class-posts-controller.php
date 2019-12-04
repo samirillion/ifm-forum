@@ -82,7 +82,6 @@ class IfmPostsController
 	public function select(WP_REST_Request $request)
 	{
 		xdebug_break();
-		$parameters = $request->get_params();
 		return "sick";
 	}
 

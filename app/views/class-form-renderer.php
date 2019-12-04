@@ -1,44 +1,46 @@
 <?php
+
 /**
  * A Class for Rendering User Forms
  */
-class IfmFormRenderer {
+class IfmFormRenderer
+{
 
-	public function render_form( $template_name, $attributes = null ) {
+	public function render_form($template_name, $attributes = null)
+	{
 		// Parse shortcode attributes
-		wp_enqueue_style( 'style.css', plugin_dir_url( __FILE__ ) . '/style.css', null );
-		if ( ! $attributes ) {
+		if (!$attributes) {
 			$attributes = array();
 		}
 		// Check if the user just requested a new password
-		$attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUEST['checkemail'] == 'confirm';
+		$attributes['lost_password_sent'] = isset($_REQUEST['checkemail']) && $_REQUEST['checkemail'] == 'confirm';
 		// Error messages
 		$errors = array();
 		// Return errors for Login Page
-		if ( isset( $_REQUEST['login'] ) ) {
-			$error_codes = explode( ',', $_REQUEST['login'] );
+		if (isset($_REQUEST['login'])) {
+			$error_codes = explode(',', $_REQUEST['login']);
 
-			foreach ( $error_codes as $code ) {
-				$errors[] = $this->get_error_message( $code );
+			foreach ($error_codes as $code) {
+				$errors[] = $this->get_error_message($code);
 			}
 		}
 		// Return errors for Registration Page
-		if ( isset( $_REQUEST['register-errors'] ) ) {
-			$error_codes = explode( ',', $_REQUEST['register-errors'] );
+		if (isset($_REQUEST['register-errors'])) {
+			$error_codes = explode(',', $_REQUEST['register-errors']);
 
-			foreach ( $error_codes as $error_code ) {
-				$errors[] = $this->get_error_message( $error_code );
+			foreach ($error_codes as $error_code) {
+				$errors[] = $this->get_error_message($error_code);
 			}
 		}
 		$attributes['errors'] = $errors;
 
 		ob_start();
 
-		do_action( 'personalize_login_before_' . $template_name );
+		do_action('personalize_login_before_' . $template_name);
 
-		require( 'partials/' . $template_name . '.php' );
+		require('partials/' . $template_name . '.php');
 
-		do_action( 'personalize_login_after_' . $template_name );
+		do_action('personalize_login_after_' . $template_name);
 
 		$html = ob_get_contents();
 		ob_end_clean();
@@ -53,28 +55,29 @@ class IfmFormRenderer {
 	 *
 	 * @return string               An error message.
 	 */
-	public function get_error_message( $error_code ) {
-		switch ( $error_code ) {
+	public function get_error_message($error_code)
+	{
+		switch ($error_code) {
 
 				// Lost password
 
 			case 'empty_username':
-				return __( 'You need to enter your username  to continue.', 'personalize-login' );
+				return __('You need to enter your username  to continue.', 'personalize-login');
 
 			case 'invalidcombo':
-				return __( 'There are no users registered with this email address.', 'personalize-login' );
+				return __('There are no users registered with this email address.', 'personalize-login');
 
 			case 'invalid_username':
-				return __( 'There are no users registered with this username.', 'personalize-login' );
+				return __('There are no users registered with this username.', 'personalize-login');
 
 			case 'empty_username':
-				return __( 'You do have an email address, right?', 'personalize-login' );
+				return __('You do have an email address, right?', 'personalize-login');
 
 			case 'username_exists':
-				return __( 'Your chosen username is not available', 'personalize-login' );
+				return __('Your chosen username is not available', 'personalize-login');
 
 			case 'empty_password':
-				return __( 'You need to enter a password to login.', 'personalize-login' );
+				return __('You need to enter a password to login.', 'personalize-login');
 
 			case 'invalid_email':
 				return __(
@@ -82,25 +85,25 @@ class IfmFormRenderer {
 					'personalize-login'
 				);
 			case 'email':
-				return __( 'The email address you entered is not valid.', 'personalize-login' );
+				return __('The email address you entered is not valid.', 'personalize-login');
 
 			case 'email_exists':
-				return __( 'An account already exists with this email address.', 'personalize-login' );
+				return __('An account already exists with this email address.', 'personalize-login');
 
 			case 'closed':
-				return __( 'Registering new users is currently not allowed.', 'personalize-login' );
+				return __('Registering new users is currently not allowed.', 'personalize-login');
 
 			case 'incorrect_password':
 				$err = __(
 					"The password you entered wasn't quite right. <a href='%s'>Did you forget your password</a>?",
 					'personalize-login'
 				);
-				return sprintf( $err, wp_lostpassword_url() );
+				return sprintf($err, wp_lostpassword_url());
 
 			default:
 				break;
 		}
 
-		return __( 'An unknown error occurred. Please try again later.', 'personalize-login' );
+		return __('An unknown error occurred. Please try again later.', 'personalize-login');
 	}
 }
