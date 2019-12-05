@@ -32,7 +32,7 @@ class IfmPostsController
 	{
 		$plugin = new self();
 
-		add_shortcode('ifm-container', array($plugin, 'render_container'));
+		add_shortcode('ifm-container', array($plugin, 'main'));
 		add_shortcode('ifm-post', array($plugin, 'create_new_post_template'));
 		add_shortcode('edit-aggpost', array($plugin, 'render_edit_post_container'));
 
@@ -61,7 +61,7 @@ class IfmPostsController
 	 * @param array $search_results
 	 * @return void
 	 */
-	public static function render_container($search_results = [])
+	public static function main($search_results = [])
 	{
 		if (!isset($_GET['agg_query'])) {
 			$query     = IfmPost::sort_posts();

@@ -92,6 +92,9 @@ function run_ifm()
 		require_once(IFM_APP . 'controllers/class-posts-controller.php');
 		require_once(IFM_APP . 'controllers/class-user-controller.php');
 		require_once(IFM_APP . 'controllers/class-comment-controller.php');
+		require_once(IFM_APP . 'controllers/class-messaging-controller.php');
+
+		require(IFM_APP . 'models/model.php');
 
 		/** Include the Web router for rendering custom templates and the API router for Getting and Receiving Data*/
 		require_once(IFM_BASE_PATH . 'routes/api.php');
