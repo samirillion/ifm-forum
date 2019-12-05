@@ -1,12 +1,7 @@
 <?php
 class IfmQueryVars
 {
-    public static $query_vars = array(
-        'ifm_post_id',
-        'status',
-        'user_id',
-        'aggpost_tax'
-    );
+    public static $query_vars = array();
 
     public static function register()
     {
@@ -20,6 +15,11 @@ class IfmQueryVars
             $qvars[] = $var;
         endforeach;
         return $qvars;
+    }
+
+    public static function add_vars(array $vars)
+    {
+        self::$query_vars = array_merge(self::$query_vars, $vars);
     }
 
     public static function add_var($var)

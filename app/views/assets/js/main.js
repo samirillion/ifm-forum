@@ -54,7 +54,7 @@ jQuery( function($) {
   //      type: "POST",
   //      dataType: "html",
   //      url: myAjax.ajaxurl,
-  //      data: {action: "more_aggregator_posts", ppp: aggregatorPPP, crowd_p: aggregatorPageNumber, aggpostTax: myAjax.aggpost_tax},
+  //      data: {action: "more_aggregator_posts", ppp: aggregatorPPP, crowd_p: aggregatorPageNumber, aggpostTax: myAjax.ifm_tax},
   //      success: function(data){
   //        var $data = $(data);
   //          if($data.length){

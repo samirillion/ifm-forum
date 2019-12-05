@@ -8,10 +8,10 @@ class IfmPostsContainer
 
 	public static function render($page_posts)
 	{
-		$page = (isset($_REQUEST['crowd_p'])) ? $_REQUEST['crowd_p'] : 1;
+		$page = (isset($_REQUEST['ifm_p'])) ? $_REQUEST['ifm_p'] : 1;
 		global $wp;
 		$current_url = home_url(add_query_arg(array(), $wp->request));
-		$next_page   = add_query_arg('crowd_p', $page + 1, $current_url);
+		$next_page   = add_query_arg('ifm_p', $page + 1, $current_url);
 		?>
 		<div class="ifm-container" class="clearfix aggregator-main ajax_posts" role="main">
 			<?php

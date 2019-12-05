@@ -89,14 +89,16 @@ function run_ifm()
 	if (ifm_requirements_met()) {
 
 		register_activation_hook(__FILE__, 'ifm_activated');
+
+		// Require the Parent Classes First
+		require(IFM_INC . 'mvc/class-model.php');
+		require(IFM_INC . 'mvc/class-view.php');
+		require(IFM_INC . 'mvc/class-controller.php');
+
 		require(IFM_APP . 'controllers/class-posts-controller.php');
 		require(IFM_APP . 'controllers/class-user-controller.php');
 		require(IFM_APP . 'controllers/class-comment-controller.php');
 		require(IFM_APP . 'controllers/class-messaging-controller.php');
-
-		require(IFM_INC . 'mvc/class-model.php');
-		require(IFM_INC . 'mvc/class-view.php');
-		require(IFM_INC . 'mvc/class-controller.php');
 
 		require(IFM_APP . 'routes.php');
 	} else {

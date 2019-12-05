@@ -6,11 +6,11 @@ class IfmPost {
 	public static function sort_posts( $tax_term = '' ) {
 		global $wpdb;
 		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 31;
-		$page   = ( isset( $_REQUEST['crowd_p'] ) ) ? $_REQUEST['crowd_p'] : 1;
+		$page   = ( isset( $_REQUEST['ifm_p'] ) ) ? $_REQUEST['ifm_p'] : 1;
 		$offset = ( $page - 1 ) * $ppp;
-		if ( get_query_var( 'aggpost_tax' ) ) {
+		if ( get_query_var( 'ifm_tax' ) ) {
 		  $filter_by = "
-          AND $wpdb->terms.slug = '" . sanitize_text_field( get_query_var( 'aggpost_tax' ) ) . "' ";
+          AND $wpdb->terms.slug = '" . sanitize_text_field( get_query_var( 'ifm_tax' ) ) . "' ";
 		} elseif ( isset( $_POST['aggpostTax'] ) ) {
 		  $filter_by = "
             AND $wpdb->terms.slug = '" . sanitize_text_field( $_POST['aggpostTax'] ) . "' ";

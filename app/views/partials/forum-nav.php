@@ -5,15 +5,15 @@
  *
  * @package Ifm
  */
-if (get_query_var('aggpost_tax')) {
-	$agg_query_var  = get_query_var('aggpost_tax');
+if (get_query_var('ifm_tax')) {
+	$ifm_query_var  = get_query_var('ifm_tax');
 	$agg_all_active = '';
 } elseif (get_query_var('user_id')) {
 	$agg_all_active = '';
 	$user_id        = (int) get_query_var('user_id');
 	$user_nav_item  = "<span class='ifm-user-posts active h4'>" . get_userdata($user_id)->user_nicename . "'s posts</span>";
 } else {
-	$agg_query_var  = '';
+	$ifm_query_var  = '';
 	$agg_all_active = 'active';
 }
 
@@ -41,13 +41,13 @@ if (isset($user_nav_item)) {
 				);
 				// var_dump($custom_terms);
 				foreach ($custom_terms as $term) {
-					if ($term->{'slug'} === $agg_query_var) {
+					if ($term->{'slug'} === $ifm_query_var) {
 						$active_class     = 'active';
 						$term_description = '<div class="ifm-term-description">' . $term->description . '</div>';
 					} else {
 						$active_class = '';
 					}
-					echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg('aggpost_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
+					echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
 				}
 				?>
 			<?php
@@ -59,7 +59,7 @@ if (isset($user_nav_item)) {
 		<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($current_url); ?>">
 			<div class="ifm-search-wrapper">
 				<label class="screen-reader-text" for="s">Search for:</label>
-				<input type="text" placeholder="search forum" name="agg_query" class="ifm-query-input" />
+				<input type="text" placeholder="search forum" name="ifm_query" class="ifm-query-input" />
 				<input type="hidden" name="action" value="agg_search_posts">
 				<input type="submit" class="ifm-search-submit" value="Search" />
 			</div>

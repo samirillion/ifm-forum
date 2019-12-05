@@ -15,7 +15,7 @@ require_once(IFM_APP . 'models/sorter-factory.php');
 require_once(IFM_APP . 'models/news-aggregator.php');
 
 
-class IfmPostsController
+class IfmPostsController extends IfmController
 {
 
 	/**
@@ -39,7 +39,6 @@ class IfmPostsController
 		add_action('init', array($plugin, 'generate_sorter'));
 		add_action('wp_ajax_add_entry_karma', array($plugin, 'my_user_vote'));
 		add_action('wp_ajax_nopriv_add_entry_karma', array($plugin, 'redirect_to_login_ajax'));
-		add_filter('query_vars', array($plugin, 'add_query_vars'));
 		add_action('post_ranking_cron', array($plugin, 'update_post_rank'));
 		add_action('admin_post_submit_post', array($plugin, 'submit_post'));
 		add_action('admin_post_nopriv_submit_post', array($plugin, 'redirect_to_login'));
@@ -63,7 +62,8 @@ class IfmPostsController
 	 */
 	public static function main($search_results = [])
 	{
-		if (!isset($_GET['agg_query'])) {
+		$params = $this->get_params();
+		if (!isset($_GET['ifm_query'])) {
 			$query     = IfmPost::sort_posts();
 			$pageposts = $query[0];
 		} else {
@@ -81,8 +81,8 @@ class IfmPostsController
 	 */
 	public function select(WP_REST_Request $request)
 	{
-		xdebug_break();
-		return "sick";
+		// xdebug_break();
+		return "Hello World!";
 	}
 
 	/**
@@ -137,18 +137,6 @@ class IfmPostsController
 
 	/**
 	 * Undocumented function
-	 */
-	public function add_query_vars($vars)
-	{
-		$vars[] .= 'ifm_post_id';
-		$vars[] .= 'status';
-		$vars[] .= 'user_id';
-		$vars[] .= 'aggpost_tax';
-		return $vars;
-	}
-
-	/**
-	 * Undocumented function
 	 *
 	 * @return void
 	 */
@@ -164,7 +152,7 @@ class IfmPostsController
 	 */
 	public function agg_search_posts()
 	{
-		$query->query_vars['s']              = sanitize_text_field($_GET['agg_query']);
+		$query->query_vars['s']              = sanitize_text_field($_GET['ifm_query']);
 		$query->query_vars['posts_per_page'] = $this->posts_per_page;
 		$posts                               = [];
 		foreach (relevanssi_do_query($query) as $post) {
