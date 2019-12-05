@@ -168,6 +168,11 @@
   border-bottom: none;
   display: flex;
   justify-content: space-between;
+  height: 40px;
+}
+.ifm-nav .ifm-post-types {
+  margin: 0;
+  padding-left: 0;
 }
 .ifm-term-description {
   padding: 5px;
