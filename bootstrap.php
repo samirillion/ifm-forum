@@ -89,16 +89,16 @@ function run_ifm()
 	if (ifm_requirements_met()) {
 
 		register_activation_hook(__FILE__, 'ifm_activated');
-		require_once(IFM_APP . 'controllers/class-posts-controller.php');
-		require_once(IFM_APP . 'controllers/class-user-controller.php');
-		require_once(IFM_APP . 'controllers/class-comment-controller.php');
-		require_once(IFM_APP . 'controllers/class-messaging-controller.php');
+		require(IFM_APP . 'controllers/class-posts-controller.php');
+		require(IFM_APP . 'controllers/class-user-controller.php');
+		require(IFM_APP . 'controllers/class-comment-controller.php');
+		require(IFM_APP . 'controllers/class-messaging-controller.php');
 
-		require(IFM_APP . 'models/model.php');
+		require(IFM_INC . 'mvc/class-model.php');
+		require(IFM_INC . 'mvc/class-view.php');
+		require(IFM_INC . 'mvc/class-controller.php');
 
-		/** Include the Web router for rendering custom templates and the API router for Getting and Receiving Data*/
-		require_once(IFM_BASE_PATH . 'routes/api.php');
-		require_once(IFM_BASE_PATH . 'routes/web.php');
+		require(IFM_APP . 'routes.php');
 	} else {
 
 		add_action('admin_notices', 'ifm_show_requirements_error');

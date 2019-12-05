@@ -1,5 +1,4 @@
 <?php
-require_once(IFM_APP)
 class IfmMessage extends IfmModel
 {
     protected $post_type = "";
