@@ -19,6 +19,10 @@
   margin: 0 auto;
   display: block;
 }
+.ifm-submit-wrapper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 .vote_on_comment .ifm-vote {
   border-width: 6px;
   border-bottom-width: 11px;
@@ -120,16 +124,20 @@
   margin-left: 5px;
   margin-right: 5px;
 }
-.comment-post-content-wrapper {
-  width: 50%;
+.ifm-comment-main-url {
+  font-size: 2rem;
+}
+.ifm-comment-main-content-wrapper {
+  width: 60%;
   margin: 10px 0 20px 0px;
   padding-left: 10px;
   position: relative;
   background: rgba(123,186,34, .05);
   padding: 20px;
 }
-.comment-post-content {
-  color: #333333;
+.ifm-comment-post-content {
+  font-size: 1.5rem;
+  color: #222222;
 }
 .view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
@@ -176,7 +184,7 @@
 }
 .ifm-term-description {
   padding: 5px;
-  padding-left: 20px;
+  padding-left: 10px;
   border: 1px solid #999999;
   width: 99%;
   border-bottom: none;
@@ -242,7 +250,11 @@ input[type="submit"].ifm-search-submit {
   cursor: pointer;
   opacity: .8;
 }
-.indented-list .comment-node {
+.ifm-indented-list {
+  margin-left: 0;
+  padding-left: 1vw;
+}
+.ifm-indented-list .comment-node {
   display: block;
   margin-top: 13px;
 }
@@ -260,8 +272,11 @@ input[type="submit"].ifm-search-submit {
 }
 .ifm-comment {
   width: 50%;
-  color: #333333;
+  color: #222222;
   letter-spacing: .5px;
+  font-size: 14px;
+}
+.ifm-no-comments {
   font-size: 14px;
 }
 #reply-to-post input[type="submit"] {
@@ -284,8 +299,14 @@ input[type="submit"].ifm-search-submit {
 .ifm-change-password, .ifm-logout {
   display: block;
 }
-.comment-content, .reply-to-comment, .comment-reply-container {
+.ifm-comment-content {
+  font-size: 13px;
+}
+.ifm-comment-content, .reply-to-comment, .ifm-comment-reply-container {
   margin-left: 16px;
+}
+.ifm-comment-reply-container textarea {
+  font-size: 13px;
 }
 #submit-post {
   width: 60%;
@@ -296,7 +317,10 @@ input[type="submit"].ifm-search-submit {
 #submit-post .must-be-logged-in:hover {
   opacity: .7;
 }
-.submit-reply:hover {
+.ifm-submit-reply {
+  font-size: 13px;
+}
+.ifm-submit-reply:hover {
   cursor: pointer;
 }
 .logged-in-user {
@@ -402,7 +426,7 @@ input[type="submit"].ifm-search-submit {
   #account-details #user-email, #account-details #user-about {
     width: 100%;
   }
-  .comment-post-content-wrapper {
+  .ifm-comment-main-content-wrapper {
     width: 100%;
   }
   .ifm-post-type, .aggpost-type-nav-item {

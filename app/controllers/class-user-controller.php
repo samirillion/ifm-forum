@@ -269,7 +269,7 @@ class IfmUserController
 
 	public function redirect_after_login()
 	{
-		$redirect_url = home_url() . '/fin-forum';
+		$redirect_url = home_url() . '/forum';
 
 		if (!isset($user->ID)) {
 			return $redirect_url;
@@ -415,7 +415,7 @@ class IfmUserController
 			$userKarma = IfmUser::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {
-			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url('/fin-forum')) . '">' . __('Login') . '</a></li>';
+			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url('/forum')) . '">' . __('Login') . '</a></li>';
 		}
 		return $items;
 	}

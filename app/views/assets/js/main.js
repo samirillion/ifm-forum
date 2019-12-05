@@ -120,7 +120,7 @@ jQuery( function($) {
        $(this).next().toggle();
       });
 
-      $('.submit-reply').on('click', function(e) {
+      $('.ifm-submit-reply').on('click', function(e) {
            e.preventDefault();
           //  // information to be sent to the server
            var content = $(this).prev().val();

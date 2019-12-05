@@ -12,8 +12,12 @@ IfmRoute::add_query_vars(
     )
 );
 
-// Pages To Render From Controller Methods
+// Posts Related Routes
 IfmRoute::render('/forum', 'IfmPostsController@main');
+IfmRoute::render('/submit', 'IfmPostsController@submit');
+
+// Comment Related Routes
+IfmRoute::render('/comments', 'IfmCommentController@main');
 
 // Register all the components of the IfmRoute object
 IfmRoute::register();

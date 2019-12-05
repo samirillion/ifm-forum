@@ -14,9 +14,11 @@ ob_start(); ?>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <?php
-            IfmView::render($wp->query_vars['ifm']);
-            ?>
+            <div class="ifm-container">
+                <?php
+                IfmView::render($wp->query_vars['ifm']);
+                ?>
+            </div>
         </div>
     </div>
 </div>

@@ -8,7 +8,7 @@
 require_once(IFM_APP . 'views/class-posts-container.php');
 require_once(IFM_APP . 'views/class-edit-post.php');
 require_once(IFM_APP . 'views/partials/class-post-template.php');
-require_once(IFM_APP . 'views/class-new-post.php');
+require_once(IFM_APP . 'views/class-submit-post.php');
 
 require_once(IFM_APP . 'models/post.php');
 require_once(IFM_APP . 'models/sorter-factory.php');
@@ -32,8 +32,6 @@ class IfmPostsController extends IfmController
 	{
 		$plugin = new self();
 
-		add_shortcode('ifm-container', array($plugin, 'main'));
-		add_shortcode('ifm-post', array($plugin, 'create_new_post_template'));
 		add_shortcode('edit-aggpost', array($plugin, 'render_edit_post_container'));
 
 		add_action('init', array($plugin, 'generate_sorter'));
@@ -75,6 +73,17 @@ class IfmPostsController extends IfmController
 	/**
 	 * Undocumented function
 	 *
+	 * @return void
+	 */
+	public function submit()
+	{
+		$ifm_submit = new IfmSubmitPost;
+		$ifm_submit->render();
+	}
+
+	/**
+	 * Undocumented function
+	 *
 	 * @param WP_REST_Request $request
 	 * @return array
 	 */
@@ -109,7 +118,7 @@ class IfmPostsController extends IfmController
 		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], 'aggpost-type', false);
 		wp_update_post($the_post);
 
-		wp_safe_redirect(home_url('fin-forum'));
+		wp_safe_redirect(home_url('forum'));
 	}
 
 	/**
@@ -222,17 +231,6 @@ class IfmPostsController extends IfmController
 	{
 		$karma_tracker = new IfmPost;
 		$karma_tracker->update_post_karma();
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function create_new_post_template()
-	{
-		$crowd_post_template = new IfmNewPost;
-		$crowd_post_template->render();
 	}
 
 	/**

@@ -38,7 +38,7 @@ class IfmCommentContainer
 		$children = $obj[$current_id];
 
 		// Each node prints its own contents, then prints the contents of its children
-		echo "<ul class='indented-list'>";
+		echo "<ul class='ifm-indented-list'>";
 		foreach ($children as $comment) {
 			$nonce = wp_create_nonce('comment_nonce');
 			$upvoted = $wpdb->get_results(
@@ -84,12 +84,12 @@ class IfmCommentContainer
 				<div class="comment-time"><?php echo human_time_diff(strtotime($comment['comment_date_gmt']), current_time('timestamp', 1)) . ' ago'; ?></div>
 				<?php
 							// $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
-							echo '<div class="comment-content">' . $comment['comment_content'] . '</div>';
+							echo '<div class="ifm-comment-content">' . $comment['comment_content'] . '</div>';
 							?>
 				<div class="reply-to-comment">reply</div>
-				<div class="comment-reply-container" style="display:none;">
-					<textarea name="comment-reply-content" id="comment-reply-content" required></textarea>
-					<a class="submit-reply">submit</a>
+				<div class="ifm-comment-reply-container" style="display:none;">
+					<textarea name="ifm-comment-reply-textarea" required></textarea>
+					<a class="ifm-submit-reply">submit</a>
 				</div>
 	<?php
 				// Print all our children
@@ -98,26 +98,27 @@ class IfmCommentContainer
 			echo '</ul>';
 		}
 
-		public static function render($comment_query)
+		public static function render($comment_query, $params)
 		{
 			if (isset(get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'])) {
 				$post_title_content = '<a href="' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title(get_query_var('ifm_post_id')) . '</a>';
-				$post_url           = '<a href="' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '">' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '</a> &ndash; ';
+				$post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '">' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '</a> &ndash; ';
 			} else {
 				$post_title_content = get_the_title(get_query_var('ifm_post_id'));
 				$post_url           = '';
 			}
-			echo '<h4 class="comment-post-title">' . $post_title_content . '</h4>';
+			echo '<div class="ifm-comment-wrapper">';
+			echo '<h4 class="ifm-comment-post-title">' . $post_title_content . '</h4>';
 			echo $post_url;
 			echo '<span class="ifm-post-type">' . (wp_get_object_terms(get_query_var('ifm_post_id'), 'aggpost-type'))[0]->{'name'} . '</span>';
 			if (get_post(get_query_var('ifm_post_id'))->post_content !== '') {
-				echo '<div class="comment-post-content-wrapper">';
-				echo '<div class="comment-post-content">' . get_post(get_query_var('ifm_post_id'))->post_content . '</div>';
+				echo '<div class="ifm-comment-main-content-wrapper">';
+				echo '<div class="ifm-comment-post-content">' . get_post(get_query_var('ifm_post_id'))->post_content . '</div>';
 				echo '</div>';
 			}
-			echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;">';
+			echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">';
 			if (!$comment_query) {
-				echo 'No comments here! Start the discussion.';
+				echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';
 			}
 			echo "<form id='reply-to-post'>";
 			echo "<textarea class='ifm-comment' name='reply' cols='40' rows='5' required></textarea>";
@@ -130,6 +131,7 @@ class IfmCommentContainer
 				$object = self::sort_by_parent($comment_query);
 				self::build_comment_structure($object);
 			}
+			echo '</div>';
 		}
 	}
 	?>

@@ -1,8 +1,8 @@
 # Ideal Forum Roadmap
 ## Bug Fixes
-[ ] Pagination
+[x] Pagination
 
-[ ] Karma Calculation
+[x] Karma Calculation
 
 [ ] Disable, remove spam
 
@@ -30,7 +30,7 @@
 
 [ ] Implement unit testing
 
-[ ] Implement PHP router, c.f., 
+[x] Implement PHP router, c.f., 
 
 - https://carlalexander.ca/designing-system-wordpress-routing/
 - https://developer.wordpress.org/reference/functions/rest_do_request/

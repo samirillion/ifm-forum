@@ -1,11 +1,14 @@
 <?php
+
 /**
  * Undocumented class
  */
-class IfmComments {
+class IfmComment
+{
 
 	// Information needed for creating the plugin's pages
-	public function query_comments() {
+	public function query_comments()
+	{
 		global $wpdb;
 		$querystr = "
       SELECT
@@ -18,30 +21,32 @@ class IfmComments {
           END as karma_divisor,
         (SELECT count(*) FROM wp_commentmeta WHERE comment_id=$wpdb->comments.comment_ID AND meta_key='user_upvote_id') as karma
       FROM $wpdb->comments
-        WHERE $wpdb->comments.comment_post_ID=" . get_query_var( 'ifm_post_id' ) . '
+        WHERE $wpdb->comments.comment_post_ID=" . get_query_var('ifm_post_id') . '
         ORDER BY  (
                 karma/karma_divisor
                 ) DESC';
 
-		$rankedcomments = $wpdb->get_results( $querystr, OBJECT );
+		$rankedcomments = $wpdb->get_results($querystr, OBJECT);
 		return $rankedcomments;
 	}
 
-	public function add_comment_to_post( $postID ) {
+	public function add_comment_to_post($postID)
+	{
 		// if ( !wp_verify_nonce( $_REQUEST['nonce'], "reply_to_post_nonce")) {
-	// exit("No naughty business please");
-	// }
-	$comment = wp_insert_comment(
-		array(
-			'comment_parent'       => 0,
-			'user_id'              => get_current_user_id(),
-			'comment_parent'       => 0,
-			'comment_content'      => $_REQUEST['reply'],
-			'comment_post_ID'      => $_REQUEST['post_id'],
-			'comment_author'       => wp_get_current_user()->display_name,
-			'comment_author_email' => wp_get_current_user()->user_email,
-		)
-	  );
+		// exit("No naughty business please");
+		// }
+		xdebug_break();
+		$comment = wp_insert_comment(
+			array(
+				'comment_parent'       => 0,
+				'user_id'              => get_current_user_id(),
+				'comment_parent'       => 0,
+				'comment_content'      => $_REQUEST['reply'],
+				'comment_post_ID'      => $_REQUEST['post_id'],
+				'comment_author'       => wp_get_current_user()->display_name,
+				'comment_author_email' => wp_get_current_user()->user_email,
+			)
+		);
 		global $wpdb;
 		$firstvote = $wpdb->insert(
 			$wpdb->commentmeta,
@@ -50,12 +55,13 @@ class IfmComments {
 				'meta_key'   => 'user_upvote_id',
 				'meta_value' => get_current_user_id(),
 			),
-		array( '%d', '%s', '%d' )
-			);
+			array('%d', '%s', '%d')
+		);
 		die();
 	}
 
-	public function update_comment_karma() {
+	public function update_comment_karma()
+	{
 		// if (!wp_verify_nonce($_REQUEST['nonce'], "comment_nonce")) {
 		// exit("No naughty business please");
 		// }
@@ -64,54 +70,54 @@ class IfmComments {
 		$comment_id = $_REQUEST['comment_id'];
 		$voted      = $wpdb->get_var(
 			$wpdb->prepare(
-	  "
+				"
         SELECT count(1)
         FROM $wpdb->commentmeta
         WHERE comment_ID=%d
         AND meta_key='user_upvote_id'
         AND meta_value=%d
       ",
-	  $comment_id,
-	  $userid
-	)
-			);
-		if ( $voted >= 1 ) {
+				$comment_id,
+				$userid
+			)
+		);
+		if ($voted >= 1) {
 			$vote    = $wpdb->delete(
-				 $wpdb->commentmeta,
+				$wpdb->commentmeta,
 				array(
 					'comment_id' => $comment_id,
 					'meta_key'   => 'user_upvote_id',
 					'meta_value' => $userid,
 				),
-				array( '%d', '%s', '%d' )
-				);
+				array('%d', '%s', '%d')
+			);
 			$upvoted = false;
 		} else {
 			$vote    = $wpdb->insert(
-				 $wpdb->commentmeta,
+				$wpdb->commentmeta,
 				array(
 					'comment_id' => $comment_id,
 					'meta_key'   => 'user_upvote_id',
 					'meta_value' => $userid,
 				),
-				array( '%d', '%s', '%d' )
-				);
+				array('%d', '%s', '%d')
+			);
 			$upvoted = true;
 		}
 
 		$entry_karma = $wpdb->get_var(
 			$wpdb->prepare(
-	  "
+				"
         SELECT count(*)
         FROM $wpdb->commentmeta
         WHERE comment_id=%d
         AND meta_key='user_upvote_id'
       ",
-	  $comment_id
-	)
-			);
+				$comment_id
+			)
+		);
 
-		if ( false === $voted ) {
+		if (false === $voted) {
 			$result['type']        = 'error';
 			$result['entry_karma'] = $entry_karma;
 			$result['redirect']    = 'wat';
@@ -121,32 +127,33 @@ class IfmComments {
 			$result['entry_karma'] = $entry_karma;
 		}
 
-		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest' ) {
-			$result = json_encode( $result );
+		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
 			echo $result;
 		} else {
-			header( 'Location: ' . $_SERVER['HTTP_REFERER'] );
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 
 		die();
 	}
 
-	public function comment_on_comment() {
-		if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'comment_nonce' ) ) {
-			exit( 'No naughty business please' );
+	public function comment_on_comment()
+	{
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'comment_nonce')) {
+			exit('No naughty business please');
 		}
 
 		$comment = wp_insert_comment(
-		array(
-			'comment_parent'       => 0,
-			'user_id'              => get_current_user_id(),
-			'comment_parent'       => $_REQUEST['comment_parent'],
-			'comment_content'      => $_REQUEST['replyContent'],
-			'comment_post_ID'      => get_comment( $_REQUEST['comment_parent'] )->comment_post_ID,
-			'comment_author'       => wp_get_current_user()->display_name,
-			'comment_author_email' => wp_get_current_user()->user_email,
-		)
-	  );
+			array(
+				'comment_parent'       => 0,
+				'user_id'              => get_current_user_id(),
+				'comment_parent'       => $_REQUEST['comment_parent'],
+				'comment_content'      => $_REQUEST['replyContent'],
+				'comment_post_ID'      => get_comment($_REQUEST['comment_parent'])->comment_post_ID,
+				'comment_author'       => wp_get_current_user()->display_name,
+				'comment_author_email' => wp_get_current_user()->user_email,
+			)
+		);
 		global $wpdb;
 		$firstvote = $wpdb->insert(
 			$wpdb->commentmeta,
@@ -155,8 +162,8 @@ class IfmComments {
 				'meta_key'   => 'user_upvote_id',
 				'meta_value' => get_current_user_id(),
 			),
-		array( '%d', '%s', '%d' )
-			);
+			array('%d', '%s', '%d')
+		);
 		die();
 	}
 }

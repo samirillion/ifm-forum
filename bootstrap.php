@@ -101,6 +101,11 @@ function run_ifm()
 		require(IFM_APP . 'controllers/class-messaging-controller.php');
 
 		require(IFM_APP . 'routes.php');
+
+		$user = wp_get_current_user();
+		if (in_array('contributor', (array) $user->roles)) {
+			add_filter('show_admin_bar', '__return_false');
+		}
 	} else {
 
 		add_action('admin_notices', 'ifm_show_requirements_error');
