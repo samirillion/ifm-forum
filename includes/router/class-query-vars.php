@@ -17,6 +17,19 @@ class IfmQueryVars
         return $qvars;
     }
 
+    public static function get_params($params = array())
+    {
+        foreach (self::$query_vars as $var) :
+            if (get_query_var($var, false)) :
+                $params[$var] = get_query_var($var);
+            endif;
+        endforeach;
+        return $params;
+    }
+
+    /**
+     * Add these vars in app/routes.php
+     */
     public static function add_vars(array $vars)
     {
         self::$query_vars = array_merge(self::$query_vars, $vars);
@@ -25,6 +38,5 @@ class IfmQueryVars
     public static function add_var($var)
     {
         self::$query_vars[] = $var;
-        return __CLASS__;
     }
 }

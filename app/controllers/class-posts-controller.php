@@ -39,7 +39,6 @@ class IfmPostsController extends IfmController
 		add_action('init', array($plugin, 'generate_sorter'));
 		add_action('wp_ajax_add_entry_karma', array($plugin, 'my_user_vote'));
 		add_action('wp_ajax_nopriv_add_entry_karma', array($plugin, 'redirect_to_login_ajax'));
-		add_action('post_ranking_cron', array($plugin, 'update_post_rank'));
 		add_action('admin_post_submit_post', array($plugin, 'submit_post'));
 		add_action('admin_post_nopriv_submit_post', array($plugin, 'redirect_to_login'));
 		add_action('admin_post_edit_post', array($plugin, 'edit_post'));
@@ -51,7 +50,7 @@ class IfmPostsController extends IfmController
 		// add_action( 'wp_ajax_nopriv_addComment', array( $plugin, 'redirect_to_login_ajax' ) );
 		// add_action( 'wp_ajax_vote_on_comment', array( $plugin, 'vote_on_comment' ) );
 		// add_action( 'wp_ajax_nopriv_vote_on_comment', array( $plugin, 'redirect_to_login_ajax' ) );
-		// add_filter( 'ajax_query_attachments_args', array( $plugin, 'crowd_limit_media_upload_to_user' ) );
+		// add_filter( 'ajax_query_attachments_args', array( $plugin, 'ifm_limit_media_upload_to_user' ) );
 	}
 
 	/**
@@ -60,17 +59,17 @@ class IfmPostsController extends IfmController
 	 * @param array $search_results
 	 * @return void
 	 */
-	public static function main($search_results = [])
+	public static function main()
 	{
-		$params = $this->get_params();
-		if (!isset($_GET['ifm_query'])) {
-			$query     = IfmPost::sort_posts();
-			$pageposts = $query[0];
+		$params = IfmQueryVars::get_params();
+
+		if (array_key_exists('ifm_query', $params)) {
+			$posts = $this->agg_search_posts($params);
 		} else {
-			$pageposts = $this->agg_search_posts();
+			$posts = IfmPost::sort_posts()[0];
 		}
 
-		return IfmPostsContainer::render($pageposts);
+		return IfmPostsContainer::render($posts, $params);
 	}
 
 	/**
@@ -116,7 +115,7 @@ class IfmPostsController extends IfmController
 	/**
 	 * Limit media upload options on the frontend visual editor to the user's personal media.
 	 */
-	function crowd_limit_media_upload_to_user($query)
+	function ifm_limit_media_upload_to_user($query)
 	{
 		$user_id = get_current_user_id();
 		if ($user_id && !current_user_can('activate_plugins') && !current_user_can('edit_others_posts')) {
@@ -140,19 +139,10 @@ class IfmPostsController extends IfmController
 	 *
 	 * @return void
 	 */
-	public function update_post_rank()
+	public function agg_search_posts($params)
 	{
-		newsAggregator::update_temporal_karma();
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function agg_search_posts()
-	{
-		$query->query_vars['s']              = sanitize_text_field($_GET['ifm_query']);
+		$query = null;
+		$query->query_vars['s']              = sanitize_text_field($params['ifm_query']);
 		$query->query_vars['posts_per_page'] = $this->posts_per_page;
 		$posts                               = [];
 		foreach (relevanssi_do_query($query) as $post) {
