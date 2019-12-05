@@ -18,7 +18,7 @@ class IfmComments {
           END as karma_divisor,
         (SELECT count(*) FROM wp_commentmeta WHERE comment_id=$wpdb->comments.comment_ID AND meta_key='user_upvote_id') as karma
       FROM $wpdb->comments
-        WHERE $wpdb->comments.comment_post_ID=" . get_query_var( 'agg_post_id' ) . '
+        WHERE $wpdb->comments.comment_post_ID=" . get_query_var( 'ifm_post_id' ) . '
         ORDER BY  (
                 karma/karma_divisor
                 ) DESC';

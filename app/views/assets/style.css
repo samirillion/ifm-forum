@@ -1,5 +1,6 @@
 .ifm-container {
   margin-bottom: 10px;
+  padding-top: calc(4vh + 65px);
 }
 .ifm-item-voter {
   width: 40px;
@@ -83,6 +84,9 @@
 .ifm-post-type, .aggpost-type-nav-item {
   font-variant: small-caps;
   font-size: 15px;
+  list-style-type: none;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .ifm-post-types .aggpost-type-nav-item, .ifm-post-types .ifm-submit-post {
   margin-top: 8px;

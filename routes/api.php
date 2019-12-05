@@ -8,6 +8,6 @@ require_once(IFM_INC . 'router/api/class-api.php');
 
 // // build up routes, composed of path and a callback
 // IfmApi::get('/get_posts', 'IfmPostsController@select')::permission_callback('at_least_member');
-IfmApi::get('/get_posts', 'IfmPostsController@select')::permission_callback('at_least_member');
+// IfmApi::get('/get_posts', 'IfmPostsController@select')::permission_callback('at_least_member');
 
 IfmApi::register();

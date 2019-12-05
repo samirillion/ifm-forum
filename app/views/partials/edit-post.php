@@ -1,6 +1,6 @@
 <form id="submit-post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
 	<?php
-	$post         = get_post( get_query_var( 'agg_post_id' ) );
+	$post         = get_post( get_query_var( 'ifm_post_id' ) );
 	$post_content = get_post( $post )->post_content;
 	$post_url     = get_post_meta( $post->ID, 'aggregator_entry_url', true );
 	?>
@@ -60,6 +60,6 @@
 	<p class="edit-submit">
 		<input type="submit" name="submit" class="edit-post-button" value="<?php _e( 'Submit', 'edit-post' ); ?>" />
 	</p>
-	<input type="hidden" name="post-id" value="<?php echo get_query_var( 'agg_post_id' ); ?>">
+	<input type="hidden" name="post-id" value="<?php echo get_query_var( 'ifm_post_id' ); ?>">
 	<input type="hidden" name="action" value="edit_post">
 </form>

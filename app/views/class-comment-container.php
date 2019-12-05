@@ -100,19 +100,19 @@ class IfmCommentContainer
 
 		public static function render($comment_query)
 		{
-			if (isset(get_post_meta(get_query_var('agg_post_id'))['aggregator_entry_url']['0'])) {
-				$post_title_content = '<a href="' . get_post_meta(get_query_var('agg_post_id'))['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title(get_query_var('agg_post_id')) . '</a>';
-				$post_url           = '<a href="' . get_post_meta(get_query_var('agg_post_id'))['aggregator_entry_url']['0'] . '">' . get_post_meta(get_query_var('agg_post_id'))['aggregator_entry_url']['0'] . '</a> &ndash; ';
+			if (isset(get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'])) {
+				$post_title_content = '<a href="' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title(get_query_var('ifm_post_id')) . '</a>';
+				$post_url           = '<a href="' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '">' . get_post_meta(get_query_var('ifm_post_id'))['aggregator_entry_url']['0'] . '</a> &ndash; ';
 			} else {
-				$post_title_content = get_the_title(get_query_var('agg_post_id'));
+				$post_title_content = get_the_title(get_query_var('ifm_post_id'));
 				$post_url           = '';
 			}
 			echo '<h4 class="comment-post-title">' . $post_title_content . '</h4>';
 			echo $post_url;
-			echo '<span class="ifm-post-type">' . (wp_get_object_terms(get_query_var('agg_post_id'), 'aggpost-type'))[0]->{'name'} . '</span>';
-			if (get_post(get_query_var('agg_post_id'))->post_content !== '') {
+			echo '<span class="ifm-post-type">' . (wp_get_object_terms(get_query_var('ifm_post_id'), 'aggpost-type'))[0]->{'name'} . '</span>';
+			if (get_post(get_query_var('ifm_post_id'))->post_content !== '') {
 				echo '<div class="comment-post-content-wrapper">';
-				echo '<div class="comment-post-content">' . get_post(get_query_var('agg_post_id'))->post_content . '</div>';
+				echo '<div class="comment-post-content">' . get_post(get_query_var('ifm_post_id'))->post_content . '</div>';
 				echo '</div>';
 			}
 			echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;">';
@@ -123,7 +123,7 @@ class IfmCommentContainer
 			echo "<textarea class='ifm-comment' name='reply' cols='40' rows='5' required></textarea>";
 			echo "<input type='hidden' name='action' value='addComment'/>";
 			echo "<input type='submit' value='comment'>";
-			echo "<input type='hidden' name='post_id' value='" . get_query_var('agg_post_id') . "'>";
+			echo "<input type='hidden' name='post_id' value='" . get_query_var('ifm_post_id') . "'>";
 			echo wp_nonce_field('reply-to-post-nonce');
 			echo '</form>';
 			if ($comment_query) {
