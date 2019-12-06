@@ -25,7 +25,7 @@ class IfmRoute
         IfmWeb::render($uri, $callback);
         return __CLASS__;
     }
-    public static function json_api($uri, $callback, $method = "get")
+    public static function json_api($uri, $callback, $method = "WP_REST_Server::READABLE")
     {
         IfmApi::{$method}($uri, $callback);
         return __CLASS__;
@@ -37,5 +37,10 @@ class IfmRoute
     public static function add_query_vars(array $query_vars)
     {
         IfmQueryVars::add_vars($query_vars);
+    }
+    public static function permission_callback(string $minimum_level)
+    {
+        $min_level = $minimum_level;
+        return $min_level;
     }
 }

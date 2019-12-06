@@ -18,12 +18,12 @@ class IfmApi
 
 	public static function get(string $uri, string $callback = null)
 	{
-		self::add_route('GET', $uri, $callback);
+		self::add_route('WP_REST_Server::READABLE', $uri, $callback);
 		return __CLASS__;
 	}
 	public static function post(string $uri, string $callback = null)
 	{
-		self::add_route('POST', $uri, $callback);
+		self::add_route('WP_REST_Server::CREATABLE', $uri, $callback);
 		return __CLASS__;
 	}
 

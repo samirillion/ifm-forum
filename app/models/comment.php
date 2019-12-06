@@ -32,10 +32,9 @@ class IfmComment
 
 	public function add_comment_to_post($postID)
 	{
-		// if ( !wp_verify_nonce( $_REQUEST['nonce'], "reply_to_post_nonce")) {
-		// exit("No naughty business please");
-		// }
-		xdebug_break();
+		if (!wp_verify_nonce($_REQUEST['nonce'], "reply_to_post_nonce")) {
+			exit("No naughty business please");
+		}
 		$comment = wp_insert_comment(
 			array(
 				'comment_parent'       => 0,

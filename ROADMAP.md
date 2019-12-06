@@ -19,6 +19,11 @@
 
 [ ] Confirm search functionality
 
+[ ] Add some sort of wrapper function to make api calls like 
+```
+<form action="<?php api('/comment-on-post') ?>" id="reply-to-post">;
+```
+
 ## New Features
 [ ] Complete more advanced editor for page posts
 

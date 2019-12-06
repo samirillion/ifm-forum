@@ -57,7 +57,7 @@ class IfmPostsController extends IfmController
 	 * @param array $search_results
 	 * @return void
 	 */
-	public static function main()
+	public function main()
 	{
 		$params = IfmQueryVars::get_params();
 
@@ -68,6 +68,11 @@ class IfmPostsController extends IfmController
 		}
 
 		return IfmPostsContainer::render($posts, $params);
+	}
+
+	public function myroute()
+	{
+		return "<h1>cool</h1><h1>cool</h1><h1>cool</h1>";
 	}
 
 	/**
