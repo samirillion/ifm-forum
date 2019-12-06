@@ -28,18 +28,17 @@ class IfmApiRouter
 	// Register our routes.
 	protected function register_route(array $route)
 	{
-		$permission_callback = array_key_exists('permission_callback', $route) ? $route['permission_callback'] : 'no_auth';
+		$http_method = $route['method'];
 		$controller          = explode('@', $route['callback'])[0];
-		$method              = explode('@', $route['callback'])[1];
-		// Instantiate Controller Once
 		$rest_controller = new $controller;
-		$class_name = explode('::', $route['method'])[0];
-		$method_name = explode('::', $route['method'])[1];
+		$method              = explode('@', $route['callback'])[1];
+		$permission_callback = array_key_exists('permission_callback', $route) ? $route['permission_callback'] : 'no_auth';
+
 		register_rest_route(
 			$this->namespace,
 			$route['uri'],
 			array(
-				'methods'             => WP_REST_Server::CREATABLE,
+				'methods'             => $http_method,
 				'callback'            => array($rest_controller, $method),
 				'permission_callback' => array($this, $permission_callback),
 			)

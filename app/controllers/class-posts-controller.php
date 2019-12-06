@@ -94,7 +94,6 @@ class IfmPostsController extends IfmController
 	 */
 	public function select(WP_REST_Request $request)
 	{
-		// xdebug_break();
 		return "Hello World!";
 	}
 

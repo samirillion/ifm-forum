@@ -30,11 +30,8 @@ class IfmComment
 		return $rankedcomments;
 	}
 
-	public function add_comment_to_post($postID)
+	public function add_comment_to_post($request, $params)
 	{
-		if (!wp_verify_nonce($_REQUEST['nonce'], "reply_to_post_nonce")) {
-			exit("No naughty business please");
-		}
 		$comment = wp_insert_comment(
 			array(
 				'comment_parent'       => 0,
@@ -56,7 +53,6 @@ class IfmComment
 			),
 			array('%d', '%s', '%d')
 		);
-		die();
 	}
 
 	public function update_comment_karma()
