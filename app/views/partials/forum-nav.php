@@ -23,7 +23,7 @@ if (isset($user_nav_item)) {
 } else {
 	?>
 	<div class="ifm-submit-post">
-		<a href="/new-post">+ Submit New Post</a>
+		<a href="/submit">+ Submit New Post</a>
 	</div>
 	<nav class="ifm-nav">
 		<ul class="ifm-post-types">
