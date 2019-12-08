@@ -16,6 +16,7 @@ IfmRoute::add_query_vars(
 // Posts Related Routes
 IfmRoute::render('/forum', 'IfmPostsController@main');
 IfmRoute::render('/submit', 'IfmPostsController@submit');
+IfmRoute::render('/my-new-page', 'IfmPostsController@newpage');
 
 // Comment Related Routes
 IfmRoute::render('/comments', 'IfmCommentController@main');

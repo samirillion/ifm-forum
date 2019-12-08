@@ -70,6 +70,11 @@ class IfmPostsController extends IfmController
 		return IfmPostsContainer::render($posts, $params);
 	}
 
+	public function newpage()
+	{
+		return "<hr><hr><h1>hello new page world</h1>";
+	}
+
 	public function myroute()
 	{
 		return "<h1>cool</h1><h1>cool</h1><h1>cool</h1>";
