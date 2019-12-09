@@ -17,7 +17,6 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: Ifm
  */
-
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
 	die;
@@ -81,6 +80,8 @@ function run_ifm()
 
 	require(IFM_BASE_PATH . 'enqueue.php');
 
+	require(IFM_BASE_PATH . '/vendor/autoload.php');
+
 	/**
 	 * Check requirements and load main class
 	 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
@@ -119,9 +120,6 @@ function run_ifm()
  */
 function ifm_activated()
 {
-	// move this into user function at some point
-	show_admin_bar(false);
-
 	// Import $ifm_page_definitions
 	require_once(IFM_BASE_PATH . 'seeds/page-definitions.php');
 	// Import IFmPageImporter Class

@@ -1,0 +1,15 @@
+{
+    "name": "ifm/forum",
+    "description": "Ifm Forum",
+    "type": "project",
+    "require": {
+        "league/csv": "^9.4"
+    },
+    "license": "GPL-2",
+    "authors": [
+        {
+            "name": "samirillian",
+            "email": "sam@protonmail.com"
+        }
+    ]
+}
