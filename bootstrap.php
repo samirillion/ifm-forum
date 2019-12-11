@@ -129,4 +129,4 @@ function ifm_activated()
 	IfmPageImporter::create_pages($ifm_page_definitions);
 }
 
-run_ifm();
+// run_ifm();
