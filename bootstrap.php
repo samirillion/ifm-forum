@@ -80,7 +80,8 @@ function run_ifm()
 
 	require(IFM_BASE_PATH . 'enqueue.php');
 
-	require(IFM_BASE_PATH . '/vendor/autoload.php');
+	// revisit soon
+	// require(IFM_BASE_PATH . '/vendor/autoload.php');
 
 	/**
 	 * Check requirements and load main class
