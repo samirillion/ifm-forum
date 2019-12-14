@@ -1,7 +1,6 @@
 <?php
 class IfmView
 {
-
     public static function render(string $callback)
     {
         $template = new self();

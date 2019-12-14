@@ -3,7 +3,8 @@
     "description": "Ifm Forum",
     "type": "project",
     "require": {
-        "league/csv": "^9.4"
+        "league/csv": "^9.4",
+        "jjgrainger/posttypes": "^2.0"
     },
     "license": "GPL-2",
     "authors": [

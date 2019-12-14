@@ -25,6 +25,11 @@
 ```
 
 ## New Features
+[ ] Implement ORM
+
+- https://github.com/jdpedrie/wp-orm
+
+
 [ ] Complete more advanced editor for page posts
 
 [ ] Add Direct Messaging or group messaging(?) capability

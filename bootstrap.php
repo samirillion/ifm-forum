@@ -81,7 +81,7 @@ function run_ifm()
 	require(IFM_BASE_PATH . 'enqueue.php');
 
 	// revisit soon
-	// require(IFM_BASE_PATH . '/vendor/autoload.php');
+	require(IFM_BASE_PATH . '/vendor/autoload.php');
 
 	/**
 	 * Check requirements and load main class
@@ -92,10 +92,11 @@ function run_ifm()
 
 		register_activation_hook(__FILE__, 'ifm_activated');
 
-		// Require the Parent Classes First
-		require(IFM_INC . 'mvc/class-model.php');
+		require(IFM_BASE_PATH . 'seeds/post-types.php');
+
+		require(IFM_INC . 'wp-orm/wp-orm.php');
+
 		require(IFM_INC . 'mvc/class-view.php');
-		require(IFM_INC . 'mvc/class-controller.php');
 
 		require(IFM_APP . 'controllers/class-posts-controller.php');
 		require(IFM_APP . 'controllers/class-user-controller.php');

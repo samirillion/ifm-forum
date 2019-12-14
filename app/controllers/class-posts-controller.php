@@ -15,7 +15,7 @@ require_once(IFM_APP . 'models/sorter-factory.php');
 require_once(IFM_APP . 'models/news-aggregator.php');
 
 
-class IfmPostsController extends IfmController
+class IfmPostsController
 {
 
 	/**

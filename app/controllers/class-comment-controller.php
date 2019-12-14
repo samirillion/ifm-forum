@@ -32,7 +32,7 @@ class IfmCommentController
 	{
 		$params = IfmQueryVars::get_params();
 		$ifm_comment = new IfmComment;
-		$ifm_comment->add_comment_to_post($request, $params);
+		$ifm_comment->comment($request, $params);
 
 		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_POST['post_id'], home_url('/comments'))));
 	}

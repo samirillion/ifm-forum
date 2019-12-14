@@ -9,14 +9,14 @@ IfmRoute::add_query_vars(
         'user_id',
         'ifm_tax',
         'ifm_p',
-        'ifm_query'
+        'ifm_query',
+        'ifm_inbox'
     )
 );
 
 // Posts Related Routes
 IfmRoute::render('/forum', 'IfmPostsController@main');
 IfmRoute::render('/submit', 'IfmPostsController@submit');
-IfmRoute::render('/my-new-page', 'IfmPostsController@newpage');
 
 // Comment Related Routes
 IfmRoute::render('/comments', 'IfmCommentController@main');
@@ -27,4 +27,8 @@ IfmRoute::render('/comments', 'IfmCommentController@main');
 IfmRoute::json_api('/comment-on-post', 'IfmCommentController@comment_on_post', 'post');
 
 // Register all the components of the IfmRoute object
+// Messaging Related Routes
+IfmRoute::render('/inbox', 'IfmMessagingController@inbox');
+
+
 IfmRoute::register();

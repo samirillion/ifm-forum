@@ -26,6 +26,37 @@ class IfmCommentContainer
 		return $comments_by_parent;
 	}
 
+	public static function render($comment_query, $params)
+	{
+		if (isset(get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'])) {
+			$post_title_content = '<a href="' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title($params['ifm_post_id']) . '</a>';
+			$post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '">' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '</a> &ndash; ';
+		} else {
+			$post_title_content = get_the_title($params['ifm_post_id']);
+			$post_url           = '';
+		}
+		echo '<div class="ifm-comment-wrapper">';
+		echo '<h4 class="ifm-comment-post-title">' . $post_title_content . '</h4>';
+		echo $post_url;
+		echo '<span class="ifm-post-type">' . (wp_get_object_terms($params['ifm_post_id'], 'aggpost-type'))[0]->{'name'} . '</span>';
+		if (get_post($params['ifm_post_id'])->post_content !== '') {
+			echo '<div class="ifm-comment-main-content-wrapper">';
+			echo '<div class="ifm-comment-post-content">' . get_post($params['ifm_post_id'])->post_content . '</div>';
+			echo '</div>';
+		}
+		echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">';
+
+		include(IFM_VIEW . '/partials/comment-form.php');
+
+		if (!$comment_query) {
+			echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';
+		} elseif ($comment_query) {
+			$object = self::sort_by_parent($comment_query);
+			self::build_comment_structure($object);
+		}
+		echo '</div>';
+	}
+
 	// O(N) - Will visit each node exactly once (assuming no loops)
 	public static function build_comment_structure($obj, $current_id = 0, $depth = 0)
 	{
@@ -90,49 +121,13 @@ class IfmCommentContainer
 				<div class="ifm-comment-reply-container" style="display:none;">
 					<textarea name="ifm-comment-reply-textarea" required></textarea>
 					<a class="ifm-submit-reply">submit</a>
+					<?php include(IFM_VIEW . '/partials/comment-form.php'); ?>
 				</div>
-			<?php
-						// Print all our children
-						self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
-					}
-					echo '</ul>';
-				}
-
-				public static function render($comment_query, $params)
-				{
-					if (isset(get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'])) {
-						$post_title_content = '<a href="' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title($params['ifm_post_id']) . '</a>';
-						$post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '">' . get_post_meta($params['ifm_post_id'])['aggregator_entry_url']['0'] . '</a> &ndash; ';
-					} else {
-						$post_title_content = get_the_title($params['ifm_post_id']);
-						$post_url           = '';
-					}
-					echo '<div class="ifm-comment-wrapper">';
-					echo '<h4 class="ifm-comment-post-title">' . $post_title_content . '</h4>';
-					echo $post_url;
-					echo '<span class="ifm-post-type">' . (wp_get_object_terms($params['ifm_post_id'], 'aggpost-type'))[0]->{'name'} . '</span>';
-					if (get_post($params['ifm_post_id'])->post_content !== '') {
-						echo '<div class="ifm-comment-main-content-wrapper">';
-						echo '<div class="ifm-comment-post-content">' . get_post($params['ifm_post_id'])->post_content . '</div>';
-						echo '</div>';
-					}
-					echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">';
-					if (!$comment_query) {
-						echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';
-					}
-					?>
-			<form action='<?php echo home_url('/api/ifm/comment-on-post'); ?>' method="post" id='reply-to-post'>
-				<textarea class='ifm-comment' name='reply' cols='40' rows='5' required></textarea>
-				<input type='submit' value='comment'>
-				<input type='hidden' name='post_id' value='<?php echo $params['ifm_post_id']; ?>'>
-				<input type='hidden' name='nonce' value='<?php echo wp_create_nonce('wp_rest'); ?>'>
-			</form>
 	<?php
-			if ($comment_query) {
-				$object = self::sort_by_parent($comment_query);
-				self::build_comment_structure($object);
+				// Print all our children
+				self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
 			}
-			echo '</div>';
+			echo '</li></ul>';
 		}
 	}
 	?>

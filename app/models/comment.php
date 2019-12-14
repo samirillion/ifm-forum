@@ -30,8 +30,11 @@ class IfmComment
 		return $rankedcomments;
 	}
 
-	public function add_comment_to_post($request, $params)
+	public function comment($request, $params)
 	{
+		// xdebug_break();
+		$request;
+		$params;
 		$comment = wp_insert_comment(
 			array(
 				'comment_parent'       => 0,
@@ -53,6 +56,36 @@ class IfmComment
 			),
 			array('%d', '%s', '%d')
 		);
+	}
+
+	public function comment_on_comment()
+	{
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'comment_nonce')) {
+			exit('No naughty business please');
+		}
+
+		$comment = wp_insert_comment(
+			array(
+				'comment_parent'       => 0,
+				'user_id'              => get_current_user_id(),
+				'comment_parent'       => $_REQUEST['comment_parent'],
+				'comment_content'      => $_REQUEST['replyContent'],
+				'comment_post_ID'      => get_comment($_REQUEST['comment_parent'])->comment_post_ID,
+				'comment_author'       => wp_get_current_user()->display_name,
+				'comment_author_email' => wp_get_current_user()->user_email,
+			)
+		);
+		global $wpdb;
+		$firstvote = $wpdb->insert(
+			$wpdb->commentmeta,
+			array(
+				'comment_id' => $comment,
+				'meta_key'   => 'user_upvote_id',
+				'meta_value' => get_current_user_id(),
+			),
+			array('%d', '%s', '%d')
+		);
+		die();
 	}
 
 	public function update_comment_karma()
@@ -129,36 +162,6 @@ class IfmComment
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 
-		die();
-	}
-
-	public function comment_on_comment()
-	{
-		if (!wp_verify_nonce($_REQUEST['nonce'], 'comment_nonce')) {
-			exit('No naughty business please');
-		}
-
-		$comment = wp_insert_comment(
-			array(
-				'comment_parent'       => 0,
-				'user_id'              => get_current_user_id(),
-				'comment_parent'       => $_REQUEST['comment_parent'],
-				'comment_content'      => $_REQUEST['replyContent'],
-				'comment_post_ID'      => get_comment($_REQUEST['comment_parent'])->comment_post_ID,
-				'comment_author'       => wp_get_current_user()->display_name,
-				'comment_author_email' => wp_get_current_user()->user_email,
-			)
-		);
-		global $wpdb;
-		$firstvote = $wpdb->insert(
-			$wpdb->commentmeta,
-			array(
-				'comment_id' => $comment,
-				'meta_key'   => 'user_upvote_id',
-				'meta_value' => get_current_user_id(),
-			),
-			array('%d', '%s', '%d')
-		);
 		die();
 	}
 }
