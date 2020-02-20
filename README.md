@@ -8,7 +8,7 @@ WordPress forum plugin with Reddit-like functionality on top; Larave-like syntax
 ## Big Picture:
 Ultimately, I want this to be a forum that can talk to other forums via the ActivityPub protocol, which is what [Mastodon](https://mastodon.social/) and [Peertube](https://peertube.social/) and a number of other federated networks run on now.
 
-I also want others to be able to use and extend it. So it would kind of be like an ActivityPub impementation starter kit, that would be accessible to anyone who knows how to write WordPress plugin or to anyone who knows an MVC framework (like Laravel). But that's still down the road a little.
+I also want others to be able to use and extend it. So it would kind of be like an ActivityPub implementation starter kit, that would be accessible to anyone who knows how to write WordPress plugin or to anyone who knows an MVC framework (like Laravel). But that's still down the road a little.
 
 ## History:
 - Reddit-lite forum plugin, using a similar "hot" algorithm for sorting the posts.
