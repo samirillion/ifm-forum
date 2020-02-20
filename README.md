@@ -16,42 +16,13 @@ I also want others to be able to use and extend it. So it would kind of be like 
 - phase two: refactored to get into working shaping for Food in Neighborhoods
 - phase three: refactoring again to add functionality and make more scalable turn into Laravel-lite. But "light" in the sense of opinionated, not in the sense of less out of the box.
 
-## Functionality and Refactor
-- Need to add private messaging to make it really useful
-- would require a more RESTful api for rendering pages and doing CRUD (plus good practice to try)
-- decided to piece together router and templating system that would work with wordpress's:
-    - existing templating system
-    - new-ish restful json api (wp-api)
-    - `add_rewrite_rule()` for adding custom rewrite rules based on paths
- 
-## How it Used to be Done
-- creating rendering views with shortcodes on pages
-- using a wordpress hook called admin_post_my_post_function() to create POST requests
-- problematic because it has no predictable structure for creating http requests, and the actual views were rendered with shortcodes saved in the database! Not where you want your mvc structure to be kept.
-
-## How it's done now
+## How it's done
 - views are rendered with a router that uses `add_rewrite_rule`
 https://carlalexander.ca/designing-system-wordpress-routing/
 - data is managed via a wrapper around the wordpress WP-API
 https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
 - all routes are added onto the same class from `app/routes.php` 
 - a callback is specified in the route as a controller method (e.g., `IfmPostsController@main`)
-
-## Quick tour of frontend and backend
-- Frontend:
-    - View posts,
-    - View post
-    - Create a new account
-    - Create a post
-    - View post
-- Backend:
-(Some of this is just putting things where I'll expect them later. For example, I haven't really done too much with class inheritance.)
- - bootstrap
- - seeds
- - app
- - includes
-    - router facade
-    - quick word on importer
 
 ## [Tutorial](./TUTORIAL.md)
  - Add some functionality
