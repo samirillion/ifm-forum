@@ -22,115 +22,99 @@ if (!defined('WPINC')) {
 	die;
 }
 
-/**
- * Checks if the system requirements are met
- *
- * @since    1.0.0
- * @return bool True if system requirements are met, false if not
- */
-function ifm_requirements_met()
+namespace IFM\Importer;
+
+class Plugin
 {
+	/**
+	 * Checks if the system requirements are met
+	 *
+	 * @since    1.0.0
+	 * @return bool True if system requirements are met, false if not
+	 */
+	static private function ifm_requirements_met()
+	{
 
-	global $wp_version;
+		global $wp_version;
 
-	if (version_compare(PHP_VERSION, IFM_REQUIRED_PHP_VERSION, '<')) {
-		return false;
+		if (version_compare(PHP_VERSION, IFM_REQUIRED_PHP_VERSION, '<')) {
+			return false;
+		}
+		if (version_compare($wp_version, IFM_REQUIRED_WP_VERSION, '<')) {
+			return false;
+		}
+		if (is_multisite() !== IFM_REQUIRED_WP_NETWORK) {
+			return false;
+		}
+
+		return true;
 	}
-	if (version_compare($wp_version, IFM_REQUIRED_WP_VERSION, '<')) {
-		return false;
-	}
-	if (is_multisite() !== IFM_REQUIRED_WP_NETWORK) {
-		return false;
-	}
-
-	return true;
-}
-
-/**
- * Prints an error that the system requirements weren't met.
- *
- * @since    1.0.0
- */
-function ifm_show_requirements_error()
-{
-
-	global $wp_version;
-	require_once(dirname(__FILE__) . '/views/admin/errors/requirements-error.php');
-}
-
-/**
- * Redirect to Settings Page on Forum Activate
- *
- * @return void
- */
-function plugin_activated()
-{
-	// add redirect code here
-}
-
-/**
- * Begins execution of the plugin.
- *
- * @since    1.0.0
- */
-function run_ifm()
-{
-
-	require(plugin_dir_path(__FILE__) . 'config.php');
-
-	require(IFM_BASE_PATH . 'enqueue.php');
-
-	// revisit soon
-	require(IFM_BASE_PATH . '/vendor/autoload.php');
 
 	/**
-	 * Check requirements and load main class
-	 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
-	 * Otherwise older PHP installations could crash when trying to parse it.
+	 * Begins execution of the plugin.
+	 *
+	 * @since    1.0.0
 	 */
-	if (ifm_requirements_met()) {
+	public static function load()
+	{
 
-		register_activation_hook(__FILE__, 'ifm_activated');
+		require(plugin_dir_path(__FILE__) . 'config.php');
 
-		require(IFM_BASE_PATH . 'seeds/post-types.php');
+		require(IFM_BASE_PATH . 'enqueue.php');
 
-		require(IFM_INC . 'wp-orm/wp-orm.php');
+		// revisit soon
+		require(IFM_BASE_PATH . '/vendor/autoload.php');
 
-		require(IFM_INC . 'mvc/class-view.php');
+		/**
+		 * Check requirements and load main class
+		 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
+		 * Otherwise older PHP installations could crash when trying to parse it.
+		 */
+		if (self::ifm_requirements_met()) {
 
-		require(IFM_APP . 'controllers/class-posts-controller.php');
-		require(IFM_APP . 'controllers/class-user-controller.php');
-		require(IFM_APP . 'controllers/class-comment-controller.php');
-		require(IFM_APP . 'controllers/class-messaging-controller.php');
+			register_activation_hook(__FILE__, 'ifm_activated');
 
-		require(IFM_APP . 'routes.php');
-	} else {
 
-		add_action('admin_notices', 'ifm_show_requirements_error');
-		require_once(ABSPATH . 'wp-admin/app/plugin.php');
-		deactivate_plugins(plugin_basename(__FILE__));
+
+			require(IFM_BASE_PATH . 'seeds/post-types.php');
+
+			require(IFM_INC . 'wp-orm/wp-orm.php');
+
+			require(IFM_INC . 'mvc/class-view.php');
+
+			require(IFM_APP . 'controllers/class-posts-controller.php');
+			require(IFM_APP . 'controllers/class-user-controller.php');
+			require(IFM_APP . 'controllers/class-comment-controller.php');
+			require(IFM_APP . 'controllers/class-messaging-controller.php');
+
+			require(IFM_APP . 'routes.php');
+		} else {
+
+			add_action('admin_notices', array('IFM\Importer\Plugin', 'show_requirements_error'));
+			require_once(ABSPATH . 'wp-admin/app/plugin.php');
+			deactivate_plugins(plugin_basename(__FILE__));
+		}
+	}
+
+	/**
+	 * Redirect to Settings Page on Forum Activate
+	 *
+	 * @return void
+	 */
+	function plugin_activated()
+	{
+		// add redirect code here
+	}
+
+	/**
+	 * Prints an error that the system requirements weren't met.
+	 *
+	 * @since    1.0.0
+	 */
+	function show_requirements_error()
+	{
+
+		global $wp_version;
+		require_once(dirname(__FILE__) . '/views/admin/errors/requirements-error.php');
 	}
 }
-
-/**
- * Kill Admin Bar
- */
-add_action('init', function () {
-	$user = wp_get_current_user();
-	if (in_array('contributor', (array) $user->roles)) {
-		add_filter('show_admin_bar', '__return_false');
-	}
-});
-
-/**
- * Plugin activation hook
- */
-function ifm_activated()
-{
-	// Import $ifm_page_definitions
-	require_once(IFM_BASE_PATH . 'seeds/page-definitions.php');
-	// Pass Page Definitions to Class
-	IfmPageImporter::create_pages($ifm_page_definitions);
-}
-
-run_ifm();
