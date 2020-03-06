@@ -24,7 +24,7 @@ class IfmWeb
 		self::add_route($uri, '', 'ifm-main', $callback);
 	}
 
-	protected static function add_route(string $uri, string $hoook, string $template, string $callback)
+	protected static function add_route(string $uri, string $hook, string $template, string $callback)
 	{
 		self::$routes[$callback] = new IfmWebRoute($uri, '', $template);
 	}
