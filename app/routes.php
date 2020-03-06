@@ -15,6 +15,7 @@ IfmRoute::add_query_vars(
 );
 
 // Posts Related Routes
+xdebug_break();
 IfmRoute::render('/forum', 'IfmPostsController@main');
 IfmRoute::render('/submit', 'IfmPostsController@submit');
 

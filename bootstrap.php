@@ -104,11 +104,6 @@ function run_ifm()
 		require(IFM_APP . 'controllers/class-messaging-controller.php');
 
 		require(IFM_APP . 'routes.php');
-
-		$user = wp_get_current_user();
-		if (in_array('contributor', (array) $user->roles)) {
-			add_filter('show_admin_bar', '__return_false');
-		}
 	} else {
 
 		add_action('admin_notices', 'ifm_show_requirements_error');
@@ -118,15 +113,22 @@ function run_ifm()
 }
 
 /**
+ * Kill Admin Bar
+ */
+add_action('init', function () {
+	$user = wp_get_current_user();
+	if (in_array('contributor', (array) $user->roles)) {
+		add_filter('show_admin_bar', '__return_false');
+	}
+});
+
+/**
  * Plugin activation hook
  */
 function ifm_activated()
 {
 	// Import $ifm_page_definitions
 	require_once(IFM_BASE_PATH . 'seeds/page-definitions.php');
-	// Import IFmPageImporter Class
-	require_once(IFM_BASE_PATH . 'includes/importer/class-page-importer.php');
-
 	// Pass Page Definitions to Class
 	IfmPageImporter::create_pages($ifm_page_definitions);
 }
