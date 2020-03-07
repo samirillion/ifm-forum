@@ -5,17 +5,19 @@
  *
  * @package Ifm
  */
-require_once(IFM_APP . 'views/class-posts-container.php');
-require_once(IFM_APP . 'views/class-edit-post.php');
-require_once(IFM_APP . 'views/partials/class-post-template.php');
-require_once(IFM_APP . 'views/class-submit-post.php');
 
-require_once(IFM_APP . 'models/post.php');
-require_once(IFM_APP . 'models/sorter-factory.php');
-require_once(IFM_APP . 'models/news-aggregator.php');
+namespace IFM;
+// require_once(IFM_APP . 'views/class-posts-container.php');
+// require_once(IFM_APP . 'views/class-edit-post.php');
+// require_once(IFM_APP . 'views/partials/class-post-template.php');
+// require_once(IFM_APP . 'views/class-submit-post.php');
+
+// require_once(IFM_APP . 'models/post.php');
+// require_once(IFM_APP . 'models/sorter-factory.php');
+// require_once(IFM_APP . 'models/news-aggregator.php');
 
 
-class IfmPostsController
+class PostsController
 {
 
 	/**
@@ -59,15 +61,15 @@ class IfmPostsController
 	 */
 	public function main()
 	{
-		$params = IfmQueryVars::get_params();
+		$params = QueryVars::get_params();
 
 		if (array_key_exists('ifm_query', $params)) {
 			$posts = $this->agg_search_posts($params);
 		} else {
-			$posts = IfmPost::sort_posts()[0];
+			$posts = Post::sort_posts()[0];
 		}
 
-		return IfmPostsContainer::render($posts, $params);
+		return PostsContainer::render($posts, $params);
 	}
 
 	public function newpage()
@@ -87,7 +89,7 @@ class IfmPostsController
 	 */
 	public function submit()
 	{
-		$ifm_submit = new IfmSubmitPost;
+		$ifm_submit = new SubmitPost;
 		$ifm_submit->render();
 	}
 
@@ -97,7 +99,7 @@ class IfmPostsController
 	 * @param WP_REST_Request $request
 	 * @return array
 	 */
-	public function select(WP_REST_Request $request)
+	public function select(\WP_REST_Request $request)
 	{
 		return "Hello World!";
 	}
@@ -149,7 +151,7 @@ class IfmPostsController
 	 */
 	public function render_edit_post_container()
 	{
-		IfmEditPost::render();
+		EditPost::render();
 	}
 
 	/**
@@ -178,10 +180,10 @@ class IfmPostsController
 	 */
 	public function load_more_posts()
 	{
-		$query     = IfmPost::sort_posts();
+		$query     = Post::sort_posts();
 		$pageposts = $query[0];
 
-		$content = IfmPostTemplate::render($pageposts);
+		$content = PostTemplate::render($pageposts);
 		return $content;
 	}
 
@@ -225,7 +227,7 @@ class IfmPostsController
 	public function redirect_to_login_ajax()
 	{
 		$redirect_url         = home_url('member-login');
-		$response[redirect] = $redirect_url;
+		$response['redirect'] = $redirect_url;
 		$response             = json_encode($response);
 		echo $response;
 		die();
@@ -238,7 +240,7 @@ class IfmPostsController
 	 */
 	public function my_user_vote()
 	{
-		$karma_tracker = new IfmPost;
+		$karma_tracker = new Post;
 		$karma_tracker->update_post_karma();
 	}
 
@@ -249,9 +251,9 @@ class IfmPostsController
 	 */
 	public function submit_post()
 	{
-		$crowd_posts = new IfmPost;
+		$crowd_posts = new Post;
 		$crowd_posts->submit_post();
 	}
 }
 
-IfmPostsController::register();
+PostsController::register();

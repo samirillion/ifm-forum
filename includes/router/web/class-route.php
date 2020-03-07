@@ -5,7 +5,11 @@
  *
  * @author Carl Alexander <contact@carlalexander.ca>
  */
-class IfmWebRoute {
+
+namespace IFM;
+
+class Route
+{
 
 	/**
 	 * The hook called when this route is matched.
@@ -35,7 +39,8 @@ class IfmWebRoute {
 	 * @param string $hook
 	 * @param string $template
 	 */
-	public function __construct( $path, $hook = '', $template = '' ) {
+	public function __construct($path, $hook = '', $template = '')
+	{
 		$this->hook     = $hook;
 		$this->path     = $path;
 		$this->template = $template;
@@ -46,7 +51,8 @@ class IfmWebRoute {
 	 *
 	 * @return string
 	 */
-	public function get_hook() {
+	public function get_hook()
+	{
 		return $this->hook;
 	}
 
@@ -55,7 +61,8 @@ class IfmWebRoute {
 	 *
 	 * @return string
 	 */
-	public function get_path() {
+	public function get_path()
+	{
 		return $this->path;
 	}
 
@@ -64,7 +71,8 @@ class IfmWebRoute {
 	 *
 	 * @return string
 	 */
-	public function get_template() {
+	public function get_template()
+	{
 		return $this->template;
 	}
 
@@ -73,8 +81,9 @@ class IfmWebRoute {
 	 *
 	 * @return bool
 	 */
-	public function has_hook() {
-		return ! empty( $this->hook );
+	public function has_hook()
+	{
+		return !empty($this->hook);
 	}
 
 	/**
@@ -82,7 +91,8 @@ class IfmWebRoute {
 	 *
 	 * @return bool
 	 */
-	public function has_template() {
-		return ! empty( $this->template );
+	public function has_template()
+	{
+		return !empty($this->template);
 	}
 }

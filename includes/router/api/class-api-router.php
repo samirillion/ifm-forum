@@ -1,5 +1,8 @@
 <?php
-class IfmApiRouter
+
+namespace IFM;
+
+class Api_Router
 {
 
 	protected $routes      = array();

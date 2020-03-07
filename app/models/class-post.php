@@ -1,25 +1,31 @@
 <?php
+
 /**
  * Helper Functions Defining Posts
  */
-class IfmPost {
-	public static function sort_posts( $tax_term = '' ) {
+
+namespace IFM;
+
+class Post
+{
+	public static function sort_posts($tax_term = '')
+	{
 		global $wpdb;
-		$ppp    = ( isset( $_POST['ppp'] ) ) ? $_POST['ppp'] : 31;
-		$page   = ( isset( $_REQUEST['ifm_p'] ) ) ? $_REQUEST['ifm_p'] : 1;
-		$offset = ( $page - 1 ) * $ppp;
-		if ( get_query_var( 'ifm_tax' ) ) {
-		  $filter_by = "
-          AND $wpdb->terms.slug = '" . sanitize_text_field( get_query_var( 'ifm_tax' ) ) . "' ";
-		} elseif ( isset( $_POST['aggpostTax'] ) ) {
-		  $filter_by = "
-            AND $wpdb->terms.slug = '" . sanitize_text_field( $_POST['aggpostTax'] ) . "' ";
-		} elseif ( get_query_var( 'user_id' ) ) {
+		$ppp    = (isset($_POST['ppp'])) ? $_POST['ppp'] : 31;
+		$page   = (isset($_REQUEST['ifm_p'])) ? $_REQUEST['ifm_p'] : 1;
+		$offset = ($page - 1) * $ppp;
+		if (get_query_var('ifm_tax')) {
 			$filter_by = "
-            AND $wpdb->posts.post_author = '" . sanitize_text_field( get_query_var( 'user_id' ) ) . "' 
+          AND $wpdb->terms.slug = '" . sanitize_text_field(get_query_var('ifm_tax')) . "' ";
+		} elseif (isset($_POST['aggpostTax'])) {
+			$filter_by = "
+            AND $wpdb->terms.slug = '" . sanitize_text_field($_POST['aggpostTax']) . "' ";
+		} elseif (get_query_var('user_id')) {
+			$filter_by = "
+            AND $wpdb->posts.post_author = '" . sanitize_text_field(get_query_var('user_id')) . "' 
             ";
 		} else {
-		  $filter_by = '';
+			$filter_by = '';
 		}
 		$query_str = "
       SELECT
@@ -46,81 +52,83 @@ class IfmPost {
                 ) DESC
 LIMIT " . $offset . ', ' . $ppp . '; ';
 
-		$pageposts = $wpdb->get_results( $query_str, OBJECT );
-	// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
-	// $max_num_pages = ceil($sql_posts_total / $ppp);
-	return [ $pageposts, $page ];
+		$pageposts = $wpdb->get_results($query_str, OBJECT);
+		// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
+		// $max_num_pages = ceil($sql_posts_total / $ppp);
+		return [$pageposts, $page];
 	}
 
-	public static function update_temporal_karma() {
+	public static function update_temporal_karma()
+	{
 		// might institute this later
-	// global $wpdb;
-	//
-	// $entry_karma = $wpdb->get_var($wpdb->prepare(
-	// "
-	// SELECT count(*)
-	// FROM $wpdb->postmeta
-	// WHERE post_id=%d
-	// AND meta_key='user_upvote_id'
-	// ",
-	// $post_id
-	// ));
+		// global $wpdb;
+		//
+		// $entry_karma = $wpdb->get_var($wpdb->prepare(
+		// "
+		// SELECT count(*)
+		// FROM $wpdb->postmeta
+		// WHERE post_id=%d
+		// AND meta_key='user_upvote_id'
+		// ",
+		// $post_id
+		// ));
 	}
-	public function update_post_karma() {
-		if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'aggregator_page_nonce' ) ) {
-			exit( 'No naughty business please' );
+	public function update_post_karma()
+	{
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'aggregator_page_nonce')) {
+			exit('No naughty business please');
 		}
 		global $wpdb;
 		$userid  = get_current_user_id();
 		$post_id = $_REQUEST['post_id'];
 		$upvoted = $wpdb->get_var(
 			$wpdb->prepare(
-		  "
+				"
             SELECT count(1)
             FROM $wpdb->postmeta
             WHERE post_id=%d
             AND meta_key='user_upvote_id'
             AND meta_value=%d
           ",
-		  $post_id,
-		  $userid
-		)
-			);
-		if ( $upvoted >= 1 ) {
+				$post_id,
+				$userid
+			)
+		);
+		if ($upvoted >= 1) {
 			$vote = $wpdb->delete(
-				 $wpdb->postmeta,
+				$wpdb->postmeta,
 				array(
 					'post_id'    => $post_id,
 					'meta_key'   => 'user_upvote_id',
 					'meta_value' => $userid,
 				),
-				array( '%d', '%s', '%d' )
-				);
+				array('%d', '%s', '%d')
+			);
 		} else {
 			$vote = $wpdb->insert(
-				 $wpdb->postmeta,
+				$wpdb->postmeta,
 				array(
 					'post_id'    => $post_id,
 					'meta_key'   => 'user_upvote_id',
 					'meta_value' => $userid,
 				),
-				array( '%d', '%s', '%d' )
-				);
+				array('%d', '%s', '%d')
+			);
 		}
 
 		$entry_karma = $wpdb->get_var(
 			$wpdb->prepare(
-		  "
+				"
             SELECT count(*)
             FROM $wpdb->postmeta
             WHERE post_id=%d
             AND meta_key='user_upvote_id'
           ",
-		  $post_id
-		)
-			);
+				$post_id
+			)
+		);
 
-		if ( false === $vote ) {
+		if (false === $vote) {
 			$result['type']        = 'error';
 			$result['entry_karma'] = $entry_karma;
 			$result['redirect']    = 'wat';
@@ -130,36 +138,37 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 			$result['entry_karma'] = $entry_karma;
 		}
 
-		if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest' ) {
-			$result = json_encode( $result );
+		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
 			echo $result;
 		} else {
-			header( 'Location: ' . $_SERVER['HTTP_REFERER'] );
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 
 		die();
 	}
 
-	public function submit_post() {
+	public function submit_post()
+	{
 		// $nonce = $_POST['nonce'];
 		// if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
 		// exit("No naughty business please");
 		// }
 		$post_array = array(
-			'post_title'  => sanitize_text_field( $_POST['post-title'] ),
+			'post_title'  => sanitize_text_field($_POST['post-title']),
 			'post_type'   => 'aggregator-posts',
 			'post_status' => 'publish',
 		);
 
-		$post_content = wp_kses_post( $_POST['post-text-content'] );
-		if ( $_POST['link-toggle'] && strlen( trim( $_POST['post-text-content'] ) ) ) {
-				$post_array['post_content'] = wp_kses_post( $_POST['post-text-content'] );
-				$is_url                     = false;
+		$post_content = wp_kses_post($_POST['post-text-content']);
+		if ($_POST['link-toggle'] && strlen(trim($_POST['post-text-content']))) {
+			$post_array['post_content'] = wp_kses_post($_POST['post-text-content']);
+			$is_url                     = false;
 		} else {
-				$is_url = true;
+			$is_url = true;
 		}
-		$post = wp_insert_post( $post_array );
-		wp_set_object_terms( $post, $_POST['post-type'], 'aggpost-type', false );
+		$post = wp_insert_post($post_array);
+		wp_set_object_terms($post, $_POST['post-type'], 'aggpost-type', false);
 		global $wpdb;
 		$firstvote = $wpdb->insert(
 			$wpdb->postmeta,
@@ -168,15 +177,14 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 				'meta_key'   => 'user_upvote_id',
 				'meta_value' => get_current_user_id(),
 			),
-			array( '%d', '%s', '%d' )
+			array('%d', '%s', '%d')
 		);
 
-		if ( $is_url ) {
-				add_post_meta( $post, 'aggregator_entry_url', $_POST['post-url'], true );
+		if ($is_url) {
+			add_post_meta($post, 'aggregator_entry_url', $_POST['post-url'], true);
 		}
 
-		wp_redirect( home_url() . '/forum' );
+		wp_redirect(home_url() . '/forum');
 		exit();
 	}
-
 }

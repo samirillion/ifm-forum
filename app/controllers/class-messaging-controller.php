@@ -1,12 +1,14 @@
 <?php
-require(IFM_APP . 'models/message.php');
 
-class IfmMessagingController
+namespace IFM;
+// require(IFM_APP . 'models/message.php');
+
+class MessagingController
 {
     public function inbox()
     {
-        $inbox = IfmMessage::query()->find();
+        $inbox = Message::query()->find();
         require_once(IFM_APP . 'views/class-inbox.php');
-        return IfmInbox::render($inbox);
+        return Inbox::render($inbox);
     }
 }

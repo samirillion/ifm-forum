@@ -1,7 +1,8 @@
 <?php
-require_once(IFM_APP . 'models/message.php');
 
-class IfmInbox
+namespace IFM;
+
+class Inbox
 {
     public static function render($content)
     {

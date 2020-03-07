@@ -1,8 +1,11 @@
 <?php
-require(IFM_INC . 'router/class-ifm-route.php');
+
+use IFM\Route as Route;
+
 
 /* Define Custom Query Vars Here. https://codex.wordpress.org/WordPress_Query_Vars */
-IfmRoute::add_query_vars(
+
+Route::add_query_vars(
     array(
         'ifm_post_id',
         'status',
@@ -15,20 +18,20 @@ IfmRoute::add_query_vars(
 );
 
 // Posts Related Routes
-IfmRoute::render('/forum', 'IfmPostsController@main');
-IfmRoute::render('/submit', 'IfmPostsController@submit');
+Route::render('/forum', 'PostsController@main');
+Route::render('/submit', 'PostsController@submit');
 
 // Comment Related Routes
-IfmRoute::render('/comments', 'IfmCommentController@main');
+Route::render('/comments', 'CommentController@main');
 
 // JSON Api Routes
-// IfmRoute::json_api('/commen', 'IfmCommentController@comment_on_post', 'post');
+// Route::json_api('/commen', 'CommentController@comment_on_post', 'post');
 // api/ifm/comment-on-post
-IfmRoute::json_api('/comment-on-post', 'IfmCommentController@comment_on_post', 'post');
+Route::json_api('/comment-on-post', 'CommentController@comment_on_post', 'post');
 
-// Register all the components of the IfmRoute object
+// Register all the components of the Route object
 // Messaging Related Routes
-IfmRoute::render('/inbox', 'IfmMessagingController@inbox');
+Route::render('/inbox', 'MessagingController@inbox');
 
 
-IfmRoute::register();
+Route::register();

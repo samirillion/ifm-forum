@@ -1,5 +1,5 @@
 <?php
-class IfmView
+class View
 {
     public static function render(string $callback)
     {

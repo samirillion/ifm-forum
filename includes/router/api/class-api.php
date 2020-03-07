@@ -1,11 +1,9 @@
 <?php
 
-/**
- * Ifm Route
- */
-require(IFM_INC . 'router/api/class-api-router.php');
+namespace IFM;
 
-class IfmApi
+
+class Api
 {
 
 	protected static $routes = array();
@@ -13,7 +11,7 @@ class IfmApi
 
 	public static function register()
 	{
-		new IfmApiRouter(self::$routes);
+		new Api_Router(self::$routes);
 	}
 
 	public static function get(string $uri, string $callback = null)

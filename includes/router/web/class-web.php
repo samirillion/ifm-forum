@@ -3,20 +3,19 @@
 /**
  * Facade for Orchestrating Web Routing
  */
-require(IFM_INC . 'router/web/class-processor.php');
-require(IFM_INC . 'router/web/class-router.php');
-require(IFM_INC . 'router/web/class-route.php');
 
-class IfmWeb
+namespace IFM;
+
+class Web
 {
 
 	protected static $routes = array();
 
 	public static function register()
 	{
-		$router = new IfmWebRouter(IFM_NAMESPACE);
+		$router = new Router(IFM_NAMESPACE);
 		$routes = self::$routes;
-		IfmWebProcessor::init($router, $routes);
+		Processor::init($router, $routes);
 	}
 
 	public static function render(string $uri, string $callback)
@@ -26,6 +25,6 @@ class IfmWeb
 
 	protected static function add_route(string $uri, string $hook, string $template, string $callback)
 	{
-		self::$routes[$callback] = new IfmWebRoute($uri, '', $template);
+		self::$routes[$callback] = new Route($uri, '', $template);
 	}
 }

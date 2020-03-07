@@ -4,15 +4,11 @@
  *
  * @package Ifm
  */
-require_once(IFM_APP . 'views/class-user-profile.php');
-require_once(IFM_APP . 'views/class-change-password-container.php');
-require_once(IFM_APP . 'views/class-form-renderer.php');
-require_once(IFM_APP . 'views/class-account-details.php');
 
-require_once(IFM_APP . 'models/user.php');
+namespace IFM;
 
 
-class IfmUserController
+class UserController
 {
 
 	public static function register()
@@ -45,12 +41,12 @@ class IfmUserController
 
 	public function render_user_profile()
 	{
-		IfmUserProfile::render();
+		UserProfile::render();
 	}
 
 	public function change_password_form()
 	{
-		IfmChangePassword::render();
+		ChangePassword::render();
 	}
 
 	public function update_password()
@@ -70,10 +66,10 @@ class IfmUserController
 	{
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if (is_user_logged_in()) {
-			$userKarma = IfmUser::calculate_user_karma(); ?><a href="<?php echo home_url('my-account'); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			$userKarma = User::calculate_user_karma(); ?><a href="<?php echo home_url('my-account'); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
-				} else {
-					?>
+		} else {
+		?>
 			<a href="<?php echo home_url('member-login'); ?>">login</a>
 <?php
 		}
@@ -86,7 +82,7 @@ class IfmUserController
 			wp_redirect('home_url()');
 			exit();
 		}
-		$crowd_user = new IfmUser;
+		$crowd_user = new User;
 		$crowd_user->update_user_information();
 	}
 	public function replace_retrieve_password_message($message, $key, $user_login, $user_data)
@@ -141,7 +137,7 @@ class IfmUserController
 			return __('You are already signed in.', 'personalize-login');
 		} else {
 			// Retrieve possible errors from request parameters
-			$crowd_form_renderer  = new IfmFormRenderer;
+			$crowd_form_renderer  = new FormRenderer;
 			$attributes['errors'] = array();
 			if (isset($_REQUEST['errors'])) {
 				$error_codes = explode(',', $_REQUEST['errors']);
@@ -192,7 +188,7 @@ class IfmUserController
 
 		$attributes['logged_out'] = isset($_REQUEST['logged_out']) && $_REQUEST['logged_out'] == true;
 
-		$crowd_login = new IfmFormRenderer;
+		$crowd_login = new FormRenderer;
 		$content     = $crowd_login->render_form('login-form', $attributes);
 		return $content;
 	}
@@ -270,6 +266,7 @@ class IfmUserController
 	public function redirect_after_login()
 	{
 		$redirect_url = home_url() . '/forum';
+		$user = wp_get_current_user();
 
 		if (!isset($user->ID)) {
 			return $redirect_url;
@@ -277,11 +274,11 @@ class IfmUserController
 
 		if (user_can($user, 'manage_options')) {
 			// Use the redirect_to parameter if one is set, otherwise redirect to admin dashboard.
-			if ($requested_redirect_to == '') {
-				$redirect_url = admin_url();
-			} else {
-				$redirect_url = $requested_redirect_to;
-			}
+			// if ($requested_redirect_to == '') {
+			$redirect_url = admin_url();
+			// } else {
+			// $redirect_url = $requested_redirect_to;
+			// }
 		} else {
 			// Non-admin users always go to their account page after login
 			$redirect_url = home_url('member-account');
@@ -301,7 +298,7 @@ class IfmUserController
 		} elseif (!get_option('users_can_register')) {
 			return __('Registering new users is currently not allowed.', 'personalize-login');
 		} else {
-			$crowd_form_renderer = new IfmFormRenderer;
+			$crowd_form_renderer = new FormRenderer;
 			$content             = $crowd_form_renderer->render_form('register-form', $attributes);
 			return $content;
 		}
@@ -325,8 +322,8 @@ class IfmUserController
 
 	private function register_user($email, $username, $password)
 	{
-		$errors              = new WP_Error();
-		$crowd_form_renderer = new IfmFormRenderer;
+		$errors              = new \WP_Error();
+		$crowd_form_renderer = new FormRenderer;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if (!is_email($email) && $email != 0) {
@@ -403,7 +400,7 @@ class IfmUserController
 		if (!is_user_logged_in()) {
 			$this->redirect_to_login;
 		}
-		IfmAccountDetails::render();
+		AccountDetails::render();
 	}
 
 	public function add_conditional_menu_items($items, $args)
@@ -412,7 +409,7 @@ class IfmUserController
 			$items .= '<li><a title="Admin" href="' . esc_url(admin_url()) . '">' . __('Admin') . '</a></li>';
 		}
 		if ($args->theme_location == 'primary' && is_user_logged_in()) {
-			$userKarma = IfmUser::calculate_user_karma();
+			$userKarma = User::calculate_user_karma();
 			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {
 			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url('/forum')) . '">' . __('Login') . '</a></li>';
@@ -421,4 +418,4 @@ class IfmUserController
 	}
 }
 
-IfmUserController::register();
+UserController::register();

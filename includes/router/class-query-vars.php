@@ -1,5 +1,8 @@
 <?php
-class IfmQueryVars
+
+namespace IFM;
+
+class Query_Vars
 {
     public static $query_vars = array();
 

@@ -3,7 +3,10 @@
 /**
  * Post Edit Render Class
  */
-class IfmEditPost
+
+namespace IFM;
+
+class EditPost
 {
 
 	public static function render()

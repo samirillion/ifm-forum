@@ -1,8 +1,10 @@
 <?php
 
+namespace IFM;
+
 use WordPress\ORM\Model\Post;
 
-class IfmMessage extends Post
+class Message extends Post
 {
     protected $post_type = 'message';
 

@@ -3,7 +3,10 @@
 /**
  * Undocumented class
  */
-class IfmComment
+
+namespace IFM;
+
+class Comment
 {
 
 	// Information needed for creating the plugin's pages

@@ -1,5 +1,7 @@
 <?php
 
+namespace IFM;
+
 /**
  * Ifm Sorter
  *
@@ -22,17 +24,52 @@ if (!defined('WPINC')) {
 	die;
 }
 
-namespace IFM\Importer;
-
 class Plugin
 {
+	/**
+	 * Begins execution of the plugin.
+	 *
+	 * @since    1.0.0
+	 */
+	public static function run()
+	{
+		// Require config file
+		require(plugin_dir_path(__FILE__) . 'config.php');
+
+		/**
+		 * Check requirements and load main class
+		 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
+		 * Otherwise older PHP installations could crash when trying to parse it.
+		 */
+		if (self::requirements_met()) {
+
+			register_activation_hook(__FILE__, 'ifm_activated');
+
+			// Enqueue Assets
+			require(IFM_BASE_PATH . 'enqueue.php');
+
+			// Autoload Vendor Classes
+			require(IFM_BASE_PATH . 'vendor/autoload.php');
+
+			// Autoload everything Else
+			spl_autoload_register(array(new self, 'autoload'), true, false);
+
+			require(IFM_APP . 'routes.php');
+		} else {
+
+			add_action('admin_notices', array('IFM\Plugin\show_requirements_error'));
+			require_once(ABSPATH . 'wp-admin/app/plugin.php');
+			deactivate_plugins(plugin_basename(__FILE__));
+		}
+	}
+
 	/**
 	 * Checks if the system requirements are met
 	 *
 	 * @since    1.0.0
 	 * @return bool True if system requirements are met, false if not
 	 */
-	static private function ifm_requirements_met()
+	private static function requirements_met()
 	{
 
 		global $wp_version;
@@ -49,52 +86,39 @@ class Plugin
 
 		return true;
 	}
-
 	/**
-	 * Begins execution of the plugin.
+	 * Handles autoloading of MyPlugin classes.
 	 *
-	 * @since    1.0.0
+	 * @param string $class
 	 */
-	public static function load()
+	public static function autoload($class)
 	{
+		xdebug_break();
+		if (0 !== strpos($class, 'IFM')) {
+			return;
+		}
 
-		require(plugin_dir_path(__FILE__) . 'config.php');
+		$directories = array(
+			IFM_INC,
+			IFM_INC . 'router',
+			IFM_INC . 'router/api',
+			IFM_INC . 'router/web',
+			IFM_INC . 'mvc',
+			IFM_APP,
+			IFM_APP . 'controllers',
+			IFM_APP . 'middleware',
+			IFM_APP . 'models',
+			IFM_APP . 'views',
+			IFM_APP . 'views/partials',
+		);
 
-		require(IFM_BASE_PATH . 'enqueue.php');
-
-		// revisit soon
-		require(IFM_BASE_PATH . '/vendor/autoload.php');
-
-		/**
-		 * Check requirements and load main class
-		 * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met.
-		 * Otherwise older PHP installations could crash when trying to parse it.
-		 */
-		if (self::ifm_requirements_met()) {
-
-			register_activation_hook(__FILE__, 'ifm_activated');
-
-
-
-			require(IFM_BASE_PATH . 'seeds/post-types.php');
-
-			require(IFM_INC . 'wp-orm/wp-orm.php');
-
-			require(IFM_INC . 'mvc/class-view.php');
-
-			require(IFM_APP . 'controllers/class-posts-controller.php');
-			require(IFM_APP . 'controllers/class-user-controller.php');
-			require(IFM_APP . 'controllers/class-comment-controller.php');
-			require(IFM_APP . 'controllers/class-messaging-controller.php');
-
-			require(IFM_APP . 'routes.php');
-		} else {
-
-			add_action('admin_notices', array('IFM\Importer\Plugin', 'show_requirements_error'));
-			require_once(ABSPATH . 'wp-admin/app/plugin.php');
-			deactivate_plugins(plugin_basename(__FILE__));
+		foreach ($directories as $directory) {
+			if (is_file($file = $directory . '/class-' . strtolower(str_replace(array('_', "\0"), array('-', ''), $class) . '.php'))) {
+				require_once $file;
+			}
 		}
 	}
+
 
 	/**
 	 * Redirect to Settings Page on Forum Activate
@@ -118,3 +142,4 @@ class Plugin
 		require_once(dirname(__FILE__) . '/views/admin/errors/requirements-error.php');
 	}
 }
+Plugin::run();

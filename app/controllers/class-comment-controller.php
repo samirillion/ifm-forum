@@ -2,14 +2,16 @@
 
 /**
  *
- * @package Ifmer
+ * @package er
  */
-require(IFM_APP . 'models/comment.php');
-require(IFM_APP . 'views/class-comment-container.php');
+
+namespace Ifm;
+// require(IFM_APP . 'models/comment.php');
+// require(IFM_APP . 'views/class-comment-container.php');
 
 
 
-class IfmCommentController
+class CommentController
 {
 
 	public static function register()
@@ -26,12 +28,13 @@ class IfmCommentController
 		add_action('wp_ajax_nopriv_replyToComment', array($plugin, 'redirect_to_login'));
 	}
 	public function __construct()
-	{ }
-
-	public function comment_on_post(WP_REST_Request $request)
 	{
-		$params = IfmQueryVars::get_params();
-		$ifm_comment = new IfmComment;
+	}
+
+	public function comment_on_post(\WP_REST_Request $request)
+	{
+		$params = QueryVars::get_params();
+		$ifm_comment = new Comment;
 		$ifm_comment->comment($request, $params);
 
 		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_POST['post_id'], home_url('/comments'))));
@@ -39,24 +42,24 @@ class IfmCommentController
 
 	public function comment_on_comment()
 	{
-		$ifm_comments = new IfmComment;
+		$ifm_comments = new Comment;
 		$ifm_comments->comment_on_comment();
 	}
 
 
 	public function main()
 	{
-		$ifm_comments = new IfmComment;
+		$ifm_comments = new Comment;
 		$comment_query  = $ifm_comments->query_comments();
 		$comment_array  = json_decode(json_encode($comment_query), true);
 
-		$params = IfmQueryVars::get_params();
-		return IfmCommentContainer::render($comment_array, $params);
+		$params = QueryVars::get_params();
+		return CommentContainer::render($comment_array, $params);
 	}
 
 	public function vote_on_comment()
 	{
-		$ifm_comments = new IfmComment;
+		$ifm_comments = new Comment;
 		$ifm_comments->update_comment_karma();
 	}
 
@@ -70,4 +73,4 @@ class IfmCommentController
 	}
 }
 
-IfmCommentController::register();
+CommentController::register();

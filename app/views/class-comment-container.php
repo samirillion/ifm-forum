@@ -3,7 +3,10 @@
 /**
  * Container for comments under posts
  */
-class IfmCommentContainer
+
+namespace IFM;
+
+class CommentContainer
 {
 	// O(N) - Will visit every node exactly once
 	public static function sort_by_parent($comment_object)
@@ -85,38 +88,38 @@ class IfmCommentContainer
 					$comment['comment_ID']
 				)
 			)[0]->{'COUNT(*)'};
-			?>
+?>
 			<li class="comment-node" id="<?php echo $comment['comment_ID']; ?>" data-nonce="<?php echo $nonce; ?>">
 				<a class="vote_on_comment" data-upordown="up">
 					<?php
-								if ($upvoted[0]->{'COUNT(*)'} == 1) {
-									echo '<div class="ifm-vote upvoted"></div>';
-								} else {
-									echo '<div class="ifm-vote"></div>';
-								}
-								?>
+					if ($upvoted[0]->{'COUNT(*)'} == 1) {
+						echo '<div class="ifm-vote upvoted"></div>';
+					} else {
+						echo '<div class="ifm-vote"></div>';
+					}
+					?>
 				</a>
 				<div class="commenter">
 					<?php
-								if ($user_id === (int) $comment['user_id']) {
-									echo $upvotes;
-									if ((int) $upvotes === 1) {
-										echo ' point';
-									} else {
-										echo ' points';
-									}
-								}
-								?>
+					if ($user_id === (int) $comment['user_id']) {
+						echo $upvotes;
+						if ((int) $upvotes === 1) {
+							echo ' point';
+						} else {
+							echo ' points';
+						}
+					}
+					?>
 					by
 					<?php
-								echo $comment['comment_author'];
-								?>
+					echo $comment['comment_author'];
+					?>
 				</div>
 				<div class="comment-time"><?php echo human_time_diff(strtotime($comment['comment_date_gmt']), current_time('timestamp', 1)) . ' ago'; ?></div>
 				<?php
-							// $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
-							echo '<div class="ifm-comment-content">' . $comment['comment_content'] . '</div>';
-							?>
+				// $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
+				echo '<div class="ifm-comment-content">' . $comment['comment_content'] . '</div>';
+				?>
 				<div class="reply-to-comment">reply</div>
 				<div class="ifm-comment-reply-container" style="display:none;">
 					<textarea name="ifm-comment-reply-textarea" required></textarea>
@@ -124,10 +127,10 @@ class IfmCommentContainer
 					<?php include(IFM_VIEW . '/partials/comment-form.php'); ?>
 				</div>
 	<?php
-				// Print all our children
-				self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
-			}
-			echo '</li></ul>';
+			// Print all our children
+			self::build_comment_structure($obj, $comment['comment_ID'], $depth + 1);
 		}
+		echo '</li></ul>';
 	}
+}
 	?>

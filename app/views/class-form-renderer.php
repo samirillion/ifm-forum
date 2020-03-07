@@ -3,7 +3,10 @@
 /**
  * A Class for Rendering User Forms
  */
-class IfmFormRenderer
+
+namespace IFM;
+
+class FormRenderer
 {
 
 	public function render_form($template_name, $attributes = null)

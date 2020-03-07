@@ -4,15 +4,15 @@ This is a high level view of adding new functionality to the Ifm Forum app. In t
 ## Create a Route.
 In `routes/web.php`, you can create a route to a page, using a callback on a controller class.
 ```
-IfmWeb::render('/my-messages', 'IfmMessagingController@main');
+Web::render('/my-messages', 'MessagingController@main');
 ```
 
-So when I go to https://foodinnneighborhoods.com/my-messages, a method on the `class IfmMessagingController` called `main` will be called. Now I need to create that controller class and add that method!
+So when I go to https://foodinnneighborhoods.com/my-messages, a method on the `class MessagingController` called `main` will be called. Now I need to create that controller class and add that method!
 
 For now, create a file: `app/controllers/class-messaging-control.php` and paste in this code:
 ```
 <?php
-class IfmMessagingController {
+class MessagingController {
     public function main() {
         return "<h1>Hello Message World</h1>";
     }

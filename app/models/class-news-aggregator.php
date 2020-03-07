@@ -1,4 +1,7 @@
 <?php
+
+namespace IFM;
+
 class newsAggregator extends abstractSorter
 {
 
@@ -58,7 +61,7 @@ class newsAggregator extends abstractSorter
 
 	public function aggregator_entry_url_meta_box($object, $box)
 	{
-		?>
+?>
 
 		<?php wp_nonce_field(basename(__FILE__), 'aggregator_entry_url_nonce'); ?>
 
@@ -68,29 +71,29 @@ class newsAggregator extends abstractSorter
 			<input class="widefat" type="text" name="aggregator-entry-url" id="aggregator-entry-url" value="<?php echo esc_attr(get_post_meta($object->ID, 'aggregator_entry_url', true)); ?>" size="30" />
 		</p>
 	<?php
-		}
+	}
 
-		public function aggregator_entry_karma_meta_box($object, $box)
-		{
-			?>
+	public function aggregator_entry_karma_meta_box($object, $box)
+	{
+	?>
 		<p>
 			<label for="aggregator-entry-karma">
 				<?php
-						global $wpdb;
-						$postID = $object->ID;
-						$upvotes  = $wpdb->get_var(
-							$wpdb->prepare(
-								"
+				global $wpdb;
+				$postID = $object->ID;
+				$upvotes  = $wpdb->get_var(
+					$wpdb->prepare(
+						"
                     SELECT count(*)
                     FROM $wpdb->postmeta
                     WHERE post_id=%d
                     AND meta_key='user_upvote_id'
                   ",
-								$postID
-							)
-						);
-						echo $upvotes;
-						?>
+						$postID
+					)
+				);
+				echo $upvotes;
+				?>
 			</label>
 		</p>
 <?php

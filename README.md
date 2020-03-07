@@ -46,7 +46,7 @@ https://carlalexander.ca/designing-system-wordpress-routing/
 - data is managed via a wrapper around the wordpress WP-API
 https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
 - all routes are added onto the same class from `app/routes.php` 
-- a callback is specified in the route as a controller method (e.g., `IfmPostsController@main`)
+- a callback is specified in the route as a controller method (e.g., `PostsController@main`)
 
 ## Quick tour of frontend and backend
 - Frontend:

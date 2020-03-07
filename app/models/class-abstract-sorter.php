@@ -1,13 +1,17 @@
 <?php
-	abstract class abstractSorter {
+
+namespace IFM;
+
+abstract class abstractSorter
+{
 
 	private $sorter;
 
-	public function __construct( $sorter ) {
+	public function __construct($sorter)
+	{
 		$this->sorter = $sorter;
-		}
+	}
 
 	abstract public function define_post_type();
 	abstract public function define_post_meta_on_load();
-
-	} //end class abstractSorter
+} //end class abstractSorter

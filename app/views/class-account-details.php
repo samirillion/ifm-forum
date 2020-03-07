@@ -1,6 +1,8 @@
 <?php
 
-class IfmAccountDetails
+namespace IFM;
+
+class AccountDetails
 {
 	public static function render()
 	{
@@ -8,10 +10,10 @@ class IfmAccountDetails
 		$current_user = wp_get_current_user();
 		echo 'Username: ' . $current_user->user_login . '<br />';
 		require_once(plugin_dir_path(__DIR__) . 'models/user.php');
-		$user_karma = IfmUser::calculate_user_karma();
+		$user_karma = User::calculate_user_karma();
 		echo 'User Karma: ' . $user_karma . '<br />';
 		echo 'User Since: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . ' ago';
-		?>
+?>
 		<form id="account-details" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
 			<p class="form-row">
 				<label for="email"><?php _e('Email', 'email'); ?></label>
@@ -20,11 +22,11 @@ class IfmAccountDetails
 			<p class="form-row">
 				<label for="about"><?php _e('About', 'about'); ?></label>
 				<?php
-						if (!get_user_meta(get_current_user_id(), 'about_user')) {
-							add_user_meta(get_current_user_id(), 'about_user', '', true);
-						}
-						$about_user = stripslashes(get_user_meta(get_current_user_id(), 'about_user', true));
-						?>
+				if (!get_user_meta(get_current_user_id(), 'about_user')) {
+					add_user_meta(get_current_user_id(), 'about_user', '', true);
+				}
+				$about_user = stripslashes(get_user_meta(get_current_user_id(), 'about_user', true));
+				?>
 				<textarea type="text" name="about" id="user-about" class="post-input" cols='40' rows='5'><?php echo $about_user; ?></textarea>
 			</p>
 			<p class="form-row">
