@@ -24,7 +24,7 @@ if (!defined('WPINC')) {
 	die;
 }
 
-class Plugin
+class Importer
 {
 	/**
 	 * Begins execution of the plugin.
@@ -99,7 +99,6 @@ class Plugin
 		}
 
 		$directories = array(
-			IFM_INC,
 			IFM_INC . 'router',
 			IFM_INC . 'router/api',
 			IFM_INC . 'router/web',
@@ -142,4 +141,4 @@ class Plugin
 		require_once(dirname(__FILE__) . '/views/admin/errors/requirements-error.php');
 	}
 }
-Plugin::run();
+Importer::run();

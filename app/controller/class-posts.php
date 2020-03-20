@@ -7,17 +7,9 @@
  */
 
 namespace IFM;
-// require_once(IFM_APP . 'views/class-posts-container.php');
-// require_once(IFM_APP . 'views/class-edit-post.php');
-// require_once(IFM_APP . 'views/partials/class-post-template.php');
-// require_once(IFM_APP . 'views/class-submit-post.php');
-
-// require_once(IFM_APP . 'models/post.php');
-// require_once(IFM_APP . 'models/sorter-factory.php');
-// require_once(IFM_APP . 'models/news-aggregator.php');
 
 
-class PostsController
+class Controller_Post
 {
 
 	/**
@@ -256,4 +248,4 @@ class PostsController
 	}
 }
 
-PostsController::register();
+Controller_Post::register();

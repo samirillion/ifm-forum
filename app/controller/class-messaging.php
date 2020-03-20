@@ -3,7 +3,7 @@
 namespace IFM;
 // require(IFM_APP . 'models/message.php');
 
-class MessagingController
+class Controller_Messaging
 {
     public function inbox()
     {

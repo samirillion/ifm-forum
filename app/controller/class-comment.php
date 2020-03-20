@@ -6,12 +6,9 @@
  */
 
 namespace Ifm;
-// require(IFM_APP . 'models/comment.php');
-// require(IFM_APP . 'views/class-comment-container.php');
 
 
-
-class CommentController
+class Controller_Comment
 {
 
 	public static function register()
@@ -73,4 +70,4 @@ class CommentController
 	}
 }
 
-CommentController::register();
+Controller_Comment::register();

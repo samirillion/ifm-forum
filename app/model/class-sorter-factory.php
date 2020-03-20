@@ -1,8 +1,4 @@
 <?php
-
-// include_once( 'abstract-sorter.php' );
-// include_once( 'news-aggregator.php' );
-
 namespace IFM;
 
 class sorterFactory

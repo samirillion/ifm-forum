@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-abstract class abstractSorter
+abstract class Model_Sorter
 {
 
 	private $sorter;
@@ -14,4 +14,4 @@ abstract class abstractSorter
 
 	abstract public function define_post_type();
 	abstract public function define_post_meta_on_load();
-} //end class abstractSorter
+} //end class Model_Sorter

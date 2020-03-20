@@ -8,7 +8,7 @@
 namespace IFM;
 
 
-class UserController
+class Controller_User
 {
 
 	public static function register()
@@ -418,4 +418,4 @@ class UserController
 	}
 }
 
-UserController::register();
+Controller_User::register();
