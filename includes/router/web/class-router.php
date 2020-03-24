@@ -8,12 +8,12 @@
 
 namespace IFM;
 
-class Router
+class Router_Web_Router
 {
     /**
      * All registered routes.
      *
-     * @var Route[]
+     * @var Router_Web_Route[]
      */
     private $routes;
 
@@ -28,7 +28,7 @@ class Router
      * Constructor.
      *
      * @param string  $route_variable
-     * @param Route[] $routes
+     * @param Router_Web_Route[] $routes
      */
     public function __construct($route_variable = 'route_name', array $routes = array())
     {
@@ -46,7 +46,7 @@ class Router
      * @param string $name
      * @param Route  $route
      */
-    public function add_route($name, Route $route)
+    public function add_route($name, Router_Web_Route $route)
     {
         $this->routes[$name] = $route;
     }
@@ -84,13 +84,13 @@ class Router
     public function match(array $query_variables)
     {
         if (empty($query_variables[$this->route_variable])) {
-            return new WP_Error('missing_route_variable');
+            return new \WP_Error('missing_route_variable');
         }
 
         $route_name = $query_variables[$this->route_variable];
 
         if (!isset($this->routes[$route_name])) {
-            return new WP_Error('route_not_found');
+            return new \WP_Error('route_not_found');
         }
 
         return $this->routes[$route_name];
@@ -100,10 +100,10 @@ class Router
      * Adds a new WordPress rewrite rule for the given Route.
      *
      * @param string $name
-     * @param Route  $route
+     * @param Router_Web_Route  $route
      * @param string $position
      */
-    private function add_rule($name, Route $route, $position = 'top')
+    private function add_rule($name, Router_Web_Route $route, $position = 'top')
     {
         add_rewrite_rule($this->generate_route_regex($route), 'index.php?' . $this->route_variable . '=' . $name, $position);
     }
@@ -111,11 +111,11 @@ class Router
     /**
      * Generates the regex for the WordPress rewrite API for the given route.
      *
-     * @param Route $route
+     * @param Router_Web_Route $route
      *
      * @return string
      */
-    private function generate_route_regex(Route $route)
+    private function generate_route_regex(Router_Web_Route $route)
     {
         return '^' . ltrim(trim($route->get_path()), '/') . '$';
     }

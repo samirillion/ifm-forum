@@ -3,7 +3,7 @@
 namespace IFM;
 
 
-class Api
+class Router_Api_Main
 {
 
 	protected static $routes = array();
@@ -11,17 +11,17 @@ class Api
 
 	public static function register()
 	{
-		new Api_Router(self::$routes);
+		new Router_Api_Router(self::$routes);
 	}
 
 	public static function get(string $uri, string $callback = null)
 	{
-		self::add_route(WP_REST_Server::READABLE, $uri, $callback);
+		self::add_route(\WP_REST_Server::READABLE, $uri, $callback);
 		return __CLASS__;
 	}
 	public static function post(string $uri, string $callback = null)
 	{
-		self::add_route(WP_REST_Server::CREATABLE, $uri, $callback);
+		self::add_route(\WP_REST_Server::CREATABLE, $uri, $callback);
 		return __CLASS__;
 	}
 

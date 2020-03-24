@@ -8,7 +8,7 @@
 
 namespace IFM;
 
-class Route
+class Router_Web_Route
 {
 
 	/**

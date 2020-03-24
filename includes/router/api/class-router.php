@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class Api_Router
+class Router_Api_Router
 {
 
 	protected $routes      = array();

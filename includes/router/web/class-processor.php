@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The Processor is in charge of the interaction between the routing system and
+ * The Router_Web_Processor is in charge of the interaction between the routing system and
  * the rest of WordPress.
  *
  * @author Carl Alexander <contact@carlalexander.ca>
@@ -9,7 +9,7 @@
 
 namespace IFM;
 
-class Processor
+class Router_Web_Processor
 {
     /**
      * The matched route found by the router.
@@ -35,10 +35,10 @@ class Processor
     /**
      * Constructor.
      *
-     * @param Router  $router
-     * @param Route[] $routes
+     * @param Router_Web_Router  $router
+     * @param Router_Web_Route[] $routes
      */
-    public function __construct(Router $router, array $routes = array())
+    public function __construct(Router_Web_Router $router, array $routes = array())
     {
         $this->router = $router;
         $this->routes = $routes;
@@ -47,10 +47,10 @@ class Processor
     /**
      * Initialize processor with WordPress.
      *
-     * @param Router  $router
-     * @param Route[] $routes
+     * @param Router_Web_Router  $router
+     * @param Router_Web_Route[] $routes
      */
-    public static function init(Router $router, array $routes = array())
+    public static function init(Router_Web_Router $router, array $routes = array())
     {
         $self = new self($router, $routes);
 
@@ -65,7 +65,7 @@ class Processor
      */
     public function call_route_hook()
     {
-        if (!$this->matched_route instanceof Route || !$this->matched_route->has_hook()) {
+        if (!$this->matched_route instanceof Router_Web_Route || !$this->matched_route->has_hook()) {
             return;
         }
 
@@ -81,7 +81,7 @@ class Processor
      */
     public function load_route_template($template)
     {
-        if (!$this->matched_route instanceof Route || !$this->matched_route->has_template()) {
+        if (!$this->matched_route instanceof Router_Web_Route || !$this->matched_route->has_template()) {
             return $template;
         }
 

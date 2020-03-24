@@ -2,6 +2,8 @@
 
 namespace IFM;
 
+use Directory;
+
 /**
  * Ifm Sorter
  *
@@ -103,13 +105,16 @@ class Importer
 		);
 
 		foreach ($directories as $directory) {
-			xdebug_break();
+			// autoloader works as follows:
+			// 1. Checks includes and app folders for files named
 			$class = str_replace("IFM\\", "", $class);
-			$file_path = $directory . 'class-' . strtolower(str_replace(array('_', "\0"), array('-', ''), $class)) . '.php';
+			$exploded_class = explode("_", $class);
+			$exploded_class[sizeof($exploded_class) - 1] = 'class-' . end($exploded_class);
+			$file_path = $directory . strtolower(implode(DIRECTORY_SEPARATOR, $exploded_class)) . '.php';
 			if (file_exists($file_path) && include_once($file_path)) {
 				return TRUE;
 			} else {
-				trigger_error("The class '$class' or the file '$theClass' failed to spl_autoload  ", E_USER_WARNING);
+				trigger_error("The class '$class' or the file '$file_path' failed to spl_autoload  ", E_USER_WARNING);
 				return FALSE;
 			}
 		}
