@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class Query_Vars
+class Router_Qvars
 {
     public static $query_vars = array();
 

@@ -93,27 +93,24 @@ class Importer
 	 */
 	public static function autoload($class)
 	{
-		xdebug_break();
 		if (0 !== strpos($class, 'IFM')) {
 			return;
 		}
 
 		$directories = array(
-			IFM_INC . 'router',
-			IFM_INC . 'router/api',
-			IFM_INC . 'router/web',
-			IFM_INC . 'mvc',
+			IFM_INC,
 			IFM_APP,
-			IFM_APP . 'controllers',
-			IFM_APP . 'middleware',
-			IFM_APP . 'models',
-			IFM_APP . 'views',
-			IFM_APP . 'views/partials',
 		);
 
 		foreach ($directories as $directory) {
-			if (is_file($file = $directory . '/class-' . strtolower(str_replace(array('_', "\0"), array('-', ''), $class) . '.php'))) {
-				require_once $file;
+			xdebug_break();
+			$class = str_replace("IFM\\", "", $class);
+			$file_path = $directory . 'class-' . strtolower(str_replace(array('_', "\0"), array('-', ''), $class)) . '.php';
+			if (file_exists($file_path) && include_once($file_path)) {
+				return TRUE;
+			} else {
+				trigger_error("The class '$class' or the file '$theClass' failed to spl_autoload  ", E_USER_WARNING);
+				return FALSE;
 			}
 		}
 	}

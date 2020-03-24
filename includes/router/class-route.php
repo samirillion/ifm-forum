@@ -2,13 +2,13 @@
 
 namespace IFM;
 
-class Route
+class Router_Route
 {
     public static function register()
     {
         Web::register();
         Api::register();
-        Query_Vars::register();
+        Router_Qvars::register();
     }
     public static function get($uri, $callback)
     {
@@ -28,11 +28,11 @@ class Route
     }
     public static function add_query_var($query_var)
     {
-        Query_Vars::add_var($query_var);
+        Router_Qvars::add_var($query_var);
     }
     public static function add_query_vars(array $query_vars)
     {
-        Query_Vars::add_vars($query_vars);
+        Router_Qvars::add_vars($query_vars);
     }
     public static function permission_callback(string $minimum_level)
     {
