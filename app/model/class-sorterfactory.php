@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class Model_sorterFactory
+class Model_SorterFactory
 {
 
 	public function get_sorter($type)
@@ -11,7 +11,7 @@ class Model_sorterFactory
 		switch (strtolower($type)) {
 
 			case 'news-aggregator':
-				$sorter = new Model_newsAggregator();
+				$sorter = new Model_Aggregator();
 				break;
 		}
 

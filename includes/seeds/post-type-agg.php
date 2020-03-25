@@ -3,7 +3,6 @@
 /**
  * Define Post Types
  */
-
 $ifm_custom_post_args = array(
 	'aggregator-posts',
 	array(

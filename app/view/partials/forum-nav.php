@@ -21,7 +21,7 @@ if (isset($user_nav_item)) {
 	echo $user_nav_item;
 	echo '<br>';
 } else {
-	?>
+?>
 	<div class="ifm-submit-post">
 		<a href="/submit">+ Submit New Post</a>
 	</div>
@@ -33,28 +33,28 @@ if (isset($user_nav_item)) {
 				</a>
 			</li>
 			<?php
-				$custom_terms = get_terms(
-					array(
-						'taxonomy'   => 'aggpost-type',
-						'hide_empty' => false,
-					)
-				);
-				// var_dump($custom_terms);
-				foreach ($custom_terms as $term) {
-					if ($term->{'slug'} === $ifm_query_var) {
-						$active_class     = 'active';
-						$term_description = '<div class="ifm-term-description">' . $term->description . '</div>';
-					} else {
-						$active_class = '';
-					}
-					echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
+			$custom_terms = get_terms(
+				array(
+					'taxonomy'   => 'aggpost-type',
+					'hide_empty' => false,
+				)
+			);
+			// var_dump($custom_terms);
+			foreach ($custom_terms as $term) {
+				if ($term->{'slug'} === $ifm_query_var) {
+					$active_class     = 'active';
+					$term_description = '<div class="ifm-term-description">' . $term->description . '</div>';
+				} else {
+					$active_class = '';
 				}
-				?>
+				echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
+			}
+			?>
 			<?php
-				if (is_user_logged_in()) {
-					$current_user_id = get_current_user_id();
-				}
-				?>
+			if (is_user_logged_in()) {
+				$current_user_id = get_current_user_id();
+			}
+			?>
 		</ul>
 		<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($current_url); ?>">
 			<div class="ifm-search-wrapper">

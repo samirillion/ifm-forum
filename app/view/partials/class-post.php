@@ -83,7 +83,8 @@ class View_Partials_Post
 						<a class="ifm-entry-link" href="<?php echo $posturl; ?>" <?php echo $target; ?>><?php echo $post->post_title; ?></a>
 						<span class="host-url">(<?php echo preg_replace('#^www\.#', '', parse_url($posturl)['host']); ?>)</span>
 						<span class="title">
-							<span class="ifm-post-type"> &ndash; <?php echo (\wp_get_object_terms($post_ID, 'aggpost-type'))[0]->{'name'}; ?></span>
+							<span class="ifm-post-type"> &ndash; <?php
+																	echo (wp_get_object_terms($post_ID, 'aggpost-type'))[0]->{'name'}; ?></span>
 						</span>
 					</div>
 					<div class="ifm-post-meta">

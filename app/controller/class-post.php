@@ -64,16 +64,6 @@ class Controller_Post
 		return View_Posts::render($posts, $params);
 	}
 
-	public function newpage()
-	{
-		return "<hr><hr><h1>hello new page world</h1>";
-	}
-
-	public function myroute()
-	{
-		return "<h1>cool</h1><h1>cool</h1><h1>cool</h1>";
-	}
-
 	/**
 	 * Undocumented function
 	 *
@@ -186,7 +176,7 @@ class Controller_Post
 	 */
 	public function generate_sorter()
 	{
-		$sorter_factory = new sorterFactory;
+		$sorter_factory = new Model_SorterFactory;
 		$aggregator     = $sorter_factory->get_sorter('News-Aggregator');
 
 		// add post definition details
@@ -247,5 +237,3 @@ class Controller_Post
 		$crowd_posts->submit_post();
 	}
 }
-
-Controller_Post::register();

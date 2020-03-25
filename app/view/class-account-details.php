@@ -10,7 +10,7 @@ class AccountDetails
 		$current_user = wp_get_current_user();
 		echo 'Username: ' . $current_user->user_login . '<br />';
 		require_once(plugin_dir_path(__DIR__) . 'models/user.php');
-		$user_karma = User::calculate_user_karma();
+		$user_karma = Model_User::calculate_user_karma();
 		echo 'User Karma: ' . $user_karma . '<br />';
 		echo 'User Since: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . ' ago';
 ?>

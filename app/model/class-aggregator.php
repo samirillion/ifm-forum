@@ -2,21 +2,13 @@
 
 namespace IFM;
 
-class Model_newsAggregator extends Model_Sorter
+class Model_Aggregator
 {
+	private $sorter;
 
 	public function __construct()
 	{
 		$this->sorter = 'News-Aggregator';
-	}
-
-	public function define_post_type()
-	{
-		require_once(IFM_BASE_PATH . 'seeds/post-type-agg.php');
-		register_post_type(
-			$ifm_custom_post_args[0],
-			$ifm_custom_post_args[1]
-		); /* end of register post type */
 	}
 
 	public function define_meta_on_publish($post_ID)
