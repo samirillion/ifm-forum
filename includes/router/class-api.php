@@ -3,7 +3,7 @@
 namespace IFM;
 
 
-class Router_Api_Main
+class Router_Api
 {
 
 	protected static $routes = array();

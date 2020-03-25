@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class User
+class Model_User
 {
 
 	public static function calculate_user_karma($user_id = -1)

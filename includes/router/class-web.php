@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Facade for Orchestrating Router_Web_Main Routing
+ * Facade for Orchestrating Router_Web Routing
  */
 
 namespace IFM;
 
-class Router_Web_Main
+class Router_Web
 {
 
 	protected static $routes = array();

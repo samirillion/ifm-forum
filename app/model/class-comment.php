@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-class Comment
+class Model_Comment
 {
 
 	// Information needed for creating the plugin's pages

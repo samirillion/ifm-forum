@@ -41,7 +41,7 @@ class Controller_User
 
 	public function render_user_profile()
 	{
-		UserProfile::render();
+		View_Profile::render();
 	}
 
 	public function change_password_form()

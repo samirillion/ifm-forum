@@ -16,7 +16,7 @@ ob_start(); ?>
         <div class="col-xs-12">
             <div class="ifm-container">
                 <?php
-                View::render($wp->query_vars['ifm']);
+                MVC_View::render($wp->query_vars['ifm']);
                 ?>
             </div>
         </div>

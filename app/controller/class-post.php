@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Undocumented class
+ * Post Controller Class
  *
- * @package Ifm
+ * @package IFM
  */
 
 namespace IFM;
@@ -53,12 +53,12 @@ class Controller_Post
 	 */
 	public function main()
 	{
-		$params = QueryVars::get_params();
+		$params = Router_Qvars::get_params();
 
 		if (array_key_exists('ifm_query', $params)) {
 			$posts = $this->agg_search_posts($params);
 		} else {
-			$posts = Post::sort_posts()[0];
+			$posts = Model_Post::sort_posts()[0];
 		}
 
 		return PostsContainer::render($posts, $params);
@@ -172,7 +172,7 @@ class Controller_Post
 	 */
 	public function load_more_posts()
 	{
-		$query     = Post::sort_posts();
+		$query     = Model_Post::sort_posts();
 		$pageposts = $query[0];
 
 		$content = PostTemplate::render($pageposts);
@@ -232,7 +232,7 @@ class Controller_Post
 	 */
 	public function my_user_vote()
 	{
-		$karma_tracker = new Post;
+		$karma_tracker = new Model_Post;
 		$karma_tracker->update_post_karma();
 	}
 
@@ -243,7 +243,7 @@ class Controller_Post
 	 */
 	public function submit_post()
 	{
-		$crowd_posts = new Post;
+		$crowd_posts = new Model_Post;
 		$crowd_posts->submit_post();
 	}
 }

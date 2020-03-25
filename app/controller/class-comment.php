@@ -2,10 +2,10 @@
 
 /**
  *
- * @package er
+ * @package IFM
  */
 
-namespace Ifm;
+namespace IFM;
 
 
 class Controller_Comment
@@ -30,7 +30,7 @@ class Controller_Comment
 
 	public function comment_on_post(\WP_REST_Request $request)
 	{
-		$params = QueryVars::get_params();
+		$params = Router_Qvars::get_params();
 		$ifm_comment = new Comment;
 		$ifm_comment->comment($request, $params);
 
@@ -50,7 +50,7 @@ class Controller_Comment
 		$comment_query  = $ifm_comments->query_comments();
 		$comment_array  = json_decode(json_encode($comment_query), true);
 
-		$params = QueryVars::get_params();
+		$params = Router_Qvars::get_params();
 		return CommentContainer::render($comment_array, $params);
 	}
 

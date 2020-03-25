@@ -36,12 +36,12 @@ I also want others to be able to use and extend it. So it would kind of be like 
     - `add_rewrite_rule()` for adding custom rewrite rules based on paths
  
 ## How it Used to be Done
-- creating rendering views with shortcodes on pages
+- creating rendering view with shortcodes on pages
 - using a wordpress hook called admin_post_my_post_function() to create POST requests
-- problematic because it has no predictable structure for creating http requests, and the actual views were rendered with shortcodes saved in the database! Not where you want your mvc structure to be kept.
+- problematic because it has no predictable structure for creating http requests, and the actual view were rendered with shortcodes saved in the database! Not where you want your mvc structure to be kept.
 
 ## How it's done now
-- views are rendered with a router that uses `add_rewrite_rule`
+- view are rendered with a router that uses `add_rewrite_rule`
 https://carlalexander.ca/designing-system-wordpress-routing/
 - data is managed via a wrapper around the wordpress WP-API
 https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/

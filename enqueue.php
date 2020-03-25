@@ -5,9 +5,9 @@
  */
 add_action('wp_enqueue_scripts', function () {
 
-    wp_enqueue_style('style.css', plugins_url('app/views/assets/style.css', __FILE__), null);
-    wp_register_script('news-aggregator', plugins_url('app/views/assets/js/main.js', __FILE__), array('jquery'));
-    wp_register_script('toggle-switch', plugins_url('app/views/assets/js/toggle-switch.js', __FILE__), array('jquery'));
+    wp_enqueue_style('style.css', plugins_url('app/view/assets/style.css', __FILE__), null);
+    wp_register_script('news-aggregator', plugins_url('app/view/assets/js/main.js', __FILE__), array('jquery'));
+    wp_register_script('toggle-switch', plugins_url('app/view/assets/js/toggle-switch.js', __FILE__), array('jquery'));
     wp_localize_script(
         'news-aggregator',
         'myAjax',

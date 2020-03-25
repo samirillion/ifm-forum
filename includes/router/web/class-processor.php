@@ -108,7 +108,7 @@ class Router_Web_Processor
     {
         $matched_route = $this->router->match($environment->query_vars);
 
-        if ($matched_route instanceof Route) {
+        if ($matched_route instanceof Router_Web_Route) {
             $this->matched_route = $matched_route;
         }
 

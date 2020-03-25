@@ -13,8 +13,8 @@ define('IFM_REQUIRED_WP_NETWORK', false); // because plugin is not compatible wi
 define('IFM_BASE_PATH', plugin_dir_path(__FILE__));
 define('IFM_APP', IFM_BASE_PATH . 'app/');
 define('IFM_INC', IFM_BASE_PATH . 'includes/');
-define('IFM_ASSET', IFM_BASE_PATH . 'app/views/assets/');
-define('IFM_VIEW', IFM_BASE_PATH . 'app/views/');
+define('IFM_ASSET', IFM_BASE_PATH . 'app/view/assets/');
+define('IFM_VIEW', IFM_BASE_PATH . 'app/view/');
 
 /**
  * Set to determine the base namespace for the router. 

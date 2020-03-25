@@ -106,7 +106,9 @@ class Importer
 
 		foreach ($directories as $directory) {
 			// autoloader works as follows:
-			// 1. Checks includes and app folders for files named
+			// 1. Checks `app` and `includes` directories
+			// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name
+			// 3. Checks for path/to/class-name.php, and includes
 			$class = str_replace("IFM\\", "", $class);
 			$exploded_class = explode("_", $class);
 			$exploded_class[sizeof($exploded_class) - 1] = 'class-' . end($exploded_class);
@@ -140,7 +142,7 @@ class Importer
 	{
 
 		global $wp_version;
-		require_once(dirname(__FILE__) . '/views/admin/errors/requirements-error.php');
+		require_once(dirname(__FILE__) . '/view/admin/errors/requirements-error.php');
 	}
 }
 Importer::run();

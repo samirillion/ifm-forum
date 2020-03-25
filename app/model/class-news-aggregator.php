@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class newsAggregator extends Model_Sorter
+class Model_newsAggregator extends Model_Sorter
 {
 
 	public function __construct()
