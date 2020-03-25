@@ -56,6 +56,7 @@ class Importer
 			// Autoload everything Else
 			spl_autoload_register(array(new self, 'autoload'), true, false);
 
+			// Require Routes
 			require(IFM_APP . 'routes.php');
 		} else {
 
@@ -109,6 +110,7 @@ class Importer
 			// 1. Checks `app` and `includes` directories
 			// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name
 			// 3. Checks for path/to/class-name.php, and includes
+			xdebug_break();
 			$class = str_replace("IFM\\", "", $class);
 			$exploded_class = explode("_", $class);
 			$exploded_class[sizeof($exploded_class) - 1] = 'class-' . end($exploded_class);

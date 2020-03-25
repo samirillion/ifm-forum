@@ -1,5 +1,5 @@
 <?php
-class MVC_View
+class Mvc_View
 {
     public static function render(string $callback)
     {

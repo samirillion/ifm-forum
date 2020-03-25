@@ -7,8 +7,6 @@
  * 
  * @package Ifm
  */
-get_header();
-
 ob_start(); ?>
 
 <div class="container">
@@ -16,7 +14,7 @@ ob_start(); ?>
         <div class="col-xs-12">
             <div class="ifm-container">
                 <?php
-                MVC_View::render($wp->query_vars['ifm']);
+                Mvc_View::render($wp->query_vars['ifm']);
                 ?>
             </div>
         </div>
