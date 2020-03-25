@@ -2,8 +2,6 @@
 
 namespace IFM;
 
-use Directory;
-
 /**
  * Ifm Sorter
  *
@@ -26,7 +24,7 @@ if (!defined('WPINC')) {
 	die;
 }
 
-class Importer
+class Forum
 {
 	/**
 	 * Begins execution of the plugin.
@@ -99,28 +97,22 @@ class Importer
 		if (0 !== strpos($class, 'IFM')) {
 			return;
 		}
-
-		$directories = array(
-			IFM_INC,
-			IFM_APP,
-		);
-
-		foreach ($directories as $directory) {
-			// autoloader works as follows:
-			// 1. Checks `app` and `includes` directories
-			// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name
-			// 3. Checks for path/to/class-name.php, and includes
-			xdebug_break();
-			$class = str_replace("IFM\\", "", $class);
-			$exploded_class = explode("_", $class);
-			$exploded_class[sizeof($exploded_class) - 1] = 'class-' . end($exploded_class);
-			$file_path = $directory . strtolower(implode(DIRECTORY_SEPARATOR, $exploded_class)) . '.php';
-			if (file_exists($file_path) && include_once($file_path)) {
-				return TRUE;
-			} else {
-				trigger_error("The class '$class' or the file '$file_path' failed to spl_autoload  ", E_USER_WARNING);
-				return FALSE;
-			}
+		// autoloader works as follows:
+		// 1. Checks `app` and `includes` directories
+		// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name
+		// 3. Checks for path/to/class-name.php, and includes
+		$class = str_replace("IFM\\", "", $class);
+		$exploded_class = explode("_", $class);
+		$exploded_class[sizeof($exploded_class) - 1] = 'class-' . end($exploded_class);
+		$app_path = IFM_APP . strtolower(implode(DIRECTORY_SEPARATOR, $exploded_class)) . '.php';
+		$inc_path = IFM_INC . strtolower(implode(DIRECTORY_SEPARATOR, $exploded_class)) . '.php';
+		if (file_exists($app_path) && include_once($app_path)) {
+			return TRUE;
+		} elseif (file_exists($inc_path) && include_once($inc_path)) {
+			return TRUE;
+		} else {
+			trigger_error("The class '$class' or the file '$app_path' or '$inc_path' failed to spl_autoload  ", E_USER_WARNING);
+			return FALSE;
 		}
 	}
 
@@ -147,4 +139,4 @@ class Importer
 		require_once(dirname(__FILE__) . '/view/admin/errors/requirements-error.php');
 	}
 }
-Importer::run();
+Forum::run();

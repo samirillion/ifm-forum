@@ -61,7 +61,7 @@ class Controller_Post
 			$posts = Model_Post::sort_posts()[0];
 		}
 
-		return PostsContainer::render($posts, $params);
+		return View_Posts::render($posts, $params);
 	}
 
 	public function newpage()
@@ -175,7 +175,7 @@ class Controller_Post
 		$query     = Model_Post::sort_posts();
 		$pageposts = $query[0];
 
-		$content = PostTemplate::render($pageposts);
+		$content = View_Partials_Post::render($pageposts);
 		return $content;
 	}
 

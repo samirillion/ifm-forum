@@ -1,5 +1,7 @@
 <?php
 
+namespace IFM;
+
 /**
  * Template Name: Ifm Main Template
  * This is where all the magic happens! All ::render()  routes declared in routes.php have their callbacks run from this template,

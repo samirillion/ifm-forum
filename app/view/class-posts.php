@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-class PostsContainer
+class View_Posts
 {
 
 	public static function render($page_posts, $params)
@@ -18,10 +18,9 @@ class PostsContainer
 		$next_page   = add_query_arg('ifm_p', $page + 1, $with_params);
 ?>
 		<?php
-		require_once('partials/class-post-template.php');
 		require_once('partials/forum-nav.php');
 		if (is_array($page_posts) && [] !== $page_posts) {
-			$html = PostTemplate::render($page_posts);
+			$html = View_Partials_Post::render($page_posts);
 		?>
 			<div class="ifm-load-more">
 				<a href="<?php echo $next_page; ?>">

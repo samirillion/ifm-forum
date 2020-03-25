@@ -1,4 +1,7 @@
 <?php
+
+namespace IFM;
+
 class Mvc_View
 {
     public static function render(string $callback)
@@ -10,8 +13,10 @@ class Mvc_View
     protected function run_handler($callback)
     {
         $handler = explode('@', $callback);
-        $controller = new $handler[0];
-        $html = call_user_func(array($controller, $handler[1]));
+        $class = __NAMESPACE__ . '\\' . $handler[0];
+        $instance = new $class;
+        $method = $handler[1];
+        $html = call_user_func(array($instance, $method));
         return $html;
     }
 }
