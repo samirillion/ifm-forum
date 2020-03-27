@@ -9,6 +9,8 @@ namespace IFM;
  * 
  * @package Ifm
  */
+get_header();
+
 ob_start(); ?>
 
 <div class="container">
