@@ -43,7 +43,7 @@ class Forum
 		 */
 		if (self::requirements_met()) {
 
-			register_activation_hook(__FILE__, 'ifm_activated');
+			register_activation_hook(__FILE__, 'ifm_forum_activated');
 
 			// Enqueue Assets
 			require(IFM_BASE_PATH . 'enqueue.php');
@@ -53,6 +53,9 @@ class Forum
 
 			// Autoload everything Else
 			spl_autoload_register(array(new self, 'autoload'), true, false);
+
+			// Add Post, Taxonomy
+			require(IFM_INC . 'state/post-types.php');
 
 			// Require Routes
 			require(IFM_APP . 'routes.php');
@@ -122,9 +125,9 @@ class Forum
 	 *
 	 * @return void
 	 */
-	function plugin_activated()
+	function ifm_forum_activated()
 	{
-		// add redirect code here
+		require(IFM_INC . 'state/pages.php');
 	}
 
 	/**

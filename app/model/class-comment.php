@@ -35,7 +35,6 @@ class Model_Comment
 
 	public function comment($request, $params)
 	{
-		// xdebug_break();
 		$request;
 		$params;
 		$comment = wp_insert_comment(

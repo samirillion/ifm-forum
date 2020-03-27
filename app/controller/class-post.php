@@ -180,8 +180,8 @@ class Controller_Post
 		$aggregator     = $sorter_factory->get_sorter('News-Aggregator');
 
 		// add post definition details
-		$aggregator->define_post_type();
-		$aggregator->define_post_meta();
+		// $aggregator->define_post_type();
+		// $aggregator->define_post_meta();
 
 		// add metadata on post creation
 		// eventually add functionality to allow more vars in plugin

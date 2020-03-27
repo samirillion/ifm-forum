@@ -130,36 +130,4 @@ class Model_Aggregator
 			delete_post_meta($post_id, $meta_key, $meta_value);
 		}
 	}
-
-	public function define_post_meta()
-	{
-		register_taxonomy(
-			'aggpost-type',
-			'aggregator-posts',
-			array(
-				// Hierarchical taxonomy (like categories)
-				'hierarchical' => true,
-				// This array of options controls the labels displayed in the WordPress Admin UI
-				'labels'       => array(
-					'name'              => _x('Aggpost-type', 'taxonomy general name'),
-					'singular_name'     => _x('Aggpost-type', 'taxonomy singular name'),
-					'search_items'      => __('Search Aggpost-type'),
-					'all_items'         => __('All Aggpost-type'),
-					'parent_item'       => __('Parent Aggpost-type'),
-					'parent_item_colon' => __('Parent Aggpost-type:'),
-					'edit_item'         => __('Edit Aggpost-type'),
-					'update_item'       => __('Update Aggpost-type'),
-					'add_new_item'      => __('Add New Aggpost-type'),
-					'new_item_name'     => __('New Aggpost-type Name'),
-					'menu_name'         => __('Aggpost-types'),
-				),
-				// Control the slugs used for this taxonomy
-				'rewrite'      => array(
-					'slug'         => 'aggpost-types', // This controls the base slug that will display before each term
-					'with_front'   => false, // Don't display the category base before "/locations/"
-					'hierarchical' => true, // This will allow URL's like "/locations/boston/cambridge/"
-				),
-			)
-		);
-	}
 }
