@@ -43,7 +43,7 @@ class Forum
 		 */
 		if (self::requirements_met()) {
 
-			register_activation_hook(__FILE__, 'forum_activated');
+			register_activation_hook(__FILE__, 'ifm\Forum::forum_activated');
 
 			// Autoload Vendor Classes
 			require(IFM_BASE_PATH . 'vendor/autoload.php');
@@ -125,7 +125,7 @@ class Forum
 	 *
 	 * @return void
 	 */
-	function forum_activated()
+	public static function forum_activated()
 	{
 		// create any necessary pages on activation
 		require(IFM_INC . 'state/pages.php');

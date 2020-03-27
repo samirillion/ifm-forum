@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Set your app-specific constants here
