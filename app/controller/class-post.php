@@ -71,7 +71,7 @@ class Controller_Post
 	 */
 	public function submit()
 	{
-		$ifm_submit = new SubmitPost;
+		$ifm_submit = new View_Submit;
 		$ifm_submit->render();
 	}
 
@@ -111,7 +111,7 @@ class Controller_Post
 		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], 'aggpost-type', false);
 		wp_update_post($the_post);
 
-		wp_safe_redirect(home_url('forum'));
+		wp_safe_redirect(home_url(IFM_ROUTE_POSTS));
 	}
 
 	/**

@@ -51,6 +51,9 @@ class Forum
 			// Autoload everything Else
 			spl_autoload_register(array(new self, 'autoload'), true, false);
 
+			require_once(IFM_APP . 'controller/class-comment.php');
+			require_once(IFM_APP . 'controller/class-user.php');
+
 			// Enqueue Assets
 			require(IFM_BASE_PATH . 'enqueue.php');
 
@@ -91,7 +94,7 @@ class Forum
 		return true;
 	}
 	/**
-	 * Handles autoloading of MyPlugin classes.
+	 * Handles autoloading of the IFM Forum classes.
 	 *
 	 * @param string $class
 	 */
@@ -100,6 +103,7 @@ class Forum
 		if (0 !== strpos($class, 'IFM')) {
 			return;
 		}
+		xdebug_break();
 		// autoloader works as follows:
 		// 1. Checks `app` and `includes` directories
 		// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Set your app-specific constants here
  */
@@ -24,3 +25,9 @@ define('IFM_NAMESPACE', 'ifm');
 add_filter('rest_url_prefix', function ($prefix) {
     return IFM_API_PREFIX;
 });
+
+// Define Routes
+define('IFM_ROUTE_POSTS', 'connect');
+define('IFM_ROUTE_CREATE_POST', 'create-post');
+define('IFM_ROUTE_COMMENTS', 'comments');
+define('IFM_ROUTE_INBOX', 'inbox');

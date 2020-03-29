@@ -184,7 +184,7 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 			add_post_meta($post, 'aggregator_entry_url', $_POST['post-url'], true);
 		}
 
-		wp_redirect(home_url() . '/forum');
+		wp_redirect(home_url() . IFM_ROUTE_POSTS);
 		exit();
 	}
 }

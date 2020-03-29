@@ -16,21 +16,21 @@ Route::add_query_vars(
     )
 );
 
-// Posts Related Routes
-Route::render('/forum', 'Controller_Post@main');
-Route::render('/submit', 'Controller_Post@submit');
+// Routes for Views. Set in config.php, plan to add settings page
+Route::render(IFM_ROUTE_POSTS, 'Controller_Post@main');
+Route::render(IFM_ROUTE_CREATE_POST, 'Controller_Post@submit');
 
 // Comment Related Routes
-Route::render('/comments', 'Controller_Comment@main');
+Route::render(IFM_ROUTE_COMMENTS, 'Controller_Comment@main');
+
+// Register all the components of the Route object
+// Messaging Related Routes
+Route::render(IFM_ROUTE_INBOX, 'Controller_Messaging@inbox');
 
 // JSON Api Routes
 // Route::json_api('/comment', 'Controller_Comment@comment_on_post', 'post');
 // api/ifm/comment-on-post
-Route::json_api('/comment-on-post', 'Controller_Comment@comment_on_post', 'post');
-
-// Register all the components of the Route object
-// Messaging Related Routes
-Route::render('/inbox', 'Controller_Messaging@inbox');
+Route::json_api('/post-comment', 'Controller_Comment@comment_on_post', 'post');
 
 
 Route::register();
