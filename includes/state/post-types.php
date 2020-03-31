@@ -6,14 +6,14 @@ function forum_post_types()
         'aggregator-posts',
         array(
             'labels'              => array(
-                'name'               => __('Aggregator Posts', 'newsaggregator'), /* This is the Title of the Group */
-                'singular_name'      => __('Aggregator Post', 'newsaggregator'), /* This is the individual type */
-                'all_items'          => __('All Aggregator Posts', 'newsaggregator'), /* the all items menu item */
+                'name'               => __('Ifm Posts', 'newsaggregator'), /* This is the Title of the Group */
+                'singular_name'      => __('Ifm Post', 'newsaggregator'), /* This is the individual type */
+                'all_items'          => __('All Ifm Posts', 'newsaggregator'), /* the all items menu item */
                 'add_new'            => __('Add New', 'newsaggregator'), /* The add new menu item */
                 'add_new_item'       => __('Add New Aggregator Entry', 'newsaggregator'), /* Add New Display Title */
                 'edit'               => __('Edit', 'newsaggregator'), /* Edit Dialog */
-                'edit_item'          => __('Edit Aggregator Post', 'newsaggregator'), /* Edit Display Title */
-                'new_item'           => __('New Aggregator Post', 'newsaggregator'), /* New Display Title */
+                'edit_item'          => __('Edit Ifm Post', 'newsaggregator'), /* Edit Display Title */
+                'new_item'           => __('New Ifm Post', 'newsaggregator'), /* New Display Title */
                 'view_item'          => __('View Post Type', 'newsaggregator'), /* View Display Title */
                 'search_items'       => __('Search Post Type', 'newsaggregator'), /* Search Custom Type Title */
                 'not_found'          => __('Nothing found in the Database.', 'newsaggregator'), /* This displays if there are no entries yet */

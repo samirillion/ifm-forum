@@ -21,7 +21,7 @@ class View_Profile
 			echo "<a class='btn btn-default view-user-posts' href='" . add_query_arg('user_id', $user_id, home_url(IFM_ROUTE_POSTS)) . "'>" . $current_user->user_nicename . "'s posts</a>";
 		}
 		if (get_current_user_id() === (int) get_query_var('user_id')) {
-			echo "<div class='ifm-user-edit'><a href='" . home_url('my-account') . "'>Edit Your Profile</a></div>";
+			echo "<div class='ifm-user-edit'><a href='" . home_url(IFM_ROUTE_MY_ACCOUNT) . "'>Edit Your Profile</a></div>";
 		}
 		echo '</div>';
 	}

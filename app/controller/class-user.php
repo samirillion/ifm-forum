@@ -66,7 +66,7 @@ class Controller_User
 	{
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if (is_user_logged_in()) {
-			$userKarma = Model_User::calculate_user_karma(); ?><a href="<?php echo home_url('my-account'); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			$userKarma = Model_User::calculate_user_karma(); ?><a href="<?php echo home_url(IFM_ROUTE_MY_ACCOUNT); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
 		?>
@@ -410,7 +410,8 @@ class Controller_User
 		}
 		if ($args->theme_location == 'primary' && is_user_logged_in()) {
 			$userKarma = Model_User::calculate_user_karma();
-			$items    .= '<li><a href="' . home_url() . '/my-account" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
+			$items    .= '<li><a href="' . home_url() . IFM_ROUTE_MY_ACCOUNT;
+			'" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {
 			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url(IFM_ROUTE_POSTS)) . '">' . __('Login') . '</a></li>';
 		}

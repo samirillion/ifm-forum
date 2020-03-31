@@ -36,13 +36,13 @@ class Controller_Post
 		add_action('admin_post_edit_post', array($plugin, 'edit_post'));
 
 		// Limit media library access
-		// add_action( 'wp_ajax_nopriv_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
-		// add_action( 'wp_ajax_more_aggregator_posts', array( $plugin, 'load_more_posts' ) );
-		// add_action( 'wp_ajax_addComment', array( $plugin, 'add_comment' ) );
-		// add_action( 'wp_ajax_nopriv_addComment', array( $plugin, 'redirect_to_login_ajax' ) );
-		// add_action( 'wp_ajax_vote_on_comment', array( $plugin, 'vote_on_comment' ) );
-		// add_action( 'wp_ajax_nopriv_vote_on_comment', array( $plugin, 'redirect_to_login_ajax' ) );
-		// add_filter( 'ajax_query_attachments_args', array( $plugin, 'ifm_limit_media_upload_to_user' ) );
+		// add_action('wp_ajax_nopriv_more_aggregator_posts', array($plugin, 'load_more_posts'));
+		// add_action('wp_ajax_more_aggregator_posts', array($plugin, 'load_more_posts'));
+		// add_action('wp_ajax_addComment', array($plugin, 'add_comment'));
+		// add_action('wp_ajax_nopriv_addComment', array($plugin, 'redirect_to_login_ajax'));
+		// add_action('wp_ajax_vote_on_comment', array($plugin, 'vote_on_comment'));
+		// add_action('wp_ajax_nopriv_vote_on_comment', array($plugin, 'redirect_to_login_ajax'));
+		// add_filter('ajax_query_attachments_args', array($plugin, 'ifm_limit_media_upload_to_user'));
 	}
 
 	/**
