@@ -160,30 +160,10 @@ class Controller_Post
 	 *
 	 * @return void
 	 */
-	public function load_more_posts()
-	{
-		$query     = Model_Post::sort_posts();
-		$pageposts = $query[0];
-
-		xdebug_break();
-
-		$content = view('posts/single', $pageposts);
-		return $content;
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
 	public function generate_sorter()
 	{
 		$sorter_factory = new Model_SorterFactory;
 		$aggregator     = $sorter_factory->get_sorter('News-Aggregator');
-
-		// add post definition details
-		// $aggregator->define_post_type();
-		// $aggregator->define_post_meta();
 
 		// add metadata on post creation
 		// eventually add functionality to allow more vars in plugin

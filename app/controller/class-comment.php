@@ -7,7 +7,6 @@
 
 namespace IFM;
 
-
 class Controller_Comment
 {
 
@@ -34,7 +33,7 @@ class Controller_Comment
 		$ifm_comment = new Model_Comment;
 		$ifm_comment->comment($request, $params);
 
-		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_POST['post_id'], home_url('/comments'))));
+		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_POST['post_id'], home_url(IFM_ROUTE_COMMENTS))));
 	}
 
 	public function comment_on_comment()
@@ -51,7 +50,7 @@ class Controller_Comment
 		$comment_array  = json_decode(json_encode($comment_query), true);
 
 		$params = Router_Qvars::get_params();
-		return View_Comments::render($comment_array, $params);
+		return view('comments/comments', $comment_array, $params);
 	}
 
 	public function vote_on_comment()
