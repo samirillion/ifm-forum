@@ -18,7 +18,7 @@ class Controller_User
 		add_shortcode('custom-login-form', array($plugin, 'custom_login_form'));
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
-		add_shortcode('ifm-account-details', array($plugin, 'show_account_details'));
+		add_shortcode('account-info', array($plugin, 'show_account_details'));
 		add_shortcode('change-password', array($plugin, 'change_password_form'));
 		add_shortcode('user-profile', array($plugin, 'render_user_profile'));
 
@@ -46,7 +46,7 @@ class Controller_User
 
 	public function change_password_form()
 	{
-		ChangePassword::render();
+		View_ChangePass::render();
 	}
 
 	public function update_password()
@@ -137,7 +137,7 @@ class Controller_User
 			return __('You are already signed in.', 'personalize-login');
 		} else {
 			// Retrieve possible errors from request parameters
-			$crowd_form_renderer  = new FormRenderer;
+			$crowd_form_renderer  = new View_Form;
 			$attributes['errors'] = array();
 			if (isset($_REQUEST['errors'])) {
 				$error_codes = explode(',', $_REQUEST['errors']);
@@ -188,7 +188,7 @@ class Controller_User
 
 		$attributes['logged_out'] = isset($_REQUEST['logged_out']) && $_REQUEST['logged_out'] == true;
 
-		$crowd_login = new FormRenderer;
+		$crowd_login = new View_Form;
 		$content     = $crowd_login->render_form('login-form', $attributes);
 		return $content;
 	}
@@ -298,7 +298,7 @@ class Controller_User
 		} elseif (!get_option('users_can_register')) {
 			return __('Registering new users is currently not allowed.', 'personalize-login');
 		} else {
-			$crowd_form_renderer = new FormRenderer;
+			$crowd_form_renderer = new View_Form;
 			$content             = $crowd_form_renderer->render_form('register-form', $attributes);
 			return $content;
 		}
@@ -323,7 +323,7 @@ class Controller_User
 	private function register_user($email, $username, $password)
 	{
 		$errors              = new \WP_Error();
-		$crowd_form_renderer = new FormRenderer;
+		$crowd_form_renderer = new View_Form;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if (!is_email($email) && $email != 0) {
@@ -400,7 +400,7 @@ class Controller_User
 		if (!is_user_logged_in()) {
 			$this->redirect_to_login;
 		}
-		AccountDetails::render();
+		View_Account::render();
 	}
 
 	public function add_conditional_menu_items($items, $args)

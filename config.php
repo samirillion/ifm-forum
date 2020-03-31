@@ -30,4 +30,5 @@ add_filter('rest_url_prefix', function ($prefix) {
 define('IFM_ROUTE_POSTS', 'connect');
 define('IFM_ROUTE_CREATE_POST', 'create-post');
 define('IFM_ROUTE_COMMENTS', 'comments');
-define('IFM_ROUTE_INBOX', 'inbox');
+define('IFM_ROUTE_INBOX', 'my-inbox');
+define('IFM_MY_ACCOUNT', 'my-account');

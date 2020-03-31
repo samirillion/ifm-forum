@@ -133,7 +133,7 @@ class Controller_Post
 	 */
 	public function render_edit_post_container()
 	{
-		EditPost::render();
+		View_EditPost::render();
 	}
 
 	/**

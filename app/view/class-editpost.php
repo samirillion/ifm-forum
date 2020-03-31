@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-class EditPost
+class View_EditPost
 {
 
 	public static function render()

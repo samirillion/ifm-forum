@@ -8,7 +8,6 @@ class Router_Api_Router
 	protected $routes      = array();
 	protected $namespace   = '';
 	protected $route       = array();
-	protected $controllers = array();
 
 	public function __construct(array $routes)
 	{
@@ -29,13 +28,15 @@ class Router_Api_Router
 	}
 
 	// Register our routes.
-	protected function register_route(array $route)
+	public function register_route(array $route)
 	{
 		$http_method = $route['method'];
-		$controller          = explode('@', $route['callback'])[0];
+		$controller          = 'IFM\\' . explode('@', $route['callback'])[0];
 		$rest_controller = new $controller;
 		$method              = explode('@', $route['callback'])[1];
 		$permission_callback = array_key_exists('permission_callback', $route) ? $route['permission_callback'] : 'no_auth';
+
+		xdebug_break();
 
 		register_rest_route(
 			$this->namespace,

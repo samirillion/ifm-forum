@@ -103,7 +103,6 @@ class Forum
 		if (0 !== strpos($class, 'IFM')) {
 			return;
 		}
-		xdebug_break();
 		// autoloader works as follows:
 		// 1. Checks `app` and `includes` directories
 		// 2. From inside those directories, class name matches directory structure, e.g., class Path_To_Name

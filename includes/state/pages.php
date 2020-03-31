@@ -31,7 +31,7 @@ function create_forum_pages()
         ),
         'account-details'       => array(
             'post_title'   => __('My Account Details', 'account-details'),
-            'post_content' => '[ifm-account-details]',
+            'post_content' => '[account-info]',
         ),
         'change-password'       => array(
             'post_title'   => __('Change My Password', 'change-password'),

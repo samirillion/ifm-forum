@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-class FormRenderer
+class View_Form
 {
 
 	public function render_form($template_name, $attributes = null)

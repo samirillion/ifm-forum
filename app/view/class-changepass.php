@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-class ChangePassword
+class View_ChangePass
 {
 
 	public static function render()
