@@ -46,12 +46,12 @@ class Controller_Post
 	}
 
 	/**
-	 * Undocumented function
+	 * Returns Forum function
 	 *
 	 * @param array $search_results
 	 * @return void
 	 */
-	public function main()
+	public function forum()
 	{
 		$params = Router_Qvars::get_params();
 
@@ -61,7 +61,7 @@ class Controller_Post
 			$posts = Model_Post::sort_posts()[0];
 		}
 
-		return View_Posts::render($posts, $params);
+		return view('posts/forum', $posts, $params);
 	}
 
 	/**
@@ -165,7 +165,9 @@ class Controller_Post
 		$query     = Model_Post::sort_posts();
 		$pageposts = $query[0];
 
-		$content = View_Partials_Post::render($pageposts);
+		xdebug_break();
+
+		$content = view('posts/single', $pageposts);
 		return $content;
 	}
 

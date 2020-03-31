@@ -17,7 +17,7 @@ Route::add_query_vars(
 );
 
 // Routes for Views. Set in config.php, plan to add settings page
-Route::render(IFM_ROUTE_POSTS, 'Controller_Post@main');
+Route::render(IFM_ROUTE_POSTS, 'Controller_Post@forum');
 Route::render(IFM_ROUTE_CREATE_POST, 'Controller_Post@submit');
 
 // Comment Related Routes

@@ -60,6 +60,9 @@ class Forum
 			// Add Forum Post Type and Taxonomy
 			require(IFM_INC . 'state/post-types.php');
 
+			// Load Helper Functions
+			require(IFM_INC . 'helpers.php');
+
 			// Require Routes
 			require(IFM_APP . 'routes.php');
 		} else {
