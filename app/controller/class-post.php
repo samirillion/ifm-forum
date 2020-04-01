@@ -11,7 +11,6 @@ namespace IFM;
 
 class Controller_Post
 {
-
 	/**
 	 * Define Posts Per Page for Pagination. Eventually set in WordPress Admin.
 	 *
@@ -162,8 +161,7 @@ class Controller_Post
 	 */
 	public function generate_sorter()
 	{
-		$sorter_factory = new Model_SorterFactory;
-		$aggregator     = $sorter_factory->get_sorter('News-Aggregator');
+		$aggregator = new Controller_Sort;
 
 		// add metadata on post creation
 		// eventually add functionality to allow more vars in plugin
@@ -219,3 +217,5 @@ class Controller_Post
 		$crowd_posts->submit_post();
 	}
 }
+
+Controller_Post::register();

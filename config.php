@@ -27,8 +27,8 @@ add_filter('rest_url_prefix', function ($prefix) {
 });
 
 // Define Routes
-define('IFM_ROUTE_POSTS', 'connect');
-define('IFM_ROUTE_CREATE_POST', 'create-post');
-define('IFM_ROUTE_COMMENTS', 'comments');
-define('IFM_ROUTE_INBOX', 'my-inbox');
-define('IFM_ROUTE_MY_ACCOUNT', 'my-account');
+define('IFM_ROUTE_POSTS', '/connect');
+define('IFM_ROUTE_CREATE_POST', '/create-post');
+define('IFM_ROUTE_COMMENTS', '/comments');
+define('IFM_ROUTE_INBOX', '/my-inbox');
+define('IFM_ROUTE_MY_ACCOUNT', '/my-account');

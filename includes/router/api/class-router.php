@@ -36,8 +36,6 @@ class Router_Api_Router
 		$method              = explode('@', $route['callback'])[1];
 		$permission_callback = array_key_exists('permission_callback', $route) ? $route['permission_callback'] : 'no_auth';
 
-		xdebug_break();
-
 		register_rest_route(
 			$this->namespace,
 			$route['uri'],

@@ -53,6 +53,7 @@ class Forum
 
 			require_once(IFM_APP . 'controller/class-comment.php');
 			require_once(IFM_APP . 'controller/class-user.php');
+			require_once(IFM_APP . 'controller/class-post.php');
 
 			// Enqueue Assets
 			require(IFM_BASE_PATH . 'enqueue.php');

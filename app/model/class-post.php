@@ -8,6 +8,7 @@ namespace IFM;
 
 class Model_Post
 {
+	
 	public static function sort_posts($tax_term = '')
 	{
 		global $wpdb;

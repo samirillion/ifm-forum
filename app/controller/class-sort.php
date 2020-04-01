@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Sorter Class for Handling Aggregation
+ *
+ * @package IFM
+ */
+
 namespace IFM;
 
-class Model_Aggregator
+class Controller_Sort
 {
 	private $sorter;
 
