@@ -6,9 +6,9 @@
 
 namespace IFM;
 
+// Cannot Extend WP_Comment at this time, since WP_Comment was final class
 class Model_Comment
 {
-
 	// Information needed for creating the plugin's pages
 	public function query_comments()
 	{

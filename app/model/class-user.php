@@ -2,9 +2,8 @@
 
 namespace IFM;
 
-class Model_User
+class Model_User extends \WP_User
 {
-
 	public static function calculate_user_karma($user_id = -1)
 	{
 		global $wpdb;

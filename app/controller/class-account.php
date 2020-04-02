@@ -8,7 +8,7 @@
 namespace IFM;
 
 
-class Controller_User
+class Controller_Account
 {
 
 	public static function register()
@@ -265,7 +265,7 @@ class Controller_User
 
 	public function redirect_after_login()
 	{
-		$redirect_url = home_url() . IFM_ROUTE_POSTS;
+		$redirect_url = home_url() . IFM_ROUTE_FORUM;
 		$user = wp_get_current_user();
 
 		if (!isset($user->ID)) {
@@ -413,10 +413,10 @@ class Controller_User
 			$items    .= '<li><a href="' . home_url() . IFM_ROUTE_MY_ACCOUNT;
 			'" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {
-			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url(IFM_ROUTE_POSTS)) . '">' . __('Login') . '</a></li>';
+			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url(IFM_ROUTE_FORUM)) . '">' . __('Login') . '</a></li>';
 		}
 		return $items;
 	}
 }
 
-Controller_User::register();
+Controller_Account::register();

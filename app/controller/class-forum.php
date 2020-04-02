@@ -9,7 +9,7 @@
 namespace IFM;
 
 
-class Controller_Post
+class Controller_Forum
 {
 	/**
 	 * Define Posts Per Page for Pagination. Eventually set in WordPress Admin.
@@ -57,7 +57,7 @@ class Controller_Post
 		if (array_key_exists('ifm_query', $params)) {
 			$posts = $this->agg_search_posts($params);
 		} else {
-			$posts = Model_Post::sort_posts()[0];
+			$posts = Controller_Sort::sort_posts()[0];
 		}
 
 		return view('posts/forum', $posts, $params);
@@ -110,7 +110,7 @@ class Controller_Post
 		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], 'aggpost-type', false);
 		wp_update_post($the_post);
 
-		wp_safe_redirect(home_url(IFM_ROUTE_POSTS));
+		wp_safe_redirect(home_url(IFM_ROUTE_FORUM));
 	}
 
 	/**
@@ -218,4 +218,4 @@ class Controller_Post
 	}
 }
 
-Controller_Post::register();
+Controller_Forum::register();
