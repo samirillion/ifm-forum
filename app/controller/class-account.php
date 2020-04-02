@@ -18,7 +18,7 @@ class Controller_Account
 		add_shortcode('custom-login-form', array($plugin, 'custom_login_form'));
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
-		add_shortcode('account-info', array($plugin, 'show_account_details'));
+		add_shortcode('account-info', array($plugin, 'user_account'));
 		add_shortcode('change-password', array($plugin, 'change_password_form'));
 		add_shortcode('user-profile', array($plugin, 'render_user_profile'));
 
@@ -47,6 +47,14 @@ class Controller_Account
 	public function change_password_form()
 	{
 		View_ChangePass::render();
+	}
+
+	public function user_account()
+	{
+		if (!is_user_logged_in()) {
+			$this->redirect_to_login;
+		}
+		return view('user/account');
 	}
 
 	public function update_password()
@@ -227,7 +235,7 @@ class Controller_Account
 				wp_redirect(admin_url());
 			}
 		} else {
-			wp_redirect(home_url('member-account'));
+			wp_redirect(home_url(IFM_ROUTE_MY_ACCOUNT));
 		}
 	}
 
@@ -281,7 +289,7 @@ class Controller_Account
 			// }
 		} else {
 			// Non-admin users always go to their account page after login
-			$redirect_url = home_url('member-account');
+			$redirect_url = home_url(IFM_ROUTE_MY_ACCOUNT);
 		}
 
 		return wp_validate_redirect($redirect_url, home_url());
@@ -393,14 +401,6 @@ class Controller_Account
 			wp_redirect($redirect_url);
 			exit;
 		}
-	}
-
-	public function show_account_details()
-	{
-		if (!is_user_logged_in()) {
-			$this->redirect_to_login;
-		}
-		View_Account::render();
 	}
 
 	public function add_conditional_menu_items($items, $args)

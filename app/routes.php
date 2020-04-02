@@ -28,7 +28,7 @@ Route::render(IFM_ROUTE_COMMENTS, 'Controller_Comment@main');
 Route::render(IFM_ROUTE_INBOX, 'Controller_Messaging@inbox');
 
 // Messaging Related Routes
-Route::render(IFM_ROUTE_MY_ACCOUNT, 'Controller_Account@show_account_details');
+Route::render(IFM_ROUTE_MY_ACCOUNT, 'Controller_Account@user_account');
 
 // JSON Api Routes
 // Route::json_api('/comment', 'Controller_Comment@comment_on_post', 'post');

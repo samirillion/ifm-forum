@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class Controller_Inbox
+class Controller_Mailbox
 {
     public function main()
     {

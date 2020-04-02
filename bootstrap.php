@@ -145,7 +145,6 @@ class Forum
 	 */
 	function show_requirements_error()
 	{
-
 		global $wp_version;
 		require_once(dirname(__FILE__) . '/view/admin/errors/requirements-error.php');
 	}

@@ -1,10 +1,11 @@
 <?php
+$page_posts = $data;
+
 global $wp;
 $page = array_key_exists('ifm_p', $params) ? $params['ifm_p'] : 1;
 $current_url = home_url(add_query_arg(array(), $wp->request));
 $with_params = add_query_arg($params, $current_url);
 $next_page   = add_query_arg('ifm_p', $page + 1, $with_params);
-$page_posts = $data;
 ?>
 <?php
 
