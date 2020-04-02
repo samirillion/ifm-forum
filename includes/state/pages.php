@@ -53,9 +53,9 @@ function create_forum_pages()
             // Add the page using the data from the array above
             wp_insert_post(
                 array(
-                    'post_content'   => $page['content'],
+                    'post_content'   => $page['post_content'],
                     'post_name'      => $slug,
-                    'post_title'     => $page['title'],
+                    'post_title'     => $page['post_title'],
                     'post_status'    => 'publish',
                     'post_type'      => 'page',
                     'ping_status'    => 'closed',

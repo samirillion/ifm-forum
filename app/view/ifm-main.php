@@ -13,9 +13,9 @@ get_header();
 
 ob_start(); ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
+<div class="ifm-container">
+    <div class="ifm-row">
+        <div class="ifm-column">
             <div class="ifm-container">
                 <?php
                 Mvc_View::render($wp->query_vars['ifm']);

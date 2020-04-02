@@ -1,27 +1,29 @@
 <?php
+
 namespace ifm;
+
 function forum_post_types()
 {
     $custom_post_args = array(
-        'aggregator-posts',
+        'ifm-posts',
         array(
             'labels'              => array(
-                'name'               => __('Ifm Posts', 'newsaggregator'), /* This is the Title of the Group */
-                'singular_name'      => __('Ifm Post', 'newsaggregator'), /* This is the individual type */
-                'all_items'          => __('All Ifm Posts', 'newsaggregator'), /* the all items menu item */
-                'add_new'            => __('Add New', 'newsaggregator'), /* The add new menu item */
-                'add_new_item'       => __('Add New Aggregator Entry', 'newsaggregator'), /* Add New Display Title */
-                'edit'               => __('Edit', 'newsaggregator'), /* Edit Dialog */
-                'edit_item'          => __('Edit Ifm Post', 'newsaggregator'), /* Edit Display Title */
-                'new_item'           => __('New Ifm Post', 'newsaggregator'), /* New Display Title */
-                'view_item'          => __('View Post Type', 'newsaggregator'), /* View Display Title */
-                'search_items'       => __('Search Post Type', 'newsaggregator'), /* Search Custom Type Title */
-                'not_found'          => __('Nothing found in the Database.', 'newsaggregator'), /* This displays if there are no entries yet */
-                'not_found_in_trash' => __('Nothing found in Trash', 'newsaggregator'), /* This displays if there is nothing in the trash */
+                'name'               => __('Forum Posts', 'ifm-forum'), /* This is the Title of the Group */
+                'singular_name'      => __('Forum Post', 'ifm-forum'), /* This is the individual type */
+                'all_items'          => __('All Forum Posts', 'ifm-forum'), /* the all items menu item */
+                'add_new'            => __('Add New', 'ifm-forum'), /* The add new menu item */
+                'add_new_item'       => __('Add New Aggregator Entry', 'ifm-forum'), /* Add New Display Title */
+                'edit'               => __('Edit', 'ifm-forum'), /* Edit Dialog */
+                'edit_item'          => __('Edit Forum Post', 'ifm-forum'), /* Edit Display Title */
+                'new_item'           => __('New Forum Post', 'ifm-forum'), /* New Display Title */
+                'view_item'          => __('View Post Type', 'ifm-forum'), /* View Display Title */
+                'search_items'       => __('Search Post Type', 'ifm-forum'), /* Search Custom Type Title */
+                'not_found'          => __('Nothing found in the Database.', 'ifm-forum'), /* This displays if there are no entries yet */
+                'not_found_in_trash' => __('Nothing found in Trash', 'ifm-forum'), /* This displays if there is nothing in the trash */
                 'parent_item_colon'  => '',
             ), /* end of arrays */
-            'menu_icon'           => __('dashicons-share', 'newsaggregator'),
-            'description'         => __('For posting to the newsaggregator', 'newsaggregator'), /* Custom Type Description */
+            'menu_icon'           => __('dashicons-share', 'ifm-forum'),
+            'description'         => __('For posting to the ifm-forum', 'ifm-forum'), /* Custom Type Description */
             'public'              => true,
             'publicly_queryable'  => true,
             'exclude_from_search' => false,
@@ -45,27 +47,27 @@ function forum_post_types()
 
     $custom_taxonomy_args = array(
         'aggpost-type',
-        'aggregator-posts',
+        'ifm-posts',
         array(
             // Hierarchical taxonomy (like categories)
             'hierarchical' => true,
             // This array of options controls the labels displayed in the WordPress Admin UI
             'labels'       => array(
-                'name'              => _x('Aggpost-type', 'taxonomy general name'),
-                'singular_name'     => _x('Aggpost-type', 'taxonomy singular name'),
-                'search_items'      => __('Search Aggpost-type'),
-                'all_items'         => __('All Aggpost-type'),
-                'parent_item'       => __('Parent Aggpost-type'),
-                'parent_item_colon' => __('Parent Aggpost-type:'),
-                'edit_item'         => __('Edit Aggpost-type'),
-                'update_item'       => __('Update Aggpost-type'),
-                'add_new_item'      => __('Add New Aggpost-type'),
-                'new_item_name'     => __('New Aggpost-type Name'),
-                'menu_name'         => __('Aggpost-types'),
+                'name'              => _x('Forum Post Type', 'taxonomy general name'),
+                'singular_name'     => _x('Forum Post Type', 'taxonomy singular name'),
+                'search_items'      => __('Search Forum Post Types'),
+                'all_items'         => __('All Forum Post Types'),
+                'parent_item'       => __('Parent Forum Post Type'),
+                'parent_item_colon' => __('Parent Forum Post Type:'),
+                'edit_item'         => __('Edit Forum Post Type'),
+                'update_item'       => __('Update Forum Post Type'),
+                'add_new_item'      => __('Add New Forum Post Type'),
+                'new_item_name'     => __('New Forum Post Type Name'),
+                'menu_name'         => __('Forum Post Types'),
             ),
             // Control the slugs used for this taxonomy
             'rewrite'      => array(
-                'slug'         => 'aggpost-types', // This controls the base slug that will display before each term
+                'slug'         => 'ifm-post-types', // This controls the base slug that will display before each term
                 'with_front'   => false, // Don't display the category base before "/locations/"
                 'hierarchical' => true, // This will allow URL's like "/locations/boston/cambridge/"
             ),

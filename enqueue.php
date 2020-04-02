@@ -5,10 +5,10 @@
  */
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('style.css', plugins_url('assets/style.css', __FILE__), null);
-    wp_register_script('news-aggregator', plugins_url('assets/js/main.js', __FILE__), array('jquery'));
+    wp_register_script('ifm-forum-js', plugins_url('assets/js/main.js', __FILE__), array('jquery'));
     wp_register_script('toggle-switch', plugins_url('assets/js/toggle-switch.js', __FILE__), array('jquery'));
     wp_localize_script(
-        'news-aggregator',
+        'ifm-forum-js',
         'myAjax',
         array(
             'ajaxurl'     => admin_url('admin-ajax.php'),
@@ -19,5 +19,5 @@ add_action('wp_enqueue_scripts', function () {
         )
     );
     wp_enqueue_script('toggle-switch');
-    wp_enqueue_script('news-aggregator');
+    wp_enqueue_script('ifm-forum-js');
 });
