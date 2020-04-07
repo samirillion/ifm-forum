@@ -21,7 +21,7 @@ class Route
         Router_Web::render($uri, $callback);
         return __CLASS__;
     }
-    public static function json_api($uri, $callback, $method = "WP_REST_Server::READABLE")
+    public static function json($uri, $callback, $method = "WP_REST_Server::READABLE")
     {
         Router_Api::{$method}($uri, $callback);
         return __CLASS__;

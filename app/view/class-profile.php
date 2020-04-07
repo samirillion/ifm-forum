@@ -17,11 +17,11 @@ class View_Profile
 		if (get_user_meta($user_id, 'about_user', true)) {
 			echo '<h5>About:</h5><div class="ifm-about-user">' . stripslashes(get_user_meta($user_id, 'about_user', true)) . '</div>';
 		}
-		if (count_user_posts($user_id, 'ifm-posts')) {
+		if (count_user_posts($user_id, IFM_POST_TYPE)) {
 			echo "<a class='btn btn-default view-user-posts' href='" . add_query_arg('user_id', $user_id, home_url(IFM_ROUTE_FORUM)) . "'>" . $current_user->user_nicename . "'s posts</a>";
 		}
 		if (get_current_user_id() === (int) get_query_var('user_id')) {
-			echo "<div class='ifm-user-edit'><a href='" . home_url(IFM_ROUTE_MY_ACCOUNT) . "'>Edit Your Profile</a></div>";
+			echo "<div class='ifm-user-edit'><a href='" . home_url(IFM_ROUTE_ACCOUNT) . "'>Edit Your Profile</a></div>";
 		}
 		echo '</div>';
 	}

@@ -6,7 +6,7 @@
 
 namespace IFM;
 
-// Cannot Extend WP_Post at this time, since WP_Post was final class
+// Cannot Extend WP_Post at this time, since WP_Post is a final class
 class Model_Post
 {
 	public function update_post_karma()
@@ -92,7 +92,7 @@ class Model_Post
 		// }
 		$post_array = array(
 			'post_title'  => sanitize_text_field($_POST['post-title']),
-			'post_type'   => 'ifm-posts',
+			'post_type'   => IFM_POST_TYPE,
 			'post_status' => 'publish',
 		);
 

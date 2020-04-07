@@ -41,7 +41,7 @@ class Controller_Sort
         LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id=$wpdb->posts.ID
         LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
         INNER JOIN $wpdb->terms ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-        WHERE $wpdb->posts.post_type= 'ifm-posts'
+        WHERE $wpdb->posts.post_type= 'ifm-post'
         " . $filter_by . "
         AND $wpdb->posts.post_status = 'publish'
       ORDER BY  (
@@ -55,7 +55,7 @@ class Controller_Sort
 LIMIT " . $offset . ', ' . $ppp . '; ';
 
 		$pageposts = $wpdb->get_results($query_str, OBJECT);
-		// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='ifm-posts';");
+		// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type=IFM_POST_TYPE;");
 		// $max_num_pages = ceil($sql_posts_total / $ppp);
 		return [$pageposts, $page];
 	}
@@ -82,7 +82,7 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 			'ifm-entry-karma',      // Unique ID
 			esc_html__('Forum Entry Karma', 'example'),    // Title
 			array($this, 'ifm_entry_karma_meta_box'),   // Callback function
-			'ifm-posts',         // Admin page (or post type)
+			IFM_POST_TYPE,         // Admin page (or post type)
 			'side',         // Context
 			'high'         // Priority
 		);
@@ -94,7 +94,7 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 			'ifm-entry-url',      // Unique ID
 			esc_html__('Forum Entry Url', 'example'),    // Title
 			array($this, 'ifm_entry_url_meta_box'),   // Callback function
-			'ifm-posts',         // Admin page (or post type)
+			IFM_POST_TYPE,         // Admin page (or post type)
 			'normal',         // Context
 			'high'         // Priority
 		);

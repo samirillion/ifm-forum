@@ -18,9 +18,9 @@ class Controller_Account
 		add_shortcode('custom-login-form', array($plugin, 'custom_login_form'));
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
-		add_shortcode('account-info', array($plugin, 'user_account'));
+		add_shortcode('account-info', array($plugin, 'main'));
 		add_shortcode('change-password', array($plugin, 'change_password_form'));
-		add_shortcode('user-profile', array($plugin, 'render_user_profile'));
+		add_shortcode(IFM_ROUTE_ACCOUNT, array($plugin, 'render_user_profile'));
 
 		add_action('admin_post_nopriv_registration_form', array($plugin, 'register_account'));
 		add_action('login_form_login', array($plugin, 'redirect_to_custom_login'));
@@ -37,6 +37,15 @@ class Controller_Account
 		add_action('admin_post_change_password', array($plugin, 'update_password'));
 
 		add_filter('wp_nav_menu_items', array($plugin, 'add_conditional_menu_items'), 10, 2);
+
+		add_action('after_setup_theme', array($plugin, 'remove_admin_bar'), 10, 2);
+	}
+
+	public function remove_admin_bar()
+	{
+		if (!current_user_can('administrator') && !is_admin()) {
+			show_admin_bar(false);
+		}
 	}
 
 	public function render_user_profile()
@@ -49,7 +58,7 @@ class Controller_Account
 		View_ChangePass::render();
 	}
 
-	public function user_account()
+	public function main()
 	{
 		if (!is_user_logged_in()) {
 			$this->redirect_to_login;
@@ -74,7 +83,7 @@ class Controller_Account
 	{
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if (is_user_logged_in()) {
-			$userKarma = Model_User::calculate_user_karma(); ?><a href="<?php echo home_url(IFM_ROUTE_MY_ACCOUNT); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			$userKarma = Model_User::calculate_user_karma(); ?><a href="<?php echo home_url(IFM_ROUTE_ACCOUNT); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
 		?>
@@ -235,7 +244,7 @@ class Controller_Account
 				wp_redirect(admin_url());
 			}
 		} else {
-			wp_redirect(home_url(IFM_ROUTE_MY_ACCOUNT));
+			wp_redirect(home_url(IFM_ROUTE_ACCOUNT));
 		}
 	}
 
@@ -289,7 +298,7 @@ class Controller_Account
 			// }
 		} else {
 			// Non-admin users always go to their account page after login
-			$redirect_url = home_url(IFM_ROUTE_MY_ACCOUNT);
+			$redirect_url = home_url(IFM_ROUTE_ACCOUNT);
 		}
 
 		return wp_validate_redirect($redirect_url, home_url());
@@ -410,7 +419,7 @@ class Controller_Account
 		}
 		if ($args->theme_location == 'primary' && is_user_logged_in()) {
 			$userKarma = Model_User::calculate_user_karma();
-			$items    .= '<li><a href="' . home_url() . IFM_ROUTE_MY_ACCOUNT;
+			$items    .= '<li><a href="' . home_url() . IFM_ROUTE_ACCOUNT;
 			'" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {
 			$items .= '<li><a title="Login" href="' . esc_url(wp_login_url(IFM_ROUTE_FORUM)) . '">' . __('Login') . '</a></li>';

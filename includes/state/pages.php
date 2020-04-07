@@ -42,7 +42,7 @@ function create_forum_pages()
             'post_content' => '[edit-aggpost]',
         ),
         'view-user-profile'     => array(
-            'post_title'   => __('View User Profile', 'user-profile'),
+            'post_title'   => __('View User Profile', IFM_ROUTE_ACCOUNT),
             'post_content' => '[user-profile]',
         ),
     );

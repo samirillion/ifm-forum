@@ -50,14 +50,14 @@ class Controller_Forum
 	 * @param array $search_results
 	 * @return void
 	 */
-	public function forum()
+	public function main()
 	{
 		$params = Router_Qvars::get_params();
 
 		if (array_key_exists('ifm_query', $params)) {
 			$posts = $this->agg_search_posts($params);
 		} else {
-			$posts = Controller_Sort::sort_posts()[0];
+			$posts = Model_Post::get_many()[0];
 		}
 
 		return view('posts/forum', $posts, $params);
@@ -147,7 +147,7 @@ class Controller_Forum
 		$query->query_vars['posts_per_page'] = $this->posts_per_page;
 		$posts                               = [];
 		foreach (relevanssi_do_query($query) as $post) {
-			if ('ifm-posts' === $post->post_type) {
+			if (IFM_POST_TYPE === $post->post_type) {
 				$posts[] = $post;
 			}
 		}

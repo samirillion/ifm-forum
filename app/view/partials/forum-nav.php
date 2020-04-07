@@ -23,7 +23,7 @@ if (isset($user_nav_item)) {
 } else {
 ?>
 	<div class="ifm-submit-post">
-		<a href="<?php echo home_url('/' . IFM_ROUTE_CREATE_POST); ?>">+ Submit New Post</a>
+		<a href="<?php echo home_url('/' . IFM_ROUTE_POST_CREATE); ?>">+ Submit New Post</a>
 	</div>
 	<nav class="ifm-nav">
 		<ul class="ifm-post-types">

@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-/* Define Custom Query Vars Here. https://codex.wordpress.org/WordPress_Router_Qvars */
+/* Define Custom Query Vars. https://codex.wordpress.org/WordPress_Router_Qvars */
 
 Route::add_query_vars(
     array(
@@ -16,24 +16,20 @@ Route::add_query_vars(
     )
 );
 
-// Routes for Views. Set in config.php, plan to add settings page
-Route::render(IFM_ROUTE_FORUM, 'Controller_Forum@forum');
-Route::render(IFM_ROUTE_CREATE_POST, 'Controller_Forum@submit');
+// Forum Routes
+Route::render(IFM_ROUTE_FORUM, 'Controller_Forum@main');
+Route::render(IFM_ROUTE_POST_CREATE, 'Controller_Forum@submit');
 
-// Comment Related Routes
+// Comment Routes
 Route::render(IFM_ROUTE_COMMENTS, 'Controller_Comment@main');
+Route::json('/post-comment', 'Controller_Comment@comment_on_post', 'post');
 
-// Register all the components of the Route object
-// Messaging Related Routes
-Route::render(IFM_ROUTE_INBOX, 'Controller_Messaging@inbox');
+// Messaging Routes
+Route::render(IFM_ROUTE_INBOX, 'Controller_Messaging@main');
 
-// Messaging Related Routes
-Route::render(IFM_ROUTE_MY_ACCOUNT, 'Controller_Account@user_account');
-
-// JSON Api Routes
-// Route::json_api('/comment', 'Controller_Comment@comment_on_post', 'post');
-// api/ifm/comment-on-post
-Route::json_api('/post-comment', 'Controller_Comment@comment_on_post', 'post');
+// User Routes
+Route::render(IFM_ROUTE_ACCOUNT, 'Controller_Account@main');
 
 
+// Register Routes
 Route::register();

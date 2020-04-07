@@ -19,9 +19,8 @@ define('IFM_VIEW', IFM_BASE_PATH . 'app/view/');
 /**
  * Define Post Types
  */
-define('IFM_POST_TYPE_NAME', 'ifm-post');
+define('IFM_POST_TYPE', 'ifm-post');
 define('IFM_POST_TAXONOMY_NAME', 'ifm-post-type');
-
 
 /**
  * Set to determine the base namespace for the router. 
@@ -33,10 +32,11 @@ add_filter('rest_url_prefix', function ($prefix) {
     return IFM_API_PREFIX;
 });
 
-// Define Base Routes
+/**
+ * Define Base Routes
+ */
 define('IFM_ROUTE_FORUM', '/' . IFM_NAMESPACE . '/forum');
 define('IFM_ROUTE_COMMENTS', '/' . IFM_NAMESPACE . '/comments');
 define('IFM_ROUTE_INBOX', '/' . IFM_NAMESPACE . '/inbox');
-define('IFM_ROUTE_MY_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
-
-define('IFM_ROUTE_CREATE_POST', '/' . IFM_NAMESPACE . '/create');
+define('IFM_ROUTE_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
+define('IFM_ROUTE_POST_CREATE', '/' . IFM_NAMESPACE . '/create');
