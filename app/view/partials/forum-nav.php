@@ -35,7 +35,7 @@ if (isset($user_nav_item)) {
 			<?php
 			$custom_terms = get_terms(
 				array(
-					'taxonomy'   => 'aggpost-type',
+					'taxonomy'   => IFM_POST_TAXONOMY_NAME,
 					'hide_empty' => false,
 				)
 			);

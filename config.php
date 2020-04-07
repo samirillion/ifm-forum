@@ -17,6 +17,13 @@ define('IFM_ASSET', IFM_BASE_PATH . 'app/view/assets/');
 define('IFM_VIEW', IFM_BASE_PATH . 'app/view/');
 
 /**
+ * Define Post Types
+ */
+define('IFM_POST_TYPE_NAME', 'ifm-post');
+define('IFM_POST_TAXONOMY_NAME', 'ifm-post-type');
+
+
+/**
  * Set to determine the base namespace for the router. 
  */
 define('IFM_API_PREFIX', 'api');

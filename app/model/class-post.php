@@ -11,7 +11,7 @@ class Model_Post
 {
 	public function update_post_karma()
 	{
-		if (!wp_verify_nonce($_REQUEST['nonce'], 'aggregator_page_nonce')) {
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'ifm_page_nonce')) {
 			exit('No naughty business please');
 		}
 		global $wpdb;
@@ -87,17 +87,17 @@ class Model_Post
 	public function submit_post()
 	{
 		// $nonce = $_POST['nonce'];
-		// if (! wp_verify_nonce( $nonce, 'submit_aggregator_post' )) {
+		// if (! wp_verify_nonce( $nonce, 'submit_ifm_post' )) {
 		// exit("No naughty business please");
 		// }
 		$post_array = array(
 			'post_title'  => sanitize_text_field($_POST['post-title']),
-			'post_type'   => 'aggregator-posts',
+			'post_type'   => 'ifm-posts',
 			'post_status' => 'publish',
 		);
 
 		$post_content = wp_kses_post($_POST['post-text-content']);
-		if ($_POST['link-toggle'] && strlen(trim($_POST['post-text-content']))) {
+		if (isset($_POST['link-toggle']) && strlen(trim($_POST['post-text-content']))) {
 			$post_array['post_content'] = wp_kses_post($_POST['post-text-content']);
 			$is_url                     = false;
 		} else {
@@ -117,7 +117,7 @@ class Model_Post
 		);
 
 		if ($is_url) {
-			add_post_meta($post, 'aggregator_entry_url', $_POST['post-url'], true);
+			add_post_meta($post, 'ifm_entry_url', $_POST['post-url'], true);
 		}
 
 		wp_redirect(home_url() . IFM_ROUTE_FORUM);

@@ -18,7 +18,7 @@ if (is_array($page_posts) && [] !== $page_posts) {
 ?>
     <div class="ifm-load-more">
         <a href="<?php echo $next_page; ?>">
-            <?php esc_html_e('Load More Posts', 'aggregator'); ?>
+            <?php esc_html_e('Load More Posts', 'ifm'); ?>
         </a>
     </div>
 <?php

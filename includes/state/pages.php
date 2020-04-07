@@ -6,7 +6,7 @@ function create_forum_pages()
 {
     $page_definitions = array(
         'main'                  => array(
-            'post_title'   => __('Aggregator', 'personalize-login'),
+            'post_title'   => __('Forum', 'personalize-login'),
             'post_content' => '[ifm-container]',
         ),
         'member-login'          => array(

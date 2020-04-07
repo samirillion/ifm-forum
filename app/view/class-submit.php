@@ -18,7 +18,7 @@ class View_Submit
 		wp_cache_flush();
 		$customterms = get_terms(
 			array(
-				'taxonomy'   => 'aggpost-type',
+				'taxonomy'   => IFM_POST_TAXONOMY_NAME,
 				'hide_empty' => false,
 			)
 		);
@@ -38,21 +38,17 @@ class View_Submit
 				</p>
 				<p class="form-row">
 					<label for="post-title"><?php _e('Post Title', 'submit-post'); ?></label>
-					<br>
 					<input type="text" name="post-title" id="post-title" class="post-input" required>
 				</p>
 				<p class="form-row">
 					<label for="link-or-oc-toggle"><?php _e('URL or Text?', 'submit-post'); ?></label>
-					<br>
 					<input type="checkbox" name="link-toggle" id="link-toggle" class="post-input lcs_check">
 				</p>
 				<p class="form-row new-post-url">
 					<label for="url"><?php _e('URL', 'submit-post'); ?></label>
-					<br>
 					<input type="url" name="post-url" id="new-post-url" class="post-input" required>
 				</p>
 				<label for="content"><?php _e('Content', 'submit-post'); ?></label>
-				<br>
 				<?php
 				wp_editor(
 					'',
@@ -65,7 +61,7 @@ class View_Submit
 						'media_buttons' => true,
 					)
 				);
-				wp_nonce_field('submit_aggregator_post');
+				wp_nonce_field('submit_ifm_post');
 				?>
 				<br>
 				<p class="signup-submit">

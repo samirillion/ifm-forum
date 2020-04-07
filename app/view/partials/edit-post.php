@@ -2,7 +2,7 @@
 	<?php
 	$post         = get_post( get_query_var( 'ifm_post_id' ) );
 	$post_content = get_post( $post )->post_content;
-	$post_url     = get_post_meta( $post->ID, 'aggregator_entry_url', true );
+	$post_url     = get_post_meta( $post->ID, 'ifm_entry_url', true );
 	?>
 	<p class="form-row">
 		<label for="post-title"><?php _e( 'Post Title', 'submit-post' ); ?></label>
@@ -55,7 +55,7 @@
 			<input type="url" name="post-url" id="post-url" class="post-input" value="<?php echo $post_url; ?>" required>
 		</p>
 	<?php } ?>
-	<?php wp_nonce_field( 'submit_aggregator_post' ); ?>
+	<?php wp_nonce_field( 'submit_ifm_post' ); ?>
 
 	<p class="edit-submit">
 		<input type="submit" name="submit" class="edit-post-button" value="<?php _e( 'Submit', 'edit-post' ); ?>" />

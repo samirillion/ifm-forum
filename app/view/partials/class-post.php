@@ -16,13 +16,13 @@ class View_Partials_Post
 			$post_ID       = $post->ID;
 			$post_date_gmt = strtotime($post->post_date_gmt);
 			$postmeta      = get_post_meta($post_ID);
-			$nonce         = wp_create_nonce('aggregator_page_nonce');
+			$nonce         = wp_create_nonce('ifm_page_nonce');
 			$commentslink  = add_query_arg('ifm_post_id', $post_ID, home_url('comments'));
 			if (get_post($post_ID)->post_content != '') {
 				$posturl = $commentslink;
 				$target  = '';
 			} else {
-				$posturl = $postmeta['aggregator_entry_url']['0'];
+				$posturl = $postmeta['ifm_entry_url']['0'];
 				$target  = "target='_blank'";
 			}
 			$link     = admin_url('admin-ajax.php?action=add_entry_karma&post_id=' . $post_ID . '&nonce=' . $nonce);

@@ -2,9 +2,9 @@
 $comment_query = $data;
 $ifm_post_id = $params['ifm_post_id'];
 
-if (isset(get_post_meta($ifm_post_id)['aggregator_entry_url']['0'])) {
-    $post_title_content = '<a href="' . get_post_meta($ifm_post_id)['aggregator_entry_url']['0'] . '" target="_blank">' . get_the_title($ifm_post_id) . '</a>';
-    $post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($ifm_post_id)['aggregator_entry_url']['0'] . '">' . get_post_meta($ifm_post_id)['aggregator_entry_url']['0'] . '</a> &ndash; ';
+if (isset(get_post_meta($ifm_post_id)['ifm_entry_url']['0'])) {
+    $post_title_content = '<a href="' . get_post_meta($ifm_post_id)['ifm_entry_url']['0'] . '" target="_blank">' . get_the_title($ifm_post_id) . '</a>';
+    $post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($ifm_post_id)['ifm_entry_url']['0'] . '">' . get_post_meta($ifm_post_id)['ifm_entry_url']['0'] . '</a> &ndash; ';
 } else {
     $post_title_content = get_the_title($ifm_post_id);
     $post_url           = '';

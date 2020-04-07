@@ -35,8 +35,8 @@ class Controller_Forum
 		add_action('admin_post_edit_post', array($plugin, 'edit_post'));
 
 		// Limit media library access
-		// add_action('wp_ajax_nopriv_more_aggregator_posts', array($plugin, 'load_more_posts'));
-		// add_action('wp_ajax_more_aggregator_posts', array($plugin, 'load_more_posts'));
+		// add_action('wp_ajax_nopriv_more_ifm_posts', array($plugin, 'load_more_posts'));
+		// add_action('wp_ajax_more_ifm_posts', array($plugin, 'load_more_posts'));
 		// add_action('wp_ajax_addComment', array($plugin, 'add_comment'));
 		// add_action('wp_ajax_nopriv_addComment', array($plugin, 'redirect_to_login_ajax'));
 		// add_action('wp_ajax_vote_on_comment', array($plugin, 'vote_on_comment'));
@@ -105,7 +105,7 @@ class Controller_Forum
 		if ('' !== $_POST['post-text-content']) {
 			$the_post['post_content'] = $_POST['post-text-content'];
 		} else {
-			update_post_meta($_POST['post-id'], 'aggregator_entry_url', $_POST['post-url']);
+			update_post_meta($_POST['post-id'], 'ifm_entry_url', $_POST['post-url']);
 		}
 		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], 'aggpost-type', false);
 		wp_update_post($the_post);
@@ -147,7 +147,7 @@ class Controller_Forum
 		$query->query_vars['posts_per_page'] = $this->posts_per_page;
 		$posts                               = [];
 		foreach (relevanssi_do_query($query) as $post) {
-			if ('aggregator-posts' === $post->post_type) {
+			if ('ifm-posts' === $post->post_type) {
 				$posts[] = $post;
 			}
 		}
@@ -161,13 +161,13 @@ class Controller_Forum
 	 */
 	public function generate_sorter()
 	{
-		$aggregator = new Controller_Sort;
+		$ifm = new Controller_Sort;
 
 		// add metadata on post creation
 		// eventually add functionality to allow more vars in plugin
-		add_action('load-post.php', array($aggregator, 'define_post_meta_on_load'));
-		add_action('load-post-new.php', array($aggregator, 'define_post_meta_on_load'));
-		add_action('publish_aggregator-posts', array($aggregator, 'define_meta_on_publish'));
+		add_action('load-post.php', array($ifm, 'define_post_meta_on_load'));
+		add_action('load-post-new.php', array($ifm, 'define_post_meta_on_load'));
+		add_action('publish_ifm-posts', array($ifm, 'define_meta_on_publish'));
 	}
 
 	/**

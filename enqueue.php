@@ -12,7 +12,7 @@ add_action('wp_enqueue_scripts', function () {
         'myAjax',
         array(
             'ajaxurl'     => admin_url('admin-ajax.php'),
-            'noposts'     => esc_html__('No older posts found', 'aggregator'),
+            'noposts'     => esc_html__('No older posts found', 'ifm'),
             'ifm_tax' => get_query_var('ifm_tax'),
             'loggedIn'  => is_user_logged_in(),
             'loginPage' => home_url('member-login'),

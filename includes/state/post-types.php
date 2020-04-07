@@ -5,7 +5,7 @@ namespace ifm;
 function forum_post_types()
 {
     $custom_post_args = array(
-        'ifm-posts',
+        IFM_POST_TYPE_NAME,
         array(
             'labels'              => array(
                 'name'               => __('Forum Posts', 'ifm-forum'), /* This is the Title of the Group */
@@ -23,7 +23,7 @@ function forum_post_types()
                 'parent_item_colon'  => '',
             ), /* end of arrays */
             'menu_icon'           => __('dashicons-share', 'ifm-forum'),
-            'description'         => __('For posting to the ifm-forum', 'ifm-forum'), /* Custom Type Description */
+            'description'         => __('For posting to the Forum', 'ifm-forum'), /* Custom Type Description */
             'public'              => true,
             'publicly_queryable'  => true,
             'exclude_from_search' => false,
@@ -34,10 +34,10 @@ function forum_post_types()
             'show_in_rest'        => true,
             'rest_base'           => IFM_NAMESPACE,
             'rewrite'             => array(
-                'slug'       => 'aggregatorentries',
+                'slug'       => IFM_POST_TYPE_NAME,
                 'with_front' => false,
             ), /* you can specify its url slug */
-            'has_archive'         => 'aggregatorentries', /* you can rename the slug here */
+            'has_archive'         => IFM_POST_TYPE_NAME, /* you can rename the slug here */
             'capability_type'     => 'post',
             'hierarchical'        => false,
             /* the next one is important, it tells what's enabled in the post editor */
@@ -46,8 +46,8 @@ function forum_post_types()
     );
 
     $custom_taxonomy_args = array(
-        'aggpost-type',
-        'ifm-posts',
+        IFM_POST_TAXONOMY_NAME,
+        IFM_POST_TYPE_NAME,
         array(
             // Hierarchical taxonomy (like categories)
             'hierarchical' => true,
@@ -67,7 +67,7 @@ function forum_post_types()
             ),
             // Control the slugs used for this taxonomy
             'rewrite'      => array(
-                'slug'         => 'ifm-post-types', // This controls the base slug that will display before each term
+                'slug'         => IFM_POST_TAXONOMY_NAME, // This controls the base slug that will display before each term
                 'with_front'   => false, // Don't display the category base before "/locations/"
                 'hierarchical' => true, // This will allow URL's like "/locations/boston/cambridge/"
             ),

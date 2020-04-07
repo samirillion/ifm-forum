@@ -1,6 +1,7 @@
 .ifm-container {
   margin-bottom: 10px;
-  padding-top: calc(4vh + 65px);
+  width: 90%;
+  margin: 0 auto;
 }
 .ifm-item-voter {
   width: 40px;
@@ -309,7 +310,6 @@ input[type="submit"].ifm-search-submit {
   font-size: 13px;
 }
 #submit-post {
-  width: 60%;
   margin: 0 auto;
 }
 #submit-post .must-be-logged-in {

@@ -30,7 +30,7 @@ class View_Account
 			</p>
 			<p class="form-row">
 			</p>
-			<?php wp_nonce_field('submit_aggregator_post'); ?>
+			<?php wp_nonce_field('submit_ifm_post'); ?>
 
 			<p class="signup-submit">
 				<input type="submit" name="update" value="<?php _e('Update', 'update-account_details'); ?>" />

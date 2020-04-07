@@ -41,7 +41,7 @@ class Controller_Sort
         LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id=$wpdb->posts.ID
         LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
         INNER JOIN $wpdb->terms ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-        WHERE $wpdb->posts.post_type= 'aggregator-posts'
+        WHERE $wpdb->posts.post_type= 'ifm-posts'
         " . $filter_by . "
         AND $wpdb->posts.post_status = 'publish'
       ORDER BY  (
@@ -55,7 +55,7 @@ class Controller_Sort
 LIMIT " . $offset . ', ' . $ppp . '; ';
 
 		$pageposts = $wpdb->get_results($query_str, OBJECT);
-		// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='aggregator-posts';");
+		// $sql_posts_total = $wpdb->get_var( "SELECT count(*) FROM wp_posts WHERE post_type='ifm-posts';");
 		// $max_num_pages = ceil($sql_posts_total / $ppp);
 		return [$pageposts, $page];
 	}
@@ -71,54 +71,54 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 
 	public function define_post_meta_on_load()
 	{
-		add_action('add_meta_boxes', array($this, 'aggregator_entry_url'));
-		add_action('save_post', array($this, 'aggregator_save_entry_url'), 10, 2);
-		add_action('add_meta_boxes', array($this, 'aggregator_entry_karma'));
+		add_action('add_meta_boxes', array($this, 'ifm_entry_url'));
+		add_action('save_post', array($this, 'ifm_save_entry_url'), 10, 2);
+		add_action('add_meta_boxes', array($this, 'ifm_entry_karma'));
 	}
 
-	public function aggregator_entry_karma($post)
+	public function ifm_entry_karma($post)
 	{
 		add_meta_box(
-			'aggregator-entry-karma',      // Unique ID
-			esc_html__('Aggregator Entry Karma', 'example'),    // Title
-			array($this, 'aggregator_entry_karma_meta_box'),   // Callback function
-			'aggregator-posts',         // Admin page (or post type)
+			'ifm-entry-karma',      // Unique ID
+			esc_html__('Forum Entry Karma', 'example'),    // Title
+			array($this, 'ifm_entry_karma_meta_box'),   // Callback function
+			'ifm-posts',         // Admin page (or post type)
 			'side',         // Context
 			'high'         // Priority
 		);
 	}
 
-	public function aggregator_entry_url($post)
+	public function ifm_entry_url($post)
 	{
 		add_meta_box(
-			'aggregator-entry-url',      // Unique ID
-			esc_html__('Aggregator Entry Url', 'example'),    // Title
-			array($this, 'aggregator_entry_url_meta_box'),   // Callback function
-			'aggregator-posts',         // Admin page (or post type)
+			'ifm-entry-url',      // Unique ID
+			esc_html__('Forum Entry Url', 'example'),    // Title
+			array($this, 'ifm_entry_url_meta_box'),   // Callback function
+			'ifm-posts',         // Admin page (or post type)
 			'normal',         // Context
 			'high'         // Priority
 		);
 	}
 
-	public function aggregator_entry_url_meta_box($object, $box)
+	public function ifm_entry_url_meta_box($object, $box)
 	{
 ?>
 
-		<?php wp_nonce_field(basename(__FILE__), 'aggregator_entry_url_nonce'); ?>
+		<?php wp_nonce_field(basename(__FILE__), 'ifm_entry_url_nonce'); ?>
 
 		<p>
-			<label for="aggregator-entry-url"><?php _e('Add the URL for your Entry', 'example'); ?></label>
+			<label for="ifm-entry-url"><?php _e('Add the URL for your Entry', 'example'); ?></label>
 			<br />
-			<input class="widefat" type="text" name="aggregator-entry-url" id="aggregator-entry-url" value="<?php echo esc_attr(get_post_meta($object->ID, 'aggregator_entry_url', true)); ?>" size="30" />
+			<input class="widefat" type="text" name="ifm-entry-url" id="ifm-entry-url" value="<?php echo esc_attr(get_post_meta($object->ID, 'ifm_entry_url', true)); ?>" size="30" />
 		</p>
 	<?php
 	}
 
-	public function aggregator_entry_karma_meta_box($object, $box)
+	public function ifm_entry_karma_meta_box($object, $box)
 	{
 	?>
 		<p>
-			<label for="aggregator-entry-karma">
+			<label for="ifm-entry-karma">
 				<?php
 				global $wpdb;
 				$postID = $object->ID;
@@ -141,11 +141,11 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 	}
 
 	/* Save the meta box's post metadata. */
-	public function aggregator_save_entry_url($post_id, $post)
+	public function ifm_save_entry_url($post_id, $post)
 	{
 
 		/* Verify the nonce before proceeding. */
-		if (!isset($_POST['aggregator_entry_url_nonce']) || !wp_verify_nonce($_POST['aggregator_entry_url_nonce'], basename(__FILE__))) {
+		if (!isset($_POST['ifm_entry_url_nonce']) || !wp_verify_nonce($_POST['ifm_entry_url_nonce'], basename(__FILE__))) {
 			return $post_id;
 		}
 
@@ -158,10 +158,10 @@ LIMIT " . $offset . ', ' . $ppp . '; ';
 		}
 
 		/* Get the posted data and sanitize it for use as an HTML class. */
-		$new_meta_value = (isset($_POST['aggregator-entry-url']) ? esc_url_raw($_POST['aggregator-entry-url']) : '');
+		$new_meta_value = (isset($_POST['ifm-entry-url']) ? esc_url_raw($_POST['ifm-entry-url']) : '');
 
 		/* Get the meta key. */
-		$meta_key = 'aggregator_entry_url';
+		$meta_key = 'ifm_entry_url';
 
 		/* Get the meta value of the custom field key. */
 		$meta_value = get_post_meta($post_id, $meta_key, true);
