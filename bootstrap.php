@@ -43,28 +43,24 @@ class Forum
 		 */
 		if (self::requirements_met()) {
 
-			register_activation_hook(__FILE__, 'ifm\Forum::forum_activated');
+			register_activation_hook(__FILE__, 'ifm\Singleton_Activation::forum_activated');
 
 			// Autoload Vendor Classes
-			require(IFM_BASE_PATH . 'vendor/autoload.php');
+			require(IFM_BASE . 'vendor/autoload.php');
 
 			// Autoload everything Else
 			spl_autoload_register(array(new self, 'autoload'), true, false);
+
+			Singleton_Custompost::register();
 
 			require_once(IFM_APP . 'controller/class-comment.php');
 			require_once(IFM_APP . 'controller/class-account.php');
 			require_once(IFM_APP . 'controller/class-forum.php');
 
-			// Enqueue Assets
-			require(IFM_BASE_PATH . 'enqueue.php');
+			require(IFM_BASE . 'enqueue.php');
 
-			// Add Forum Post Type and Taxonomy
-			require(IFM_APP . 'seeds/post-types.php');
-
-			// Load Helper Functions
 			require(IFM_INC . 'helpers.php');
 
-			// Require Routes
 			require(IFM_APP . 'routes.php');
 		} else {
 
@@ -124,18 +120,6 @@ class Forum
 			trigger_error("The class '$class' or the file '$app_path' or '$inc_path' failed to spl_autoload  ", E_USER_WARNING);
 			return FALSE;
 		}
-	}
-
-
-	/**
-	 * Redirect to Settings Page on Forum Activate
-	 *
-	 * @return void
-	 */
-	public static function forum_activated()
-	{
-		// create any necessary pages on activation
-		require(IFM_APP . 'seeds/pages.php');
 	}
 
 	/**

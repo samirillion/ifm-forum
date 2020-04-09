@@ -10,11 +10,11 @@ define('IFM_REQUIRED_WP_NETWORK', false); // because plugin is not compatible wi
 /**
  * These Are just paths to directories to make the code a bit DRYer
  */
-define('IFM_BASE_PATH', plugin_dir_path(__FILE__));
-define('IFM_APP', IFM_BASE_PATH . 'app/');
-define('IFM_INC', IFM_BASE_PATH . 'includes/');
-define('IFM_ASSET', IFM_BASE_PATH . 'app/view/assets/');
-define('IFM_VIEW', IFM_BASE_PATH . 'app/view/');
+define('IFM_BASE', plugin_dir_path(__FILE__));
+define('IFM_APP', IFM_BASE . 'app/');
+define('IFM_INC', IFM_BASE . 'includes/');
+define('IFM_ASSET', IFM_BASE . 'app/view/assets/');
+define('IFM_VIEW', IFM_BASE . 'app/view/');
 
 /**
  * Define Post Types
