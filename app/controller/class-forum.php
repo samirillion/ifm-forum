@@ -57,10 +57,16 @@ class Controller_Forum
 		if (array_key_exists('ifm_query', $params)) {
 			$posts = $this->agg_search_posts($params);
 		} else {
-			$posts = Model_Post::get_many()[0];
+			$query = new Model_Query();
+			if ($query->have_posts()) {
+				while ($query->have_posts()) {
+					$query->the_post();
+					echo '<li>' . get_the_title() . '</li>';
+				}
+			}
 		}
 
-		return view('posts/forum', $posts, $params);
+		return view('posts/forum', $query, $params);
 	}
 
 	/**
