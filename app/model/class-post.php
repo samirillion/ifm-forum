@@ -6,9 +6,65 @@
 
 namespace IFM;
 
-// Cannot Extend WP_Post at this time, since WP_Post is a final class
+use WP_Post;
+use WP_REST_Request;
+
 class Model_Post
 {
+	/**
+	 * @var WP_Post
+	 */
+	private $post;
+
+	/**
+	 * @param WP_Post $post
+	 */
+	public function __construct(WP_Post $post = "")
+	{
+		$this->post = $post;
+	}
+
+	public function store(WP_REST_Request $request)
+	{
+		xdebug_break();
+		$nonce = $_POST['nonce'];
+		if (!wp_verify_nonce($nonce, 'submit_ifm_post')) {
+			exit("No naughty business please");
+		}
+		$post_array = array(
+			'post_title'  => sanitize_text_field($_POST['post-title']),
+			'post_type'   => IFM_POST_TYPE,
+			'post_status' => 'publish',
+		);
+
+		$post_content = wp_kses_post($_POST['post-text-content']);
+		if (isset($_POST['link-toggle']) && strlen(trim($_POST['post-text-content']))) {
+			$post_array['post_content'] = wp_kses_post($_POST['post-text-content']);
+			$is_url                     = false;
+		} else {
+			$is_url = true;
+		}
+		$post = wp_insert_post($post_array);
+		wp_set_object_terms($post, $_POST['post-type'], 'aggpost-type', false);
+		global $wpdb;
+		$firstvote = $wpdb->insert(
+			$wpdb->postmeta,
+			array(
+				'comment_id' => $post,
+				'meta_key'   => 'user_upvote_id',
+				'meta_value' => get_current_user_id(),
+			),
+			array('%d', '%s', '%d')
+		);
+
+		if ($is_url) {
+			add_post_meta($post, 'ifm_entry_url', $_POST['post-url'], true);
+		}
+
+		wp_redirect(home_url() . IFM_ROUTE_FORUM);
+		exit();
+	}
+
 	public function update_post_karma()
 	{
 		if (!wp_verify_nonce($_REQUEST['nonce'], 'ifm_page_nonce')) {
@@ -82,45 +138,5 @@ class Model_Post
 		}
 
 		die();
-	}
-
-	public function submit_post()
-	{
-		// $nonce = $_POST['nonce'];
-		// if (! wp_verify_nonce( $nonce, 'submit_ifm_post' )) {
-		// exit("No naughty business please");
-		// }
-		$post_array = array(
-			'post_title'  => sanitize_text_field($_POST['post-title']),
-			'post_type'   => IFM_POST_TYPE,
-			'post_status' => 'publish',
-		);
-
-		$post_content = wp_kses_post($_POST['post-text-content']);
-		if (isset($_POST['link-toggle']) && strlen(trim($_POST['post-text-content']))) {
-			$post_array['post_content'] = wp_kses_post($_POST['post-text-content']);
-			$is_url                     = false;
-		} else {
-			$is_url = true;
-		}
-		$post = wp_insert_post($post_array);
-		wp_set_object_terms($post, $_POST['post-type'], 'aggpost-type', false);
-		global $wpdb;
-		$firstvote = $wpdb->insert(
-			$wpdb->postmeta,
-			array(
-				'comment_id' => $post,
-				'meta_key'   => 'user_upvote_id',
-				'meta_value' => get_current_user_id(),
-			),
-			array('%d', '%s', '%d')
-		);
-
-		if ($is_url) {
-			add_post_meta($post, 'ifm_entry_url', $_POST['post-url'], true);
-		}
-
-		wp_redirect(home_url() . IFM_ROUTE_FORUM);
-		exit();
 	}
 }

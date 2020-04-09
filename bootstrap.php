@@ -59,7 +59,7 @@ class Forum
 			require(IFM_BASE_PATH . 'enqueue.php');
 
 			// Add Forum Post Type and Taxonomy
-			require(IFM_INC . 'state/post-types.php');
+			require(IFM_APP . 'seeds/post-types.php');
 
 			// Load Helper Functions
 			require(IFM_INC . 'helpers.php');
@@ -135,7 +135,7 @@ class Forum
 	public static function forum_activated()
 	{
 		// create any necessary pages on activation
-		require(IFM_INC . 'state/pages.php');
+		require(IFM_APP . 'seeds/pages.php');
 	}
 
 	/**

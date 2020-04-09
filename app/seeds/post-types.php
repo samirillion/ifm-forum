@@ -1,6 +1,6 @@
 <?php
 
-namespace ifm;
+namespace IFM;
 
 function forum_post_types()
 {
@@ -65,6 +65,7 @@ function forum_post_types()
                 'new_item_name'     => __('New Forum Post Type Name'),
                 'menu_name'         => __('Forum Post Types'),
             ),
+            'show_in_rest' => true,
             // Control the slugs used for this taxonomy
             'rewrite'      => array(
                 'slug'         => IFM_POST_TAXONOMY_NAME, // This controls the base slug that will display before each term
@@ -78,5 +79,7 @@ function forum_post_types()
         $custom_post_args[1]
     ); /* end of register post type */
     register_taxonomy($custom_taxonomy_args[0], $custom_taxonomy_args[1], $custom_taxonomy_args[2]);
+
+    flush_rewrite_rules();
 }
 add_action('init', 'ifm\forum_post_types');

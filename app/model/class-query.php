@@ -20,8 +20,6 @@ class Model_Query extends WP_Query
     // add_filter('posts_where', array($this, 'posts_where'));
     // add_filter('posts_orderby', array($this, 'posts_orderby'));
 
-    xdebug_break();
-
     parent::__construct($args);
 
     // Make sure these filters don't affect any other queries

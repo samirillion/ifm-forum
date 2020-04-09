@@ -220,7 +220,7 @@ class Controller_Forum
 	public function submit_post()
 	{
 		$crowd_posts = new Model_Post;
-		$crowd_posts->submit_post();
+		$crowd_posts->store();
 	}
 }
 

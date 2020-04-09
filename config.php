@@ -20,7 +20,7 @@ define('IFM_VIEW', IFM_BASE_PATH . 'app/view/');
  * Define Post Types
  */
 define('IFM_POST_TYPE', 'ifm-post');
-define('IFM_POST_TAXONOMY_NAME', 'ifm-post-type');
+define('IFM_POST_TAXONOMY_NAME', 'ifm-tax');
 
 /**
  * Set to determine the base namespace for the router. 
