@@ -14,14 +14,14 @@
 			<?php
 			$customterms = get_terms(
 				array(
-					'taxonomy'   => 'aggpost-type',
+					'taxonomy'   => IFM_POST_TAXONOMY_NAME,
 					'hide_empty' => false,
 				)
 			);
 			// var_dump($customterms);
 			$post_term = wp_get_post_terms(
 				$post->ID,
-				'aggpost-type',
+				IFM_POST_TAXONOMY_NAME,
 				array(
 					'count'  => 1,
 					'fields' => 'names',

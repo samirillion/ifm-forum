@@ -1,4 +1,7 @@
 <?php
+
+namespace IFM;
+
 $page_posts = $data;
 
 global $wp;
@@ -9,12 +12,10 @@ $next_page   = add_query_arg('ifm_p', $page + 1, $with_params);
 ?>
 <?php
 
-require_once(IFM_VIEW . 'partials/forum-nav.php');
+echo view('layout/forum-nav');
 
 if (is_array($page_posts) && [] !== $page_posts) {
-    ob_start();
-    require_once(IFM_VIEW . 'posts/posts.php');
-    echo ob_get_clean();
+    echo view('posts/posts.php');
 ?>
     <div class="ifm-load-more">
         <a href="<?php echo $next_page; ?>">

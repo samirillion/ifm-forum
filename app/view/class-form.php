@@ -41,7 +41,7 @@ class View_Form
 
 		do_action('personalize_login_before_' . $template_name);
 
-		require('partials/' . $template_name . '.php');
+		require('layout/' . $template_name . '.php');
 
 		do_action('personalize_login_after_' . $template_name);
 

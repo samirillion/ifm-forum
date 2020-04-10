@@ -75,8 +75,7 @@ class Controller_Forum
 	 */
 	public function submit()
 	{
-		$ifm_submit = new View_Submit;
-		$ifm_submit->render();
+		return view('posts/submit');
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Controller_Forum
 		} else {
 			update_post_meta($_POST['post-id'], 'ifm_entry_url', $_POST['post-url']);
 		}
-		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], 'aggpost-type', false);
+		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], IFM_POST_TAXONOMY_NAME, false);
 		wp_update_post($the_post);
 
 		wp_safe_redirect(home_url(IFM_ROUTE_FORUM));
@@ -202,8 +201,7 @@ class Controller_Forum
 	 */
 	public function submit_post()
 	{
-		$crowd_posts = new Model_Post;
-		$crowd_posts->store();
+		Model_Post::store();
 	}
 }
 

@@ -19,14 +19,15 @@ class Model_Post
 	/**
 	 * @param WP_Post $post
 	 */
-	public function __construct(WP_Post $post = "")
+	public function __construct(WP_Post $post = null)
 	{
 		$this->post = $post;
 	}
 
-	public function store(WP_REST_Request $request)
+	public static function store()
 	{
-		$nonce = $_POST['nonce'];
+		xdebug_break();
+		$nonce = $_POST['_wpnonce'];
 		if (!wp_verify_nonce($nonce, 'submit_ifm_post')) {
 			exit("No naughty business please");
 		}
@@ -44,7 +45,7 @@ class Model_Post
 			$is_url = true;
 		}
 		$post = wp_insert_post($post_array);
-		wp_set_object_terms($post, $_POST['post-type'], 'aggpost-type', false);
+		wp_set_object_terms($post, $_POST['post-type'], IFM_POST_TAXONOMY_NAME, false);
 		global $wpdb;
 		$firstvote = $wpdb->insert(
 			$wpdb->postmeta,

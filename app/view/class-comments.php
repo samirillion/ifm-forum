@@ -93,7 +93,7 @@ class View_Comments
 				<div class="ifm-comment-reply-container" style="display:none;">
 					<textarea name="ifm-comment-reply-textarea" required></textarea>
 					<a class="ifm-submit-reply">submit</a>
-					<?php include(IFM_VIEW . '/partials/comment-form.php'); ?>
+					<?php include(IFM_VIEW . '/layout/comment-form.php'); ?>
 				</div>
 	<?php
 			// Print all our children

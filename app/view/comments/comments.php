@@ -12,7 +12,7 @@ if (isset(get_post_meta($ifm_post_id)['ifm_entry_url']['0'])) {
 echo '<div class="ifm-comment-wrapper">';
 echo '<h4 class="ifm-comment-post-title">' . $post_title_content . '</h4>';
 echo $post_url;
-echo '<span class="ifm-post-type">' . (wp_get_object_terms($ifm_post_id, 'aggpost-type'))[0]->{'name'} . '</span>';
+echo '<span class="ifm-post-type">' . (wp_get_object_terms($ifm_post_id, IFM_POST_TAXONOMY_NAME))[0]->{'name'} . '</span>';
 if (get_post($ifm_post_id)->post_content !== '') {
     echo '<div class="ifm-comment-main-content-wrapper">';
     echo '<div class="ifm-comment-post-content">' . get_post($ifm_post_id)->post_content . '</div>';
@@ -20,7 +20,7 @@ if (get_post($ifm_post_id)->post_content !== '') {
 }
 echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">';
 
-include(IFM_VIEW . '/partials/comment-form.php');
+include(IFM_VIEW . '/layout/comment-form.php');
 
 if (!$comment_query) {
     echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';
