@@ -20,7 +20,7 @@ if (get_post($ifm_post_id)->post_content !== '') {
 }
 echo '<hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">';
 
-include(IFM_VIEW . '/layout/comment-form.php');
+include(IFM_VIEW . '/comments/comment-form.php');
 
 if (!$comment_query) {
     echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';

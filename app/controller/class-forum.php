@@ -54,18 +54,13 @@ class Controller_Forum
 		$params = Router_Qvars::get_params();
 
 		if (array_key_exists('ifm_query', $params)) {
-			$posts = $this->agg_search_posts($params);
+			$query = $this->agg_search_posts($params);
 		} else {
 			$query = new Model_Query();
-			if ($query->have_posts()) {
-				while ($query->have_posts()) {
-					$query->the_post();
-					echo '<li>' . get_the_title() . '</li>';
-				}
-			}
+			$posts = $query->posts;
 		}
 
-		return view('posts/forum', $query, $params);
+		return view('posts/forum', $posts, $params);
 	}
 
 	/**
