@@ -27,7 +27,6 @@ class Controller_Forum
 
 		add_shortcode('edit-aggpost', array($plugin, 'render_edit_post_container'));
 
-		add_action('init', array($plugin, 'generate_sorter'));
 		add_action('wp_ajax_add_entry_karma', array($plugin, 'my_user_vote'));
 		add_action('wp_ajax_nopriv_add_entry_karma', array($plugin, 'redirect_to_login_ajax'));
 		add_action('admin_post_submit_post', array($plugin, 'submit_post'));
@@ -158,22 +157,6 @@ class Controller_Forum
 			}
 		}
 		return $posts;
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function generate_sorter()
-	{
-		$ifm = new Controller_Sort;
-
-		// add metadata on post creation
-		// eventually add functionality to allow more vars in plugin
-		add_action('load-post.php', array($ifm, 'define_post_meta_on_load'));
-		add_action('load-post-new.php', array($ifm, 'define_post_meta_on_load'));
-		add_action('publish_ifm-posts', array($ifm, 'define_meta_on_publish'));
 	}
 
 	/**

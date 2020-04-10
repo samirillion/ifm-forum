@@ -43,13 +43,13 @@ class Forum
 		 */
 		if (self::requirements_met()) {
 
-			register_activation_hook(__FILE__, 'ifm\Singleton_Activation::forum_activated');
-
 			// Autoload Vendor Classes
 			require(IFM_BASE . 'vendor/autoload.php');
 
 			// Autoload everything Else
 			spl_autoload_register(array(new self, 'autoload'), true, false);
+
+			register_activation_hook(__FILE__, 'ifm\Singleton_Activation::forum_activated');
 
 			Singleton_Custompost::register();
 
