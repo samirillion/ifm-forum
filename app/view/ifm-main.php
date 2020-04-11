@@ -15,12 +15,10 @@ ob_start(); ?>
 
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-column">
-            <div class="ifm-container">
-                <?php
-                Mvc_View::render($wp->query_vars['ifm']);
-                ?>
-            </div>
+        <div class="ifm-col-12">
+            <?php
+            Mvc_View::render($wp->query_vars['ifm']);
+            ?>
         </div>
     </div>
 </div>

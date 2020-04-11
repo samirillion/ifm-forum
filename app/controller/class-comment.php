@@ -61,7 +61,7 @@ class Controller_Comment
 
 	public function redirect_to_login()
 	{
-		$redirect_url         = home_url('member-login');
+		$redirect_url         = home_url(IFM_NAMESPACE . '/login');
 		$response['redirect'] = $redirect_url;
 		$response             = json_encode($response);
 		echo $response;

@@ -60,7 +60,7 @@ class Controller_Forum
 			$posts = $query->posts;
 		}
 
-		return view('posts/forum', $posts, $params);
+		return view('forum', $posts, $params);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Controller_Forum
 	 */
 	public function submit()
 	{
-		return view('posts/submit');
+		return view('forum/submit-post');
 	}
 
 	/**
@@ -131,7 +131,7 @@ class Controller_Forum
 	 */
 	public function render_edit_post_container()
 	{
-		View_EditPost::render();
+		return view('posts/edit-post');
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Controller_Forum
 	 */
 	public function redirect_to_login()
 	{
-		wp_redirect(home_url('member-login'));
+		wp_redirect(home_url(IFM_NAMESPACE . '/login'));
 		die();
 	}
 
@@ -171,7 +171,7 @@ class Controller_Forum
 	 */
 	public function redirect_to_login_ajax()
 	{
-		$redirect_url         = home_url('member-login');
+		$redirect_url         = home_url(IFM_NAMESPACE . '/login');
 		$response['redirect'] = $redirect_url;
 		$response             = json_encode($response);
 		echo $response;

@@ -15,7 +15,7 @@ class Controller_Account
 	{
 		$plugin = new self();
 
-		add_shortcode('custom-login-form', array($plugin, 'custom_login_form'));
+		add_shortcode('custom-login-form', array($plugin, 'login_form'));
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
 		add_shortcode('account-info', array($plugin, 'main'));
@@ -41,6 +41,27 @@ class Controller_Account
 		add_action('after_setup_theme', array($plugin, 'remove_admin_bar'), 10, 2);
 	}
 
+	public function main()
+	{
+		if (!is_user_logged_in()) {
+			$this->redirect_to_login;
+		}
+		return view('account/main');
+	}
+
+	public function create($attributes = null, $content = null)
+	{
+		if (is_user_logged_in()) {
+			return __('', IFM_NAMESPACE);
+		} elseif (!get_option('users_can_register')) {
+			return __('Registering new users is currently not allowed.', IFM_NAMESPACE);
+		} else {
+			$crowd_form_renderer = new View_Form;
+			$content             = $crowd_form_renderer->render_form('register-form', $attributes);
+			return $content;
+		}
+	}
+
 	public function remove_admin_bar()
 	{
 		if (!current_user_can('administrator') && !is_admin()) {
@@ -50,27 +71,19 @@ class Controller_Account
 
 	public function render_user_profile()
 	{
-		View_Profile::render();
+		return view('profile');
 	}
 
 	public function change_password_form()
 	{
-		View_ChangePass::render();
-	}
-
-	public function main()
-	{
-		if (!is_user_logged_in()) {
-			$this->redirect_to_login;
-		}
-		return view('user/account');
+		return view('account/change-pass');
 	}
 
 	public function update_password()
 	{
 		if (wp_check_password($_POST['old-password'], wp_get_current_user()->user_pass)) {
 			wp_set_password($_POST['new-password'], get_current_user_id());
-			$redirect_url = home_url('member-login');
+			$redirect_url = home_url(IFM_NAMESPACE . '/login');
 			$redirect_url = add_query_arg('status', 'success', $redirect_url);
 		} else {
 			$redirect_url = home_url('change-password');
@@ -87,7 +100,7 @@ class Controller_Account
 		<?php
 		} else {
 		?>
-			<a href="<?php echo home_url('member-login'); ?>">login</a>
+			<a href="<?php echo home_url(IFM_NAMESPACE . '/login'); ?>">login</a>
 <?php
 		}
 		echo '</div>';
@@ -105,12 +118,12 @@ class Controller_Account
 	public function replace_retrieve_password_message($message, $key, $user_login, $user_data)
 	{
 		// Create new message
-		$msg  = __('Hello!', 'personalize-login') . "\r\n\r\n";
-		$msg .= sprintf(__('You asked us to reset your password for your account using the email address %s.', 'personalize-login'), $user_login) . "\r\n\r\n";
-		$msg .= __("If this was a mistake, or you didn't ask for a password reset, just ignore this email and nothing will happen.", 'personalize-login') . "\r\n\r\n";
-		$msg .= __('To reset your password, visit the following address:', 'personalize-login') . "\r\n\r\n";
+		$msg  = __('Hello!', IFM_NAMESPACE) . "\r\n\r\n";
+		$msg .= sprintf(__('You asked us to reset your password for your account using the email address %s.', IFM_NAMESPACE), $user_login) . "\r\n\r\n";
+		$msg .= __("If this was a mistake, or you didn't ask for a password reset, just ignore this email and nothing will happen.", IFM_NAMESPACE) . "\r\n\r\n";
+		$msg .= __('To reset your password, visit the following address:', IFM_NAMESPACE) . "\r\n\r\n";
 		$msg .= site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n\r\n";
-		$msg .= __('Thanks!', 'personalize-login') . "\r\n";
+		$msg .= __('Thanks!', IFM_NAMESPACE) . "\r\n";
 
 		return $msg;
 	}
@@ -127,7 +140,7 @@ class Controller_Account
 				$redirect_url = add_query_arg('errors', join(',', $errors->get_error_codes()), $redirect_url);
 			} else {
 				// Email sent
-				$redirect_url = home_url('member-login');
+				$redirect_url = home_url(IFM_NAMESPACE . '/login');
 				$redirect_url = add_query_arg('checkemail', 'confirm', $redirect_url);
 			}
 
@@ -144,14 +157,14 @@ class Controller_Account
 	 *
 	 * @return string  The shortcode output
 	 */
-	public function render_password_lost_form($attributes, $content = null)
+	public function render_password_lost_form($attributes = null, $content = null)
 	{
 		// Parse shortcode attributes
 		$default_attributes = array('show_title' => false);
 		$attributes         = shortcode_atts($default_attributes, $attributes);
 
 		if (is_user_logged_in()) {
-			return __('You are already signed in.', 'personalize-login');
+			return __('You are already signed in.', IFM_NAMESPACE);
 		} else {
 			// Retrieve possible errors from request parameters
 			$crowd_form_renderer  = new View_Form;
@@ -185,7 +198,7 @@ class Controller_Account
 		}
 	}
 
-	public function custom_login_form($attributes, $content = null)
+	public function login_form($attributes = null, $content = null)
 	{
 		// Parse shortcode attributes
 		$default_attributes = array('show_title' => false);
@@ -193,7 +206,7 @@ class Controller_Account
 		$show_title         = $attributes['show_title'];
 
 		if (is_user_logged_in()) {
-			return __('You are already signed in.', 'personalize-login');
+			return __('You are already signed in.', IFM_NAMESPACE);
 		}
 
 		$attributes['redirect'] = '';
@@ -224,7 +237,7 @@ class Controller_Account
 			}
 
 			// The rest are redirected to the login page
-			$login_url = home_url('member-login');
+			$login_url = home_url(IFM_NAMESPACE . '/login');
 			if (!empty($redirect_to)) {
 				$login_url = add_query_arg('redirect_to', $redirect_to, $login_url);
 			}
@@ -256,7 +269,7 @@ class Controller_Account
 			if (is_wp_error($user)) {
 				$error_codes = join(',', $user->get_error_codes());
 
-				$login_url = home_url('member-login');
+				$login_url = home_url(IFM_NAMESPACE . '/login');
 				$login_url = add_query_arg('login', $error_codes, $login_url);
 
 				wp_redirect($login_url);
@@ -269,13 +282,13 @@ class Controller_Account
 
 	public function redirect_to_login()
 	{
-		wp_safe_redirect(home_url('member-login'));
+		wp_safe_redirect(home_url(IFM_NAMESPACE . '/login'));
 		exit;
 	}
 
 	public function redirect_after_logout()
 	{
-		$redirect_url = home_url('member-login?logged_out=true');
+		$redirect_url = home_url(IFM_NAMESPACE . '/login?logged_out=true');
 		wp_safe_redirect($redirect_url);
 		exit;
 	}
@@ -304,23 +317,6 @@ class Controller_Account
 		return wp_validate_redirect($redirect_url, home_url());
 	}
 
-	public function render_register_form($attributes, $content = null)
-	{
-		// Parse shortcode attributes
-		$default_attributes = array('show_title' => false);
-		$attributes         = shortcode_atts($default_attributes, $attributes);
-
-		if (is_user_logged_in()) {
-			return __('', 'personalize-login');
-		} elseif (!get_option('users_can_register')) {
-			return __('Registering new users is currently not allowed.', 'personalize-login');
-		} else {
-			$crowd_form_renderer = new View_Form;
-			$content             = $crowd_form_renderer->render_form('register-form', $attributes);
-			return $content;
-		}
-	}
-
 	/**
 	 * Redirects the user to the custom registration page instead
 	 * of wp-login.php?action=register.
@@ -331,7 +327,7 @@ class Controller_Account
 			if (is_user_logged_in()) {
 				$this->redirect_logged_in_user();
 			} else {
-				wp_redirect(home_url('member-login'));
+				wp_redirect(home_url(IFM_NAMESPACE . '/login'));
 			}
 			exit;
 		}
@@ -379,7 +375,7 @@ class Controller_Account
 	public function do_register_user()
 	{
 		if ('POST' == $_SERVER['REQUEST_METHOD']) {
-			$redirect_url = home_url('member-login');
+			$redirect_url = home_url(IFM_NAMESPACE . '/login');
 
 			if (!get_option('users_can_register')) {
 				// Registration closed, display error
@@ -402,7 +398,7 @@ class Controller_Account
 					$redirect_url = add_query_arg('register-errors', $errors, $redirect_url);
 				} else {
 					// Success, redirect to login page.
-					$redirect_url = home_url('member-login');
+					$redirect_url = home_url(IFM_NAMESPACE . '/login');
 					$redirect_url = add_query_arg('registered', $email, $redirect_url);
 				}
 			}

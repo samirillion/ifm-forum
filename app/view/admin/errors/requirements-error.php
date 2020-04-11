@@ -1,6 +1,6 @@
 <div class="error">
 
-	<p>Ponds Forum error: Your environment doesn't meet <strong>all</strong> of the system requirements listed below.</p>
+	<p>Forum error: Your environment doesn't meet <strong>all</strong> of the system requirements listed below.</p>
 
 	<ul class="ul-disc">
 

@@ -23,11 +23,11 @@ if (isset($user_nav_item)) {
 } else {
 ?>
 	<div class="ifm-submit-post">
-		<a href="<?php echo home_url('/' . IFM_ROUTE_POST_CREATE); ?>">+ Submit New Post</a>
+		<a href="<?php echo home_url('/' . IFM_ROUTE_CREATE); ?>">+ Submit New Post</a>
 	</div>
 	<nav class="ifm-nav">
 		<ul class="ifm-post-types">
-			<li class="aggpost-type-nav-item <?php echo $agg_all_active; ?>">
+			<li class="ifm-post-nav-item <?php echo $agg_all_active; ?>">
 				<a href="<?php echo esc_url($current_url) ?>">
 					all
 				</a>
@@ -47,7 +47,7 @@ if (isset($user_nav_item)) {
 				} else {
 					$active_class = '';
 				}
-				echo "<li class='aggpost-type-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
+				echo "<li class='ifm-post-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $current_url) . "'>" . $term->{'name'} . '</a></li>';
 			}
 			?>
 			<?php

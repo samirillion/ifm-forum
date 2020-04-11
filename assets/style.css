@@ -1,8 +1,272 @@
+/**
+** Grid CSS, borrowed from https://simplegrid.io/
+*/
 .ifm-container {
-  margin-bottom: 10px;
-  width: 90%;
-  margin: 0 auto;
+  width: 99%;
+  margin-left: auto;
+  margin-right: auto;
 }
+.ifm-container-full {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ifm-row {
+  position: relative;
+  width: 100%;
+}
+
+.ifm-row [class^="ifm-col"] {
+  float: left;
+  margin: 0.5rem 2%;
+  min-height: 0.125rem;
+}
+
+.ifm-col-1,
+.ifm-col-2,
+.ifm-col-3,
+.ifm-col-4,
+.ifm-col-5,
+.ifm-col-6,
+.ifm-col-7,
+.ifm-col-8,
+.ifm-col-9,
+.ifm-col-10,
+.ifm-col-11,
+.ifm-col-12 {
+  width: 96%;
+}
+
+.ifm-col-1-sm {
+  width: 4.33%;
+}
+
+.ifm-col-2-sm {
+  width: 12.66%;
+}
+
+.ifm-col-3-sm {
+  width: 21%;
+}
+
+.ifm-col-4-sm {
+  width: 29.33%;
+}
+
+.ifm-col-5-sm {
+  width: 37.66%;
+}
+
+.ifm-col-6-sm {
+  width: 46%;
+}
+
+.ifm-col-7-sm {
+  width: 54.33%;
+}
+
+.ifm-col-8-sm {
+  width: 62.66%;
+}
+
+.ifm-col-9-sm {
+  width: 71%;
+}
+
+.ifm-col-10-sm {
+  width: 79.33%;
+}
+
+.ifm-col-11-sm {
+  width: 87.66%;
+}
+
+.ifm-col-12-sm {
+  width: 96%;
+}
+
+.ifm-row .ifm-col-offset-1,
+.ifm-row .ifm-col-offset-2,
+.ifm-row .ifm-col-offset-3,
+.ifm-row .ifm-col-offset-4,
+.ifm-row .ifm-col-offset-5,
+.ifm-row .ifm-col-offset-6,
+.ifm-row .ifm-col-offset-7,
+.ifm-row .ifm-col-offset-8,
+.ifm-row .ifm-col-offset-9,
+.ifm-row .ifm-col-offset-10,
+.ifm-row .ifm-col-offset-11,
+.ifm-row .ifm-col-offset-12 {
+  margin-left: 4%;
+}
+
+.ifm-row .ifm-col-offset-1-sm {
+  margin-left: 4.33%;
+}
+
+.ifm-row .ifm-col-offset-2-sm {
+  margin-left: 12.66%;
+}
+
+.ifm-row .ifm-col-offset-3-sm {
+  margin-left: 21%;
+}
+
+.ifm-row .ifm-col-offset-4-sm {
+  margin-left: 29.33%;
+}
+
+.ifm-row .ifm-col-offset-5-sm {
+  margin-left: 37.66%;
+}
+
+.ifm-row .ifm-col-offset-6-sm {
+  margin-left: 46%;
+}
+
+.ifm-row .ifm-col-offset-7-sm {
+  margin-left: 54.33%;
+}
+
+.ifm-row .ifm-col-offset-8-sm {
+  margin-left: 62.66%;
+}
+
+.ifm-row .ifm-col-offset-9-sm {
+  margin-left: 71%;
+}
+
+.ifm-row .ifm-col-offset-10-sm {
+  margin-left: 79.33%;
+}
+
+.ifm-row .ifm-col-offset-11-sm {
+  margin-left: 87.66%;
+}
+
+.ifm-row .ifm-col-offset-12-sm {
+  margin-left: 96%;
+}
+
+.ifm-row::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.ifm-hidden-sm {
+  display: none;
+}
+
+
+@media only screen and (min-width: 45em) {  /* 720px */
+  .ifm-col-1 {
+    width: 4.33%;
+  }
+
+  .ifm-col-2 {
+    width: 12.66%;
+  }
+
+  .ifm-col-3 {
+    width: 21%;
+  }
+
+  .ifm-col-4 {
+    width: 29.33%;
+  }
+
+  .ifm-col-5 {
+    width: 37.66%;
+  }
+
+  .ifm-col-6 {
+    width: 46%;
+  }
+
+  .ifm-col-7 {
+    width: 54.33%;
+  }
+
+  .ifm-col-8 {
+    width: 62.66%;
+  }
+
+  .ifm-col-9 {
+    width: 71%;
+  }
+
+  .ifm-col-10 {
+    width: 79.33%;
+  }
+
+  .ifm-col-11 {
+    width: 87.66%;
+  }
+
+  .ifm-col-12 {
+    width: 96%;
+  }
+
+  .ifm-row .ifm-col-offset-1 {
+    margin-left: 4.33%;
+  }
+
+  .ifm-row .ifm-col-offset-2 {
+    margin-left: 12.66%;
+  }
+
+  .ifm-row .ifm-col-offset-3 {
+    margin-left: 21%;
+  }
+
+  .ifm-row .ifm-col-offset-4 {
+    margin-left: 29.33%;
+  }
+
+  .ifm-row .ifm-col-offset-5 {
+    margin-left: 37.66%;
+  }
+
+  .ifm-row .ifm-col-offset-6 {
+    margin-left: 46%;
+  }
+
+  .ifm-row .ifm-col-offset-7 {
+    margin-left: 54.33%;
+  }
+
+  .ifm-row .ifm-col-offset-8 {
+    margin-left: 62.66%;
+  }
+
+  .ifm-row .ifm-col-offset-9 {
+    margin-left: 71%;
+  }
+
+  .ifm-row .ifm-col-offset-10 {
+    margin-left: 79.33%;
+  }
+
+  .ifm-row .ifm-col-offset-11 {
+    margin-left: 87.66%;
+  }
+
+  .ifm-row .ifm-col-offset-12 {
+    margin-left: 96%;
+  }
+
+  .ifm-hidden-sm {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 60em) { /* 960px */
+  .ifm-container {
+    width: 90%;
+  }
+}
+
 .ifm-item-voter {
   width: 40px;
   height: 54px;
@@ -55,7 +319,7 @@
 }
 .ifm-item-content, .ifm-item-no-content {
   height: 54px;
-  width: calc(100% - 50px);
+  width: calc(100% - 40px);
   float: left;
   padding-left: 10px;
   padding-right: 4px;
@@ -86,14 +350,14 @@
 .ifm-post-type {
   font-variant: small-caps;
 }
-.ifm-post-type, .aggpost-type-nav-item {
+.ifm-post-type, .ifm-post-nav-item {
   font-variant: small-caps;
   font-size: 15px;
   list-style-type: none;
   padding-left: 10px;
   padding-right: 10px;
 }
-.ifm-post-types .aggpost-type-nav-item, .ifm-post-types .ifm-submit-post {
+.ifm-post-types .ifm-post-nav-item, .ifm-post-types .ifm-submit-post {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -103,7 +367,7 @@
 .ifm-submit-post:hover {
   color: #7BBA22;
 }
-.aggpost-type-nav-item.active a {
+.ifm-post-nav-item.active a {
   color: #91056d;
 }
 .host-url {
@@ -284,9 +548,6 @@ input[type="submit"].ifm-search-submit {
   margin-bottom: 20px;
   display: block;
 }
-#account-details #user-email, #account-details #user-about {
-  width: 50%;
-}
 #account-details label {
   display: block;
 }
@@ -430,10 +691,10 @@ input[type="submit"].ifm-search-submit {
   .ifm-comment-main-content-wrapper {
     width: 100%;
   }
-  .ifm-post-type, .aggpost-type-nav-item {
+  .ifm-post-type, .ifm-post-nav-item {
     font-size: 15px;
   }
-  .aggpost-type-nav-item {
+  .ifm-post-nav-item {
     float: left;
   }
   .ifm-container {
