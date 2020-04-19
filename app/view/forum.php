@@ -12,7 +12,7 @@ $next_page   = add_query_arg('ifm_p', $page + 1, $with_params);
 include(IFM_VIEW . 'layout/nav.php');
 
 if (is_array($page_posts) && [] !== $page_posts) {
-    include(IFM_VIEW . 'forum/main.php');
+    include(IFM_VIEW . 'forum/posts.php');
 ?>
     <div class="ifm-load-more">
         <a href="<?php echo $next_page; ?>">

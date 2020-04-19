@@ -18,8 +18,7 @@ Route::add_query_vars(
 
 // Forum Routes
 Route::render(IFM_ROUTE_FORUM, 'Controller_Forum@main');
-// Route::render(IFM_ROUTE_FORUM, 'Controller_Forum@single');
-Route::render(IFM_ROUTE_CREATE, 'Controller_Forum@submit');
+Route::render(IFM_ROUTE_FORUM . "/submit", 'Controller_Forum@submit');
 
 // Comment Routes
 Route::render(IFM_ROUTE_COMMENTS, 'Controller_Comment@main');

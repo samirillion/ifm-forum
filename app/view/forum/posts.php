@@ -5,7 +5,7 @@ foreach ($page_posts as $post) {
     $post_date_gmt = strtotime($post->post_date_gmt);
     $postmeta      = get_post_meta($post_ID);
     $nonce         = wp_create_nonce('ifm_page_nonce');
-    $commentslink  = add_query_arg('ifm_post_id', $post_ID, home_url('comments'));
+    $commentslink  = add_query_arg('ifm_post_id', $post_ID, home_url(IFM_ROUTE_COMMENTS));
     if (get_post($post_ID)->post_content != '') {
         $posturl = $commentslink;
         $target  = '';

@@ -23,8 +23,15 @@ class Controller_Comment
 		add_action('wp_ajax_reply_to_comment', array($plugin, 'comment_on_comment'));
 		add_action('wp_ajax_nopriv_replyToComment', array($plugin, 'redirect_to_login'));
 	}
-	public function __construct()
+
+	public function main()
 	{
+		$ifm_comments = new Model_Comment;
+		$comment_query  = $ifm_comments->query_comments();
+		$comment_array  = json_decode(json_encode($comment_query), true);
+
+		$params = Router_Qvars::get_params();
+		return view('comments/main', $comment_array, $params);
 	}
 
 	public function comment_on_post(\WP_REST_Request $request)
@@ -40,17 +47,6 @@ class Controller_Comment
 	{
 		$ifm_comments = new Model_Comment;
 		$ifm_comments->comment_on_comment();
-	}
-
-
-	public function main()
-	{
-		$ifm_comments = new Model_Comment;
-		$comment_query  = $ifm_comments->query_comments();
-		$comment_array  = json_decode(json_encode($comment_query), true);
-
-		$params = Router_Qvars::get_params();
-		return view('comments/comments', $comment_array, $params);
 	}
 
 	public function vote_on_comment()
