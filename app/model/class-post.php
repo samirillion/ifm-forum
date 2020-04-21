@@ -26,7 +26,6 @@ class Model_Post
 
 	public static function store()
 	{
-		xdebug_break();
 		$nonce = $_POST['_wpnonce'];
 		if (!wp_verify_nonce($nonce, 'submit_ifm_post')) {
 			exit("No naughty business please");

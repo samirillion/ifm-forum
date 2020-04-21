@@ -9,7 +9,7 @@ namespace IFM;
 class View_Form
 {
 
-	public function render_form($template_name, $attributes = null)
+	public function render_form($template_path, $attributes = null)
 	{
 		// Parse shortcode attributes
 		if (!$attributes) {
@@ -39,11 +39,11 @@ class View_Form
 
 		ob_start();
 
-		do_action('personalize_login_before_' . $template_name);
+		do_action('personalize_login_before_' . $template_path);
 
-		require('layout/' . $template_name . '.php');
+		require($template_path . '.php');
 
-		do_action('personalize_login_after_' . $template_name);
+		do_action('personalize_login_after_' . $template_path);
 
 		$html = ob_get_contents();
 		ob_end_clean();

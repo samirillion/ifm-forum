@@ -60,7 +60,7 @@ class Controller_Forum
 			$posts = $query->posts;
 		}
 
-		return view('forum', $posts, $params);
+		return view('forum/main', $posts, $params);
 	}
 
 	/**

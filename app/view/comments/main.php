@@ -25,7 +25,7 @@ if (isset(get_post_meta($ifm_post_id)['ifm_entry_url']['0'])) {
     <?php
     }
     ?>
-    <hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">;
+    <hr style="text-align:left;margin-left:0;margin-bottom:5px;width:60%;">
     <?php
     include(IFM_VIEW . '/comments/comment-form.php');
 

@@ -56,8 +56,8 @@ class Controller_Account
 		} elseif (!get_option('users_can_register')) {
 			return __('Registering new users is currently not allowed.', IFM_NAMESPACE);
 		} else {
-			$crowd_form_renderer = new View_Form;
-			$content             = $crowd_form_renderer->render_form('register-form', $attributes);
+			$form = new View_Form;
+			$content             = $form->render_form('account/register-form', $attributes);
 			return $content;
 		}
 	}
@@ -219,7 +219,7 @@ class Controller_Account
 		$attributes['logged_out'] = isset($_REQUEST['logged_out']) && $_REQUEST['logged_out'] == true;
 
 		$crowd_login = new View_Form;
-		$content     = $crowd_login->render_form('login-form', $attributes);
+		$content     = $crowd_login->render_form('account/login-form', $attributes);
 		return $content;
 	}
 

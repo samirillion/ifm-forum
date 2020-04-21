@@ -335,7 +335,7 @@
   border: 1px solid #999999;
   width: 100%;
   margin-bottom: 100px;
-  padding-left: 20px;
+  padding-left: 50px;
 }
 .ifm-entry-wrapper:nth-last-child(2) .ifm-item-content, .ifm-entry-wrapper:nth-last-child(2) .ifm-item-voter {
   border-bottom: 1px solid #999999;
@@ -438,21 +438,62 @@
 .ifm-nav {
   width: 100%;
   border: 1px solid #999999;
-  border-bottom: none;
   display: flex;
   justify-content: space-between;
   height: 40px;
+  margin-bottom: 1px;
 }
 .ifm-nav .ifm-post-types {
   margin: 0;
   padding-left: 0;
+  margin-left: 38px;
+  border-left: 1px solid #999999;
 }
-.ifm-term-description {
+.ifm-post-types .ifm-post-nav-item:first-child {
+  padding-right: 0;
+  margin-top: 9px;
+}
+.ifm-nav .ifm-mailbox-nav-items {
+  display: flex;
+  align-items: center;
+  background: #999999;
+}
+.ifm-post-types .ifm-nav-private {
+  margin-left: 10px;
+  margin-right: 2px;
+}
+.ifm-post-types .ifm-nav-private, .ifm-post-types .ifm-nav-outbox {
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.ifm-post-types .ifm-nav-private a, .ifm-post-types .ifm-nav-outbox a {
+  color: white;
+  text-decoration: none;
+}
+.ifm-post-types .ifm-nav-private:before {
+  content: "";
+  height: calc(100% - 10px);
+  width: 100%;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  background: black;
+  z-index: -1;
+}
+/* .ifm-term-description {
   padding: 5px;
   padding-left: 10px;
   border: 1px solid #999999;
   width: 100%;
   border-bottom: none;
+} */
+#loginform {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 .ifm-searchform {
   width: 30%;
@@ -535,11 +576,13 @@ input[type="submit"].ifm-search-submit {
   font-size: 13px;
   font-weight: 300;
 }
-.ifm-comment {
-  width: 50%;
+.ifm-comment-wrapper .ifm-comment {
+  width: 60%;
   color: #222222;
   letter-spacing: .5px;
   font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .ifm-no-comments {
   font-size: 14px;
@@ -551,6 +594,10 @@ input[type="submit"].ifm-search-submit {
 #account-details label {
   display: block;
 }
+.ifm-container .user-account-details {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
 .user-account-details h5 {
   margin: 0;
   margin-top: 10px;
@@ -561,6 +608,11 @@ input[type="submit"].ifm-search-submit {
 .ifm-change-password, .ifm-logout {
   display: block;
 }
+.ifm-comment-wrapper {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .ifm-comment-content {
   font-size: 13px;
 }
@@ -571,7 +623,7 @@ input[type="submit"].ifm-search-submit {
   font-size: 13px;
 }
 #submit-post {
-  margin: 0 auto;
+  margin: 3vh auto;
 }
 #submit-post .must-be-logged-in {
   color: #E82C0C;

@@ -4,6 +4,9 @@ namespace IFM;
 
 use WP_Query;
 
+/**
+ * https://developer.wordpress.org/reference/classes/wp_query/
+ */
 class Model_Query extends WP_Query
 {
   /**
@@ -14,17 +17,23 @@ class Model_Query extends WP_Query
   /**
    * Define How Fast Posts Drop with Time
    */
-  private $gravity;
+  private $args;
 
 
   function __construct($args = array())
   {
     // Force these args
     $args = wp_parse_args($args, array(
+      'private' => false,
+      'count_karma' => true,
+      'orderby_karma' => true,
       'post_type' => IFM_POST_TYPE,
+      'gravity' => '1.8',
       'update_post_term_cache' => false,
       'update_post_meta_cache' => false
     ));
+
+    $this->args = $args;
 
     add_filter('posts_fields', array($this, 'posts_fields'));
     add_filter('posts_join', array($this, 'posts_join'));
@@ -43,14 +52,29 @@ class Model_Query extends WP_Query
   function posts_fields($sql)
   {
     global $wpdb;
-    return $sql . ", ROUND(POW((TIMESTAMPDIFF( SECOND, $wpdb->posts.post_date_gmt, UTC_TIMESTAMP())/3600), 1.8), 2) AS karma_divisor,
-    (
-      SELECT count(*)
+
+    if ($this->args['count_karma']) {
+      $sql .= ", 
+    POW(
+      (
+        GREATEST(
+          1,
+          TIMESTAMPDIFF( 
+          SECOND, 
+          $wpdb->posts.post_date_gmt, UTC_TIMESTAMP()
+          ) / 3600
+        )
+      ), 
+        " . $this->args['gravity'] . "
+        ) AS karma_divisor,
+      (SELECT count(*)
       FROM wp_postmeta
       WHERE post_id=$wpdb->posts.ID
       AND meta_key='user_upvote_id'
       ) as karma
     ";
+    }
+    return $sql;
   }
 
   function posts_join($sql)
@@ -84,7 +108,10 @@ class Model_Query extends WP_Query
   function posts_orderby($sql)
   {
     global $wpdb;
-    return "( karma / (karma_divisor) ) DESC
+
+    if ($this->args['orderby_karma']) {
+      return "( karma / (karma_divisor) ) DESC
             ";
+    }
   }
 }
