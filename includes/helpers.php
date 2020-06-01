@@ -16,10 +16,6 @@ if (!function_exists('ifm\view')) {
 if (!function_exists('ifm\api')) {
     function api($route = null, $data = [], $params = [])
     {
-        ob_start();
-        $data;
-        $params;
-        require_once(IFM_VIEW . $view . '.php');
-        return ob_get_clean();
+        return get_rest_url($route);
     }
 }

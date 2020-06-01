@@ -31,12 +31,3 @@ define('IFM_NAMESPACE', 'ifm');
 add_filter('rest_url_prefix', function ($prefix) {
     return IFM_API_PREFIX;
 });
-
-/**
- * Define Base Routes
- */
-define('IFM_ROUTE_FORUM', '/' . IFM_NAMESPACE . '/forum');
-define('IFM_ROUTE_COMMENTS', '/' . IFM_NAMESPACE . '/comments');
-define('IFM_ROUTE_INBOX', '/' . IFM_NAMESPACE . '/inbox');
-define('IFM_ROUTE_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
-define('IFM_ROUTE_CREATE', '/' . IFM_NAMESPACE . '/create');

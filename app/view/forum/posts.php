@@ -48,22 +48,14 @@ foreach ($page_posts as $post) {
     <div class="ifm-entry-wrapper clearfix">
         <div class="ifm-item-voter">
             <div data-nonce="<?php echo $nonce; ?>" data-post_id="<?php echo $post_ID; ?>" href="<?php echo $link; ?>" class="upvote_entry">
-                <?php
-                if ($upvoted) {
-                    echo '<div class="ifm-vote upvoted"></div>';
-                } else {
-                    echo '<div class="ifm-vote"></div>';
-                }
-                ?>
+                <?php if ($upvoted) { ?>
+                    <div class="ifm-vote upvoted"></div>
+                <?php } else { ?>
+                    <div class="ifm-vote"></div>
+                <?php } ?>
             </div>
             <div class="ifm-karma">
-                <?php
-                if ($upvotes == 1) {
-                    echo $upvotes;
-                } else {
-                    echo $upvotes;
-                }
-                ?>
+                <?php echo $upvotes; ?>
             </div>
         </div>
         <div class="ifm-item-content">

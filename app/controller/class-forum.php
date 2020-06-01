@@ -23,15 +23,19 @@ class Controller_Forum
 	 */
 	public static function register()
 	{
-		$plugin = new self();
+		$forum_ctrl = new self();
 
-		add_shortcode('edit-aggpost', array($plugin, 'render_edit_post_container'));
+		add_shortcode('edit-aggpost', array($forum_ctrl, 'render_edit_post_container'));
 
-		add_action('wp_ajax_add_entry_karma', array($plugin, 'my_user_vote'));
-		add_action('wp_ajax_nopriv_add_entry_karma', array($plugin, 'redirect_to_login_ajax'));
-		add_action('admin_post_submit_post', array($plugin, 'submit_post'));
-		add_action('admin_post_nopriv_submit_post', array($plugin, 'redirect_to_login'));
-		add_action('admin_post_edit_post', array($plugin, 'edit_post'));
+		add_action('wp_ajax_add_entry_karma', array($forum_ctrl, 'my_user_vote'));
+		add_action('wp_ajax_nopriv_add_entry_karma', array($forum_ctrl, 'redirect_to_login_ajax'));
+		add_action('admin_post_submit_post', array($forum_ctrl, 'submit_post'));
+		add_action('admin_post_nopriv_submit_post', array($forum_ctrl, 'redirect_to_login'));
+		add_action('admin_post_edit_post', array($forum_ctrl, 'edit_post'));
+
+		// Limit media library access
+
+		add_filter('ajax_query_attachments_args', array($forum_ctrl, 'show_current_user_attachments'));
 
 		// Limit media library access
 		// add_action('wp_ajax_nopriv_more_ifm_posts', array($plugin, 'load_more_posts'));
@@ -61,6 +65,17 @@ class Controller_Forum
 		}
 
 		return view('forum/main', $posts, $params);
+	}
+
+	public function show_current_user_attachments()
+	{
+		xdebug_break();
+			$user_id = get_current_user_id();
+			if ($user_id && !current_user_can('activate_plugins') && !current_user_can('edit_others_posts
+')) {
+				$query['author'] = $user_id;
+			}
+			return $query;
 	}
 
 	/**
@@ -131,7 +146,7 @@ class Controller_Forum
 	 */
 	public function render_edit_post_container()
 	{
-		return view('posts/edit-post');
+		return view('forum/edit-post');
 	}
 
 	/**

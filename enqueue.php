@@ -13,9 +13,9 @@ add_action('wp_enqueue_scripts', function () {
         array(
             'ajaxurl'     => admin_url('admin-ajax.php'),
             'noposts'     => esc_html__('No older posts found', 'ifm'),
-            'ifm_tax' => get_query_var('ifm_tax'),
-            'loggedIn'  => is_user_logged_in(),
-            'loginPage' => home_url(IFM_NAMESPACE . '/login'),
+            'ifm_tax'     => get_query_var('ifm_tax'),
+            'loggedIn'    => is_user_logged_in(),
+            'loginPage'   => home_url(IFM_NAMESPACE . '/login'),
         )
     );
     wp_enqueue_script('toggle-switch');

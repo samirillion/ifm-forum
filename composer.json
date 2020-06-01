@@ -3,7 +3,8 @@
     "description": "Ifm Forum",
     "type": "project",
     "require": {
-        "jjgrainger/posttypes": "^2.0"
+        "jjgrainger/posttypes": "^2.0",
+        "landrok/activitypub": "^0.3.0"
     },
     "license": "GPL-2",
     "authors": [

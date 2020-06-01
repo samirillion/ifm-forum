@@ -53,9 +53,9 @@ class Forum
 
 			Singleton_Custompost::register();
 
-			require_once(IFM_APP . 'controller/class-comment.php');
-			require_once(IFM_APP . 'controller/class-account.php');
-			require_once(IFM_APP . 'controller/class-forum.php');
+			Controller_Comment::register();
+			Controller_Account::register();
+			Controller_Forum::register();
 
 			require(IFM_BASE . 'enqueue.php');
 

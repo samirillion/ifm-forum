@@ -64,5 +64,3 @@ class Controller_Comment
 		die();
 	}
 }
-
-Controller_Comment::register();
