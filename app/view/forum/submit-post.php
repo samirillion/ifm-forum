@@ -26,18 +26,20 @@ $customterms = get_terms(
                     </select>
                 </p>
                 <p class="form-row">
-                    <label for="post-title"><?php _e('Post Title', 'submit-post'); ?></label>
+                    <label for="post-title"><?php _e('Post Title', IFM_NAMESPACE); ?></label>
                     <input type="text" name="post-title" id="post-title" class="post-input" required>
                 </p>
                 <p class="form-row">
-                    <label for="link-or-oc-toggle"><?php _e('URL or Text?', 'submit-post'); ?></label>
+                    <label for="link-or-oc-toggle"><?php _e('URL or Text?', IFM_NAMESPACE); ?></label>
+                    <br>
                     <input type="checkbox" name="link-toggle" id="link-toggle" class="post-input lcs_check">
                 </p>
+                <br>
                 <p class="form-row new-post-url">
-                    <label for="url"><?php _e('URL', 'submit-post'); ?></label>
+                    <label for="url"><?php _e('URL', IFM_NAMESPACE); ?></label>
                     <input type="url" name="post-url" id="new-post-url" class="post-input" required>
                 </p>
-                <label for="content"><?php _e('Content', 'submit-post'); ?></label>
+                <br>
                 <?php
                 wp_editor(
                     '',
@@ -54,7 +56,7 @@ $customterms = get_terms(
                 ?>
                 <br>
                 <p class="signup-submit">
-                    <input type="submit" name="submit" class="register-button" value="<?php _e('Submit', 'submit-post'); ?>" />
+                    <input type="submit" name="submit" class="register-button" value="<?php _e('Submit', IFM_NAMESPACE); ?>" />
                 </p>
                 <input type="hidden" name="action" value="submit_post">
             </form>

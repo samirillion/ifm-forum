@@ -4,17 +4,6 @@ namespace IFM;
 
 /* Define Custom Query Vars. https://codex.wordpress.org/WordPress_Router_Qvars */
 
-/**
- * Define Base Routes
- */
-define('IFM_ROUTE_FORUM', '/' . IFM_NAMESPACE . '/forum');
-define('IFM_ROUTE_COMMENTS', '/' . IFM_NAMESPACE . '/comments');
-define('IFM_ROUTE_INBOX', '/' . IFM_NAMESPACE . '/inbox');
-define('IFM_ROUTE_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
-define('IFM_ROUTE_CREATE', '/' . IFM_NAMESPACE . '/create');
-
-
-
 Route::add_query_vars(
     array(
         'ifm_post_id',

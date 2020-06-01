@@ -33,6 +33,22 @@ class Model_Query extends WP_Query
       'update_post_meta_cache' => false
     ));
 
+    // add others for query
+    if (get_query_var('ifm_p')) {
+      $args['paged'] = get_query_var('ifm_p');
+    }
+    if (get_query_var('ifm_tax')) {
+      $args['tax_query'] = array(
+        array(
+          'taxonomy' => IFM_POST_TAXONOMY_NAME,
+          'terms' => get_query_var('ifm_tax'),
+          'field' => 'slug',
+          'include_children' => true,
+          'operator' => 'IN'
+        )
+      );
+    }
+
     $this->args = $args;
 
     add_filter('posts_fields', array($this, 'posts_fields'));

@@ -13,7 +13,7 @@ get_header();
 
 ob_start(); ?>
 
-<div class="ifm-container">
+<div class="ifm-container ifm-main">
     <div class="ifm-row">
         <div class="ifm-col-12">
             <?php

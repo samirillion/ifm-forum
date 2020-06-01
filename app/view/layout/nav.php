@@ -46,12 +46,13 @@ $forum_url = IFM_ROUTE_FORUM;
 		?>
 		<?php
 		if (is_user_logged_in()) {
-			$current_user_id = get_current_user_id();
+		?>
+			<li class="ifm-post-nav-item ifm-nav-private">
+				<a href="<?php echo IFM_ROUTE_ACCOUNT ?>" class="ifm-button"><?php _e('My Account', IFM_NAMESPACE) ?></a>
+			</li>
+		<?php
 		}
 		?>
-		<li class="ifm-post-nav-item ifm-nav-private">
-			<a href="<?php echo IFM_ROUTE_INBOX ?>">private messages</a>
-		</li>
 	</ul>
 	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($forum_url); ?>">
 		<div class="ifm-search-wrapper">

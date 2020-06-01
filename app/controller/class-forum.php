@@ -55,27 +55,30 @@ class Controller_Forum
 	 */
 	public function main()
 	{
-		$params = Router_Qvars::get_params();
 
-		if (array_key_exists('ifm_query', $params)) {
-			$query = $this->agg_search_posts($params);
+		// define initial args
+		$args = array(
+			'posts_per_page' => 20
+		);
+
+		if (get_query_var('ifm_query')) {
+			$args['s'] = sanitize_text_field(get_query_var('ifm_query'));
+			$query = $this->agg_search_posts($args);
 		} else {
-			$query = new Model_Query();
-			$posts = $query->posts;
+			$query = new Model_Query($args);
 		}
 
-		return view('forum/main', $posts, $params);
+		return view('forum/main', $query);
 	}
 
 	public function show_current_user_attachments()
 	{
-		xdebug_break();
-			$user_id = get_current_user_id();
-			if ($user_id && !current_user_can('activate_plugins') && !current_user_can('edit_others_posts
+		$user_id = get_current_user_id();
+		if ($user_id && !current_user_can('activate_plugins') && !current_user_can('edit_others_posts
 ')) {
-				$query['author'] = $user_id;
-			}
-			return $query;
+			$query['author'] = $user_id;
+		}
+		return $query;
 	}
 
 	/**
@@ -86,17 +89,6 @@ class Controller_Forum
 	public function submit()
 	{
 		return view('forum/submit-post');
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @param WP_REST_Request $request
-	 * @return array
-	 */
-	public function select(\WP_REST_Request $request)
-	{
-		return "Hello World!";
 	}
 
 	/**
@@ -154,18 +146,13 @@ class Controller_Forum
 	 *
 	 * @return void
 	 */
-	public function agg_search_posts($params)
+	public function agg_search_posts($args)
 	{
-		$query = null;
-		$query->query_vars['s']              = sanitize_text_field($params['ifm_query']);
-		$query->query_vars['posts_per_page'] = $this->posts_per_page;
-		$posts                               = [];
-		foreach (relevanssi_do_query($query) as $post) {
-			if (IFM_POST_TYPE === $post->post_type) {
-				$posts[] = $post;
-			}
-		}
-		return $posts;
+		$query = new Model_Query($args);
+		// $query->parse_query($args);
+
+		relevanssi_do_query($query);
+		return $query;
 	}
 
 	/**

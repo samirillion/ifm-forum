@@ -267,6 +267,35 @@
   }
 }
 
+.ifm-main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.ifm-main h5 {
+  margin: 0;
+}
+.ifm-pagination .ifm-page, .ifm-pagination .ifm-arrow {
+  font-size: 20px;
+  padding-right: 5px;
+  color: #121212;
+}
+.ifm-pagination .ifm-current-page {
+  color: #7BBA22;
+}
+
+.ifm-account-details .ifm-link {
+  font-size: 15px;
+  margin: 2.5px;
+  display: block;
+  text-decoration: underline;
+}
+.ifm-button {
+  font-size: 14px;
+  line-height: 1;
+}
+.ifm-button:hover {
+  opacity: .8;
+}
 .ifm-item-voter {
   width: 40px;
   height: 54px;
@@ -484,19 +513,23 @@
   background: black;
   z-index: -1;
 }
-/* .ifm-term-description {
+.ifm-term-description {
   padding: 5px;
   padding-left: 10px;
   border: 1px solid #999999;
   width: 100%;
   border-bottom: none;
-} */
+}
 #loginform {
   margin-top: 3vh;
   margin-bottom: 3vh;
 }
 .ifm-searchform {
   width: 30%;
+}
+.form-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .ifm-searchform .ifm-search-wrapper {
   display: flex;
@@ -593,6 +626,9 @@ input[type="submit"].ifm-search-submit {
 }
 #account-details label {
   display: block;
+}
+.ifm-account-details {
+  padding: 20px;
 }
 .ifm-container .user-account-details {
   margin-top: 2vh;

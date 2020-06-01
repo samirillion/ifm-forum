@@ -10,7 +10,7 @@ foreach ($page_posts as $post) {
         $posturl = $commentslink;
         $target  = '';
     } else {
-        $posturl = $postmeta['ifm_entry_url']['0'];
+        $posturl = isset($postmeta['ifm_entry_url']) ? $postmeta['ifm_entry_url']['0'] : "/";
         $target  = "target='_blank'";
     }
     $link     = admin_url('admin-ajax.php?action=add_entry_karma&post_id=' . $post_ID . '&nonce=' . $nonce);
@@ -61,7 +61,9 @@ foreach ($page_posts as $post) {
         <div class="ifm-item-content">
             <div class="ifm-post-title">
                 <a class="ifm-entry-link" href="<?php echo $posturl; ?>" <?php echo $target; ?>><?php echo $post->post_title; ?></a>
-                <span class="host-url">(<?php echo parse_url($posturl)['host']; ?>)</span>
+                <?php if (isset(parse_url($posturl)['host'])) :
+                ?><span class="host-url">(<?php echo parse_url($posturl)['host']; ?>)</span>
+                <?php endif; ?>
                 <span class="title">
                     <span class="ifm-post-type"> &ndash; <?php
                                                             echo (wp_get_object_terms($post_ID, IFM_POST_TAXONOMY_NAME))[0]->{'name'}; ?></span>

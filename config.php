@@ -19,14 +19,23 @@ define('IFM_VIEW', IFM_BASE . 'app/view/');
 /**
  * Define Post Types
  */
-define('IFM_POST_TYPE', 'ifm-post');
-define('IFM_POST_TAXONOMY_NAME', 'ifm-tax');
+define('IFM_POST_TYPE', 'aggregator-posts');
+define('IFM_POST_TAXONOMY_NAME', 'aggpost-type');
 
 /**
  * Set to determine the base namespace for the router. 
  */
 define('IFM_API_PREFIX', 'api');
 define('IFM_NAMESPACE', 'ifm');
+
+/**
+ * Define Base Routes
+ */
+define('IFM_ROUTE_FORUM', '/' . IFM_NAMESPACE . '/forum');
+define('IFM_ROUTE_COMMENTS', '/' . IFM_NAMESPACE . '/comments');
+define('IFM_ROUTE_INBOX', '/' . IFM_NAMESPACE . '/inbox');
+define('IFM_ROUTE_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
+define('IFM_ROUTE_CREATE', '/' . IFM_NAMESPACE . '/create');
 
 add_filter('rest_url_prefix', function ($prefix) {
     return IFM_API_PREFIX;

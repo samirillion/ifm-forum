@@ -7,7 +7,7 @@ $current_user = get_user_by('id', $user_id);
 $user_name =  $current_user->user_nicename;
 $user_karma = Model_User::calculate_user_karma($user_id);
 ?>
-<div class="user-account-details">
+<div class="ifm-account-details">
 	<h5>Username: <?php echo $user_name ?></h5>
 	<h5>User Karma: <?php echo $user_karma ?></h5>';
 	<h5>User Since: <?php echo human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)); ?> ago</h5>
