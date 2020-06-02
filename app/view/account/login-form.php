@@ -3,7 +3,7 @@
 		<div class="ifm-col-6-sm ifm-col-offset-3">
 			<?php if ($attributes['show_title']) : ?>
 				<!-- Show errors if there are any -->
-				<?php _e('Sign In', 'personalize-login'); ?>
+				<?php _e('Sign In', IFM_NAMESPACE); ?>
 			<?php endif; ?>
 			<?php
 			if ('success' === get_query_var('status')) {
@@ -21,7 +21,7 @@
 				<p class="login-info">
 					<?php
 					printf(
-						__('You have successfully registered to the <strong>%s</strong> forum.', 'personalize-login'),
+						__('You have successfully registered to the <strong>%s</strong> forum.', IFM_NAMESPACE),
 						get_bloginfo('name')
 					);
 					?>
@@ -30,25 +30,24 @@
 			<!-- Show logged out message if user just logged out -->
 			<?php if ($attributes['logged_out']) : ?>
 				<p class="login-info">
-					<?php _e('You have signed out. Would you like to sign in again?', 'personalize-login'); ?>
+					<?php _e('You have signed out. Would you like to sign in again?', IFM_NAMESPACE); ?>
 				</p>
 			<?php endif; ?>
 			<?php
 			wp_login_form(
 				array(
-					'label_username' => __('Username', 'personalize-login'),
-					'label_log_in'   => __('Sign In', 'personalize-login'),
+					'label_username' => __('Username', IFM_NAMESPACE),
+					'label_log_in'   => __('Sign In', IFM_NAMESPACE),
 					'redirect'       => $attributes['redirect'],
 				)
 			);
 			?>
 
 			<a class="forgot-password" href="<?php echo home_url(IFM_NAMESPACE . "/password-reset"); ?>">
-				<?php _e('Forgot your password?', 'personalize-login'); ?>
+				<?php _e('Forgot your password?', IFM_NAMESPACE); ?>
 			</a>
-			<br>
 			<a class="registration-redirect" href="<?php echo home_url(IFM_ROUTE_ACCOUNT . "/create"); ?>">
-				<?php _e('Or register a new account', 'personalize-login'); ?>
+				<?php _e('Or register a new account', IFM_NAMESPACE); ?>
 			</a>
 		</div>
 	</div>

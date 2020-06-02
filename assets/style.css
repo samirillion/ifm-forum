@@ -283,7 +283,7 @@
   color: #7BBA22;
 }
 
-.ifm-account-details .ifm-link {
+.ifm-account-details .ifm-link, .forgot-password, .registration-redirect {
   font-size: 15px;
   margin: 2.5px;
   display: block;
@@ -433,7 +433,7 @@
   font-size: 1.5rem;
   color: #222222;
 }
-.view-user-posts, .ifm-change-password, .ifm-logout {
+.ifm-view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
 }
 .csort-login-error {
@@ -463,6 +463,8 @@
   background: #eeeeee;
   padding: 20px;
   margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 15px;
 }
 .ifm-nav {
   width: 100%;
@@ -530,6 +532,9 @@
 .form-row {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+form p {
+  margin: 10px 0;
 }
 .ifm-searchform .ifm-search-wrapper {
   display: flex;
@@ -638,7 +643,7 @@ input[type="submit"].ifm-search-submit {
   margin: 0;
   margin-top: 10px;
 }
-.user-account-details .view-user-posts {
+.user-account-details .ifm-view-user-posts {
   margin-top: 20px;
 }
 .ifm-change-password, .ifm-logout {

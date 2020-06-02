@@ -5,7 +5,7 @@ namespace IFM;
 use WP_Query;
 
 if (!function_exists('ifm\view')) {
-    function view($view = null, $query, $params = [])
+    function view($view = null, $query = null, $params = [])
     {
         ob_start();
         $query;
@@ -20,7 +20,7 @@ if (!function_exists('ifm\pagination')) :
     {
         $big = 999999999; // need an unlikely integer
         if (!$page)
-            $page = get_query_var('ifm_p');
+            $page = get_query_var('ifm_p') ? get_query_var('ifm_p') : 1;
         if (!$max_page)
             $max_page = $query->max_num_pages;
 
@@ -35,7 +35,8 @@ if (!function_exists('ifm\pagination')) :
                 $class .= ' ifm-current-page';
             }
 
-            if ($i != $page && 1 == $i) {
+            // if on first page
+            if (1 != $page && 1 == $i && 1 != $max_page) {
                 $pagination .= "<a class='ifm-prev ifm-arrow' href='" . add_query_arg('ifm_p', $page - 1, $base_url) . "'><<</a>";
             }
             $pagination .= "<a href='" . add_query_arg('ifm_p', $i, $base_url) . "' class='"  . esc_attr($class) . "'>" . $i . "</a>";

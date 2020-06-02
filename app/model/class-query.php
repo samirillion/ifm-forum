@@ -49,6 +49,10 @@ class Model_Query extends WP_Query
       );
     }
 
+    if (get_query_var('user_id')) {
+      $args['author'] = get_query_var('user_id');
+    }
+
     $this->args = $args;
 
     add_filter('posts_fields', array($this, 'posts_fields'));

@@ -43,10 +43,14 @@ class Controller_Account
 
 	public function main()
 	{
-		if (!is_user_logged_in()) {
-			$this->redirect_to_login;
+		if (get_query_var('user_id')) {
+			return view('account/profile');
+		} else {
+			if (!is_user_logged_in()) {
+				$this->redirect_to_login;
+			}
+			return view('account/main');
 		}
-		return view('account/main');
 	}
 
 	public function create($attributes = null, $content = null)

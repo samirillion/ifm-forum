@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-$current_user = wp_get_current_user();
+wp_get_current_user();
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
@@ -15,11 +15,11 @@ $current_user = wp_get_current_user();
                 echo '<h5>User for: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . '</h5>';
                 ?>
                 <form id="account-details" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                    <p class="form-row">
+                    <p class="ifm-row">
                         <label for="email"><?php _e('Email', 'email'); ?></label>
                         <input type="email" name="email" id="user-email" class="post-input" value="<?php echo $current_user->user_email; ?>">
                     </p>
-                    <p class="form-row">
+                    <p class="ifm-row">
                         <label for="about"><?php _e('About', IFM_NAMESPACE); ?></label>
                         <?php
                         if (!get_user_meta(get_current_user_id(), 'about_user')) {
@@ -29,12 +29,12 @@ $current_user = wp_get_current_user();
                         ?>
                         <textarea type="text" name="about" id="user-about" class="post-input" cols='40' rows='5'><?php echo $about_user; ?></textarea>
                     </p>
-                    <p class="form-row">
+                    <p class="ifm-row">
                     </p>
                     <?php wp_nonce_field('submit_ifm_post'); ?>
 
                     <p class="signup-submit">
-                        <input type="submit" name="update" value="<?php _e('Update', 'update-account_details'); ?>" />
+                        <input type="submit" name="update" value="<?php _e('Update', IFM_NAMESPACE); ?>" />
                     </p>
                     <input type="hidden" name="action" value="update_account_details">
                 </form>
