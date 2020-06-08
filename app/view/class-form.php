@@ -68,8 +68,6 @@ class View_Form
 	 */
 	public function get_error_message($error_code)
 	{
-		xdebug_break();
-
 		switch ($error_code) {
 
 				// Lost password

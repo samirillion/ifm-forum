@@ -52,7 +52,7 @@ $forum_url = IFM_ROUTE_FORUM;
 			<?php
 			} else {
 			?>
-				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button"><?php _e('Login', IFM_NAMESPACE) ?></a>
+				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button"><?php _e('Login/Register', IFM_NAMESPACE) ?></a>
 			<?php } ?>
 		</li>
 	</ul>
