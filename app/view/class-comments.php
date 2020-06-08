@@ -89,11 +89,12 @@ class View_Comments
 				// $link = admin_url('admin-ajax.php?action=vote_on_comment&comment_id='.$comment['comment_ID'].'&nonce='.$nonce);
 				echo '<div class="ifm-comment-content">' . $comment['comment_content'] . '</div>';
 				?>
-				<div class="reply-to-comment">reply</div>
+				<div class="reply-to-comment"><?php _e('reply', IFM_NAMESPACE) ?></div>
 				<div class="ifm-comment-reply-container" style="display:none;">
-					<textarea name="ifm-comment-reply-textarea" required></textarea>
-					<a class="ifm-submit-reply">submit</a>
-					<?php include(IFM_VIEW . '/comments/comment-form.php'); ?>
+					<textarea name="ifm-comment-reply-textarea" cols="40" rows="5" required></textarea>
+					<br>
+					<a class="ifm-submit-reply ifm-button ifm-button-secondary"><?php _e('submit', IFM_NAMESPACE) ?></a>
+					<?php view('comments/comment-form'); ?>
 				</div>
 	<?php
 			// Print all our children

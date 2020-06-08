@@ -35,7 +35,7 @@ class Controller_Account
 		add_action('admin_post_update_account_details', array($plugin, 'update_account_details'));
 		add_action('admin_post_change_password', array($plugin, 'update_password'));
 
-		add_filter('wp_nav_menu_items', array($plugin, 'add_conditional_menu_items'), 10, 2);
+		// add_filter('wp_nav_menu_items', array($plugin, 'add_conditional_menu_items'), 10, 2);
 
 		add_action('after_setup_theme', array($plugin, 'remove_admin_bar'), 10, 2);
 	}

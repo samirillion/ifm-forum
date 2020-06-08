@@ -63,7 +63,7 @@ class Controller_Forum
 
 		if (get_query_var('ifm_query')) {
 			$args['s'] = sanitize_text_field(get_query_var('ifm_query'));
-			$query = $this->agg_search_posts($args);
+			$query = $this->ifm_search_posts($args);
 		} else {
 			$query = new Model_Query($args);
 		}
@@ -146,7 +146,7 @@ class Controller_Forum
 	 *
 	 * @return void
 	 */
-	public function agg_search_posts($args)
+	public function ifm_search_posts($args)
 	{
 		$query = new Model_Query($args);
 		// $query->parse_query($args);

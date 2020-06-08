@@ -12,7 +12,7 @@
 			?>
 			<?php if (count($attributes['errors']) > 0) : ?>
 				<?php foreach ($attributes['errors'] as $error) : ?>
-					<p class="csort-login-error">
+					<p class="ifm-login-error">
 						<?php echo $error; ?>
 					</p>
 				<?php endforeach; ?>

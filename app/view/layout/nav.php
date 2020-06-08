@@ -16,7 +16,7 @@ if (get_query_var('ifm_tax')) {
 $forum_url = IFM_ROUTE_FORUM;
 ?>
 <div class="ifm-submit-post">
-	<a href="<?php echo home_url('/' . IFM_ROUTE_FORUM . "/submit"); ?>">+ Submit New Post</a>
+	<a href="<?php echo home_url(IFM_ROUTE_FORUM . "/submit"); ?>">+ Submit New Post</a>
 </div>
 <nav class="ifm-nav">
 	<ul class="ifm-post-types">
@@ -48,19 +48,19 @@ $forum_url = IFM_ROUTE_FORUM;
 			<?php
 			if (is_user_logged_in()) {
 			?>
-				<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button"><?php _e('My Account', IFM_NAMESPACE) ?></a>
+				<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button ifm-button-secondary"><?php _e('My Account', IFM_NAMESPACE) ?></a>
 			<?php
 			} else {
 			?>
-				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button"><?php _e('Login/Register', IFM_NAMESPACE) ?></a>
+				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button ifm-button-secondary"><?php _e('Login/Register', IFM_NAMESPACE) ?></a>
 			<?php } ?>
 		</li>
 	</ul>
 	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($forum_url); ?>">
 		<div class="ifm-search-wrapper">
-			<label class="screen-reader-text" for="s">Search for:</label>
+			<label class="screen-reader-text" for="s"><?php _e('Search for:', IFM_NAMESPACE) ?></label>
 			<input type="text" placeholder="search forum" name="ifm_query" class="ifm-query-input" />
-			<input type="hidden" name="action" value="agg_search_posts">
+			<input type="hidden" name="action" value="ifm_search_posts">
 			<input type="submit" class="ifm-search-submit" value="Search" />
 		</div>
 	</form>

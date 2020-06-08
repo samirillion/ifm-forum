@@ -293,9 +293,22 @@
 .ifm-button {
   font-size: 14px;
   line-height: 1;
+  font-size: 13px;
+  color: #f3f3f3;
+  background: #7bba22;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
 }
 .ifm-button:hover {
-  opacity: .8;
+  color: #f3f3f3;
+  cursor: pointer;
+  background: #999999;
+}
+.ifm-button-secondary {
+  background: #121212;
 }
 .ifm-item-voter {
   width: 40px;
@@ -360,6 +373,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.ifm-item-content .ifm-post-type {
+  padding-left: 0;
 }
 .ifm-item-no-content {
   border: 1px solid #999999;
@@ -432,15 +448,15 @@
 }
 .ifm-comment-post-content {
   font-size: 1.5rem;
-  color: #222222;
+  color: #121212;
   white-space: pre-wrap;
 }
 .ifm-view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
 }
-.csort-login-error {
+.ifm-login-error {
   color: #FF6F33;
-  background: white;
+  background: #f3f3f3;
 }
 .ifm-tags a {
   margin-left: 2px;
@@ -503,18 +519,8 @@
   height: 100%;
 }
 .ifm-post-types .ifm-nav-private a, .ifm-post-types .ifm-nav-outbox a {
-  color: white;
+  color: #f3f3f3;
   text-decoration: none;
-}
-.ifm-post-types .ifm-nav-private:before {
-  content: "";
-  height: calc(100% - 10px);
-  width: 100%;
-  position: absolute;
-  top: 5px;
-  left: 0;
-  background: black;
-  z-index: -1;
 }
 .ifm-term-description {
   padding: 5px;
@@ -522,6 +528,7 @@
   border: 1px solid #999999;
   width: 100%;
   border-bottom: none;
+  font-style: italic;
 }
 #loginform {
   margin-top: 3vh;
@@ -621,7 +628,7 @@ input[type="submit"].ifm-search-submit {
 }
 .ifm-comment-wrapper .ifm-comment {
   width: 60%;
-  color: #222222;
+  color: #121212;
   letter-spacing: .5px;
   font-size: 14px;
   margin-top: 5px;
@@ -670,6 +677,7 @@ input[type="submit"].ifm-search-submit {
 }
 .ifm-comment-reply-container textarea {
   font-size: 13px;
+  width: 60%;
 }
 #submit-post {
   margin: 3vh auto;
@@ -679,12 +687,6 @@ input[type="submit"].ifm-search-submit {
 }
 #submit-post .must-be-logged-in:hover {
   opacity: .7;
-}
-.ifm-submit-reply {
-  font-size: 13px;
-}
-.ifm-submit-reply:hover {
-  cursor: pointer;
 }
 .logged-in-user {
   color: #FF6F33;
@@ -719,7 +721,7 @@ input[type="submit"].ifm-search-submit {
   width: 22px;
   height: 22px;
   border-radius: 100%;
-  background: #fff;
+  background: #f3f3f3;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.1);
   z-index: 10;
   -webkit-transition: all .2s linear;  
@@ -731,7 +733,7 @@ input[type="submit"].ifm-search-submit {
   font-size: 12px;
   letter-spacing: 1px;
   line-height: 18px;
-  color: #fff;
+  color: #f3f3f3;
   font-weight: bold;
   position: absolute;
   width: 33px;
