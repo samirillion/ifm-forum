@@ -17,7 +17,7 @@ $customterms = get_terms(
                 <p class="form-row">
                     <label for="dropdown"><?php _e('Post Type', 'post-type'); ?></label>
                     <select name="post-type" id="post-type" class="post-input" required>
-                        <option value="" selected disabled>Select a Term</option>
+                        <option value="" selected disabled><?php _e('Select a Post Type', IFM_NAMESPACE) ?></option>
                         <?php
                         foreach ($customterms as $term) {
                             echo '<option>' . $term->{'name'} . '</option>';

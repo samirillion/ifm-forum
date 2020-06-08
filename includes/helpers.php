@@ -15,6 +15,35 @@ if (!function_exists('ifm\view')) {
     }
 }
 
+/**
+ * Function to Parse the callback string to add the controller class and method as CSS classes to the forum wrapper
+ *
+ * @param string $callback
+ * @return string
+ */
+if (!function_exists('ifm\main_classes')) :
+    function main_classes($callback)
+    {
+        $exploded = explode("@", $callback);
+        $controller = $exploded[0];
+        $method = $exploded[1];
+
+        if (substr($controller, 0, strlen('Controller_')) == 'Controller_') {
+            $controller = strtolower(substr($controller, strlen('Controller_')));
+        }
+
+        return \esc_attr("ifm-" . $controller . " " . "ifm-" . $method);
+    }
+endif;
+
+/**
+ * Generate Custom Pagination
+ *
+ * @param string $page
+ * @param string $max_page
+ * @param \WP_Query $query
+ * @return void
+ */
 if (!function_exists('ifm\pagination')) :
     function pagination($page = '', $max_page = '', \WP_Query $query)
     {

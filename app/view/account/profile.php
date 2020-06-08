@@ -9,7 +9,7 @@ $user_karma = Model_User::calculate_user_karma($user_id);
 ?>
 <div class="ifm-container">
 	<div class="ifm-row">
-		<div class="ifm-col-6-sm ifm-col-offset-3-sm">
+		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
 			<div class="ifm-account-details">
 				<h5><?php _e('Username: ', IFM_NAMESPACE);
 					$user_name ?></h5>

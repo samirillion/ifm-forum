@@ -69,6 +69,6 @@ class Model_User extends WP_User
 			array('%s'),
 			array('%d', '%s')
 		);
-		wp_redirect(add_query_arg('user_id', get_current_user_id(), home_url(IFM_ROUTE_ACCOUNT)));
+		wp_redirect(home_url(IFM_ROUTE_ACCOUNT));
 	}
 }

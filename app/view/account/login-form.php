@@ -1,6 +1,6 @@
 <div class="ifm-container">
 	<div class="ifm-row">
-		<div class="ifm-col-6-sm ifm-col-offset-3">
+		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
 			<?php if ($attributes['show_title']) : ?>
 				<!-- Show errors if there are any -->
 				<?php _e('Sign In', IFM_NAMESPACE); ?>
@@ -18,10 +18,10 @@
 				<?php endforeach; ?>
 			<?php endif; ?>
 			<?php if ($attributes['registered']) : ?>
-				<p class="login-info">
+				<p class="ifm-login">
 					<?php
 					printf(
-						__('You have successfully registered to the <strong>%s</strong> forum.', IFM_NAMESPACE),
+						__('You have successfully registered to the <strong>%s</strong> forum.<br> Time to Sign in!', IFM_NAMESPACE),
 						get_bloginfo('name')
 					);
 					?>
@@ -29,7 +29,7 @@
 			<?php endif; ?>
 			<!-- Show logged out message if user just logged out -->
 			<?php if ($attributes['logged_out']) : ?>
-				<p class="login-info">
+				<p class="ifm-login">
 					<?php _e('You have signed out. Would you like to sign in again?', IFM_NAMESPACE); ?>
 				</p>
 			<?php endif; ?>

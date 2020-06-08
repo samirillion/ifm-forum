@@ -21,8 +21,16 @@ class View_Main
         $header_views = array(IFM_VIEW . '/layout/nav.php');
         $footer_views = array();
         $html = $this->handler_before($header_views);
-        $html .= call_user_func(array($instance, $method));
+        $html .= $this->handler_body($instance, $method);
         $html .= $this->handler_after($footer_views);
+        return $html;
+    }
+
+    protected function handler_body($instance, $method)
+    {
+        $html = "<div class='ifm-body'>";
+        $html .= call_user_func(array($instance, $method));
+        $html .= "</div>";
         return $html;
     }
 

@@ -89,7 +89,7 @@ class Controller_Account
 			$redirect_url = home_url(IFM_NAMESPACE . '/login');
 			$redirect_url = add_query_arg('status', 'success', $redirect_url);
 		} else {
-			$redirect_url = home_url('change-password');
+			$redirect_url = home_url(IFM_NAMESPACE . '/change-password');
 			$redirect_url = add_query_arg('status', 'failed', $redirect_url);
 		}
 		wp_redirect($redirect_url);
@@ -112,11 +112,11 @@ class Controller_Account
 	public function update_account_details()
 	{
 		if (!is_user_logged_in()) {
-			wp_redirect('home_url()');
+			wp_redirect(home_url());
 			exit();
 		}
-		$crowd_user = new Model_User;
-		$crowd_user->update_user_information();
+		$user = new Model_User;
+		$user->update_user_information();
 	}
 	public function replace_retrieve_password_message($message, $key, $user_login, $user_data)
 	{
@@ -139,7 +139,7 @@ class Controller_Account
 			$errors = retrieve_password();
 			if (is_wp_error($errors)) {
 				// Errors found
-				$redirect_url = home_url('member-password-lost');
+				$redirect_url = home_url(IFM_NAMESPACE . "/password-reset");
 				$redirect_url = add_query_arg('errors', join(',', $errors->get_error_codes()), $redirect_url);
 			} else {
 				// Email sent
@@ -170,16 +170,16 @@ class Controller_Account
 			return __('You are already signed in.', IFM_NAMESPACE);
 		} else {
 			// Retrieve possible errors from request parameters
-			$crowd_form_renderer  = new View_Form;
+			$form  = new View_Form;
 			$attributes['errors'] = array();
 			if (isset($_REQUEST['errors'])) {
 				$error_codes = explode(',', $_REQUEST['errors']);
 
 				foreach ($error_codes as $error_code) {
-					$attributes['errors'][] = $crowd_form_renderer->get_error_message($error_code);
+					$attributes['errors'][] = $form->get_error_message($error_code);
 				}
 			}
-			$content = $crowd_form_renderer->render_form('password-lost-form', $attributes);
+			$content = $form->render_form('account/password-lost-form', $attributes);
 			return $content;
 		}
 	}
@@ -196,7 +196,7 @@ class Controller_Account
 				exit;
 			}
 
-			wp_redirect(home_url('member-password-lost'));
+			wp_redirect(home_url(IFM_NAMESPACE . "/password-reset"));
 			exit;
 		}
 	}
@@ -221,8 +221,8 @@ class Controller_Account
 
 		$attributes['logged_out'] = isset($_REQUEST['logged_out']) && $_REQUEST['logged_out'] == true;
 
-		$crowd_login = new View_Form;
-		$content     = $crowd_login->render_form('account/login-form', $attributes);
+		$form        = new View_Form;
+		$content     = $form->render_form('account/login-form', $attributes);
 		return $content;
 	}
 
@@ -339,16 +339,16 @@ class Controller_Account
 	private function register_user($email, $username, $password)
 	{
 		$errors              = new \WP_Error();
-		$crowd_form_renderer = new View_Form;
+		$form = new View_Form;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if (!is_email($email) && $email != 0) {
-			$errors->add('email', $crowd_form_renderer->get_error_message('email'));
+			$errors->add('email', $form->get_error_message('email'));
 			return $errors;
 		}
 
 		if (username_exists($username)) {
-			$errors->add('username_exists', $crowd_form_renderer->get_error_message('username_exists'));
+			$errors->add('username_exists', $form->get_error_message('username_exists'));
 			return $errors;
 		}
 

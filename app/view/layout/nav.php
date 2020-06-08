@@ -44,15 +44,17 @@ $forum_url = IFM_ROUTE_FORUM;
 			echo "<li class='ifm-post-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $forum_url) . "'>" . $term->{'name'} . '</a></li>';
 		}
 		?>
-		<?php
-		if (is_user_logged_in()) {
-		?>
-			<li class="ifm-post-nav-item ifm-nav-private">
-				<a href="<?php echo IFM_ROUTE_ACCOUNT ?>" class="ifm-button"><?php _e('My Account', IFM_NAMESPACE) ?></a>
-			</li>
-		<?php
-		}
-		?>
+		<li class="ifm-post-nav-item ifm-nav-private">
+			<?php
+			if (is_user_logged_in()) {
+			?>
+				<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button"><?php _e('My Account', IFM_NAMESPACE) ?></a>
+			<?php
+			} else {
+			?>
+				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button"><?php _e('Login', IFM_NAMESPACE) ?></a>
+			<?php } ?>
+		</li>
 	</ul>
 	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($forum_url); ?>">
 		<div class="ifm-search-wrapper">

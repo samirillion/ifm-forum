@@ -1,6 +1,6 @@
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-col-6-sm ifm-col-offset-3">
+        <div class="ifm-col-8-sm ifm-col-offset-2-sm">
             <div id="register-form" class="widecolumn">
                 <?php if ($attributes['show_title']) : ?>
                     <h3><?php _e('Register', 'personalize-login'); ?></h3>

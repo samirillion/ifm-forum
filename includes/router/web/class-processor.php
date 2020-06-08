@@ -122,7 +122,7 @@ class Router_Web_Processor
      */
     public function register_routes()
     {
-        $routes = apply_filters('my_plugin_routes', $this->routes);
+        $routes = apply_filters('ifm_plugin_routes', $this->routes);
 
         foreach ($routes as $name => $route) {
             $this->router->add_route($name, $route);
@@ -132,9 +132,9 @@ class Router_Web_Processor
 
         $routes_hash = md5(serialize($routes));
 
-        if ($routes_hash != get_option('my_plugin_routes_hash')) {
+        if ($routes_hash != get_option('ifm_plugin_routes_hash')) {
             flush_rewrite_rules();
-            update_option('my_plugin_routes_hash', $routes_hash);
+            update_option('ifm_plugin_routes_hash', $routes_hash);
         }
     }
 }

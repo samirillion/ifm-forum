@@ -270,6 +270,7 @@
 .ifm-main {
   padding-top: 20px;
   padding-bottom: 20px;
+  font-size: 14px;
 }
 .ifm-main h5 {
   margin: 0;
@@ -635,6 +636,9 @@ input[type="submit"].ifm-search-submit {
 }
 #account-details label {
   display: block;
+}
+.ifm-account .ifm-body {
+  padding-top: 20px;
 }
 .ifm-account-details {
   padding: 20px;

@@ -7,7 +7,7 @@ $user_id = get_current_user_id();
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-col-6-sm ifm-col-offset-3-sm">
+        <div class="ifm-col-8-sm ifm-col-offset-2-sm">
             <div class="ifm-account-details">
                 <?php
                 echo '<h5>Username: ' . \esc_html($current_user->user_login) . '</h5><br />';
@@ -40,7 +40,7 @@ $user_id = get_current_user_id();
                     <input type="hidden" name="action" value="update_account_details">
                 </form>
                 <a class="ifm-link" href="<?php echo add_query_arg('user_id', get_current_user_id(), home_url(IFM_ROUTE_FORUM)); ?>">View My Posts</a>
-                <a class="ifm-link" href=<?php echo home_url('change-password'); ?>>Change password</a>
+                <a class="ifm-link" href=<?php echo home_url(IFM_NAMESPACE . '/change-password'); ?>>Change password</a>
                 <a title="Logout" class="ifm-link" href="<?php echo esc_url(wp_logout_url(IFM_ROUTE_FORUM)); ?>">Logout</a>
             </div>
         </div>

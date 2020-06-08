@@ -11,9 +11,9 @@ namespace IFM;
  */
 get_header();
 
-ob_start(); ?>
-
-<div class="ifm-container ifm-main">
+ob_start();
+?>
+<div class="ifm-container ifm-main <?php echo main_classes($wp->query_vars['ifm']) ?>">
     <div class="ifm-row">
         <div class="ifm-col-12">
             <?php

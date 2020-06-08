@@ -17,31 +17,33 @@ Route::add_query_vars(
 );
 
 // Forum Routes
-Route::render(IFM_ROUTE_FORUM, 'Controller_Forum@main');
+Route::render(IFM_ROUTE_FORUM, "Controller_Forum@main");
 
-Route::render(IFM_ROUTE_FORUM . "/submit", 'Controller_Forum@submit');
+Route::render(IFM_ROUTE_FORUM . "/submit", "Controller_Forum@submit");
 
 // Comment Routes
-Route::render(IFM_ROUTE_COMMENTS, 'Controller_Comment@main');
-Route::json('/post-comment', 'Controller_Comment@comment_on_post', 'post');
+Route::render(IFM_ROUTE_COMMENTS, "Controller_Comment@main");
+Route::json("/post-comment", "Controller_Comment@comment_on_post", "post");
 
 // Messaging Routes
-Route::render(IFM_ROUTE_INBOX, 'Controller_PM@main');
+Route::render(IFM_ROUTE_INBOX, "Controller_PM@main");
 
 // Account Management Routes
-// Main
-Route::render(IFM_ROUTE_ACCOUNT, 'Controller_Account@main');
+// Main Profile
+Route::render(IFM_ROUTE_ACCOUNT, "Controller_Account@main");
 // Create New Account
-Route::render(IFM_ROUTE_ACCOUNT . "/create", 'Controller_Account@create');
+Route::render(IFM_ROUTE_ACCOUNT . "/create", "Controller_Account@create");
+// View Profile/Details
+Route::render(IFM_ROUTE_ACCOUNT . "/details", "Controller_Account@render_user_profile");
+
+
+// Account Registration Routes
 // Login Form
-Route::render(IFM_NAMESPACE . "/login", 'Controller_Account@login_form');
-// View Profile/Details
-Route::render(IFM_ROUTE_ACCOUNT . "/details", 'Controller_Account@render_user_profile');
+Route::render(IFM_NAMESPACE . "/login", "Controller_Account@login_form");
 
-// View Profile/Details
-Route::render(IFM_NAMESPACE . "/password-reset", 'Controller_Account@render_password_lost_form');
-
-Route::render(IFM_NAMESPACE . "/change-pass", 'Controller_Account@change_password');
+Route::render(IFM_NAMESPACE . "/register", "Controller_Account@render_register_form");
+Route::render(IFM_NAMESPACE . "/password-reset", "Controller_Account@render_password_lost_form");
+Route::render(IFM_NAMESPACE . "/change-password", "Controller_Account@change_password");
 
 
 // Register Routes
