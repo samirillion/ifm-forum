@@ -37,8 +37,11 @@ Route::render(IFM_ROUTE_ACCOUNT . "/create", 'Controller_Account@create');
 Route::render(IFM_NAMESPACE . "/login", 'Controller_Account@login_form');
 // View Profile/Details
 Route::render(IFM_ROUTE_ACCOUNT . "/details", 'Controller_Account@render_user_profile');
+
 // View Profile/Details
 Route::render(IFM_NAMESPACE . "/password-reset", 'Controller_Account@render_password_lost_form');
+
+Route::render(IFM_NAMESPACE . "/change-pass", 'Controller_Account@change_password');
 
 
 // Register Routes

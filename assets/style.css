@@ -432,6 +432,7 @@
 .ifm-comment-post-content {
   font-size: 1.5rem;
   color: #222222;
+  white-space: pre-wrap;
 }
 .ifm-view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
@@ -459,7 +460,6 @@
   opacity: .8;
 }
 .ifm-about-user {
-  width: 60%;
   background: #eeeeee;
   padding: 20px;
   margin-top: 5px;
@@ -613,6 +613,10 @@ input[type="submit"].ifm-search-submit {
   color: #999999;
   font-size: 13px;
   font-weight: 300;
+}
+.ifm-comment-wrapper {
+  margin-left: 38px;
+  padding: 20px;
 }
 .ifm-comment-wrapper .ifm-comment {
   width: 60%;

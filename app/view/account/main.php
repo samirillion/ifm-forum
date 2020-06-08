@@ -2,7 +2,8 @@
 
 namespace IFM;
 
-wp_get_current_user();
+$current_user = wp_get_current_user();
+$user_id = get_current_user_id();
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
@@ -10,7 +11,7 @@ wp_get_current_user();
             <div class="ifm-account-details">
                 <?php
                 echo '<h5>Username: ' . \esc_html($current_user->user_login) . '</h5><br />';
-                $user_karma = Model_User::calculate_user_karma();
+                $user_karma = Model_User::calculate_user_karma($user_id);
                 echo '<h5>User Karma: ' . \esc_html($user_karma) . '</h5><br />';
                 echo '<h5>User for: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . '</h5>';
                 ?>

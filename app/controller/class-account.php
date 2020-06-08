@@ -19,7 +19,6 @@ class Controller_Account
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
 		add_shortcode('account-info', array($plugin, 'main'));
-		add_shortcode('change-password', array($plugin, 'change_password_form'));
 		add_shortcode(IFM_ROUTE_ACCOUNT, array($plugin, 'render_user_profile'));
 
 		add_action('admin_post_nopriv_registration_form', array($plugin, 'register_account'));
@@ -78,7 +77,7 @@ class Controller_Account
 		return view('profile');
 	}
 
-	public function change_password_form()
+	public function change_password()
 	{
 		return view('account/change-pass');
 	}

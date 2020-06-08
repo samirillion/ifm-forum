@@ -101,9 +101,9 @@ class Model_Query extends WP_Query
   {
     global $wpdb;
     return $sql . "
-        LEFT JOIN $wpdb->term_relationships ON ($wpdb->term_relationships.object_id = $wpdb->posts.ID)
-        LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id)
-        INNER JOIN $wpdb->terms ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
+        LEFT JOIN $wpdb->term_relationships WPT ON (WPT.object_id = $wpdb->posts.ID)
+        LEFT JOIN $wpdb->term_taxonomy WTT ON (WTT.term_taxonomy_id=WPT.term_taxonomy_id)
+        INNER JOIN $wpdb->terms ON ($wpdb->terms.term_id = WTT.term_id)
     ";
   }
 

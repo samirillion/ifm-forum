@@ -28,21 +28,23 @@ if (!function_exists('ifm\pagination')) :
 
         $pagination = "<div class='ifm-pagination'>";
 
-        for ($i = 1; $i <= $max_page; $i++) {
-            $class = 'ifm-page';
+        if ($max_page > 1) {
+            for ($i = 1; $i <= $max_page; $i++) {
+                $class = 'ifm-page';
 
-            if ($i == $page) {
-                $class .= ' ifm-current-page';
-            }
+                if ($i == $page) {
+                    $class .= ' ifm-current-page';
+                }
 
-            // if on first page
-            if (1 != $page && 1 == $i && 1 != $max_page) {
-                $pagination .= "<a class='ifm-prev ifm-arrow' href='" . add_query_arg('ifm_p', $page - 1, $base_url) . "'><<</a>";
-            }
-            $pagination .= "<a href='" . add_query_arg('ifm_p', $i, $base_url) . "' class='"  . esc_attr($class) . "'>" . $i . "</a>";
+                // if on first page
+                if (1 != $page && 1 == $i && 1 != $max_page) {
+                    $pagination .= "<a class='ifm-prev ifm-arrow' href='" . add_query_arg('ifm_p', $page - 1, $base_url) . "'><<</a>";
+                }
+                $pagination .= "<a href='" . add_query_arg('ifm_p', $i, $base_url) . "' class='"  . esc_attr($class) . "'>" . $i . "</a>";
 
-            if ($i == $max_page && $page != $max_page) {
-                $pagination .= "<a class='ifm-next ifm-arrow' href='" . add_query_arg('ifm_p', $page + 1, $base_url) . "'>>></a>";
+                if ($i == $max_page && $page != $max_page) {
+                    $pagination .= "<a class='ifm-next ifm-arrow' href='" . add_query_arg('ifm_p', $page + 1, $base_url) . "'>>></a>";
+                }
             }
         }
 
