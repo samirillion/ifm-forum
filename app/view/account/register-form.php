@@ -2,11 +2,11 @@
     <div class="ifm-row">
         <div class="ifm-col-8-sm ifm-col-offset-2-sm">
             <div id="register-form" class="widecolumn">
-                <?php if ($attributes['show_title']) : ?>
+                <?php if ($params['show_title']) : ?>
                     <h3><?php _e('Register', 'personalize-login'); ?></h3>
                 <?php endif; ?>
-                <?php if (count($attributes['errors']) > 0) : ?>
-                    <?php foreach ($attributes['errors'] as $error) : ?>
+                <?php if (count($params['errors']) > 0) : ?>
+                    <?php foreach ($params['errors'] as $error) : ?>
                         <p>
                             <?php echo $error; ?>
                         </p>

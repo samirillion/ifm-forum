@@ -12,7 +12,7 @@ $customterms = get_terms(
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-col-10-sm ifm-col-offset-1-sm">
+        <div class="ifm-col-9-sm ifm-col-offset-2-sm">
             <form id="submit-post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                 <p class="form-row">
                     <label for="dropdown"><?php _e('Post Type', 'post-type'); ?></label>

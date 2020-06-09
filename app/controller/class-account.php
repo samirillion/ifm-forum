@@ -38,6 +38,37 @@ class Controller_Account
 		// add_filter('wp_nav_menu_items', array($plugin, 'add_conditional_menu_items'), 10, 2);
 
 		add_action('after_setup_theme', array($plugin, 'remove_admin_bar'), 10, 2);
+
+		add_action('admin_menu', array($plugin, 'remove_dashboard'));
+	}
+
+	/* Remove the "Dashboard" from the admin menu for non-admin users */
+	public function remove_dashboard()
+	{
+		global $menu;
+		$current_user = wp_get_current_user();
+
+		if (!in_array('administrator', $current_user->roles)) {
+			reset($menu);
+			$page = key($menu);
+			while ((__('Dashboard') != $menu[$page][0]) && next($menu)) {
+				$page = key($menu);
+			}
+			if (__('Dashboard') == $menu[$page][0]) {
+				unset($menu[$page]);
+			}
+			reset($menu);
+			$page = key($menu);
+			while (!$current_user->has_cap($menu[$page][1]) && next($menu)) {
+				$page = key($menu);
+			}
+			if (
+				preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']) &&
+				('index.php' != $menu[$page][2])
+			) {
+				wp_redirect(get_option('siteurl') . '/wp-admin/edit.php');
+			}
+		}
 	}
 
 	public function main()

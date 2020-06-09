@@ -399,6 +399,7 @@
 .ifm-post-type, .ifm-post-nav-item {
   font-variant: small-caps;
   font-size: 15px;
+  line-height: 22px;
   list-style-type: none;
   padding-left: 10px;
   padding-right: 10px;
@@ -454,7 +455,7 @@
 .ifm-view-user-posts, .ifm-change-password, .ifm-logout {
   text-decoration: underline;
 }
-.ifm-login-error {
+.ifm-error {
   color: #FF6F33;
   background: #f3f3f3;
 }
@@ -584,6 +585,9 @@ input[type="submit"].ifm-search-submit {
 }
 .ifm-submit-post a {
   font-size: 18px;
+}
+form a:visited {
+  color: #7bba22;
 }
 .ifm-submit-post a, .ifm-submit-post a:visited  {
   color: #7bba22;

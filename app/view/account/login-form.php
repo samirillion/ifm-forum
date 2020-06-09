@@ -1,7 +1,7 @@
 <div class="ifm-container">
 	<div class="ifm-row">
 		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
-			<?php if ($attributes['show_title']) : ?>
+			<?php if ($params['show_title']) : ?>
 				<!-- Show errors if there are any -->
 				<?php _e('Sign In', IFM_NAMESPACE); ?>
 			<?php endif; ?>
@@ -10,14 +10,14 @@
 				echo '<br>Password successfully changed. Take your new password for a spin by logging back in!<br>';
 			}
 			?>
-			<?php if (count($attributes['errors']) > 0) : ?>
-				<?php foreach ($attributes['errors'] as $error) : ?>
-					<p class="ifm-login-error">
+			<?php if (count($params['errors']) > 0) : ?>
+				<?php foreach ($params['errors'] as $error) : ?>
+					<p class="ifm-error">
 						<?php echo $error; ?>
 					</p>
 				<?php endforeach; ?>
 			<?php endif; ?>
-			<?php if ($attributes['registered']) : ?>
+			<?php if ($params['registered']) : ?>
 				<p class="ifm-login">
 					<?php
 					printf(
@@ -28,7 +28,7 @@
 				</p>
 			<?php endif; ?>
 			<!-- Show logged out message if user just logged out -->
-			<?php if ($attributes['logged_out']) : ?>
+			<?php if ($params['logged_out']) : ?>
 				<p class="ifm-login">
 					<?php _e('You have signed out. Would you like to sign in again?', IFM_NAMESPACE); ?>
 				</p>
@@ -38,7 +38,7 @@
 				array(
 					'label_username' => __('Username', IFM_NAMESPACE),
 					'label_log_in'   => __('Sign In', IFM_NAMESPACE),
-					'redirect'       => $attributes['redirect'],
+					'redirect'       => $params['redirect'],
 				)
 			);
 			?>

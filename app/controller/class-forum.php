@@ -11,12 +11,11 @@ namespace IFM;
 
 class Controller_Forum
 {
+
 	/**
-	 * Define Posts Per Page for Pagination. Eventually set in WordPress Admin.
-	 *
-	 * @var integer
+	 * Number of posts in paginations
 	 */
-	private $posts_per_page = 30;
+	private $posts_per_page = 20;
 
 	/**
 	 * Registration function.
@@ -34,17 +33,7 @@ class Controller_Forum
 		add_action('admin_post_edit_post', array($forum_ctrl, 'edit_post'));
 
 		// Limit media library access
-
 		add_filter('ajax_query_attachments_args', array($forum_ctrl, 'show_current_user_attachments'));
-
-		// Limit media library access
-		// add_action('wp_ajax_nopriv_more_ifm_posts', array($plugin, 'load_more_posts'));
-		// add_action('wp_ajax_more_ifm_posts', array($plugin, 'load_more_posts'));
-		// add_action('wp_ajax_addComment', array($plugin, 'add_comment'));
-		// add_action('wp_ajax_nopriv_addComment', array($plugin, 'redirect_to_login_ajax'));
-		// add_action('wp_ajax_vote_on_comment', array($plugin, 'vote_on_comment'));
-		// add_action('wp_ajax_nopriv_vote_on_comment', array($plugin, 'redirect_to_login_ajax'));
-		// add_filter('ajax_query_attachments_args', array($plugin, 'ifm_limit_media_upload_to_user'));
 	}
 
 	/**
@@ -55,20 +44,59 @@ class Controller_Forum
 	 */
 	public function main()
 	{
-
 		// define initial args
-		$args = array(
-			'posts_per_page' => 20
-		);
+		$query = new Model_Query();
+		$args = $this->build_query_args();
+
+		xdebug_break();
 
 		if (get_query_var('ifm_query')) {
-			$args['s'] = sanitize_text_field(get_query_var('ifm_query'));
-			$query = $this->ifm_search_posts($args);
+
+			$args['s'] = get_query_var('ifm_query');
+
+			$query->parse_query($args);
+
+			\relevanssi_do_query($query);
 		} else {
 			$query = new Model_Query($args);
 		}
 
 		return view('forum/main', $query);
+	}
+
+	public function build_query_args()
+	{
+		$args = array(
+			'posts_per_page' => $this->posts_per_page,
+			'private' => false,
+			'count_karma' => true,
+			'orderby_karma' => true,
+			'post_type' => IFM_POST_TYPE,
+			'gravity' => '1.8',
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => false
+		);
+
+		// add others for query
+		if (get_query_var('ifm_p')) {
+			$args['paged'] = get_query_var('ifm_p');
+		}
+
+		if (get_query_var('ifm_tax')) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => IFM_POST_TAXONOMY_NAME,
+					'terms' => get_query_var('ifm_tax'),
+					'field' => 'slug',
+					'include_children' => true,
+					'operator' => 'IN'
+				)
+			);
+		}
+
+		if (get_query_var('user_id')) {
+			$args['author'] = get_query_var('user_id');
+		}
 	}
 
 	public function show_current_user_attachments()
@@ -139,20 +167,6 @@ class Controller_Forum
 	public function render_edit_post_container()
 	{
 		return view('forum/edit-post');
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function ifm_search_posts($args)
-	{
-		$query = new Model_Query($args);
-		// $query->parse_query($args);
-
-		relevanssi_do_query($query);
-		return $query;
 	}
 
 	/**

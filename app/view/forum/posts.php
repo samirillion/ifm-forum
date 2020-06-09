@@ -65,8 +65,8 @@ foreach ($page_posts as $post) {
                 ?><span class="host-url">(<?php echo parse_url($posturl)['host']; ?>)</span>
                 <?php endif; ?>
                 <span class="title">
-                    <span class="ifm-post-type"> &ndash; <?php
-                                                            echo (wp_get_object_terms($post_ID, IFM_POST_TAXONOMY_NAME))[0]->{'name'}; ?></span>
+                    <span class="ifm-post-type">&ndash;<?php
+                                                        echo (wp_get_object_terms($post_ID, IFM_POST_TAXONOMY_NAME))[0]->{'name'}; ?></span>
                 </span>
             </div>
             <div class="ifm-post-meta">
