@@ -21,9 +21,9 @@ class Route
         Router_Web::render($uri, $callback);
         return __CLASS__;
     }
-    public static function json($uri, $callback, $method = "WP_REST_Server::READABLE")
+    public static function json($uri, $callback, $method = "GET", $auth = "")
     {
-        Router_Api::{$method}($uri, $callback);
+        Router_Api::add_route($uri, $callback, $method, $auth);
         return __CLASS__;
     }
     public static function add_query_var($query_var)

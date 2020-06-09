@@ -25,13 +25,16 @@ class Router_Api
 		return __CLASS__;
 	}
 
-	protected static function add_route($method, string $uri = null, string $callback = null)
+	public static function add_route(string $uri = null, string $callback = null, $method, $auth)
 	{
+		$method = "GET" == \strtoupper($method) ? "WP_REST_Server::READABLE" : "WP_REST_Server::CREATABLE";
+
 		if (isset($uri) && isset($callback)) :
 			self::$routes[] = array(
 				'method'   => $method,
 				'uri'      => $uri,
 				'callback' => $callback,
+				'auth'     => $auth
 			);
 		endif;
 	}

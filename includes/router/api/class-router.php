@@ -34,7 +34,7 @@ class Router_Api_Router
 		$controller          = 'IFM\\' . explode('@', $route['callback'])[0];
 		$rest_controller = new $controller;
 		$method              = explode('@', $route['callback'])[1];
-		$permission_callback = array_key_exists('permission_callback', $route) ? $route['permission_callback'] : 'no_auth';
+		$permission_callback = array_key_exists('auth', $route) ? $route['auth'] : 'no_auth';
 
 		register_rest_route(
 			$this->namespace,
