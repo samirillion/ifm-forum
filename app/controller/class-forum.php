@@ -48,8 +48,6 @@ class Controller_Forum
 		$query = new Model_Query();
 		$args = $this->build_query_args();
 
-		xdebug_break();
-
 		if (get_query_var('ifm_query')) {
 
 			$args['s'] = get_query_var('ifm_query');
@@ -97,6 +95,8 @@ class Controller_Forum
 		if (get_query_var('user_id')) {
 			$args['author'] = get_query_var('user_id');
 		}
+
+		return $args;
 	}
 
 	public function show_current_user_attachments()

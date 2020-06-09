@@ -25,7 +25,6 @@ jQuery( function($) {
               window.location.href = response.redirect;
             }
             if(response.type == "success") {
-              console.log('success')
             if (response.upvoted == 1) {
                voter.children('div.ifm-vote').removeClass('upvoted')
             } else {
@@ -123,7 +122,7 @@ jQuery( function($) {
       $('.ifm-submit-reply').on('click', function(e) {
            e.preventDefault();
           //  // information to be sent to the server
-           var content = $(this).prev().val();
+           var content = $(this).closest('.ifm-comment-reply-container').find('[name=ifm-comment-reply-textarea]').val();
            var containingli = $(this).closest("li");
            var parentCommentID = containingli.attr('id');
            var nonce = containingli.attr('data-nonce');

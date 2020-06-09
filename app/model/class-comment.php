@@ -35,8 +35,15 @@ class Model_Comment
 
 	public function comment($request, $params)
 	{
+		$current_user = \wp_get_current_user();
 		$request;
 		$params;
+
+		$display_name = $current_user->display_name;
+		$login = $current_user->user_login;
+		$user_id = \get_current_user_id();
+
+
 		$comment = wp_insert_comment(
 			array(
 				'comment_parent'       => 0,
@@ -65,6 +72,8 @@ class Model_Comment
 		if (!wp_verify_nonce($_REQUEST['nonce'], 'comment_nonce')) {
 			exit('No naughty business please');
 		}
+
+		$user_id = get_current_user_id();
 
 		$comment = wp_insert_comment(
 			array(

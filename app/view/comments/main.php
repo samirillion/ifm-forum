@@ -29,7 +29,7 @@ if (null !== get_post_meta($ifm_post_id, 'ifm_entry_url', true)) {
     include(IFM_VIEW . '/comments/comment-form.php');
 
     if (!$query) {
-        echo '<span class="ifm-no-comments">No comments here! Start the discussion.</span>';
+        echo "<span class='ifm-no-comments'>" . _e('No comments here! Start the discussion.', IFM_NAMESPACE) . "</span>";
     } elseif ($query) {
         ob_start();
         $object = IFM\View_Comments::sort_by_parent($query);

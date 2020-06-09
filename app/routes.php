@@ -23,6 +23,7 @@ Route::render(IFM_ROUTE_FORUM . "/submit", "Controller_Forum@submit");
 
 // Comment Routes
 Route::render(IFM_ROUTE_COMMENTS, "Controller_Comment@main");
+
 Route::json("/post-comment", "Controller_Comment@comment_on_post", "post");
 
 // Messaging Routes
