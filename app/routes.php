@@ -27,7 +27,7 @@ Route::render(IFM_ROUTE_COMMENTS, "Controller_Comment@main");
 Route::json("/post-comment", "Controller_Comment@comment_on_post", "POST", "can_create");
 
 // Messaging Routes
-Route::render(IFM_ROUTE_INBOX, "Controller_PM@main");
+Route::render(IFM_ROUTE_MAILBOX, "Controller_Mailbox@main");
 
 // Account Management Routes
 // Main Profile

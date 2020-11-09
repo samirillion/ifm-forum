@@ -15,9 +15,27 @@ if (get_query_var('ifm_tax')) {
 
 $forum_url = IFM_ROUTE_FORUM;
 ?>
-<div class="ifm-submit-post">
-	<a href="<?php echo home_url(IFM_ROUTE_FORUM . "/submit"); ?>">+ Submit New Post</a>
-</div>
+<ul class="ifm-topnav">
+	<li class="ifm-submit-post">
+		<a href="<?php echo home_url(IFM_ROUTE_FORUM . "/submit"); ?>">+ Submit New Post</a>
+	</li>
+	<?php
+	if (is_user_logged_in()) {
+	?>
+		<li class="ifm-post-nav-item ifm-nav-account">
+			<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button ifm-button-secondary"><?php _e('Account', IFM_NAMESPACE) ?></a>
+		</li>
+		<li class="ifm-post-nav-item ifm-nav-account">
+			<a href="<?php echo home_url(IFM_ROUTE_MAILBOX) ?>" class="ifm-button ifm-button-primary"><?php _e('Mailbox', IFM_NAMESPACE) ?></a>
+		</li>
+	<?php
+	} else {
+	?>
+		<li class="ifm-post-nav-item ifm-nav-account">
+			<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button ifm-button-secondary"><?php _e('Login/Register', IFM_NAMESPACE) ?></a>
+		</li>
+	<?php } ?>
+</ul>
 <nav class="ifm-nav">
 	<ul class="ifm-post-types">
 		<li class="ifm-post-nav-item">Categories:</li>
@@ -44,17 +62,6 @@ $forum_url = IFM_ROUTE_FORUM;
 			echo "<li class='ifm-post-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $forum_url) . "'>" . $term->{'name'} . '</a></li>';
 		}
 		?>
-		<li class="ifm-post-nav-item ifm-nav-private">
-			<?php
-			if (is_user_logged_in()) {
-			?>
-				<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button ifm-button-secondary"><?php _e('My Account', IFM_NAMESPACE) ?></a>
-			<?php
-			} else {
-			?>
-				<a href="<?php echo home_url(IFM_NAMESPACE . "/login") ?>" class="ifm-button ifm-button-secondary"><?php _e('Login/Register', IFM_NAMESPACE) ?></a>
-			<?php } ?>
-		</li>
 	</ul>
 	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($forum_url); ?>">
 		<div class="ifm-search-wrapper">

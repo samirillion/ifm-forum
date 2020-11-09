@@ -43,7 +43,7 @@ class View_Comments
 		// Each node prints its own contents, then prints the contents of its children
 		echo "<ul class='ifm-indented-list'>";
 		foreach ($children as $comment) {
-			$nonce = wp_create_nonce('comment_nonce');
+			$nonce = wp_create_nonce('comment_nonce', 'comment_nonce');
 			$upvoted = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT COUNT(*) FROM $wpdb->commentmeta WHERE meta_key='user_upvote_id' AND meta_value=%d AND comment_id=%d",

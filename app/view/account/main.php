@@ -7,13 +7,13 @@ $user_id = get_current_user_id();
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-col-8-sm ifm-col-offset-2-sm">
+        <div class="ifm-col-12">
             <div class="ifm-account-details">
                 <?php
-                echo '<h5>Username: ' . \esc_html($current_user->user_login) . '</h5><br />';
+                echo '<div class="ifm-row"><span><b>Username: </b>' . \esc_html($current_user->user_login) . '</span></div>';
                 $user_karma = Model_User::calculate_user_karma($user_id);
-                echo '<h5>User Karma: ' . \esc_html($user_karma) . '</h5><br />';
-                echo '<h5>User for: ' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . '</h5>';
+                echo '<div class="ifm-row"><span><b>User Karma: </b>' . \esc_html($user_karma) . '</span></div>';
+                echo '<div class="ifm-row"><span><b>User for: </b>' . human_time_diff(strtotime($current_user->user_registered), current_time('timestamp', 1)) . '</span></div>';
                 ?>
                 <form id="account-details" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                     <p class="ifm-row">

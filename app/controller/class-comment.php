@@ -34,19 +34,20 @@ class Controller_Comment
 		return view('comments/main', $comment_array, $params);
 	}
 
-	public function comment_on_post(\WP_REST_Request $request)
+	public function comment_on_post()
 	{
-		$params = Router_Qvars::get_params();
 		$ifm_comment = new Model_Comment;
-		$ifm_comment->comment($request, $params);
+		$ifm_comment->create();
 
-		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_POST['post_id'], home_url(IFM_ROUTE_COMMENTS))));
+		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_REQUEST['post_id'], home_url(IFM_ROUTE_COMMENTS))));
 	}
 
 	public function comment_on_comment()
 	{
 		$ifm_comments = new Model_Comment;
-		$ifm_comments->comment_on_comment();
+		$ifm_comments->create();
+
+		wp_redirect(esc_url(add_query_arg('ifm_post_id', $_REQUEST['post_id'], home_url(IFM_ROUTE_COMMENTS))));
 	}
 
 	public function vote_on_comment()

@@ -9,18 +9,24 @@ $user_karma = Model_User::calculate_user_karma($user_id);
 ?>
 <div class="ifm-container">
 	<div class="ifm-row">
-		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
+		<div class="ifm-col-12">
 			<div class="ifm-account-details">
-				<h5><?php _e('Username: ', IFM_NAMESPACE);
-					$user_name ?></h5>
-				<h5><?php _e('User Karma: ', IFM_NAMESPACE);
-					echo $user_karma ?></h5>
-				<h5><?php _e('User Since: ', IFM_NAMESPACE);
-					echo human_time_diff(strtotime($user->user_registered), current_time('timestamp', 1)); ?> ago</h5>
+				<div class="ifm-row">
+					<span><b><?php _e('Username: ', IFM_NAMESPACE); ?></b><?php
+																			echo $user_name ?></span>
+				</div>
+				<div class="ifm-row">
+					<span><b><?php _e('User Karma: ', IFM_NAMESPACE); ?></b><?php
+																			echo $user_karma ?></span>
+				</div>
+				<div class="ifm-row">
+					<span><b><?php _e('User Since: ', IFM_NAMESPACE); ?></b><?php
+																			echo human_time_diff(strtotime($user->user_registered), current_time('timestamp', 1)); ?> ago</span>
+				</div>
 				<br>
 				<?php
 				if (get_user_meta($user_id, 'about_user', true)) { ?>
-					<h5><?php _e('About:', IFM_NAMESPACE) ?></h5>
+					<span><?php _e('About:', IFM_NAMESPACE) ?></span>
 					<div class="ifm-about-user"><?php echo stripslashes(get_user_meta($user_id, 'about_user', true)) ?>s</div>
 				<?php
 				}

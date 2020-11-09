@@ -13,11 +13,11 @@ get_header();
 
 ob_start();
 ?>
-<div class="ifm-container ifm-main <?php echo main_classes($wp->query_vars['ifm']) ?>">
+<div class="ifm-container ifm-main <?php echo main_classes($wp->query_vars[IFM_NAMESPACE]) ?>">
     <div class="ifm-row">
         <div class="ifm-col-12">
             <?php
-            View_Main::render($wp->query_vars['ifm']);
+            View_Main::render($wp->query_vars[IFM_NAMESPACE]);
             ?>
         </div>
     </div>

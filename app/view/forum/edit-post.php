@@ -2,7 +2,7 @@
 	<?php
 	$post         = get_post(get_query_var('ifm_post_id'));
 	$post_content = get_post($post)->post_content;
-	$post_url     = get_post_meta($post->ID, 'ifm_entry_url', true);
+	$post_url     = get_post_meta($post->ID, AGGREGATOR_OR_IFM_URL, true);
 	?>
 	<p class="form-row">
 		<label for="post-title"><?php _e('Post Title', 'submit-post'); ?></label>

@@ -1,6 +1,6 @@
 <div class="ifm-container">
 	<div class="ifm-row">
-		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
+		<div class="ifm-col-12">
 			<?php if ($params['show_title']) : ?>
 				<!-- Show errors if there are any -->
 				<?php _e('Sign In', IFM_NAMESPACE); ?>

@@ -8,35 +8,85 @@ class Singleton_CustomPost
     {
         $plugin = new self();
 
-        add_action('init', array($plugin, 'ifm_custom_post'));
+        add_action('init', array($plugin, 'ifm_register_post'));
+        add_action('init', array($plugin, 'ifm_register_mail_post'));
         add_action('init', array($plugin, 'ifm_custom_taxonomy'));
 
         add_action('add_meta_boxes', array($plugin, 'ifm_meta_boxes'));
         add_action('save_post', array($plugin, 'ifm_save_entry_url'), 10, 2);
     }
 
-    public function ifm_custom_post()
+    public function ifm_register_mail_post()
+    {
+        $custom_post_args = array(
+            IFM_MAIL_POST_TYPE,
+            array(
+                'labels'              => array(
+                    'name'               => __('Mail', IFM_NAMESPACE), /* This is the Title of the Group */
+                    'singular_name'      => __('Mail', IFM_NAMESPACE), /* This is the individual type */
+                    'all_items'          => __('All Mails', IFM_NAMESPACE), /* the all items menu item */
+                    'add_new'            => __('Add New', IFM_NAMESPACE), /* The add new menu item */
+                    'add_new_item'       => __('Add New Aggregator Entry', IFM_NAMESPACE), /* Add New Display Title */
+                    'edit'               => __('Edit', IFM_NAMESPACE), /* Edit Dialog */
+                    'edit_item'          => __('Edit Mail', IFM_NAMESPACE), /* Edit Display Title */
+                    'new_item'           => __('New Mail', IFM_NAMESPACE), /* New Display Title */
+                    'view_item'          => __('View Post Type', IFM_NAMESPACE), /* View Display Title */
+                    'search_items'       => __('Search Post Type', IFM_NAMESPACE), /* Search Custom Type Title */
+                    'not_found'          => __('Nothing found in the Database.', IFM_NAMESPACE), /* This displays if there are no entries yet */
+                    'not_found_in_trash' => __('Nothing found in Trash', IFM_NAMESPACE), /* This displays if there is nothing in the trash */
+                    'parent_item_colon'  => '',
+                ), /* end of arrays */
+                'menu_icon'           => __('dashicons-share', IFM_NAMESPACE),
+                'description'         => __('For posting to the Forum', IFM_NAMESPACE), /* Custom Type Description */
+                'public'              => true,
+                'publicly_queryable'  => true,
+                'exclude_from_search' => false,
+                'show_ui'             => true,
+                'query_var'           => true,
+                'menu_position'       => 8, /* this is what order you want it to appear in on the left hand side menu */
+                'menu_icon'           => 'dashicons-share-alt', /* the icon for the custom post type menu */
+                'show_in_rest'        => true,
+                'rest_base'           => IFM_NAMESPACE,
+                'rewrite'             => array(
+                    'slug'       => IFM_MAIL_POST_TYPE,
+                    'with_front' => false,
+                ), /* you can specify its url slug */
+                'has_archive'         => IFM_MAIL_POST_TYPE, /* you can rename the slug here */
+                'capability_type'     => 'post',
+                'hierarchical'        => false,
+                /* the next one is important, it tells what's enabled in the post editor */
+                'supports'            => array('title', 'thumbnail', 'revisions', 'sticky', 'comments', 'tags', 'author', 'editor'),
+            ), /* end of options */
+        );
+
+        register_post_type(
+            $custom_post_args[0],
+            $custom_post_args[1]
+        );
+    }
+
+    public function ifm_register_post()
     {
         $custom_post_args = array(
             IFM_POST_TYPE,
             array(
                 'labels'              => array(
-                    'name'               => __('Forum Posts', 'ifm-forum'), /* This is the Title of the Group */
-                    'singular_name'      => __('Forum Post', 'ifm-forum'), /* This is the individual type */
-                    'all_items'          => __('All Forum Posts', 'ifm-forum'), /* the all items menu item */
-                    'add_new'            => __('Add New', 'ifm-forum'), /* The add new menu item */
-                    'add_new_item'       => __('Add New Aggregator Entry', 'ifm-forum'), /* Add New Display Title */
-                    'edit'               => __('Edit', 'ifm-forum'), /* Edit Dialog */
-                    'edit_item'          => __('Edit Forum Post', 'ifm-forum'), /* Edit Display Title */
-                    'new_item'           => __('New Forum Post', 'ifm-forum'), /* New Display Title */
-                    'view_item'          => __('View Post Type', 'ifm-forum'), /* View Display Title */
-                    'search_items'       => __('Search Post Type', 'ifm-forum'), /* Search Custom Type Title */
-                    'not_found'          => __('Nothing found in the Database.', 'ifm-forum'), /* This displays if there are no entries yet */
-                    'not_found_in_trash' => __('Nothing found in Trash', 'ifm-forum'), /* This displays if there is nothing in the trash */
+                    'name'               => __('Forum Posts', IFM_NAMESPACE), /* This is the Title of the Group */
+                    'singular_name'      => __('Forum Post', IFM_NAMESPACE), /* This is the individual type */
+                    'all_items'          => __('All Forum Posts', IFM_NAMESPACE), /* the all items menu item */
+                    'add_new'            => __('Add New', IFM_NAMESPACE), /* The add new menu item */
+                    'add_new_item'       => __('Add New Aggregator Entry', IFM_NAMESPACE), /* Add New Display Title */
+                    'edit'               => __('Edit', IFM_NAMESPACE), /* Edit Dialog */
+                    'edit_item'          => __('Edit Forum Post', IFM_NAMESPACE), /* Edit Display Title */
+                    'new_item'           => __('New Forum Post', IFM_NAMESPACE), /* New Display Title */
+                    'view_item'          => __('View Post Type', IFM_NAMESPACE), /* View Display Title */
+                    'search_items'       => __('Search Post Type', IFM_NAMESPACE), /* Search Custom Type Title */
+                    'not_found'          => __('Nothing found in the Database.', IFM_NAMESPACE), /* This displays if there are no entries yet */
+                    'not_found_in_trash' => __('Nothing found in Trash', IFM_NAMESPACE), /* This displays if there is nothing in the trash */
                     'parent_item_colon'  => '',
                 ), /* end of arrays */
-                'menu_icon'           => __('dashicons-share', 'ifm-forum'),
-                'description'         => __('For posting to the Forum', 'ifm-forum'), /* Custom Type Description */
+                'menu_icon'           => __('dashicons-share', IFM_NAMESPACE),
+                'description'         => __('For posting to the Forum', IFM_NAMESPACE), /* Custom Type Description */
                 'public'              => true,
                 'publicly_queryable'  => true,
                 'exclude_from_search' => false,
@@ -128,7 +178,7 @@ class Singleton_CustomPost
         <p>
             <label for="ifm-entry-url"><?php _e('Add the URL for your Entry', 'example'); ?></label>
             <br />
-            <input class="widefat" type="text" name="ifm-entry-url" id="ifm-entry-url" value="<?php echo esc_attr(get_post_meta($object->ID, 'ifm_entry_url', true)); ?>" size="30" />
+            <input class="widefat" type="text" name="ifm-entry-url" id="ifm-entry-url" value="<?php echo esc_attr(get_post_meta($object->ID, AGGREGATOR_OR_IFM_URL, true)); ?>" size="30" />
         </p>
     <?php
     }
@@ -178,7 +228,7 @@ class Singleton_CustomPost
         $new_meta_value = (isset($_POST['ifm-entry-url']) ? esc_url_raw($_POST['ifm-entry-url']) : '');
 
         /* Get the meta key. */
-        $meta_key = 'ifm_entry_url';
+        $meta_key = AGGREGATOR_OR_IFM_URL;
 
         /* Get the meta value of the custom field key. */
         $meta_value = get_post_meta($post_id, $meta_key, true);

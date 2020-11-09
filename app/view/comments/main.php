@@ -1,9 +1,9 @@
 <?php
 $ifm_post_id = $params['ifm_post_id'];
 
-if (null !== get_post_meta($ifm_post_id, 'ifm_entry_url', true)) {
-    $post_title_content = '<a href="' . get_post_meta($ifm_post_id, 'ifm_entry_url', true) . '" target="_blank">' . get_the_title($ifm_post_id) . '</a>';
-    $post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($ifm_post_id, 'ifm_entry_url', true) . '">' . get_post_meta($ifm_post_id, 'ifm_entry_url', true) . '</a>';
+if (null !== get_post_meta($ifm_post_id, AGGREGATOR_OR_IFM_URL, true)) {
+    $post_title_content = '<a href="' . get_post_meta($ifm_post_id, AGGREGATOR_OR_IFM_URL, true) . '" target="_blank">' . get_the_title($ifm_post_id) . '</a>';
+    $post_url           = '<a class="ifm-comment-main-url" href="' . get_post_meta($ifm_post_id, AGGREGATOR_OR_IFM_URL, true) . '">' . get_post_meta($ifm_post_id, AGGREGATOR_OR_IFM_URL, true) . '</a>';
 } else {
     $post_title_content = get_the_title($ifm_post_id);
     $post_url           = '';

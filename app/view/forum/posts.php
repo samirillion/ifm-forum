@@ -6,11 +6,12 @@ foreach ($page_posts as $post) {
     $postmeta      = get_post_meta($post_ID);
     $nonce         = wp_create_nonce('ifm_page_nonce');
     $commentslink  = add_query_arg('ifm_post_id', $post_ID, home_url(IFM_ROUTE_COMMENTS));
+
     if (get_post($post_ID)->post_content != '') {
         $posturl = $commentslink;
         $target  = '';
     } else {
-        $posturl = isset($postmeta['ifm_entry_url']) ? $postmeta['ifm_entry_url']['0'] : "/";
+        $posturl = isset($postmeta[AGGREGATOR_OR_IFM_URL]) ? $postmeta[AGGREGATOR_OR_IFM_URL]['0'] : "/";
         $target  = "target='_blank'";
     }
     $link     = admin_url('admin-ajax.php?action=add_entry_karma&post_id=' . $post_ID . '&nonce=' . $nonce);
@@ -65,7 +66,7 @@ foreach ($page_posts as $post) {
                 ?><span class="host-url">(<?php echo parse_url($posturl)['host']; ?>)</span>
                 <?php endif; ?>
                 <span class="title">
-                    <span class="ifm-post-type">&ndash;<?php
+                    <span class="ifm-post-type">&ndash; <?php
                                                         echo (wp_get_object_terms($post_ID, IFM_POST_TAXONOMY_NAME))[0]->{'name'}; ?></span>
                 </span>
             </div>

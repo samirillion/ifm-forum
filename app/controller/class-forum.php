@@ -139,7 +139,7 @@ class Controller_Forum
 		if ('' !== $_POST['post-text-content']) {
 			$the_post['post_content'] = $_POST['post-text-content'];
 		} else {
-			update_post_meta($_POST['post-id'], 'ifm_entry_url', $_POST['post-url']);
+			update_post_meta($_POST['post-id'], AGGREGATOR_OR_IFM_URL, $_POST['post-url']);
 		}
 		wp_set_object_terms($_POST['post-id'], $_POST['post-type'], IFM_POST_TAXONOMY_NAME, false);
 		wp_update_post($the_post);

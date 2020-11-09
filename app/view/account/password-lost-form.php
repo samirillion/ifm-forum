@@ -1,6 +1,6 @@
 <div class="ifm-container">
     <div class="ifm-row">
-        <div class="ifm-col-8-sm ifm-col-offset-2-sm">
+        <div class="ifm-col-12">
             <div id="password-lost-form" class="widecolumn">
                 <?php if ($params['show_title']) : ?>
                     <h3><?php _e('Forgot Your Password?', 'personalize-login'); ?></h3>

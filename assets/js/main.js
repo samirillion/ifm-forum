@@ -123,20 +123,21 @@ jQuery( function($) {
            e.preventDefault();
           //  // information to be sent to the server
            var content = $(this).closest('.ifm-comment-reply-container').find('[name=ifm-comment-reply-textarea]').val();
-           var containingli = $(this).closest("li");
-           var parentCommentID = containingli.attr('id');
-           var nonce = containingli.attr('data-nonce');
+           var li = $(this).closest("li");
+           var parentCommentID = li.attr('id');
+           var nonce = li.attr('data-nonce');
+           var post_id = $("#reply-to-post").find('[name="post_id"]').val();
            $.ajax({
-        type: "POST",
-        url: myAjax.ajaxurl,
-        data: {replyContent: content, comment_parent: parentCommentID, nonce: nonce, action: "reply_to_comment" },
-        success: function(response){
-          if(response.redirect) {
-            window.location.href = response.redirect;
-          } else {
-          window.location.reload(true);
-        }
-        }
+              type: "POST",
+              url: myAjax.ajaxurl,
+              data: {replyContent: content, comment_parent: parentCommentID, comment_nonce: nonce, action: "reply_to_comment", post_id : post_id },
+              success: function(response){
+                if(response.redirect) {
+                  window.location.href = response.redirect;
+                } else {
+                window.location.reload(true);
+              }
+              }
          });
        });
 

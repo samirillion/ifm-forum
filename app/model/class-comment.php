@@ -33,23 +33,24 @@ class Model_Comment
 		return $rankedcomments;
 	}
 
-	public function comment($request, $params)
+	public function create()
 	{
-		$current_user = \wp_get_current_user();
-		$request;
-		$params;
+		if (!wp_verify_nonce($_REQUEST['comment_nonce'], 'comment_nonce')) {
+			exit('No naughty business please');
+		}
 
-		$display_name = $current_user->display_name;
-		$login = $current_user->user_login;
-		$user_id = \get_current_user_id();
+		$comment_parent = 0;
+
+		if (isset($_REQUEST['comment_parent'])) {
+			$comment_parent = $_REQUEST['comment_parent'];
+		}
 
 
 		$comment = wp_insert_comment(
 			array(
-				'comment_parent'       => 0,
+				'comment_parent'       => $comment_parent,
 				'user_id'              => get_current_user_id(),
-				'comment_parent'       => 0,
-				'comment_content'      => $_REQUEST['reply'],
+				'comment_content'      => $_REQUEST['replyContent'],
 				'comment_post_ID'      => $_REQUEST['post_id'],
 				'comment_author'       => wp_get_current_user()->display_name,
 				'comment_author_email' => wp_get_current_user()->user_email,
@@ -65,38 +66,6 @@ class Model_Comment
 			),
 			array('%d', '%s', '%d')
 		);
-	}
-
-	public function comment_on_comment()
-	{
-		if (!wp_verify_nonce($_REQUEST['nonce'], 'comment_nonce')) {
-			exit('No naughty business please');
-		}
-
-		$user_id = get_current_user_id();
-
-		$comment = wp_insert_comment(
-			array(
-				'comment_parent'       => 0,
-				'user_id'              => get_current_user_id(),
-				'comment_parent'       => $_REQUEST['comment_parent'],
-				'comment_content'      => $_REQUEST['replyContent'],
-				'comment_post_ID'      => get_comment($_REQUEST['comment_parent'])->comment_post_ID,
-				'comment_author'       => wp_get_current_user()->display_name,
-				'comment_author_email' => wp_get_current_user()->user_email,
-			)
-		);
-		global $wpdb;
-		$firstvote = $wpdb->insert(
-			$wpdb->commentmeta,
-			array(
-				'comment_id' => $comment,
-				'meta_key'   => 'user_upvote_id',
-				'meta_value' => get_current_user_id(),
-			),
-			array('%d', '%s', '%d')
-		);
-		die();
 	}
 
 	public function update_comment_karma()

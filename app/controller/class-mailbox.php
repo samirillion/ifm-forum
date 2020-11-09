@@ -2,7 +2,7 @@
 
 namespace IFM;
 
-class Controller_PM
+class Controller_Mailbox
 {
     public function main()
     {
@@ -12,6 +12,6 @@ class Controller_PM
 
         $query = new Model_Query(array('private' => true));
 
-        return view('pm/main', array('query' => $query));
+        return view('mailbox/main', array('query' => $query));
     }
 }

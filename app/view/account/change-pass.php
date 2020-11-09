@@ -8,7 +8,7 @@ namespace IFM;
 ?>
 <div class="ifm-container">
 	<div class="ifm-row">
-		<div class="ifm-col-8-sm ifm-col-offset-2-sm">
+		<div class="ifm-col-12">
 			<form id="change-password" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
 
 				<p class="form-row">

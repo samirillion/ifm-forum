@@ -26,14 +26,19 @@ define('IFM_POST_TAXONOMY_NAME', 'aggpost-type');
  * Set to determine the base namespace for the router. 
  */
 define('IFM_API_PREFIX', 'api');
-define('IFM_NAMESPACE', 'ifm');
+define('IFM_NAMESPACE', 'fin');
+
+define('IFM_MAIL_POST_TYPE', IFM_NAMESPACE . '-mail');
+
+// hack to get things working for different installations.
+define('AGGREGATOR_OR_IFM_URL', 'aggregator_entry_url');
 
 /**
  * Define Base Routes
  */
 define('IFM_ROUTE_FORUM', '/' . IFM_NAMESPACE . '/forum');
 define('IFM_ROUTE_COMMENTS', '/' . IFM_NAMESPACE . '/comments');
-define('IFM_ROUTE_INBOX', '/' . IFM_NAMESPACE . '/inbox');
+define('IFM_ROUTE_MAILBOX', '/' . IFM_NAMESPACE . '/mailbox');
 define('IFM_ROUTE_ACCOUNT', '/' . IFM_NAMESPACE . '/account');
 define('IFM_ROUTE_CREATE', '/' . IFM_NAMESPACE . '/create');
 

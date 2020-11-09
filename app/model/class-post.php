@@ -49,7 +49,7 @@ class Model_Post
 		$firstvote = $wpdb->insert(
 			$wpdb->postmeta,
 			array(
-				'comment_id' => $post,
+				'post_id' => $post,
 				'meta_key'   => 'user_upvote_id',
 				'meta_value' => get_current_user_id(),
 			),
@@ -57,7 +57,7 @@ class Model_Post
 		);
 
 		if ($is_url) {
-			add_post_meta($post, 'ifm_entry_url', $_POST['post-url'], true);
+			add_post_meta($post, AGGREGATOR_OR_IFM_URL, $_POST['post-url'], true);
 		}
 
 		wp_redirect(home_url() . IFM_ROUTE_FORUM);
