@@ -61,6 +61,9 @@ class Forum
 
 			require(IFM_INC . 'helpers.php');
 
+			// Plugin for handling Email Notifications. github.com/BracketSpace/Notification
+			require(IFM_INC . 'notification/load.php');
+
 			require(IFM_APP . 'routes.php');
 		} else {
 
