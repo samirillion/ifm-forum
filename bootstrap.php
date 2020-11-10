@@ -24,6 +24,21 @@ if (!defined('WPINC')) {
 	die;
 }
 
+add_action('notification/init', function () {
+	// xdebug_break();
+	// 	notification_whitelabel( [
+	// 	// admin page hook under which you want the Notifications to be displayed.
+	// 	'page_hook'       => 'edit.php?post_type=page',
+	// 	// if display extensions.
+	// 	'extensions'      => false,
+	// 	// if display settings.
+	// 	'settings'        => false,
+	// 	// control settings access, provided user IDs will have an access.
+	// 	// this works only if settings are enabled.
+	// 	'settings_access' => array( 123, 456 ),
+	// ] );
+});
+
 class Forum
 {
 	/**
@@ -62,7 +77,10 @@ class Forum
 			require(IFM_INC . 'helpers.php');
 
 			// Plugin for handling Email Notifications. github.com/BracketSpace/Notification
-			require(IFM_INC . 'notification/load.php');
+
+			// require(IFM_INC . 'notification/load.php');
+
+
 
 			require(IFM_APP . 'routes.php');
 		} else {
