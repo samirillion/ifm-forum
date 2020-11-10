@@ -6,6 +6,11 @@ use WP_User;
 
 class Model_User extends WP_User
 {
+	public function duration()
+	{
+		return human_time_diff(strtotime($this->data->user_registered), current_time('timestamp', 1));
+	}
+	
 	public function get_karma()
 	{
 		global $wpdb;

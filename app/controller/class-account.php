@@ -74,14 +74,22 @@ class Controller_Account
 
 	public function main()
 	{
+		// determine who the user is, and if user is logged in, pass that data to the account view
 		if (get_query_var('user_id')) {
-			return view('account/profile');
+			$user_id = new Model_User(get_query_var('user_id'));
+			if ($user_id === get_current_user_id()) {
+				$current_user = true;
+			} else {
+				$current_user = false;
+			}
 		} else {
 			if (!is_user_logged_in()) {
 				$this->redirect_to_login;
 			}
-			return view('account/main');
+			$user_id = get_current_user_id();
+			$current_user = true;
 		}
+		return view('account/main', null, ['user' => new Model_User($user_id), 'user_id' => $user_id, 'current_user' => $current_user]);
 	}
 
 	public function create($attributes = null, $content = null)

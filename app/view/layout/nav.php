@@ -13,7 +13,6 @@ if (get_query_var('ifm_tax')) {
 	$agg_all_active = 'active';
 }
 
-$forum_url = IFM_ROUTE_FORUM;
 ?>
 <ul class="ifm-topnav">
 	<li class="ifm-submit-post">
@@ -23,10 +22,10 @@ $forum_url = IFM_ROUTE_FORUM;
 	if (is_user_logged_in()) {
 	?>
 		<li class="ifm-post-nav-item ifm-nav-account">
-			<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button ifm-button-secondary"><?php _e('Account', IFM_NAMESPACE) ?></a>
+			<a href="<?php echo home_url(IFM_ROUTE_ACCOUNT) ?>" class="ifm-button ifm-button-secondary"><?php _e('My Account', IFM_NAMESPACE) ?></a>
 		</li>
 		<li class="ifm-post-nav-item ifm-nav-account">
-			<a href="<?php echo home_url(IFM_ROUTE_MAILBOX) ?>" class="ifm-button ifm-button-primary"><?php _e('Mailbox', IFM_NAMESPACE) ?></a>
+			<a href="<?php echo home_url(IFM_ROUTE_MAILBOX) ?>" class="ifm-button ifm-button-primary"><?php _e('My Mailbox', IFM_NAMESPACE) ?></a>
 		</li>
 	<?php
 	} else {
@@ -40,7 +39,7 @@ $forum_url = IFM_ROUTE_FORUM;
 	<ul class="ifm-post-types">
 		<li class="ifm-post-nav-item">Categories:</li>
 		<li class="ifm-post-nav-item <?php echo $agg_all_active; ?>">
-			<a href="<?php echo esc_url($forum_url) ?>">
+			<a href="<?php echo esc_url(IFM_ROUTE_FORUM) ?>">
 				all
 			</a>
 		</li>
@@ -59,11 +58,11 @@ $forum_url = IFM_ROUTE_FORUM;
 			} else {
 				$active_class = '';
 			}
-			echo "<li class='ifm-post-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, $forum_url) . "'>" . $term->{'name'} . '</a></li>';
+			echo "<li class='ifm-post-nav-item " . $active_class . "'><a href='" . add_query_arg('ifm_tax', $term->{'slug'}, IFM_ROUTE_FORUM) . "'>" . $term->{'name'} . '</a></li>';
 		}
 		?>
 	</ul>
-	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url($forum_url); ?>">
+	<form role="search" method="get" class="ifm-searchform" action="<?php echo esc_url(IFM_ROUTE_FORUM); ?>">
 		<div class="ifm-search-wrapper">
 			<label class="screen-reader-text" for="s"><?php _e('Search for:', IFM_NAMESPACE) ?></label>
 			<input type="text" placeholder="search forum" name="ifm_query" class="ifm-query-input" />

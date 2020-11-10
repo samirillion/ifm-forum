@@ -586,6 +586,9 @@ form p {
   padding-bottom: 5px;
   padding-right: 5px;
 }
+fieldset[disabled="disabled"] input[type="submit"] {
+  display: none;
+}
 input[type="submit"].ifm-search-submit {
   font-size: 1rem;
   padding: 0;
