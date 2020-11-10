@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "jjgrainger/posttypes": "^2.0",
-        "landrok/activitypub": "^0.3.0"
+        "landrok/activitypub": "^0.3.0",
+        "anthonybudd/wp_mail": "^2.0"
     },
     "license": "GPL-2",
     "authors": [

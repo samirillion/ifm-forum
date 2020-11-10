@@ -4,8 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "963b324b96e22b5662b1be492392cc16",
+    "content-hash": "771a9055cfb4528c649c2bebaa4d197a",
     "packages": [
+        {
+            "name": "anthonybudd/wp_mail",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anthonybudd/WP_Mail.git",
+                "reference": "73fbca77190dfe0af7d40d82eaa7a9f46890d8f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anthonybudd/WP_Mail/zipball/73fbca77190dfe0af7d40d82eaa7a9f46890d8f0",
+                "reference": "73fbca77190dfe0af7d40d82eaa7a9f46890d8f0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/WP_Mail.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Anthony Budd",
+                    "email": "anthonybudd94@gmail.com"
+                }
+            ],
+            "time": "2018-03-10T17:56:17+00:00"
+        },
         {
             "name": "cache/adapter-common",
             "version": "1.1.0",
