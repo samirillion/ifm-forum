@@ -6,12 +6,10 @@ use WP_User;
 
 class Model_User extends WP_User
 {
-	public static function calculate_user_karma($user_id = -1)
+	public function get_karma()
 	{
 		global $wpdb;
-		if ($user_id == -1) {
-			$user_id = get_current_user_id();
-		}
+		$user_id = $this->ID;
 		$post_karma_count    = $wpdb->get_results(
 			$wpdb->prepare(
 				"select count(*)

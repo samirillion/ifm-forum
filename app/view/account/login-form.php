@@ -1,4 +1,4 @@
-<div class="ifm-container">
+<div class="ifm-container ifm-login_form">
 	<div class="ifm-row">
 		<div class="ifm-col-12">
 			<?php if ($params['show_title']) : ?>

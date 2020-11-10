@@ -15,6 +15,8 @@ class Controller_Account
 	{
 		$plugin = new self();
 
+		$plugin->user = new Model_User(get_current_user_id());
+
 		add_shortcode('custom-login-form', array($plugin, 'login_form'));
 		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
 		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
@@ -45,7 +47,7 @@ class Controller_Account
 	public function remove_dashboard()
 	{
 		global $menu;
-		$current_user = wp_get_current_user();
+		$current_user = $this->user;
 
 		if (!in_array('administrator', $current_user->roles)) {
 			reset($menu);
@@ -114,7 +116,7 @@ class Controller_Account
 
 	public function update_password()
 	{
-		if (wp_check_password($_POST['old-password'], wp_get_current_user()->user_pass)) {
+		if (wp_check_password($_POST['old-password'], $this->user->user_pass)) {
 			wp_set_password($_POST['new-password'], get_current_user_id());
 			$redirect_url = home_url(IFM_NAMESPACE . '/login');
 			$redirect_url = add_query_arg('status', 'success', $redirect_url);
@@ -129,7 +131,7 @@ class Controller_Account
 	{
 		echo "<div id='loginlogout' style='position:fixed;top:1em;right:1em;'>";
 		if (is_user_logged_in()) {
-			$userKarma = Model_User::calculate_user_karma(); ?><a href="<?php echo home_url(IFM_ROUTE_ACCOUNT); ?>"><?php echo wp_get_current_user()->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
+			$userKarma = $this->user->get_karma(); ?><a href="<?php echo home_url(IFM_ROUTE_ACCOUNT); ?>"><?php echo $this->user->user_login; ?></a> (<?php echo $userKarma; ?>) | <a href="<?php echo wp_logout_url(); ?>">logout</a>
 		<?php
 		} else {
 		?>
@@ -282,7 +284,7 @@ class Controller_Account
 
 	private function redirect_logged_in_user($redirect_to = null)
 	{
-		$user = wp_get_current_user();
+		$user = $this->user;
 		if (user_can($user, 'manage_options')) {
 			if ($redirect_to) {
 				wp_safe_redirect($redirect_to);
@@ -329,7 +331,7 @@ class Controller_Account
 	public function redirect_after_login()
 	{
 		$redirect_url = home_url() . IFM_ROUTE_FORUM;
-		$user = wp_get_current_user();
+		$user = $this->user;
 
 		if (!isset($user->ID)) {
 			return $redirect_url;
@@ -447,7 +449,7 @@ class Controller_Account
 			$items .= '<li><a title="Admin" href="' . esc_url(admin_url()) . '">' . __('Admin') . '</a></li>';
 		}
 		if ($args->theme_location == 'primary' && is_user_logged_in()) {
-			$userKarma = Model_User::calculate_user_karma();
+			$userKarma = $this->user->get_karma();
 			$items    .= '<li><a href="' . home_url() . IFM_ROUTE_ACCOUNT;
 			'" class="logged-in-user">' . get_user_meta(get_current_user_id(), 'nickname', true) . ' (' . $userKarma . ')</a></li>';
 		} elseif ($args->theme_location == 'primary' && !is_user_logged_in()) {

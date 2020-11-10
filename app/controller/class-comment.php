@@ -53,7 +53,7 @@ class Controller_Comment
 	public function vote_on_comment()
 	{
 		$ifm_comments = new Model_Comment;
-		$ifm_comments->update_comment_karma();
+		$ifm_comments->update_comment_get_karma();
 	}
 
 	public function redirect_to_login()

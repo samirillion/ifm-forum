@@ -3,9 +3,9 @@
 namespace IFM;
 
 $user_id      = get_query_var('user_id');
-$user = get_user_by('id', $user_id);
+$user = new Model_User($user_id);
 $user_name =  $user->data->user_nicename;
-$user_karma = Model_User::calculate_user_karma($user_id);
+$user_karma = $user->get_karma();
 ?>
 <div class="ifm-container">
 	<div class="ifm-row">

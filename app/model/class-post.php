@@ -64,7 +64,7 @@ class Model_Post
 		exit();
 	}
 
-	public function update_post_karma()
+	public function update_post_get_karma()
 	{
 		if (!wp_verify_nonce($_REQUEST['nonce'], 'ifm_page_nonce')) {
 			exit('No naughty business please');

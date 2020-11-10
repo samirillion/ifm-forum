@@ -18,7 +18,7 @@
 
 .ifm-row [class^="ifm-col"] {
   float: left;
-  margin: 0.5rem 2%;
+  /* margin: 0.5rem 2%; */
   min-height: 0.125rem;
 }
 
@@ -568,6 +568,9 @@
 }
 .ifm-searchform {
   width: 30%;
+}
+.ifm-login_form {
+  padding-bottom: 20px;
 }
 .form-row {
   margin-top: 10px;

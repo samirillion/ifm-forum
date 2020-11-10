@@ -68,7 +68,7 @@ class Model_Comment
 		);
 	}
 
-	public function update_comment_karma()
+	public function update_comment_get_karma()
 	{
 		// if (!wp_verify_nonce($_REQUEST['nonce'], "comment_nonce")) {
 		// exit("No naughty business please");

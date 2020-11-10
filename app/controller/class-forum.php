@@ -202,7 +202,7 @@ class Controller_Forum
 	public function my_user_vote()
 	{
 		$karma_tracker = new Model_Post;
-		$karma_tracker->update_post_karma();
+		$karma_tracker->update_post_get_karma();
 	}
 
 	/**

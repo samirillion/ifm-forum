@@ -1,4 +1,4 @@
-<div class="ifm-container">
+<div class="ifm-container ifm-register_form">
     <div class="ifm-row">
         <div class="ifm-col-12">
             <div id="register-form" class="widecolumn">
