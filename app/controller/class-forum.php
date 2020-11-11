@@ -42,7 +42,7 @@ class Controller_Forum
 	 * @param array $search_results
 	 * @return void
 	 */
-	public function main()
+	public function render_main()
 	{
 		// define initial args
 		$query = new Model_Query();
@@ -59,7 +59,17 @@ class Controller_Forum
 			$query = new Model_Query($args);
 		}
 
-		return view('forum/main', $query);
+		return view('forum/main', $query, ['main' => true]);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function submit_post()
+	{
+		Model_Post::store();
 	}
 
 	public function build_query_args()
@@ -114,7 +124,7 @@ class Controller_Forum
 	 *
 	 * @return void
 	 */
-	public function submit()
+	public function render_submit()
 	{
 		return view('forum/submit-post');
 	}
@@ -203,16 +213,6 @@ class Controller_Forum
 	{
 		$karma_tracker = new Model_Post;
 		$karma_tracker->update_post_get_karma();
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function submit_post()
-	{
-		Model_Post::store();
 	}
 }
 

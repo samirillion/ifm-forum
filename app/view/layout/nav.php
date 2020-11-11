@@ -5,14 +5,18 @@
  *
  * @package Ifm
  */
+
 if (get_query_var('ifm_tax')) {
 	$ifm_query_var  = get_query_var('ifm_tax');
-	$agg_all_active = '';
 } else {
 	$ifm_query_var  = '';
-	$agg_all_active = 'active';
 }
 
+if ($params['main'] && "" === $ifm_query_var) {
+	$ifm_all_active = 'active';
+} else {
+	$ifm_all_active = '';
+}
 ?>
 <ul class="ifm-topnav">
 	<li class="ifm-submit-post">
@@ -38,7 +42,7 @@ if (get_query_var('ifm_tax')) {
 <nav class="ifm-nav">
 	<ul class="ifm-post-types">
 		<li class="ifm-post-nav-item">Categories:</li>
-		<li class="ifm-post-nav-item <?php echo $agg_all_active; ?>">
+		<li class="ifm-post-nav-item <?php echo $ifm_all_active; ?>">
 			<a href="<?php echo esc_url(IFM_ROUTE_FORUM) ?>">
 				all
 			</a>
@@ -50,7 +54,6 @@ if (get_query_var('ifm_tax')) {
 				'hide_empty' => false,
 			)
 		);
-		// var_dump($custom_terms);
 		foreach ($custom_terms as $term) {
 			if ($term->{'slug'} === $ifm_query_var) {
 				$active_class     = 'active';

@@ -9,8 +9,14 @@ if (!function_exists('ifm\view')) {
     {
         ob_start();
         $query;
-        $params;
+        $params = array_merge(array(
+            'main' => false,
+        ), $params);
+
+        require_once(IFM_VIEW . '/layout/nav.php');
+        echo "<div class='ifm-body'>";
         require_once(IFM_VIEW . $view . '.php');
+        echo "</div>";
         return ob_get_clean();
     }
 }
@@ -80,5 +86,29 @@ if (!function_exists('ifm\pagination')) :
         $pagination .= '</div>';
 
         echo $pagination;
+    }
+endif;
+
+/**
+ * Function to parse strings in routes into class method calls
+ *
+ * @param [type] $callback
+ * @return void
+ */
+if (!function_exists('ifm\parse_render_method')) :
+    function parse_render_method($callback)
+    {
+        $handler = explode('@', $callback);
+        $class = __NAMESPACE__ . '\\' . $handler[0];
+        $instance = new $class;
+        $method = $handler[1];
+
+        // hard code nav into headers, should make more extensible later
+        // $header_views = array(IFM_VIEW . '/layout/nav.php');
+        // $footer_views = array();
+        // $html = $this->handler_before($header_views);
+        $html = call_user_func(array($instance, $method));
+        // $html .= $this->handler_after($footer_views);
+        return $html;
     }
 endif;

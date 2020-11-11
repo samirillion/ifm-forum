@@ -296,7 +296,7 @@
 .ifm-button {
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   line-height: 1;
   font-size: 13px;
   color: #f3f3f3;
@@ -312,7 +312,8 @@
   cursor: pointer;
   background: #999999;
 }
-.ifm-button-primary, .ifm-button-primary:visited {
+.ifm-button-primary,
+.ifm-button-primary:visited {
   color: white;
 }
 .ifm-button-secondary {
@@ -460,7 +461,7 @@
   font-size: 2rem;
 }
 .ifm-comment-main-content-wrapper {
-  width: 60%;
+  /* width: 60%; */
   margin: 10px 0 20px 0px;
   padding-left: 10px;
   position: relative;
@@ -469,7 +470,8 @@
 }
 .ifm-comment-post-content {
   font-size: 1.5rem;
-  color: #121212;
+  font-weight: 400;
+  color: black;
   white-space: pre-wrap;
 }
 .ifm-view-user-posts,
@@ -626,6 +628,9 @@ input[type="submit"].ifm-search-submit {
 .ifm-post-types {
   display: flex;
 }
+.ifm-submit-reply {
+  display: inline-block;
+}
 .ifm-submit-post a {
   font-size: 18px;
 }
@@ -671,10 +676,6 @@ form a:visited {
   font-size: 13px;
   font-weight: 300;
 }
-.ifm-comment-wrapper {
-  margin-left: 38px;
-  padding: 20px;
-}
 .ifm-comment-wrapper .ifm-comment {
   width: 60%;
   color: #121212;
@@ -693,19 +694,23 @@ form a:visited {
 #account-details label {
   display: block;
 }
-.ifm-account .ifm-body,
-.ifm-submit .ifm-body {
-  /* padding-top: 20px; */
+
+.ifm-body {
+  padding: 20px;
   border: 1px solid #999999;
+}
+.ifm-forum.ifm-render_main .ifm-body {
+  border: none;
+  padding: 0;
 }
 .ifm-account-details {
   padding: 20px;
   padding-left: 0;
 }
-.ifm-container .user-account-details {
+/* .ifm-container .user-account-details {
   margin-top: 2vh;
   margin-bottom: 2vh;
-}
+} */
 .user-account-details h5 {
   margin: 0;
   margin-top: 10px;
@@ -717,13 +722,16 @@ form a:visited {
 .ifm-logout {
   display: block;
 }
-.ifm-comment-wrapper {
+/* .ifm-comment-wrapper {
   margin-top: 2vh;
   margin-bottom: 2vh;
+} */
+.ifm-comment-post-title {
+  margin-top: 0;
 }
-
 .ifm-comment-content {
   font-size: 13px;
+  font-weight: 400;
 }
 .ifm-comment-content,
 .reply-to-comment,
@@ -733,6 +741,9 @@ form a:visited {
 .ifm-comment-reply-container textarea {
   font-size: 13px;
   width: 60%;
+}
+.ifm-comment-reply-container textarea, .ifm-comment-wrapper .ifm-comment {
+  font-weight: 400;
 }
 #submit-post {
   margin: 3vh auto;
@@ -880,10 +891,6 @@ form a:visited {
     margin-left: 0;
     font-size: inherit;
     padding: 5px 0;
-  }
-  .ifm-account .ifm-body {
-    padding-top: 0;
-    border: 1px solid #999999;
   }
   .ifm-account-details {
     padding: 5px;

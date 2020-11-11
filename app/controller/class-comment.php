@@ -14,7 +14,7 @@ class Controller_Comment
 	{
 		$plugin = new self();
 
-		add_shortcode('custom-comments', array($plugin, 'main'));
+		add_shortcode('custom-comments', array($plugin, 'render_main'));
 
 		add_action('admin_post_addComment', array($plugin, 'comment_on_post'));
 		add_action('admin_post_nopriv_addComment', array($plugin, 'redirect_to_login'));
@@ -24,7 +24,7 @@ class Controller_Comment
 		add_action('wp_ajax_nopriv_replyToComment', array($plugin, 'redirect_to_login'));
 	}
 
-	public function main()
+	public function render_main()
 	{
 		$ifm_comments = new Model_Comment;
 		$comment_query  = $ifm_comments->query_comments();

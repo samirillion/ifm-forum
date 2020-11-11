@@ -17,12 +17,11 @@ Route::add_query_vars(
 );
 
 // Forum Routes
-Route::render(IFM_ROUTE_FORUM, "Controller_Forum@main");
-
-Route::render(IFM_ROUTE_FORUM . "/submit", "Controller_Forum@submit");
+Route::render(IFM_ROUTE_FORUM, "Controller_Forum@render_main");
+Route::render(IFM_ROUTE_FORUM . "/submit", "Controller_Forum@render_submit");
 
 // Comment Routes
-Route::render(IFM_ROUTE_COMMENTS, "Controller_Comment@main");
+Route::render(IFM_ROUTE_COMMENTS, "Controller_Comment@render_main");
 
 Route::json("/post-comment", "Controller_Comment@comment_on_post", "POST", "can_create");
 
@@ -30,18 +29,12 @@ Route::json("/post-comment", "Controller_Comment@comment_on_post", "POST", "can_
 Route::render(IFM_ROUTE_MAILBOX, "Controller_Mailbox@main");
 
 // Account Management Routes
-// Main Profile
-Route::render(IFM_ROUTE_ACCOUNT, "Controller_Account@main");
-// Create New Account
+Route::render(IFM_ROUTE_ACCOUNT, "Controller_Account@render_main");
 Route::render(IFM_ROUTE_ACCOUNT . "/create", "Controller_Account@create");
-// View Profile/Details
 Route::render(IFM_ROUTE_ACCOUNT . "/details", "Controller_Account@render_user_profile");
 
-
 // Account Registration Routes
-// Login Form
 Route::render(IFM_NAMESPACE . "/login", "Controller_Account@login_form");
-
 Route::render(IFM_NAMESPACE . "/register", "Controller_Account@render_register_form");
 Route::render(IFM_NAMESPACE . "/password-reset", "Controller_Account@render_password_lost_form");
 Route::render(IFM_NAMESPACE . "/change-password", "Controller_Account@change_password");
