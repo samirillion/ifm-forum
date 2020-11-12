@@ -25,10 +25,6 @@ require(IFM_APP . 'controllers/class-messaging-controller.php');
 ```
 to make the class available everywhere.
 
-And, that's actually it!
-
-You've successfully rendered a route via a controller method.
-
-Of course, you want to do more than that, you want to get some Model and View coordination going on. We need a Message model and some different templates, but for now a simple inbox mockup. 
+And, that's actually it! You've successfully rendered a route via a controller method.
 
 

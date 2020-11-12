@@ -6,20 +6,9 @@ WordPress forum plugin with Reddit-like functionality on top; Larave-like syntax
 - uses wp-api, so you can still use this as part of a "headless WordPress" setup. 
 
 ## Big Picture:
-I was inspired by Aaron Swartz, who did RSS and infogami and Reddit.
-
-There's also this guy, who does aggregator theory:
-
-https://stratechery.com/aggregation-theory/˝
-
-Which really provides a useful abstraction for what exactly any kind of information technology "is."
-
-- First, it's easy to forget, these platforms are purely for human communication. They are "complex symbolic systems."
-- The main thing these platforms offer is their ability to organize information. They are "aggregators."
-
 Ultimately, I want this to be a forum that can talk to other forums via the ActivityPub protocol, which is what [Mastodon](https://mastodon.social/) and [Peertube](https://peertube.social/) and a number of other federated networks run on now.
 
-I also want others to be able to use and extend it. So it would kind of be like an ActivityPub impementation starter kit, that would be accessible to anyone who knows how to write WordPress plugin or to anyone who knows an MVC framework (like Laravel). But that's still down the road a little.
+I also want others to be able to use and extend it. So it would kind of be like an ActivityPub implementation starter kit, that would be accessible to anyone who knows how to write WordPress plugin or to anyone who knows an MVC framework (like Laravel). But that's still down the road a little.
 
 ## History:
 - Reddit-lite forum plugin, using a similar "hot" algorithm for sorting the posts.
@@ -47,22 +36,6 @@ https://carlalexander.ca/designing-system-wordpress-routing/
 https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
 - all routes are added onto the same class from `app/routes.php` 
 - a callback is specified in the route as a controller method (e.g., `Controller_Post@main`)
-
-## Quick tour of frontend and backend
-- Frontend:
-    - View posts,
-    - View post
-    - Create a new account
-    - Create a post
-    - View post
-- Backend:
-(Some of this is just putting things where I'll expect them later. For example, I haven't really done too much with class inheritance.)
- - bootstrap
- - seeds
- - app
- - includes
-    - router facade
-    - quick word on importer
 
 ## [Tutorial](./TUTORIAL.md)
  - Add some functionality
