@@ -272,6 +272,12 @@
   padding-bottom: 20px;
   font-size: 14px;
 }
+.ifm-main table tr td {
+  padding: 10px;
+}
+.ifm-main label {
+  margin: 0;
+}
 .ifm-main h5 {
   margin: 0;
 }
@@ -591,6 +597,12 @@ form p {
 fieldset[disabled="disabled"] input[type="submit"] {
   display: none;
 }
+.ifm-checkbox-td {
+  width: 20px;
+}
+.ifm-checkbox-td input[type="checkbox"] {
+  margin-bottom: -2px;
+}
 input[type="submit"].ifm-search-submit {
   font-size: 1rem;
   padding: 0;
@@ -742,7 +754,8 @@ form a:visited {
   font-size: 13px;
   width: 60%;
 }
-.ifm-comment-reply-container textarea, .ifm-comment-wrapper .ifm-comment {
+.ifm-comment-reply-container textarea,
+.ifm-comment-wrapper .ifm-comment {
   font-weight: 400;
 }
 #submit-post {

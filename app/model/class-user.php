@@ -6,11 +6,41 @@ use WP_User;
 
 class Model_User extends WP_User
 {
-	public function duration()
+	private $karma;
+	private $has_email;
+	private $email_verified;
+	private $notifications;
+
+	/**
+	 * How long has the account existed
+	 *
+	 * @return void
+	 */
+	public function get_duration()
 	{
 		return human_time_diff(strtotime($this->data->user_registered), current_time('timestamp', 1));
 	}
-	
+
+	/**
+	 * What is the users status re mail? If they have email, it needs to be verified. If they want notifications, they need email, etc.
+	 *
+	 * @return void
+	 */
+	public function get_email_status()
+	{
+		if ($this->get('email_verified')) {
+			return 'verified';
+		}
+		if ($this->get('has_email')) {
+			return 'needs_verification';
+		}
+		if ($this->get('notifications')) {
+			return 'needs_email';
+		}
+		return 'no_mail';
+	}
+
+
 	public function get_karma()
 	{
 		global $wpdb;
@@ -46,32 +76,42 @@ class Model_User extends WP_User
 
 	public function update_user_information()
 	{
-		$about = $_POST['about'];
-		$email = $_POST['email'];
+		$this->set_about($_POST['about']);
+		$this->set_email($_POST['email']);
+		$this->set_notifications($_POST['notifications']);
+	}
+
+	public function set_email($email)
+	{
 		global $wpdb;
-		$wpdb->update(
-			$wpdb->users,
-			array(
-				'user_email' => $email,
-			),
-			array(
-				'ID' => get_current_user_id(),
-			),
-			array('%s'),
-			array('%d')
-		);
-		$wpdb->update(
-			$wpdb->usermeta,
-			array(
-				'meta_value' => $about,
-			),
-			array(
-				'user_id'  => get_current_user_id(),
-				'meta_key' => 'about_user',
-			),
-			array('%s'),
-			array('%d', '%s')
-		);
-		wp_redirect(home_url(IFM_ROUTE_ACCOUNT));
+
+		if (!email_exists($email) && is_email($email)) {
+
+			return $wpdb->update(
+				$wpdb->users,
+				array(
+					'user_email' => $email,
+				),
+				array(
+					'ID' => $this->ID,
+				),
+				array('%s'),
+				array('%d')
+			);
+		} elseif (is_email($email)) {
+			return 'email_exists';
+		} else {
+			return 'invalid_email';
+		}
+	}
+
+	public function set_notifications($notifications)
+	{
+		return update_user_meta($this->ID, 'notifications', $notifications);
+	}
+
+	public function set_about($about)
+	{
+		return update_user_meta($this->ID, 'about', $about);
 	}
 }

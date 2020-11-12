@@ -60,7 +60,7 @@ class Controller_Account
 			$user_id = get_current_user_id();
 			$current_user = true;
 		}
-		return view('account/main', null, ['user' => new Model_User($user_id), 'user_id' => $user_id, 'current_user' => $current_user]);
+		return view('account/account-details', null, ['user' => new Model_User($user_id), 'user_id' => $user_id, 'current_user' => $current_user]);
 	}
 
 	/* Remove the "Dashboard" from the admin menu for non-admin users */
@@ -155,9 +155,38 @@ class Controller_Account
 			wp_redirect(home_url());
 			exit();
 		}
-		$user = new Model_User;
+		$user = new Model_User(get_current_user_id());
+
+		if (array_key_exists('resend_verification_link', $_POST)) {
+			$this->send_verification_email($user);
+		}
+
 		$user->update_user_information();
+
+		wp_redirect(home_url(IFM_ROUTE_ACCOUNT));
 	}
+
+	public function send_verification_email(\WP_User $user)
+	{
+		$email_verification_key = wp_generate_password(20, false);
+		update_user_meta($user->ID, 'email_verification_key', $email_verification_key);
+
+		$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
+		$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
+		$message .= network_site_url(IFM_ROUTE_ACCOUNT . "/email/&mail_key=$email_verification_key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n";
+		wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), IFM_NAMESPACE), $message);
+	}
+
+	public function verify_email()
+	{
+		xdebug_break();
+		if (get_user_meta(get_current_user_id(), 'email_verification_key') == $_GET['mail_key']) {
+
+			update_user_meta(get_current_user_id(), 'email_verified', true);
+			wp_redirect(IFM_ROUTE_ACCOUNT);
+		}
+	}
+
 	public function replace_retrieve_password_message($message, $key, $user_login, $user_data)
 	{
 		// Create new message

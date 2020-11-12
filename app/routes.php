@@ -30,6 +30,7 @@ Route::render(IFM_ROUTE_MAILBOX, "Controller_Mailbox@main");
 
 // Account Management Routes
 Route::render(IFM_ROUTE_ACCOUNT, "Controller_Account@render_main");
+Route::render(IFM_ROUTE_ACCOUNT . "/email", "Controller_Account@verify_email");
 Route::render(IFM_ROUTE_ACCOUNT . "/create", "Controller_Account@create");
 Route::render(IFM_ROUTE_ACCOUNT . "/details", "Controller_Account@render_user_profile");
 
