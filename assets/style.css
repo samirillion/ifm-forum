@@ -489,6 +489,13 @@
   color: #ff6f33;
   background: #f3f3f3;
 }
+.ifm-notice {
+  color: #91056d;
+  font-weight: bold;
+  background: #f3f3f3;
+  padding: 10px;
+  margin-bottom: 5px;
+}
 .ifm-tags a {
   margin-left: 2px;
   margin-right: 2px;

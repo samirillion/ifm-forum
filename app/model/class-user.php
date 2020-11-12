@@ -112,6 +112,6 @@ class Model_User extends WP_User
 
 	public function set_about($about)
 	{
-		return update_user_meta($this->ID, 'about', $about);
+		return update_user_meta($this->ID, 'about_user', $about);
 	}
 }

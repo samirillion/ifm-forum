@@ -5,7 +5,7 @@ namespace IFM;
 $page_posts = $query->posts;
 global $wp;
 
-include_once(IFM_VIEW . 'layout/nav.php');
+include_once(IFM_VIEW . 'layout/ifm-header.php');
 
 if (is_array($page_posts) && [] !== $page_posts) {
 

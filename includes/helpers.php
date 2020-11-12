@@ -11,13 +11,31 @@ if (!function_exists('ifm\view')) {
         $query;
         $params = array_merge(array(
             'main' => false,
+            'notifications' => []
         ), $params);
 
-        require_once(IFM_VIEW . '/layout/nav.php');
+        require_once(IFM_VIEW . '/layout/ifm-header.php');
         echo "<div class='ifm-body'>";
         require_once(IFM_VIEW . $view . '.php');
         echo "</div>";
         return ob_get_clean();
+    }
+}
+
+/**
+ * Add notifications to a global variable ($ifm_notifications). Can take one or more notifications e.g., array('name' => 'description') or array(array('name'=>'description')...)
+ */
+if (!function_exists('ifm\notify')) {
+
+    $ifm_notifications;
+
+    function notify($notifications = array())
+    {
+        global $ifm_notifications;
+
+        foreach ($notifications as $name => $description) {
+            $ifm_notifications[$name] = $description;
+        }
     }
 }
 

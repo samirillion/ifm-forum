@@ -60,7 +60,40 @@ class Controller_Account
 			$user_id = get_current_user_id();
 			$current_user = true;
 		}
+
+		$user = new Model_User($user_id);
+
+		if ($current_user && $user->user_email && !$user->get('email_verified')) {
+			Model_Notification::add('email_verify');
+		}
+
 		return view('account/account-details', null, ['user' => new Model_User($user_id), 'user_id' => $user_id, 'current_user' => $current_user]);
+	}
+
+	public function verify_email()
+	{
+		if (array_key_exists('mail_key', $_GET)) {
+			$user_key = get_user_meta(get_current_user_id(), 'email_verification_key', true);
+			if ($user_key == $_GET['mail_key']) {
+				update_user_meta(get_current_user_id(), 'email_verified', true);
+				wp_redirect(add_query_arg('ifm_notifications', array('Your Email has been sucessfully verified'), network_site_url(IFM_ROUTE_ACCOUNT)));
+			}
+		}
+		wp_redirect(IFM_ROUTE_ACCOUNT);
+	}
+
+	public function send_verify_email()
+	{
+		$user = new Model_User(get_current_user_id());
+		$email_verification_key = wp_generate_password(20, false);
+		update_user_meta($user->ID, 'email_verification_key', $email_verification_key);
+
+		$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
+		$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
+		$message .= network_site_url(IFM_ROUTE_ACCOUNT . "/email/?action=verifyemail&mail_key=$email_verification_key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n";
+		wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), IFM_NAMESPACE), $message);
+
+		wp_redirect(add_query_arg('ifm_notifications', array('verify_email_sent'), network_site_url(IFM_ROUTE_ACCOUNT)));
 	}
 
 	/* Remove the "Dashboard" from the admin menu for non-admin users */
@@ -99,7 +132,7 @@ class Controller_Account
 		} elseif (!get_option('users_can_register')) {
 			return __('Registering new users is currently not allowed.', IFM_NAMESPACE);
 		} else {
-			$form = new View_Form;
+			$form = new Controller_Form;
 			$content             = $form->render_form('account/register-form', $attributes);
 			return $content;
 		}
@@ -110,11 +143,6 @@ class Controller_Account
 		if (!current_user_can('administrator') && !is_admin()) {
 			show_admin_bar(false);
 		}
-	}
-
-	public function render_user_profile()
-	{
-		return view('profile');
 	}
 
 	public function change_password()
@@ -157,34 +185,9 @@ class Controller_Account
 		}
 		$user = new Model_User(get_current_user_id());
 
-		if (array_key_exists('resend_verification_link', $_POST)) {
-			$this->send_verification_email($user);
-		}
-
 		$user->update_user_information();
 
 		wp_redirect(home_url(IFM_ROUTE_ACCOUNT));
-	}
-
-	public function send_verification_email(\WP_User $user)
-	{
-		$email_verification_key = wp_generate_password(20, false);
-		update_user_meta($user->ID, 'email_verification_key', $email_verification_key);
-
-		$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-		$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
-		$message .= network_site_url(IFM_ROUTE_ACCOUNT . "/email/&mail_key=$email_verification_key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n";
-		wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), IFM_NAMESPACE), $message);
-	}
-
-	public function verify_email()
-	{
-		xdebug_break();
-		if (get_user_meta(get_current_user_id(), 'email_verification_key') == $_GET['mail_key']) {
-
-			update_user_meta(get_current_user_id(), 'email_verified', true);
-			wp_redirect(IFM_ROUTE_ACCOUNT);
-		}
 	}
 
 	public function replace_retrieve_password_message($message, $key, $user_login, $user_data)
@@ -239,7 +242,7 @@ class Controller_Account
 			return __('You are already signed in.', IFM_NAMESPACE);
 		} else {
 			// Retrieve possible errors from request parameters
-			$form  = new View_Form;
+			$form  = new Controller_Form;
 			$attributes['errors'] = array();
 			if (isset($_REQUEST['errors'])) {
 				$error_codes = explode(',', $_REQUEST['errors']);
@@ -290,7 +293,7 @@ class Controller_Account
 
 		$attributes['logged_out'] = isset($_REQUEST['logged_out']) && $_REQUEST['logged_out'] == true;
 
-		$form        = new View_Form;
+		$form        = new Controller_Form;
 		$content     = $form->render_form('account/login-form', $attributes);
 		return $content;
 	}
@@ -408,7 +411,7 @@ class Controller_Account
 	private function register_user($email, $username, $password)
 	{
 		$errors              = new \WP_Error();
-		$form = new View_Form;
+		$form = new Controller_Form;
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if (!is_email($email) && $email != 0) {

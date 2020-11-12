@@ -38,16 +38,6 @@ $notifications = $user->get('notifications');
                         <?php if ($is_current_user) { ?>
                             <p class="ifm-row">
                                 <h5>Notifications <span>(you must have a verified email address for these to work)</span></h5>
-                                <?php if ($is_current_user && $user->user_email && !$user->get('email_verified')) { ?>
-                                    <p class="ifm-row">
-                                        <table cellpadding="0" cellspacing="2">
-                                            <tr>
-                                                <td class="ifm-checkbox-td"><input type="checkbox" name="resend_verification_link" id="resend_verification_link" value="resend_verification_link" /></td>
-                                                <td style="padding-left:3px"><label for="resend_verification_link">Send verification email to <?= $user->user_email ?> (click "update" button to send).</label></td>
-                                            </tr>
-                                        </table>
-                                    </p>
-                                <?php } ?>
                                 <table cellpadding="0" cellspacing="2">
                                     <tr>
                                         <td class="ifm-checkbox-td"><input type="checkbox" name="notifications[]" id="notifications1" value="new_post" <?php echo in_array('new_post', $notifications) ? 'checked="checked"' : ''; ?> /></td>

@@ -4,17 +4,7 @@ namespace IFM;
 
 /* Define Custom Query Vars. https://codex.wordpress.org/WordPress_Router_Qvars */
 
-Route::add_query_vars(
-    array(
-        'ifm_post_id',
-        'status',
-        'user_id',
-        'ifm_tax',
-        'ifm_p',
-        'ifm_query',
-        'ifm_inbox'
-    )
-);
+include(IFM_APP . '/query-vars.php');
 
 // Forum Routes
 Route::render(IFM_ROUTE_FORUM, "Controller_Forum@render_main");
@@ -30,9 +20,9 @@ Route::render(IFM_ROUTE_MAILBOX, "Controller_Mailbox@main");
 
 // Account Management Routes
 Route::render(IFM_ROUTE_ACCOUNT, "Controller_Account@render_main");
+Route::render(IFM_ROUTE_ACCOUNT . "/send-verify-email", "Controller_Account@send_verify_email");
 Route::render(IFM_ROUTE_ACCOUNT . "/email", "Controller_Account@verify_email");
 Route::render(IFM_ROUTE_ACCOUNT . "/create", "Controller_Account@create");
-Route::render(IFM_ROUTE_ACCOUNT . "/details", "Controller_Account@render_user_profile");
 
 // Account Registration Routes
 Route::render(IFM_NAMESPACE . "/login", "Controller_Account@login_form");
