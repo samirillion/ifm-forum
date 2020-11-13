@@ -5,7 +5,7 @@ namespace IFM;
 $user = $params['user'];
 $user_id = $params['user_id'];
 $is_current_user = $params['current_user'];
-$notifications = $user->get('notifications');
+$notifications = $user->get_notifications();
 ?>
 <div class="ifm-container">
     <div class="ifm-row">
@@ -37,20 +37,14 @@ $notifications = $user->get('notifications');
 
                         <?php if ($is_current_user) { ?>
                             <p class="ifm-row">
-                                <h5>Notifications <span>(you must have a verified email address for these to work)</span></h5>
+                                <h5>Notification Settings<span> (you must have a verified email address for these to work)</span></h5>
                                 <table cellpadding="0" cellspacing="2">
-                                    <tr>
-                                        <td class="ifm-checkbox-td"><input type="checkbox" name="notifications[]" id="notifications1" value="new_post" <?php echo in_array('new_post', $notifications) ? 'checked="checked"' : ''; ?> /></td>
-                                        <td style="padding-left:3px"><label for="notifications1">I want to receive notifications for all new forum posts.</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ifm-checkbox-td"><input type="checkbox" name="notifications[]" id="notifications2" value="comment_on_post" <?php echo in_array('comment_on_post', $notifications) ? 'checked="checked"' : ''; ?> /></td>
-                                        <td style="padding-left:3px"><label for="notifications2">I want to receive notifications for coments on my posts</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ifm-checkbox-td"><input type="checkbox" name="notifications[]" id="notifications3" value="comment_on_comment" <?php echo in_array('comment_on_comment', $notifications) ? 'checked="checked"' : ''; ?> /></td>
-                                        <td style="padding-left:3px"><label for="notifications3">I want to receive notifications for comments on my comments</label></td>
-                                    </tr>
+                                    <?php foreach (Model_User::notification_options as $name => $description) { ?>
+                                        <tr>
+                                            <td class="ifm-checkbox-td"><input type="checkbox" name="notifications[]" id="<?= $name ?>" value=<?= $name ?> <?= $notifications[$name] ? 'checked="checked"' : ''; ?> /></td>
+                                            <td style="padding-left:3px"><label for="<?= $name ?>"><?= $description ?></label></td>
+                                        </tr>
+                                    <?php } ?>
                                 </table>
                             </p>
                         <?php } ?>

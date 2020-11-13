@@ -60,8 +60,7 @@ class Model_Post
 			add_post_meta($post, AGGREGATOR_OR_IFM_URL, $_POST['post-url'], true);
 		}
 
-		wp_redirect(home_url() . IFM_ROUTE_FORUM);
-		exit();
+		return $post;
 	}
 
 	public function update_post_get_karma()

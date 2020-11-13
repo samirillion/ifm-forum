@@ -56,6 +56,26 @@ class Model_Comment
 				'comment_author_email' => wp_get_current_user()->user_email,
 			)
 		);
+
+		if (0 === $comment_parent) {
+
+			$post_author_id = get_post_field( 'post_author', $_REQUEST['post_id'] );
+			$post_author = new Model_User($post_author_id);
+
+			if ($post_author->get('comment_on_post') && $post_author->get('email_verified')) {
+				wp_mail($post_author->user_email, 'New comment on post', 'There was a new comment on your post');
+			}
+
+		} else {
+
+			$comment_author_id = get_comment_author($comment_parent);
+			$comment_author = new Model_User($comment_author_id);
+
+			if ($comment_author->get('comment_on_comment') && $comment_author->get('email_verified')) {
+				wp_mail($comment_author->user_email, 'New comment on one of your comments', 'There was a new comment on your comment');
+			}
+		}
+
 		global $wpdb;
 		$firstvote = $wpdb->insert(
 			$wpdb->commentmeta,
