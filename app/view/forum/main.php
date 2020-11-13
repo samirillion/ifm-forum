@@ -14,7 +14,7 @@ if (is_array($page_posts) && [] !== $page_posts) {
 } else {
 ?>
     <div class='ifm-item-no-content'>
-        <div class='ifm-post-title'><?php _e('No posts here. You should submit one!') ?></div>
+        <div class='ifm-post-title'><?php _e('No posts here.', IFM_NAMESPACE) ?></div>
     </div>
 <?php
 }

@@ -8,6 +8,7 @@
 
 namespace IFM;
 
+use WP_User_Query;
 
 class Controller_Forum
 {
@@ -69,7 +70,28 @@ class Controller_Forum
 	 */
 	public function submit_post()
 	{
-		Model_Post::store();
+		$post = Model_Post::store();
+
+		$verified_notify_users = new WP_User_Query(array('meta_query' => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'email_verified',
+				'value'   => '1',
+				'compare' => '='
+			),
+			array(
+				'key'     => 'new_post',
+				'value'   => '1',
+				'compare' => '='
+			)
+		)));
+
+		foreach ($verified_notify_users->results as $user) {
+			wp_mail($user->data->user_email, 'New Post', 'There is a new post!');
+		}
+
+		wp_redirect(home_url() . IFM_ROUTE_FORUM);
+		exit();
 	}
 
 	public function build_query_args()

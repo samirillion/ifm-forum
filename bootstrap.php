@@ -25,7 +25,6 @@ if (!defined('WPINC')) {
 }
 
 add_action('notification/init', function () {
-	// xdebug_break();
 	// 	notification_whitelabel( [
 	// 	// admin page hook under which you want the Notifications to be displayed.
 	// 	'page_hook'       => 'edit.php?post_type=page',

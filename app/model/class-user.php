@@ -6,11 +6,12 @@ use WP_User;
 
 class Model_User extends WP_User
 {
-	private $karma;
-	private $has_email;
-	private $email_verified;
-	private $notifications;
 
+	const notification_options = array(
+		'new_post' => 'I want to receive notifications for all new forum posts.',
+		'comment_on_post' => 'I want to receive notifications for comments on my posts',
+		'comment_on_comment' => 'I want to receive notifications for comments on my comments'
+	);
 	/**
 	 * How long has the account existed
 	 *
@@ -20,26 +21,6 @@ class Model_User extends WP_User
 	{
 		return human_time_diff(strtotime($this->data->user_registered), current_time('timestamp', 1));
 	}
-
-	/**
-	 * What is the users status re mail? If they have email, it needs to be verified. If they want notifications, they need email, etc.
-	 *
-	 * @return void
-	 */
-	public function get_email_status()
-	{
-		if ($this->get('email_verified')) {
-			return 'verified';
-		}
-		if ($this->get('has_email')) {
-			return 'needs_verification';
-		}
-		if ($this->get('notifications')) {
-			return 'needs_email';
-		}
-		return 'no_mail';
-	}
-
 
 	public function get_karma()
 	{
@@ -87,7 +68,7 @@ class Model_User extends WP_User
 
 		if (!email_exists($email) && is_email($email)) {
 
-			return $wpdb->update(
+			$wpdb->update(
 				$wpdb->users,
 				array(
 					'user_email' => $email,
@@ -98,6 +79,10 @@ class Model_User extends WP_User
 				array('%s'),
 				array('%d')
 			);
+
+			update_user_meta($this->ID, 'email_verified', false);
+
+			return 'success';
 		} elseif (is_email($email)) {
 			return 'email_exists';
 		} else {
@@ -105,9 +90,28 @@ class Model_User extends WP_User
 		}
 	}
 
+	public function get_notifications()
+	{
+		$notifications = array();
+		foreach (self::notification_options as $name => $description) {
+			if ($this->get($name)) {
+				$notifications[$name] = true;
+			} else {
+				$notifications[$name] = false;
+			}
+		}
+		return $notifications;
+	}
+
 	public function set_notifications($notifications)
 	{
-		return update_user_meta($this->ID, 'notifications', $notifications);
+		foreach (self::notification_options as $name => $description) {
+			if (in_array($name, $notifications)) {
+				update_user_meta($this->ID, $name, true);
+			} else {
+				update_user_meta($this->ID, $name, false);
+			}
+		}
 	}
 
 	public function set_about($about)

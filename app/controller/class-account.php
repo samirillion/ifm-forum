@@ -17,10 +17,10 @@ class Controller_Account
 
 		$plugin->user = new Model_User(get_current_user_id());
 
-		add_shortcode('custom-login-form', array($plugin, 'login_form'));
-		add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
-		add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
-		add_shortcode('account-info', array($plugin, 'main'));
+		// add_shortcode('custom-login-form', array($plugin, 'login_form'));
+		// add_shortcode('custom-register-form', array($plugin, 'render_register_form'));
+		// add_shortcode('custom-password-lost-form', array($plugin, 'render_password_lost_form'));
+		// add_shortcode('account-info', array($plugin, 'main'));
 
 		add_action('admin_post_nopriv_registration_form', array($plugin, 'register_account'));
 		add_action('login_form_login', array($plugin, 'redirect_to_custom_login'));
@@ -67,19 +67,25 @@ class Controller_Account
 			Model_Notification::add('email_verify');
 		}
 
-		return view('account/account-details', null, ['user' => new Model_User($user_id), 'user_id' => $user_id, 'current_user' => $current_user]);
+		return view('account/account-details', null, ['user' => $user, 'user_id' => $user_id, 'current_user' => $current_user]);
 	}
 
 	public function verify_email()
 	{
+		$email_verified = false;
 		if (array_key_exists('mail_key', $_GET)) {
 			$user_key = get_user_meta(get_current_user_id(), 'email_verification_key', true);
 			if ($user_key == $_GET['mail_key']) {
 				update_user_meta(get_current_user_id(), 'email_verified', true);
-				wp_redirect(add_query_arg('ifm_notifications', array('Your Email has been sucessfully verified'), network_site_url(IFM_ROUTE_ACCOUNT)));
+				$email_verified = true;
 			}
 		}
-		wp_redirect(IFM_ROUTE_ACCOUNT);
+
+		if ($email_verified) {
+			wp_redirect(add_query_arg('ifm_notifications', array('email_verified'), network_site_url(IFM_ROUTE_ACCOUNT)));
+		} else {
+			wp_redirect(network_site_url(IFM_ROUTE_ACCOUNT));
+		}
 	}
 
 	public function send_verify_email()
@@ -89,7 +95,7 @@ class Controller_Account
 		update_user_meta($user->ID, 'email_verification_key', $email_verification_key);
 
 		$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-		$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
+		$message .= __('To verify your password, visit the following address:') . "\r\n\r\n";
 		$message .= network_site_url(IFM_ROUTE_ACCOUNT . "/email/?action=verifyemail&mail_key=$email_verification_key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n";
 		wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), IFM_NAMESPACE), $message);
 
@@ -415,12 +421,12 @@ class Controller_Account
 		// Email address is used as both username and email. It is also the only
 		// parameter we need to validate
 		if (!is_email($email) && $email != 0) {
-			$errors->add('email', $form->get_error_message('email'));
+			$errors->add('email', Model_Notification::hydrate('email'));
 			return $errors;
 		}
 
 		if (username_exists($username)) {
-			$errors->add('username_exists', $form->get_error_message('username_exists'));
+			$errors->add('username_exists', Model_Notification::hydrate('username_exists'));
 			return $errors;
 		}
 
@@ -429,14 +435,13 @@ class Controller_Account
 			'nickname'   => $username,
 		);
 
-		if ($email != 0) {
+		$user_data['user_pass'] = $password;
+
+		if (is_email($email) && !email_exists($email)) {
 			$user_data['user_email'] = $email;
 		}
 
 		$user_id = wp_insert_user($user_data);
-		wp_set_password($password, $user_id);
-
-		add_user_meta($user_id, 'about_user', '', true);
 
 		return $user_id;
 	}
